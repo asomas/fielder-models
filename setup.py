@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 install_requires = [
     "black==20.8b1",
@@ -14,7 +14,7 @@ setup(
     author="Sarmad Gulzar",
     author_email="sarmad@asomas.ai",
     license="MIT",
-    packages=["python_fielder_models"],
+    packages=find_packages(),
     install_requires=install_requires,
     zip_safe=False,
 )
