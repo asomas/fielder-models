@@ -1,7 +1,7 @@
 from setuptools import setup
 
 install_requires = [
-    'djangorestframework>=3.11.0',
+    "djangorestframework>=3.11.0",
 ]
 
 setup(
@@ -13,6 +13,6 @@ setup(
     author_email="sarmad@asomas.ai",
     license="MIT",
     packages=["python_fielder_models"],
-    install_requires=install_requires, 
-    zip_safe=False
+    install_requires=install_requires,
+    zip_safe=False,
 )
