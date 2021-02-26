@@ -16,14 +16,12 @@ class UserOrganisationSerialiser(serializers.Serializer):
 class EmployerUserSerialiser(serializers.Serializer):
     """collection with name employer_users"""
 
-    email = serializers.EmailField(required=True)  # string with email validation,
+    name = serializers.CharField()
+    email = serializers.EmailField()
     organisations = serializers.DictField(
         child=UserOrganisationSerialiser(), allow_empty=True
     )
-    # The above is a map where each key in the map is a firestore document reference to an employer document, the value value is the status/role information.
-    # date_created = (
-    #     FirestoreTimeStampSerialiser()
-    # )  # @sarmad need to create this serializer
+    date_created = serializers.DateTimeField()
 
 
 # not new
