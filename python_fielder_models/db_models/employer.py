@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from common import *
+from .common import *
 
 # new
 class UserOrganizationSerializer(serializers.Serializer):
