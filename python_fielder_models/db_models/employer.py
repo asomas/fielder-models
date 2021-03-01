@@ -2,7 +2,7 @@ from rest_framework import serializers
 from common import *
 
 # new
-class UserOrganisationSerialiser(serializers.Serializer):
+class UserOrganizationSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=COMPANY_NAME_MAX_LENGTH)
     status = serializers.ChoiceField(
         required=True, choices=["accepted", "declined", "pending"]
@@ -13,13 +13,13 @@ class UserOrganisationSerialiser(serializers.Serializer):
 
 
 # new
-class EmployerUserSerialiser(serializers.Serializer):
+class EmployerUserSerializer(serializers.Serializer):
     """collection with name employer_users"""
 
     name = serializers.CharField()
     email = serializers.EmailField()
-    organisations = serializers.DictField(
-        child=UserOrganisationSerialiser(), allow_empty=True
+    organizations = serializers.DictField(
+        child=UserOrganizationSerializer(), allow_empty=True
     )
     date_created = serializers.DateTimeField()
 
@@ -40,14 +40,14 @@ class EmployerSerializer(serializers.Serializer):
 class BillingContact(ContactSerializer):
     """Document has fixed ID, billing_contact, inside Subcollection called company_info.  So the complete path to this document is  employers/employer_id/company_info/billing_contact"""
 
-    # note, inherits fields from contacts Serialiser
+    # note, inherits fields from contacts Serializer
     pass
 
 
 class GeneralContact(ContactSerializer):
     """Document has fixed ID, general_contact, inside Subcollection called company_info.  So the complete path to this document is  employers/employer_id/company_info/general_contact"""
 
-    # note, inherits fields e.g. email from contacts Serialiser
+    # note, inherits fields e.g. email from contacts Serializer
     website = serializers.URLField()
 
 
