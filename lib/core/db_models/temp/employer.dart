@@ -5,9 +5,25 @@ import 'package:fielder_models/core/db_models/temp/common.dart';
 class EmployerUser {
   String name; // max value 156
   String email; // valid email
-  Map<String, UserOrganisation> organisations; // id of map should be an Id of employer in employer collection
-  Timestamp dateCreated;// FirestoreTimeStamp
+  Map<String, UserOrganization> organizations; // id of map should be an Id of employer in employer collection
+  Timestamp dateCreated; // FirestoreTimeStamp
 
+  static EmployerUser fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+    EmployerUser employerUser = EmployerUser();
+    employerUser.name = map['name'];
+    employerUser.email = map['email'];
+    employerUser.organizations = map['organizations'];
+    employerUser.dateCreated = map['date_created'];
+    return employerUser;
+  }
+
+  Map toJson() => {
+        "name": name,
+        "email": email,
+        "organizations": organizations,
+        "date_created": dateCreated,
+      };
 }
 
 // Validate all the condition inside fromMap if everything is good
@@ -18,23 +34,74 @@ class EmployerUser {
 //https://pub.dev/packages/json_schema
 
 // helper
-class UserOrganisation{
-  String name;  //max length 75
+class UserOrganization {
+  String name; //max length 75
   AcceptanceStatus status; // check into fromMap and return the StatusEnums
   Roles role; // check into fromMap and return the RolesEnum
-}
 
-class Contact {
-  String name;  //max length
-  String phone; //validate
-  String email; //validate
-}
+  static UserOrganization fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+    UserOrganization userOrganization = UserOrganization();
+    userOrganization.name = map['name'];
+    userOrganization.role = getRole(map['role']);
+    userOrganization.status = getAcceptanceStatus(map['status']);
+    return userOrganization;
+  }
 
+  static Roles getRole(String role) {
+    Roles userRole = Roles.OWNER;
+    if (role == 'owner') {
+      userRole = Roles.OWNER;
+    } else if (role == 'manager') {
+      userRole = Roles.MANAGER;
+    } else if (role == 'supervisor') {
+      userRole = Roles.SUPERVISOR;
+    }
+    return userRole;
+  }
+
+  static AcceptanceStatus getAcceptanceStatus(String status) {
+    AcceptanceStatus acceptanceStatus = AcceptanceStatus.ACCEPTED;
+    if (status == 'accepted') {
+      acceptanceStatus = AcceptanceStatus.ACCEPTED;
+    } else if (status == 'declined') {
+      acceptanceStatus = AcceptanceStatus.DECLINED;
+    } else if (status == 'pending') {
+      acceptanceStatus = AcceptanceStatus.PENDING;
+    }
+    return acceptanceStatus;
+  }
+
+  Map toJson() => {
+        "name": name,
+        "role": role,
+        "status": status,
+      };
+}
 
 // Collection name: employers
 class Employer {
   String companyName; //max length 75
   String brandColor; // Validate with # symbol with six digit
+
+  static Employer fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+    Employer employer = Employer();
+    employer.companyName = map['company_name'];
+    employer.brandColor = map['brand_color'];
+    return employer;
+  }
+
+  Map toJson() => {
+        "company_name": companyName,
+        "brand_color": brandColor,
+      };
+}
+
+class Contact {
+  String name; //max length
+  String phone; //validate
+  String email; //validate
 }
 
 class BillingContact extends Contact {
@@ -43,6 +110,7 @@ class BillingContact extends Contact {
 // note, inherits fields from contacts Serialiser
 
 }
+
 class GeneralContact extends Contact {
 // Document has fixed ID, general_contact, inside Subcollection called company_info.  So the complete path to this
 // document is  employers/employer_id/company_info/general_contact
@@ -56,13 +124,29 @@ class SICCode {
 }
 
 // Helper
+class Director {
+  String name;
+  String appointmentDate;
+}
+
+class AddressBasic {
+  String county;
+  String country;
+  String line1;
+  String line2;
+  String postCode;
+  String poBox;
+  String town;
+}
+
+// Helper
 class Company {
   // Document has fixed ID, main, inside Subcollection called company_info.  So the complete path to this document is
   // employers/employer_id/company_info/main
   String name; //validate
   Timestamp incorporationDate; // Validate
   String registrationNumber; //min & max length 8
-  String sicCode;
+  List<SICCode> sicCodes;
   List<Director> directors;
 
   AddressBasic address;
@@ -72,14 +156,6 @@ class Company {
   Timestamp vatRegistrationDate;
 }
 
-// Helper
-class Director{
-  String name;
-  String appointmentDate;
-}
-
 class UpdateUser {
   String name;
 }
-
-

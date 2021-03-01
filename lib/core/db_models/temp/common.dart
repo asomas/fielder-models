@@ -4,16 +4,6 @@ enum AcceptanceStatus { ACCEPTED, DECLINED, PENDING }
 
 enum Roles { OWNER, MANAGER, SUPERVISOR }
 
-class AddressBasic {
-  String county;
-  String country;
-  String line1;
-  String line2;
-  String postCode;
-  String poBox;
-  String town;
-}
-
 class VerifiedBase {
   Timestamp dov;
   bool isVerified;
