@@ -1,69 +1,63 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/old/google_place_model.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-import 'package:fielder_models/core/db_models/google_place_model.dart';
 import 'package:fielder_models/core/db_models/schema/shift_data_schema.dart';
-import 'package:fielder_models/core/db_models/workers_model.dart';
 
-import 'helpers/enum_helpers.dart';
-import 'schema/shift_data_schema.dart';
+import '../helpers/enum_helpers.dart';
+import '../schema/shift_data_schema.dart';
 
-class ShiftDataModel {
+class ShiftModel {
   String docID;
   DateTime startDate;
   DateTime endDate;
   int startTimeInt;
   int endTimeInt;
-  int intervalAmount;
-  String intervalType;
+ // int intervalAmount;
+ // String intervalType;
   RecurrenceModel recurrence;
   String existingLocationId;
   GooglePlaceModel googlePlaceModel;
   String title;
   String shiftDate;
   DocumentReference workerRef;
-  WorkerModel workerModel;
 
-  ShiftDataModel({
+  ShiftModel({
     this.docID,
     this.startDate,
     this.endDate,
     this.startTimeInt,
     this.endTimeInt,
-    this.intervalAmount = 1,
-    this.intervalType,
+   // this.intervalAmount = 1,
+   // this.intervalType,
     this.recurrence,
     this.title,
     this.existingLocationId,
     this.workerRef,
     this.shiftDate,
-    this.googlePlaceModel,
-    this.workerModel
+    this.googlePlaceModel
   }) : assert(
           startDate != null && startTimeInt != null && endTimeInt != null,
         );
 
-  factory ShiftDataModel.fromMap(String docID, Map<String, dynamic> map){
-    ShiftDataModel shiftDataModel;
+  factory ShiftModel.fromMap(String docID, Map<String, dynamic> map){
+    ShiftModel shiftDataModel;
     try{
       if(map?.isNotEmpty == true){
-        shiftDataModel = ShiftDataModel(
+        shiftDataModel = ShiftModel(
             docID: docID,
             title: map[ShiftDataSchema.title] ?? "",
             startDate: map[ShiftDataSchema.startDate]?.toDate(),
             endDate: map[ShiftDataSchema.endDate]?.toDate(),
             startTimeInt: map[ShiftDataSchema.startTime],
             endTimeInt: map[ShiftDataSchema.endTime],
-            intervalAmount: map[ShiftDataSchema.intervalAmount],
-            intervalType: map[ShiftDataSchema.repeatIntervalType],
+           // intervalAmount: map[ShiftDataSchema.intervalAmount],
+           // intervalType: map[ShiftDataSchema.repeatIntervalType],
             recurrence: RecurrenceModel.fromMap(map: map[ShiftDataSchema.recurrence]),
             workerRef: map[ShiftDataSchema.workerRef],
             shiftDate: map[ShiftDataSchema.shiftDate],
-            googlePlaceModel: GooglePlaceModel.fromMap(map[ShiftDataSchema.googlePlaceData],),
-            workerModel: map.containsKey(ShiftDataSchema.workerData)
-                ? WorkerModel.fromMap(map: map[ShiftDataSchema.workerData],
-                docID: map[ShiftDataSchema.workerRef]?.id) : null
+            googlePlaceModel: GooglePlaceModel.fromMap(map[ShiftDataSchema.googlePlaceData]),
         );
       }
       return shiftDataModel;
@@ -81,7 +75,7 @@ class ShiftDataModel {
         ShiftDataSchema.startTime: startTimeInt,
         ShiftDataSchema.endTime: endTimeInt,
       //  ShiftDataSchema.intervalAmount: intervalAmount,
-       // ShiftDataSchema.repeatIntervalType: intervalType,
+      //  ShiftDataSchema.repeatIntervalType: intervalType,
         ShiftDataSchema.recurrence: recurrence.toJSON(),
       };
       if(existingLocationId!=null){
@@ -93,7 +87,6 @@ class ShiftDataModel {
       if (endDate != null) {
         final String _endDateString = DateFormat('yyyy-MM-dd').format(endDate);
         if (_endDateString != null) {
-          if(intervalType!="None")
           jsonMap[ShiftDataSchema.endDate] = _endDateString;
         }
       }
@@ -104,6 +97,17 @@ class ShiftDataModel {
     }
   }
 
+//  factory ShiftDataModel.fromJSON(Map<String, dynamic> json) {
+//    return ShiftDataModel(
+//        end_date: json[ShiftDataSchema.endDate],
+//        end_time: json[ShiftDataSchema.endTime],
+//        recurrence: json[ShiftDataSchema.recurrence],
+//        start_date: json[ShiftDataSchema.startDate],
+//        start_time: json[ShiftDataSchema.startTime]);
+//
+//
+//  }
+//}
 }
 
 class RecurrenceModel {
@@ -140,12 +144,12 @@ class RecurrenceModel {
       //Backend doesnot support NONE for now
       if (repeatIntervalType == ShiftFrequencies.None) {
         _intervalAmount = 1;
-        _repeatIntervalType = 'None';
+        _repeatIntervalType = 'Weekly';
       }
       recurrenceMap = {
         ShiftDataSchema.intervalAmount: _intervalAmount,
         ShiftDataSchema.repeatIntervalType: _repeatIntervalType,
-        ShiftDataSchema.monday: isMonday ?? false,
+        ShiftDataSchema.monday: isMonday ?? true,
         ShiftDataSchema.tuesday: isTuesday ?? false,
         ShiftDataSchema.wednesday: isWednesday ?? false,
         ShiftDataSchema.thursday: isThursday ?? false,

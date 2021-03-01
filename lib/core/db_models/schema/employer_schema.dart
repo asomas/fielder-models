@@ -10,3 +10,6 @@ class EmployerSchema {
   static const String primaryContact = "primary_contact";
   static const String secondaryNumber = "secondary_number";
 }
+
+
+

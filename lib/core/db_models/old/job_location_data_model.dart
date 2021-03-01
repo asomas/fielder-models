@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:fielder_models/core/db_models/address_model.dart';
+import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/schema/job_summary_schema.dart';
 
 class JobLocationDataModel {
