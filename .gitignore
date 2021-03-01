@@ -126,3 +126,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+.vscode/
+.idea/
+.ios/
+.android/
+.dart_tool/
