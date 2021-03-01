@@ -1,7 +1,8 @@
+import 'package:fielder_models/core/db_models/old/primary_contact_model.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fielder_models/core/db_models/accounts_contact_model.dart';
-import 'package:fielder_models/core/db_models/alternative_contact_model.dart';
-import 'package:fielder_models/core/db_models/primary_contact_model.dart';
+import 'package:fielder_models/core/db_models/old/accounts_contact_model.dart';
+import 'package:fielder_models/core/db_models/old/alternative_contact_model.dart';
+
 import 'package:fielder_models/core/db_models/schema/employer_schema.dart';
 
 class EmployerModel {

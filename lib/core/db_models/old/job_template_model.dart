@@ -1,9 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fielder_models/core/db_models/additional_info_model.dart';
-import 'package:fielder_models/core/db_models/default_location_data_model.dart';
-import 'package:fielder_models/core/db_models/qualification_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';import 'package:fielder_models/core/db_models/old/additional_info_model.dart';
+import 'package:fielder_models/core/db_models/old/default_location_data_model.dart';
+import 'package:fielder_models/core/db_models/old/qualification_model.dart';
 import 'package:fielder_models/core/db_models/schema/job_template_schema.dart';
-import 'package:fielder_models/core/db_models/skills_model.dart';
+import 'package:fielder_models/core/db_models/old/skills_model.dart';
 
 class JobTemplateModel {
   final String jobTitle;

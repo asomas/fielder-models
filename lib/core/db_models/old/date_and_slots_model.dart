@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:fielder_models/core/db_models/slot_model.dart';
+import 'package:fielder_models/core/db_models/old/slot_model.dart';
 
 class DateAndSlotsModel {
   final DateTime dt;

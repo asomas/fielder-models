@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fielder_models/core/db_models/job_shift_data_model.dart';
-import 'package:fielder_models/core/db_models/worker_log_model.dart';
+import 'package:fielder_models/core/db_models/old/job_shift_data_model.dart';
 
 class WorkerAssignmentModel {
   final String docID;

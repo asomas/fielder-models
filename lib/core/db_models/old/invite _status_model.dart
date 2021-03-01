@@ -1,11 +1,4 @@
 import 'package:fielder_models/core/db_models/schema/staff_status_schema.dart';
-import 'package:fielder_models/core/db_models/additional_info_model.dart';
-import 'package:fielder_models/core/db_models/job_template_model.dart';
-import 'package:fielder_models/core/db_models/qualification_model.dart';
-import 'package:fielder_models/core/db_models/schema/job_template_schema.dart';
-import 'package:fielder_models/core/db_models/shift_data_model.dart';
-import 'package:fielder_models/core/db_models/skills_model.dart';
-import 'default_location_data_model.dart';
 
 class InviteStatusModel {
   bool isStaff;

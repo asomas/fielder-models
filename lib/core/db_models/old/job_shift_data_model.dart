@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/old/worker_tracked_time_model.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fielder_models/core/db_models/employer_model.dart';
+import 'package:fielder_models/core/db_models/old/employer_model.dart';
 import 'package:fielder_models/core/db_models/schema/shift_data_schema.dart';
-import 'package:fielder_models/core/db_models/shift_data_model.dart';
-import 'package:fielder_models/core/db_models/shift_location_model.dart';
-import 'package:fielder_models/core/db_models/worker_tracked_time_model.dart';
-import 'package:fielder_models/core/db_models/workers_model.dart';
+import 'package:fielder_models/core/db_models/old/shift_data_model.dart';
+import 'package:fielder_models/core/db_models/old/shift_location_model.dart';
+import 'package:fielder_models/core/db_models/old/workers_model.dart';
 
 class JobShiftDataModel {
   String docID;

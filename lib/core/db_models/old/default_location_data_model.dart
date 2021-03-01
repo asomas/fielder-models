@@ -1,5 +1,5 @@
-import 'package:fielder_models/core/db_models/address_model.dart';
-import 'package:fielder_models/core/db_models/coordinates_data_model.dart';
+import 'package:fielder_models/core/db_models/old/address_model.dart';
+import 'package:fielder_models/core/db_models/old/coordinates_data_model.dart';
 import 'package:fielder_models/core/db_models/schema/default_location_data_schema.dart';
 
 class DefaultLocationDataModel {
