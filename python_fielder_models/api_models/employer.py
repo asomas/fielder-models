@@ -15,5 +15,3 @@ class EmailExistsResponse(serializers.Serializer):
 class KeyContactsRequest(serializers.Serializer):
     billing_contact = BillingContact(required=True)
     general_contact = GeneralContact()
-    website = serializers.URLField()
-    phone = serializers.RegexField(PHONE_FIELD_REGEX)
