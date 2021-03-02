@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from ..db_models.common import PHONE_FIELD_REGEX
+from ..db_models.common import PHONE_FIELD_REGEX, HEX_COLOR_REGEX
 from ..db_models.employer import BillingContact, GeneralContact
 
 
@@ -13,5 +13,11 @@ class EmailExistsResponse(serializers.Serializer):
 
 
 class KeyContactsRequest(serializers.Serializer):
-    billing_contact = BillingContact(required=True)
-    general_contact = GeneralContact()
+    employer_id = serializers.CharField()
+    billing_contact = BillingContact()
+    general_contact = GeneralContact(required=False)
+
+
+class BrandingRequest(serializers.Serializer):
+    employer_id = serializers.CharField()
+    brand_color = serializers.RegexField(HEX_COLOR_REGEX)
