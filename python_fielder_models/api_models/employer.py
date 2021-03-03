@@ -14,7 +14,7 @@ class EmailExistsResponse(serializers.Serializer):
 
 class KeyContactsRequest(serializers.Serializer):
     employer_id = serializers.CharField()
-    billing_contact = BillingContact()
+    billing_contact = BillingContact(required=False)
     general_contact = GeneralContact(required=False)
 
 

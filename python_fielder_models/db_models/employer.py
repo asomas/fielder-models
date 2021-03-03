@@ -25,9 +25,9 @@ class EmployerUserSerializer(serializers.Serializer):
 
 
 class ContactSerializer(serializers.Serializer):
-    name = serializers.CharField(max_length=FULL_NAME_MAX_LENGTH)
-    phone = serializers.RegexField(PHONE_FIELD_REGEX)
-    email = serializers.EmailField()
+    name = serializers.CharField(max_length=FULL_NAME_MAX_LENGTH, required=False)
+    phone = serializers.RegexField(PHONE_FIELD_REGEX, required=False)
+    email = serializers.EmailField(required=False)
 
 
 class EmployerSerializer(serializers.Serializer):
@@ -48,7 +48,7 @@ class GeneralContact(ContactSerializer):
     """Document has fixed ID, general_contact, inside Subcollection called company_info.  So the complete path to this document is  employers/employer_id/company_info/general_contact"""
 
     # note, inherits fields e.g. email from contacts Serializer
-    website = serializers.URLField()
+    website = serializers.URLField(required=False)
 
 
 class SICCodeSerializer(serializers.Serializer):
