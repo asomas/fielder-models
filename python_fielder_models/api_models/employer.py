@@ -24,4 +24,5 @@ class BrandingRequest(serializers.Serializer):
 
 
 class CompanyCreateRequest(serializers.Serializer):
+    employer_id = serializers.CharField()
     company_number = serializers.CharField(max_length=8, min_length=8)
