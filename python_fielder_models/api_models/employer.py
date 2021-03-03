@@ -21,3 +21,7 @@ class KeyContactsRequest(serializers.Serializer):
 class BrandingRequest(serializers.Serializer):
     employer_id = serializers.CharField()
     brand_color = serializers.RegexField(HEX_COLOR_REGEX)
+
+
+class CompanyCreateRequest(serializers.Serializer):
+    company_number = serializers.CharField(max_length=8, min_length=8)
