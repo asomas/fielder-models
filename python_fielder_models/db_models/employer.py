@@ -71,5 +71,5 @@ class CompanySerializer(serializers.Serializer):
     address = AddressBasicDBSerializer()
     last_updated = serializers.DateTimeField()
     last_filing_date = serializers.DateTimeField()
-    vat_number = serializers.CharField(max_length=15)
-    vat_registration_date = serializers.DateTimeField()
+    vat_number = serializers.CharField(max_length=15, required=False)
+    vat_registration_date = serializers.DateTimeField(required=False)
