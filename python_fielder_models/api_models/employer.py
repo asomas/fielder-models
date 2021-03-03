@@ -26,3 +26,9 @@ class BrandingRequest(serializers.Serializer):
 class CompanyCreateRequest(serializers.Serializer):
     employer_id = serializers.CharField()
     company_number = serializers.CharField(max_length=8, min_length=8)
+
+
+class CompanyUpdateVATInfoRequest(serializers.Serializer):
+    employer_id = serializers.CharField()
+    vat_number = serializers.CharField(max_length=15)
+    date_of_registration = serializers.DateTimeField()
