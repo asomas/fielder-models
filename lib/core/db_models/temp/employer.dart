@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/temp/common.dart';
+import 'package:json_schema/json_schema.dart';
 
 // collection name: employer_user
 class EmployerUser {
@@ -8,8 +11,17 @@ class EmployerUser {
   Map<String, UserOrganization> organizations; // id of map should be an Id of employer in employer collection
   Timestamp dateCreated; // FirestoreTimeStamp
 
+  // Test Example
+  String testJson =
+      '{ "name": "Test", "email": "abc@test.com", "organizations": {"org1": {"name": "Deepak", "role": "", "status": '
+      '""}}, '
+      '"date_created": ""}';
+
   static EmployerUser fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
+
+    final schema = JsonSchema.createSchema(jsonEncode(map));
+
     EmployerUser employerUser = EmployerUser();
     employerUser.name = map['name'];
     employerUser.email = map['email'];
@@ -86,9 +98,11 @@ class Employer {
 
   static Employer fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
+
     Employer employer = Employer();
     employer.companyName = map['company_name'];
     employer.brandColor = map['brand_color'];
+
     return employer;
   }
 

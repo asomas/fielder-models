@@ -1,3 +1,4 @@
+
 import 'package:fielder_models/core/constants/asset_constants.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 
@@ -37,6 +38,6 @@ class SlotModel {
       this.jobID,
       this.weekDay,
       this.shiftTitle,
-      this.slotTypeImage = AssetsConstants.inactiveJobIcon, // Asset is available is base project
+      this.slotTypeImage = AssetsConstants.inactiveJobIcon,
       this.recurring = false});
 }

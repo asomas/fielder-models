@@ -1,13 +1,12 @@
 import 'dart:convert';
-
 import 'package:fielder_models/core/db_models/old/additional_info_model.dart';
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
-import 'package:fielder_models/core/db_models/old/default_location_data_model.dart';
 import 'package:fielder_models/core/db_models/old/job_template_model.dart';
 import 'package:fielder_models/core/db_models/old/qualification_model.dart';
-import 'package:fielder_models/core/db_models/schema/job_template_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 import 'package:fielder_models/core/db_models/old/shift_data_model.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
+import 'default_location_data_model.dart';
 
 class AddJobModel {
   String description;

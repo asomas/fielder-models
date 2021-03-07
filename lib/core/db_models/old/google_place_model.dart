@@ -1,5 +1,5 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:fielder_models/core/db_models/schema/shift_data_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/shift_data_schema.dart';
 
 class GooglePlaceModel{
 

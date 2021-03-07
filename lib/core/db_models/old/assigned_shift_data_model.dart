@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fielder_models/core/db_models/old/employer_model.dart';
 import 'package:fielder_models/core/db_models/old/shift_data_model.dart';
+import 'package:fielder_models/core/db_models/old/workers_model.dart';
 
 class AssignedShiftDataModel {
   String docID;
@@ -15,6 +16,7 @@ class AssignedShiftDataModel {
   DateTime startDate;
   int startTimeInt;
   String workerId;
+  WorkerModel worker;
 
   AssignedShiftDataModel({
     this.docID,
@@ -27,7 +29,8 @@ class AssignedShiftDataModel {
     this.role,
     this.startDate,
     this.startTimeInt,
-   this.workerId
+   this.workerId,
+    this.worker,
   }) : assert(
           docID != null &&
               employer != null &&
@@ -68,7 +71,9 @@ class AssignedShiftDataModel {
         final DocumentReference _jobRef = map['job_ref'] ?? '';
         final String _role = map['role'] ?? '';
         EmployerModel _employer;
+        WorkerModel _worker;
         final DocumentReference _employerRef = map['employer_ref'];
+        final DocumentReference _workerRef = map['worker_ref'];
 
         if (_employerRef != null) {
           _employer = EmployerModel.fromMap(
@@ -76,7 +81,13 @@ class AssignedShiftDataModel {
             map: map['employer_data'] ?? {},
           );
         }
-        final DocumentReference _workerRef = map['worker_ref'];
+
+        if (_workerRef != null) {
+          _worker = WorkerModel.fromMap(
+              map: map["worker_data"] ?? {},
+              docID: _workerRef.id
+          );
+        }
         if (_jobRef != null) {
           return AssignedShiftDataModel(
             docID: docID,
@@ -89,6 +100,7 @@ class AssignedShiftDataModel {
             jobID: _jobRef.id,
             role: _role,
             employer: _employer,
+            worker: _worker,
             workerId:_workerRef.id,
           );
         }

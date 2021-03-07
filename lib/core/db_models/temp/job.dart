@@ -4,13 +4,13 @@ import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/default_location_data_model.dart';
 import 'package:fielder_models/core/db_models/old/employer_model.dart';
 import 'package:fielder_models/core/db_models/old/qualification_model.dart';
+import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/shift_data_schema.dart';
 import 'package:fielder_models/core/db_models/old/worker_tracked_time_model.dart';
-import 'package:fielder_models/core/db_models/schema/job_template_schema.dart';
-import 'package:fielder_models/core/db_models/schema/shift_data_schema.dart';
 import 'package:fielder_models/core/db_models/old/shift_data_model.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fielder_models/core/db_models/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
 
 class JobDataModel {

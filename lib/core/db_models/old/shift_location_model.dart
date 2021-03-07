@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/coordinates_data_model.dart';
-import 'package:fielder_models/core/db_models/schema/default_location_data_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/default_location_data_schema.dart';
 
 class ShiftLocationDataModel {
   final GeoPoint coordinates;

@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:fielder_models/core/db_models/schema/default_location_data_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/default_location_data_schema.dart';
 
 class AddressModel {
   String building;

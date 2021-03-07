@@ -8,6 +8,7 @@ class WorkerLogModel {
   DateTime clockOutTime;
   GeoPoint clockOutLocation;
   String workerID;
+  DocumentReference jobShiftRef;
 
   WorkerLogModel({
     this.clockInTime,
@@ -16,6 +17,7 @@ class WorkerLogModel {
     this.clockOutLocation,
     this.docID,
     this.workerID,
+    this.jobShiftRef
   });
       // : assert(
       //     clockInTime != null &&
@@ -53,7 +55,8 @@ class WorkerLogModel {
           clockInLocation: _clockInLocation,
           clockOutTime: _clockOutDateTime,
           clockOutLocation: _clockOutLocation,
-          //workerID: _workerRef.id,
+          jobShiftRef: map['job_shift_ref'],
+          workerID: map['worker_ref']?.id ?? "",
         );
       } on Exception catch (e) {
         print("WorkerLogModel.fromMap error $e");

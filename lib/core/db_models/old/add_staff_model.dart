@@ -1,4 +1,4 @@
-import 'package:fielder_models/core/db_models/schema/invite_staff_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/invite_staff_schema.dart';
 
 class AddStaffModel {
   String worker_first_name;

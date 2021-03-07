@@ -1,4 +1,4 @@
-import 'package:fielder_models/core/db_models/network_models/responses/worker_search_response.dart';
+import 'package:fielder_models/core/db_models/old/network_models/responses/worker_search_response.dart';
 import 'package:fielder_models/core/db_models/old/shift_data_model.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
 

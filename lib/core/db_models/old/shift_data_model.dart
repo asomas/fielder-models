@@ -1,13 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/old/google_place_model.dart';
+import 'package:fielder_models/core/db_models/old/workers_model.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-import 'package:fielder_models/core/db_models/schema/shift_data_schema.dart';
-import 'package:fielder_models/core/db_models/old/workers_model.dart';
 
-import '../helpers/enum_helpers.dart';
-import '../schema/shift_data_schema.dart';
+import 'schema/shift_data_schema.dart';
 
 class ShiftDataModel {
   String docID;

@@ -1,7 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';import 'package:fielder_models/core/db_models/old/additional_info_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/old/additional_info_model.dart';
+import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/default_location_data_model.dart';
 import 'package:fielder_models/core/db_models/old/qualification_model.dart';
-import 'package:fielder_models/core/db_models/schema/job_template_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
 
 class JobTemplateModel {
@@ -10,6 +12,7 @@ class JobTemplateModel {
   final String jobTemplate;
   final List<AdditionalInfoModel> additionalRequirements;
   final List<SkillsModel> requiredSkill;
+  final List<CheckModel> checks;
   final List<QualificationModel> requiredQualification;
   final String workLocationAddress;
   final int rate;
@@ -30,6 +33,7 @@ class JobTemplateModel {
     this.volunteer = false,
     this.defaultLocation,
     this.name,
+    this.checks,
     this.defaultLocationData,
   });
 
@@ -100,6 +104,27 @@ class JobTemplateModel {
         }
       });
 
+      //Qualifications
+      final List<dynamic> _checks = map['checks'] ?? [];
+      List<CheckModel> _allChecksArray = [];
+      _checks.forEach((element) {
+        print("Element is ${element}");
+        final DocumentReference dr = element['check_ref'];
+        final Map<String, dynamic> map = {
+          'value': element['check_value'],
+        };
+        if (dr != null) {
+          final CheckModel _checks = CheckModel.fromMap(
+            map: map,
+            checkID: dr.id,
+          );
+
+          if (_checks != null) {
+            _allChecksArray.add(_checks);
+          }
+        }
+      });
+
       if (name != null) {
         return JobTemplateModel(
           name: name,
@@ -109,6 +134,7 @@ class JobTemplateModel {
           rate: map[JobTemplateSchema.rate] ?? 0,
           requiredQualification: _allQualificationsArray,
           requiredSkill: _allSkillsArray,
+          checks: _allChecksArray,
           volunteer: map[JobTemplateSchema.volunteer] ?? false,
           workLocationAddress: map[JobTemplateSchema.location],
         );

@@ -1,5 +1,5 @@
+import 'package:fielder_models/core/db_models/old/schema/employer_schema.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fielder_models/core/db_models/schema/employer_schema.dart';
 
 class PrimaryContactModel {
   String email;

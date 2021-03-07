@@ -4,6 +4,7 @@ class FbCollections {
   static const String devices = "devices";
   static const String employerDaySummaries = "employer_day_summaries";
   static const String employers = "employers";
+  static const String employerUser = "employer_user";
   static const String employerWorkerRelation = "employer_worker_relations";
   static const String invitations = "invitations";
   static const String skills = "skills";

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
-import 'package:fielder_models/core/db_models/schema/job_summary_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 
 class JobLocationDataModel {
   String docID;

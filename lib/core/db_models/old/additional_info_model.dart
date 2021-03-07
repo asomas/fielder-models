@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:fielder_models/core/db_models/schema/job_template_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 
 class AdditionalInfoModel {
   String docID;
