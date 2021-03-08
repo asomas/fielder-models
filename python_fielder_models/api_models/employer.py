@@ -23,6 +23,13 @@ class BrandingRequest(serializers.Serializer):
     brand_color = serializers.RegexField(HEX_COLOR_REGEX)
 
 
+class InviteUsersRequest(serializers.Serializer):
+    employer_id = serializers.CharField()
+    name = serializers.CharField(max_length=75)
+    email = serializers.EmailField()
+    type = serializers.CharField(choices=["admin", "supervisor"])
+
+
 class CompanyCreateRequest(serializers.Serializer):
     employer_id = serializers.CharField()
     company_number = serializers.CharField(max_length=8, min_length=8)
