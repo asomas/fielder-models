@@ -27,7 +27,7 @@ class InviteUsersRequest(serializers.Serializer):
     employer_id = serializers.CharField()
     name = serializers.CharField(max_length=75)
     email = serializers.EmailField()
-    type = serializers.CharField(choices=["admin", "supervisor"])
+    role = serializers.ChoiceField(choices=["admin", "supervisor"])
 
 
 class CompanyCreateRequest(serializers.Serializer):
