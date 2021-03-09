@@ -30,7 +30,7 @@ class InviteUsersRequest(serializers.Serializer):
     role = serializers.ChoiceField(choices=["admin", "supervisor"])
 
 
-class OrganizationAcceptInviteAPIView(serializers.Serializer):
+class OrganizationAcceptInvite(serializers.Serializer):
     employer_id = serializers.CharField()
     status = serializers.ChoiceField(
         required=True, choices=["accepted", "declined", "pending"]
