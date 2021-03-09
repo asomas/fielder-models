@@ -32,6 +32,9 @@ class InviteUsersRequest(serializers.Serializer):
 
 class OrganizationAcceptInviteAPIView(serializers.Serializer):
     employer_id = serializers.CharField()
+    status = serializers.ChoiceField(
+        required=True, choices=["accepted", "declined", "pending"]
+    )
 
 
 class CompanyCreateRequest(serializers.Serializer):
