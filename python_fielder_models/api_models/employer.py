@@ -30,6 +30,10 @@ class InviteUsersRequest(serializers.Serializer):
     role = serializers.ChoiceField(choices=["admin", "supervisor"])
 
 
+class OrganizationAcceptInviteAPIView(serializers.Serializer):
+    employer_id = serializers.CharField()
+
+
 class CompanyCreateRequest(serializers.Serializer):
     employer_id = serializers.CharField()
     company_number = serializers.CharField(max_length=8, min_length=8)
