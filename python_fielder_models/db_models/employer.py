@@ -8,7 +8,7 @@ class UserOrganizationSerializer(serializers.Serializer):
         required=True, choices=["accepted", "declined", "pending"]
     )
     role = serializers.ChoiceField(
-        required=True, choices=["owner", "manager", "supervisor"]
+        required=True, choices=["owner", "admin", "hr", "manager", "supervisor"]
     )
 
 

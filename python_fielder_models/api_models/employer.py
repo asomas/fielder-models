@@ -50,3 +50,17 @@ class CompanyUpdateVATInfoRequest(serializers.Serializer):
 
 class UsersListRequest(serializers.Serializer):
     employer_id = serializers.CharField()
+
+
+class UserResponse(serializers.Serializer):
+    name = serializers.CharField(max_length=COMPANY_NAME_MAX_LENGTH)
+    email = serializers.EmailField()
+    date_created = serializers.DateTimeField()
+    status = serializers.ChoiceField(choices=["accepted", "declined", "pending"])
+    role = serializers.ChoiceField(
+        choices=["owner", "admin", "hr", "manager", "supervisor"]
+    )
+
+
+class UsersListResponse(serializers.Serializer):
+    users = serializers.ListField(child=UserResponse())
