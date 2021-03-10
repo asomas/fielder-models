@@ -46,3 +46,7 @@ class CompanyUpdateVATInfoRequest(serializers.Serializer):
     employer_id = serializers.CharField()
     vat_number = serializers.CharField(max_length=15)
     date_of_registration = serializers.DateField()
+
+
+class UsersListRequest(serializers.Serializer):
+    employer_id = serializers.CharField()
