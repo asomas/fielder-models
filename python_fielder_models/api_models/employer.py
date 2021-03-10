@@ -1,6 +1,10 @@
 from rest_framework import serializers
 
-from ..db_models.common import PHONE_FIELD_REGEX, HEX_COLOR_REGEX
+from ..db_models.common import (
+    COMPANY_NAME_MAX_LENGTH,
+    HEX_COLOR_REGEX,
+    PHONE_FIELD_REGEX,
+)
 from ..db_models.employer import BillingContact, GeneralContact
 
 
