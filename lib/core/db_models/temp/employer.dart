@@ -8,7 +8,8 @@ import 'package:json_schema/json_schema.dart';
 class EmployerUser {
   String name; // max value 156
   String email; // valid email
-  Map<String, UserOrganization> organizations; // id of map should be an Id of employer in employer collection
+  Map<String, dynamic>
+      organizations; // id of map should be an Id of employer in employer collection
   Timestamp dateCreated; // FirestoreTimeStamp
 
   // Test Example
@@ -19,8 +20,6 @@ class EmployerUser {
 
   static EmployerUser fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-
-    final schema = JsonSchema.createSchema(jsonEncode(map));
 
     EmployerUser employerUser = EmployerUser();
     employerUser.name = map['name'];
