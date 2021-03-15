@@ -8,8 +8,8 @@ import 'package:json_schema/json_schema.dart';
 class EmployerUser {
   String name; // max value 156
   String email; // valid email
-  Map<String, dynamic>
-      organizations; // id of map should be an Id of employer in employer collection
+  var organizations = Map<String,
+      UserOrganization>(); // id of map should be an Id of employer in employer collection
   Timestamp dateCreated; // FirestoreTimeStamp
 
   // Test Example
@@ -20,16 +20,31 @@ class EmployerUser {
 
   static EmployerUser fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
+    print("inside map ${map}");
+    //print("organization ${map['organizations']}");
+    var name = map['name'];
+    print("name is ${name}");
 
     EmployerUser employerUser = EmployerUser();
     employerUser.name = map['name'];
     employerUser.email = map['email'];
-    employerUser.organizations = map['organizations'];
+    //employerUser.organizations = map['organizations'];
+    var data = map['organizations'] as Map;
+
+    if (data != null) {
+      data.forEach((key, value) {
+        var user = UserOrganization.fromMap(value);
+        var data = {key.toString(): user};
+        employerUser.organizations.addAll(data);
+      });
+    }
     employerUser.dateCreated = map['date_created'];
+    print("employer is ${employerUser}");
     return employerUser;
   }
 
-  Map toJson() => {
+  Map toJson() =>
+      {
         "name": name,
         "email": email,
         "organizations": organizations,
@@ -83,7 +98,8 @@ class UserOrganization {
     return acceptanceStatus;
   }
 
-  Map toJson() => {
+  Map toJson() =>
+      {
         "name": name,
         "role": role,
         "status": status,
@@ -105,7 +121,8 @@ class Employer {
     return employer;
   }
 
-  Map toJson() => {
+  Map toJson() =>
+      {
         "company_name": companyName,
         "brand_color": brandColor,
       };
