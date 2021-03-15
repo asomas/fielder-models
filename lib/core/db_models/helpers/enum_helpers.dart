@@ -7,9 +7,7 @@ import 'package:flutter/material.dart';
 
 class EnumHelpers {
 
-  static OfferStatus getOfferStatusFromString(
-      String status
-      ){
+  static OfferStatus getOfferStatusFromString(String status) {
     switch (status) {
       case 'Pending':
         return OfferStatus.Pending;
@@ -20,9 +18,7 @@ class EnumHelpers {
     }
   }
 
-  static String getStringForPayType(
-      CalculatePay calculatePay
-  ){
+  static String getStringForPayType(CalculatePay calculatePay) {
     switch (calculatePay) {
       case CalculatePay.ClockedInHours:
         return 'Actual hours';
@@ -32,9 +28,7 @@ class EnumHelpers {
   }
 
 
-  static CalculatePay getPayTypeFromString(
-       String calculatePay
-      ){
+  static CalculatePay getPayTypeFromString(String calculatePay) {
     switch (calculatePay) {
       case 'Actual hours':
         return CalculatePay.ClockedInHours;
@@ -87,6 +81,10 @@ class EnumHelpers {
         return AppStrings.staff;
       case SideMenuItems.Schedule:
         return AppStrings.schedule;
+
+      case SideMenuItems.EmployerSetup:
+        return AppStrings.employerSetup;
+
       case SideMenuItems.Payment:
         return AppStrings.payment;
       case SideMenuItems.Settings:
@@ -108,6 +106,10 @@ class EnumHelpers {
         return SideMenuItems.MyStaff;
       case AppStrings.schedule:
         return SideMenuItems.Schedule;
+
+      case AppStrings.employerSetup:
+        return SideMenuItems.EmployerSetup;
+
       case AppStrings.payment:
         return SideMenuItems.Payment;
       case AppStrings.settings:
@@ -127,10 +129,10 @@ class EnumHelpers {
         break;
       case SlotStatus.Normal:
         return AppColors.PinkSalmon;
-      // case SlotStatus.MILD:
-      //   return AppColors.Kournikova;
-      // case SlotStatus.VERY_BUSY:
-      //   return AppColors.Scooter;
+    // case SlotStatus.MILD:
+    //   return AppColors.Kournikova;
+    // case SlotStatus.VERY_BUSY:
+    //   return AppColors.Scooter;
       default:
         return AppColors.CaribbeanGreen;
     }

@@ -13,6 +13,7 @@ enum SideMenuItems {
   MyJobs,
   MyStaff,
   Schedule,
+  EmployerSetup,
   Settings,
   Payment
 }
@@ -59,20 +60,19 @@ enum CalculatePay { ShiftHours, ClockedInHours }
 enum CalendarType { date, time, none }
 
 
-
-enum AssignJobCard{
+enum AssignJobCard {
   Staff,
   Fielder
 }
 
-enum OfferStatus{
+enum OfferStatus {
   Pending,
   Rejected,
   Accepted,
   None
 }
 
-enum GenericOverlayType{
+enum GenericOverlayType {
   Jobs,
   AssignJob
 }
@@ -80,7 +80,7 @@ enum GenericOverlayType{
 enum ShiftTimeType { start, end, none }
 
 
-enum SlotType{
+enum SlotType {
   InactiveRecurring,
   InactiveNonRecurring,
   ActiveRecurring,

@@ -102,6 +102,7 @@ class AppStrings {
   static const String saveShiftPattern = "Save Shift Pattern";
   static const String unassignedJobs = "Unassigned Jobs";
   static const String schedule = "Schedule";
+  static const String employerSetup = "EmployerSetup";
   static const String secondaryContactNumber = "secondary Contact Number";
   static const String settings = "Settings";
   static const String shiftStart = "Shift Start";
