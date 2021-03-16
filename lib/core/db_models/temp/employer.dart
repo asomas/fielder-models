@@ -151,22 +151,59 @@ class GeneralContact extends Contact {
 class SICCode {
   String code; // max length
   String description; // max length 200
+
+
+  static SICCode fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    SICCode sicCode = SICCode();
+    sicCode.code = map['code'];
+    sicCode.description = map['description'];
+    return sicCode;
+  }
+
+
 }
 
 // Helper
 class Director {
   String name;
-  String appointmentDate;
+  Timestamp appointmentDate;
+
+  static Director fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    Director director = Director();
+    director.name = map['name'];
+    director.appointmentDate = map['appointment_date'];
+    return director;
+  }
 }
 
 class AddressBasic {
   String county;
   String country;
-  String line1;
-  String line2;
+  String name;
+  String street;
   String postCode;
   String poBox;
   String town;
+
+
+  static AddressBasic fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    AddressBasic addressBasic = AddressBasic();
+    addressBasic.county = map['county'];
+    addressBasic.country = map['country'];
+    addressBasic.name = map['name'];
+    addressBasic.street = map['street'];
+    addressBasic.postCode = map['postcode'];
+    addressBasic.poBox = map['poBox'];
+    addressBasic.town = map['town'];
+    return addressBasic;
+  }
+
 }
 
 // Helper
@@ -184,8 +221,73 @@ class Company {
   Timestamp lastFilingDate;
   String vatNumber;
   Timestamp vatRegistrationDate;
+
+  static Company fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+    Company company = Company();
+    company.name = map['name'];
+    company.incorporationDate = map['incorporation_date'];
+    company.registrationNumber = map['registration_number'];
+    company.sicCodes =
+    List<SICCode>.from(map["sic_codes"].map((x) => SICCode.fromMap(x)));
+    company.directors =
+    List<Director>.from(map["directors"].map((x) => Director.fromMap(x)));
+
+    company.address = AddressBasic.fromMap(map['address']);
+    company.lastUpdated = map['last_updated'];
+    company.lastFilingDate = map['last_filing_date'];
+    company.vatNumber = map['vat_number'];
+    company.vatRegistrationDate = map['vat_registration_date'];
+    return company;
+  }
 }
 
 class UpdateUser {
   String name;
+}
+
+
+class CompaniesResults {
+  CompaniesResults({
+    this.pageNumber,
+    this.items,
+  });
+
+  int pageNumber;
+  List<CompanyDetail> items;
+
+  factory CompaniesResults.fromJson(Map<String, dynamic> json) =>
+      CompaniesResults(
+        pageNumber: json["page_number"],
+        items: List<CompanyDetail>.from(
+            json["items"].map((x) => CompanyDetail.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() =>
+      {
+        "page_number": pageNumber,
+        "items": List<dynamic>.from(items.map((x) => x.toJson())),
+      };
+}
+
+class CompanyDetail {
+  CompanyDetail({
+    this.companyNumber,
+    this.title,
+  });
+
+  String companyNumber;
+  String title;
+
+  factory CompanyDetail.fromJson(Map<String, dynamic> json) =>
+      CompanyDetail(
+        companyNumber: json["company_number"],
+        title: json["title"],
+      );
+
+  Map<String, dynamic> toJson() =>
+      {
+        "company_number": companyNumber,
+        "title": title,
+      };
 }
