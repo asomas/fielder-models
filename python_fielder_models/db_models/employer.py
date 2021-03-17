@@ -25,9 +25,11 @@ class EmployerUserSerializer(serializers.Serializer):
 
 
 class ContactSerializer(serializers.Serializer):
-    name = serializers.CharField(max_length=FULL_NAME_MAX_LENGTH, required=False)
-    phone = serializers.RegexField(PHONE_FIELD_REGEX, required=False)
-    email = serializers.EmailField(required=False)
+    name = serializers.CharField(
+        max_length=FULL_NAME_MAX_LENGTH, required=False, allow_null=True
+    )
+    phone = serializers.RegexField(PHONE_FIELD_REGEX, required=False, allow_null=True)
+    email = serializers.EmailField(required=False, allow_null=True)
 
 
 class EmployerSerializer(serializers.Serializer):
