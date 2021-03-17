@@ -34,7 +34,7 @@ class InviteUsersRequest(serializers.Serializer):
     role = serializers.ChoiceField(
         choices=["owner", "admin", "hr", "manager", "supervisor"]
     )
-    manager = serializers.CharField(required=False, allow_blank=True)
+    manager = serializers.CharField(required=False, allow_null=True)
 
 
 class OrganizationAcceptInvite(serializers.Serializer):
