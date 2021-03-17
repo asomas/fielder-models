@@ -1,4 +1,4 @@
-class Permissions {
+class UserPermissions {
   String name;
   bool owner;
   bool admin;
@@ -6,7 +6,7 @@ class Permissions {
   bool manager;
   bool supervisor;
 
-  Permissions(
+  UserPermissions(
       {this.name,
       this.owner,
       this.admin,
