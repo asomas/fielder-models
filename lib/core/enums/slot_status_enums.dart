@@ -5,13 +5,15 @@
  }
 
  enum SlotIconStatus{
-  Recurring,
-  Active,
-  Inactive,
-  Missed,
-  ClockedIn,
-  ClockedInLate,
-  ClockedOut,
-  ClockedOutLate,
-  Approved
+   RecurringActive,
+   RecurringInactive,
+   Active,
+   Inactive,
+   Missed,
+   Late,
+   ClockedIn,
+   ClockedInLate,
+   ClockedOut,
+   ClockedOutLate,
+   Approved
  }

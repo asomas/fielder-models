@@ -1,6 +1,7 @@
 
 import 'package:fielder_models/core/constants/asset_constants.dart';
 import 'package:fielder_models/core/enums/enums.dart';
+import 'package:fielder_models/core/enums/slot_status_enums.dart';
 
 class SlotModel {
   final String assignmentID;
@@ -20,6 +21,16 @@ class SlotModel {
   final bool recurring;
   final String shiftTitle;
   final String slotTypeImage;
+  final SlotIconStatus slotIconStatus;
+  final String location;
+  final double latitude;
+  final double longitude;
+  final double clockInLatitude;
+  final double clockInLongitude;
+  final double clockOutLatitude;
+  final double clockOutLongitude;
+  final DateTime clockInTime;
+  final DateTime clockOutTime;
 
 
   SlotModel(
@@ -39,5 +50,16 @@ class SlotModel {
       this.weekDay,
       this.shiftTitle,
       this.slotTypeImage = AssetsConstants.inactiveJobIcon,
-      this.recurring = false});
+      this.slotIconStatus = SlotIconStatus.Inactive,
+      this.recurring = false,
+      this.location,
+      this.latitude,
+      this.longitude,
+      this.clockInLatitude,
+      this.clockInLongitude,
+      this.clockOutLatitude,
+      this.clockOutLongitude,
+      this.clockInTime,
+      this.clockOutTime,
+      });
 }
