@@ -129,9 +129,9 @@ class Employer {
 }
 
 class Contact {
-  String name; //max length
-  String phone; //validate
-  String email; //validate
+  String name = null; //max length
+  String phone = null; //validate
+  String email = null; //validate
 }
 
 class BillingContact extends Contact {
@@ -139,13 +139,54 @@ class BillingContact extends Contact {
 // document is  employers/employer_id/company_info/billing_contact
 // note, inherits fields from contacts Serialiser
 
+
+  static BillingContact fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    BillingContact billingContact = BillingContact();
+    billingContact.name = map['name'];
+    billingContact.email = map['email'];
+    billingContact.phone = map['phone'];
+
+    return billingContact;
+  }
+
+  Map toJson() =>
+      {
+        "name": name,
+        "phone": phone,
+        "email": email,
+      };
+
 }
 
 class GeneralContact extends Contact {
 // Document has fixed ID, general_contact, inside Subcollection called company_info.  So the complete path to this
 // document is  employers/employer_id/company_info/general_contact
 // note, inherits fields e.g. email from contacts Serialiser
-  String website; // Validate URL
+  String website = null; // Validate URL
+
+
+  static GeneralContact fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+
+    GeneralContact generalContact = GeneralContact();
+    generalContact.name = map['name'];
+    generalContact.email = map['email'];
+    generalContact.phone = map['phone'];
+    generalContact.website = map['website'];
+
+    return generalContact;
+  }
+
+
+  Map toJson() =>
+      {
+        "name": name,
+        "phone": phone,
+        "email": email,
+        "website": website,
+      };
 }
 
 class SICCode {
