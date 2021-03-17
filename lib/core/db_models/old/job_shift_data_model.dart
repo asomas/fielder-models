@@ -21,6 +21,7 @@ class JobShiftDataModel {
   String workerId;
   WorkerTrackedTimeModel workerLogModel;
   WorkerModel workerModel;
+  ShiftLocationDataModel shiftLocationDataModel;
 
   JobShiftDataModel(
       {this.docID,
@@ -35,6 +36,7 @@ class JobShiftDataModel {
       this.startTimeInt,
       this.workerId,
       this.workerLogModel,
+      this.shiftLocationDataModel,
       this.workerModel})
       : assert(
           docID != null &&
@@ -76,12 +78,19 @@ class JobShiftDataModel {
         final DocumentReference _jobRef = map['job_ref'] ?? '';
         final String _role = map['role'] ?? '';
         EmployerModel _employer;
+        ShiftLocationDataModel _shiftLocationDataModel;
         final DocumentReference _employerRef = map['employer_ref'];
+        final DocumentReference _locationRef = map['location_ref'];
 
         if (_employerRef != null) {
           _employer = EmployerModel.fromMap(
             docID: _employerRef.id,
             map: map['employer_data'] ?? {},
+          );
+        }
+        if (_locationRef != null) {
+          _shiftLocationDataModel = ShiftLocationDataModel.fromMap(
+              map["location_data"]
           );
         }
         WorkerTrackedTimeModel _workerLogModel;
@@ -105,6 +114,7 @@ class JobShiftDataModel {
             jobID: _jobRef?.id,
             role: _role,
             employer: _employer,
+            shiftLocationDataModel: _shiftLocationDataModel,
             workerLogModel: _workerLogModel,
             workerId: _workerRef?.id,
             workerModel: map.containsKey(ShiftDataSchema.workerData)
