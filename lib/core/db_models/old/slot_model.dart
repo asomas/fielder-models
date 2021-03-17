@@ -31,7 +31,7 @@ class SlotModel {
   final double clockOutLongitude;
   final DateTime clockInTime;
   final DateTime clockOutTime;
-
+  final String employerName;
 
   SlotModel(
       {this.assignmentID,
@@ -61,5 +61,6 @@ class SlotModel {
       this.clockOutLongitude,
       this.clockInTime,
       this.clockOutTime,
+      this.employerName = ""
       });
 }
