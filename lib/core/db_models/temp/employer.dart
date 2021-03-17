@@ -43,8 +43,7 @@ class EmployerUser {
     return employerUser;
   }
 
-  Map toJson() =>
-      {
+  Map toJson() => {
         "name": name,
         "email": email,
         "organizations": organizations,
@@ -98,8 +97,7 @@ class UserOrganization {
     return acceptanceStatus;
   }
 
-  Map toJson() =>
-      {
+  Map toJson() => {
         "name": name,
         "role": role,
         "status": status,
@@ -121,8 +119,7 @@ class Employer {
     return employer;
   }
 
-  Map toJson() =>
-      {
+  Map toJson() => {
         "company_name": companyName,
         "brand_color": brandColor,
       };
@@ -193,7 +190,6 @@ class SICCode {
   String code; // max length
   String description; // max length 200
 
-
   static SICCode fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
@@ -202,8 +198,6 @@ class SICCode {
     sicCode.description = map['description'];
     return sicCode;
   }
-
-
 }
 
 // Helper
@@ -230,7 +224,6 @@ class AddressBasic {
   String poBox;
   String town;
 
-
   static AddressBasic fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
@@ -244,7 +237,6 @@ class AddressBasic {
     addressBasic.town = map['town'];
     return addressBasic;
   }
-
 }
 
 // Helper
@@ -270,9 +262,9 @@ class Company {
     company.incorporationDate = map['incorporation_date'];
     company.registrationNumber = map['registration_number'];
     company.sicCodes =
-    List<SICCode>.from(map["sic_codes"].map((x) => SICCode.fromMap(x)));
+        List<SICCode>.from(map["sic_codes"].map((x) => SICCode.fromMap(x)));
     company.directors =
-    List<Director>.from(map["directors"].map((x) => Director.fromMap(x)));
+        List<Director>.from(map["directors"].map((x) => Director.fromMap(x)));
 
     company.address = AddressBasic.fromMap(map['address']);
     company.lastUpdated = map['last_updated'];
@@ -286,7 +278,6 @@ class Company {
 class UpdateUser {
   String name;
 }
-
 
 class CompaniesResults {
   CompaniesResults({
@@ -304,8 +295,7 @@ class CompaniesResults {
             json["items"].map((x) => CompanyDetail.fromJson(x))),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "page_number": pageNumber,
         "items": List<dynamic>.from(items.map((x) => x.toJson())),
       };
@@ -320,14 +310,12 @@ class CompanyDetail {
   String companyNumber;
   String title;
 
-  factory CompanyDetail.fromJson(Map<String, dynamic> json) =>
-      CompanyDetail(
+  factory CompanyDetail.fromJson(Map<String, dynamic> json) => CompanyDetail(
         companyNumber: json["company_number"],
         title: json["title"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "company_number": companyNumber,
         "title": title,
       };
