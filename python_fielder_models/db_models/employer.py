@@ -10,6 +10,7 @@ class UserOrganizationSerializer(serializers.Serializer):
     role = serializers.ChoiceField(
         required=True, choices=["owner", "admin", "hr", "manager", "supervisor"]
     )
+    manager = serializers.CharField(required=False, allow_null=True)
 
 
 # new

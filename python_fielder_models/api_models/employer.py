@@ -31,7 +31,10 @@ class InviteUsersRequest(serializers.Serializer):
     employer_id = serializers.CharField()
     name = serializers.CharField(max_length=75)
     email = serializers.EmailField()
-    role = serializers.ChoiceField(choices=["admin", "supervisor"])
+    role = serializers.ChoiceField(
+        choices=["owner", "admin", "hr", "manager", "supervisor"]
+    )
+    manager = serializers.CharField(required=False, allow_null=True)
 
 
 class OrganizationAcceptInvite(serializers.Serializer):
@@ -64,6 +67,7 @@ class UserResponse(serializers.Serializer):
     role = serializers.ChoiceField(
         choices=["owner", "admin", "hr", "manager", "supervisor"]
     )
+    manager = serializers.CharField(allow_null=True)
 
 
 class UsersListResponse(serializers.Serializer):
