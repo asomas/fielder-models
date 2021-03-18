@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/temp/common.dart';
+import 'package:json_schema/json_schema.dart';
 
 // collection name: employer_user
 class EmployerUser {
