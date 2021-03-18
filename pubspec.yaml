@@ -11,8 +11,8 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.2
-  cloud_firestore: "^0.14.3"
-  google_maps_flutter: ^1.0.6
+  cloud_firestore: ^1.0.1
+  google_maps_flutter: ^2.0.1
   intl:
   json_schema: ^2.2.1
 
