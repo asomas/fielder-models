@@ -24,11 +24,7 @@ class EmployerModel {
       this.email,
       this.brandBanner,
       this.logoUrl,
-      this.primaryColor})
-      : assert(
-          docID != null && name != null,
-        );
-
+      this.primaryColor});
   factory EmployerModel.fromMap({
     @required Map<String, dynamic> map,
     @required String docID,
