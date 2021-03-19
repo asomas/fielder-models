@@ -319,4 +319,63 @@ class CompanyDetail {
         "company_number": companyNumber,
         "title": title,
       };
+
 }
+
+class UsersList {
+  UsersList({
+    this.users,
+  });
+
+  List<User> users;
+
+  factory UsersList.fromJson(Map<String, dynamic> json) => UsersList(
+    users: json["users"] == null ? null : List<User>.from(json["users"].map((x) => User.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "users": users == null ? null : List<dynamic>.from(users.map((x) => x.toJson())),
+  };
+}
+
+class User {
+  User({
+    this.name,
+    this.email,
+    this.dateCreated,
+    this.status,
+    this.role,
+    this.manager,
+  });
+
+  String name;
+  String email;
+  DateTime dateCreated;
+  String status;
+  String role;
+  String manager;
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+    name: json["name"] == null ? null : json["name"],
+    email: json["email"] == null ? null : json["email"],
+    dateCreated: json["date_created"] == null ? null : DateTime.parse(json["date_created"]),
+    status: json["status"] == null ? null : json["status"],
+    role: json["role"] == null ? null : json["role"],
+    manager: json["manager"] == null ? null : json["manager"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "name": name == null ? null : name,
+    "email": email == null ? null : email,
+    "date_created": dateCreated == null ? null : dateCreated.toIso8601String(),
+    "status": status == null ? null : status,
+    "role": role == null ? null : role,
+    "manager": manager == null ? null : manager,
+  };
+}
+
+
+
+
+
+
