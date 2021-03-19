@@ -351,7 +351,7 @@ class UserDetail {
   String name;
   String email;
   DateTime dateCreated;
-  String status;
+  AcceptanceStatus status;
   String role;
   String manager;
 
@@ -359,7 +359,7 @@ class UserDetail {
     name: json["name"] == null ? null : json["name"],
     email: json["email"] == null ? null : json["email"],
     dateCreated: json["date_created"] == null ? null : DateTime.parse(json["date_created"]),
-    status: json["status"] == null ? null : json["status"],
+    status: json["status"] == null ? null :  UserOrganization.getAcceptanceStatus(json['status']),
     role: json["role"] == null ? null : json["role"],
     manager: json["manager"] == null ? null : json["manager"],
   );
