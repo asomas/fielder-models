@@ -327,10 +327,10 @@ class UsersList {
     this.users,
   });
 
-  List<User> users;
+  List<UserDetail> users;
 
   factory UsersList.fromJson(Map<String, dynamic> json) => UsersList(
-    users: json["users"] == null ? null : List<User>.from(json["users"].map((x) => User.fromJson(x))),
+    users: json["users"] == null ? null : List<UserDetail>.from(json["users"].map((x) => UserDetail.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -338,8 +338,8 @@ class UsersList {
   };
 }
 
-class User {
-  User({
+class UserDetail {
+  UserDetail({
     this.name,
     this.email,
     this.dateCreated,
@@ -355,7 +355,7 @@ class User {
   String role;
   String manager;
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory UserDetail.fromJson(Map<String, dynamic> json) => UserDetail(
     name: json["name"] == null ? null : json["name"],
     email: json["email"] == null ? null : json["email"],
     dateCreated: json["date_created"] == null ? null : DateTime.parse(json["date_created"]),
