@@ -85,6 +85,18 @@ class UserOrganization {
     return userRole;
   }
 
+  static String getRoleString(Roles role) {
+    String userRole = "owner";
+    if (role == Roles.OWNER) {
+      userRole = "owner";
+    } else if (role == Roles.MANAGER) {
+      userRole = "manager";
+    } else if (role == Roles.SUPERVISOR) {
+      userRole = "supervisor";
+    }
+    return userRole;
+  }
+
   static AcceptanceStatus getAcceptanceStatus(String status) {
     AcceptanceStatus acceptanceStatus = AcceptanceStatus.ACCEPTED;
     if (status == 'accepted') {
