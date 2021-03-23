@@ -136,7 +136,6 @@ class BillingContact extends Contact {
 // document is  employers/employer_id/company_info/billing_contact
 // note, inherits fields from contacts Serialiser
 
-
   static BillingContact fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
 
@@ -148,13 +147,11 @@ class BillingContact extends Contact {
     return billingContact;
   }
 
-  Map toJson() =>
-      {
+  Map toJson() => {
         "name": name,
         "phone": phone,
         "email": email,
       };
-
 }
 
 class GeneralContact extends Contact {
@@ -162,7 +159,6 @@ class GeneralContact extends Contact {
 // document is  employers/employer_id/company_info/general_contact
 // note, inherits fields e.g. email from contacts Serialiser
   String website = null; // Validate URL
-
 
   static GeneralContact fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
@@ -176,9 +172,7 @@ class GeneralContact extends Contact {
     return generalContact;
   }
 
-
-  Map toJson() =>
-      {
+  Map toJson() => {
         "name": name,
         "phone": phone,
         "email": email,
@@ -319,7 +313,6 @@ class CompanyDetail {
         "company_number": companyNumber,
         "title": title,
       };
-
 }
 
 class UsersList {
@@ -330,17 +323,23 @@ class UsersList {
   List<UserDetail> users;
 
   factory UsersList.fromJson(Map<String, dynamic> json) => UsersList(
-    users: json["users"] == null ? null : List<UserDetail>.from(json["users"].map((x) => UserDetail.fromJson(x))),
-  );
+        users: json["users"] == null
+            ? null
+            : List<UserDetail>.from(
+                json["users"].map((x) => UserDetail.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "users": users == null ? null : List<dynamic>.from(users.map((x) => x.toJson())),
-  };
+        "users": users == null
+            ? null
+            : List<dynamic>.from(users.map((x) => x.toJson())),
+      };
 }
 
 class UserDetail {
   UserDetail({
     this.name,
+    this.id,
     this.email,
     this.dateCreated,
     this.status,
@@ -348,6 +347,7 @@ class UserDetail {
     this.manager,
   });
 
+  String id;
   String name;
   String email;
   DateTime dateCreated;
@@ -356,26 +356,26 @@ class UserDetail {
   String manager;
 
   factory UserDetail.fromJson(Map<String, dynamic> json) => UserDetail(
-    name: json["name"] == null ? null : json["name"],
-    email: json["email"] == null ? null : json["email"],
-    dateCreated: json["date_created"] == null ? null : DateTime.parse(json["date_created"]),
-    status: json["status"] == null ? null :  UserOrganization.getAcceptanceStatus(json['status']),
-    role: json["role"] == null ? null : json["role"],
-    manager: json["manager"] == null ? null : json["manager"],
-  );
+        id: json["id"] == null ? null : json["id"],
+        name: json["name"] == null ? null : json["name"],
+        email: json["email"] == null ? null : json["email"],
+        dateCreated: json["date_created"] == null
+            ? null
+            : DateTime.parse(json["date_created"]),
+        status: json["status"] == null
+            ? null
+            : UserOrganization.getAcceptanceStatus(json['status']),
+        role: json["role"] == null ? null : json["role"],
+        manager: json["manager"] == null ? null : json["manager"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "name": name == null ? null : name,
-    "email": email == null ? null : email,
-    "date_created": dateCreated == null ? null : dateCreated.toIso8601String(),
-    "status": status == null ? null : status,
-    "role": role == null ? null : role,
-    "manager": manager == null ? null : manager,
-  };
+        "name": name == null ? null : name,
+        "email": email == null ? null : email,
+        "date_created":
+            dateCreated == null ? null : dateCreated.toIso8601String(),
+        "status": status == null ? null : status,
+        "role": role == null ? null : role,
+        "manager": manager == null ? null : manager,
+      };
 }
-
-
-
-
-
-
