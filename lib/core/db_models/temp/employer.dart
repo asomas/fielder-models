@@ -387,6 +387,33 @@ class UserDetail {
 }
 
 
+class Overseer {
+  Overseer({
+    this.id,
+    this.name,
+    this.email,
+    this.dateCreated,
+  });
+
+  String id;
+  String name;
+  String email;
+  DateTime dateCreated;
+
+  factory Overseer.fromJson(String id, Map<String, dynamic> json) => Overseer(
+    id: id,
+    name: json["name"] == null ? null : json["name"],
+    email: json["email"] == null ? null : json["email"],
+    dateCreated: json["date_created"] == null ? null : DateTime.parse(json["date_created"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "name": name == null ? null : name,
+    "email": email == null ? null : email,
+    "date_created": dateCreated == null ? null : dateCreated.toIso8601String(),
+  };
+}
+
 
 
 
