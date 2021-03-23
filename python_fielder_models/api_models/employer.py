@@ -60,6 +60,7 @@ class UsersListRequest(serializers.Serializer):
 
 
 class UserResponse(serializers.Serializer):
+    id = serializers.CharField()
     name = serializers.CharField(max_length=COMPANY_NAME_MAX_LENGTH)
     email = serializers.EmailField()
     date_created = serializers.DateTimeField()
