@@ -412,6 +412,18 @@ class Overseer {
     "email": email == null ? null : email,
     "date_created": dateCreated == null ? null : dateCreated.toIso8601String(),
   };
+
+  static Future<Overseer> getOverseer(
+      DocumentReference ref, {String collection = "job_shifts"}) async{
+    if(ref!=null){
+      DocumentSnapshot ds = await FirebaseFirestore.instance
+                          .collection(collection).doc(ref.id).get();
+      if(ds.exists && ds.data().length >0){
+        return Overseer.fromJson(ds.id, ds.data());
+      }
+    }
+    return null;
+  }
 }
 
 

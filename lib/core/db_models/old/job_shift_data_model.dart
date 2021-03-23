@@ -11,8 +11,8 @@ import 'package:fielder_models/core/db_models/old/workers_model.dart';
 class JobShiftDataModel {
   String docID;
   EmployerModel employer;
-  UserDetail supervisor;
-  UserDetail manager;
+  DocumentReference supervisorRef;
+  DocumentReference managerRef;
   DateTime endDate;
   int endTimeInt;
   String jobTitle;
@@ -40,7 +40,9 @@ class JobShiftDataModel {
       this.workerId,
       this.workerLogModel,
       this.shiftLocationDataModel,
-      this.workerModel})
+      this.workerModel,
+      this.supervisorRef,
+      this.managerRef})
       : assert(
           docID != null &&
               employer != null &&
@@ -84,6 +86,8 @@ class JobShiftDataModel {
         ShiftLocationDataModel _shiftLocationDataModel;
         final DocumentReference _employerRef = map['employer_ref'];
         final DocumentReference _locationRef = map['location_ref'];
+        final DocumentReference _supervisorRef = map['supervisor_ref'];
+        final DocumentReference _managerRef = map['manager_ref'];
 
         if (_employerRef != null) {
           _employer = EmployerModel.fromMap(
@@ -117,6 +121,8 @@ class JobShiftDataModel {
             jobID: _jobRef?.id,
             role: _role,
             employer: _employer,
+            supervisorRef: _supervisorRef,
+            managerRef: _managerRef,
             shiftLocationDataModel: _shiftLocationDataModel,
             workerLogModel: _workerLogModel,
             workerId: _workerRef?.id,
