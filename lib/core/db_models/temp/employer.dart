@@ -352,6 +352,7 @@ class UsersList {
 
 class UserDetail {
   UserDetail({
+    this.id,
     this.name,
     this.email,
     this.dateCreated,
@@ -360,6 +361,7 @@ class UserDetail {
     this.manager,
   });
 
+  String id;
   String name;
   String email;
   DateTime dateCreated;
@@ -368,6 +370,7 @@ class UserDetail {
   String manager;
 
   factory UserDetail.fromJson(Map<String, dynamic> json) => UserDetail(
+    id: json["id"],
     name: json["name"] == null ? null : json["name"],
     email: json["email"] == null ? null : json["email"],
     dateCreated: json["date_created"] == null ? null : DateTime.parse(json["date_created"]),
@@ -384,47 +387,28 @@ class UserDetail {
     "role": role == null ? null : role,
     "manager": manager == null ? null : manager,
   };
-}
 
-
-class Overseer {
-  Overseer({
-    this.id,
-    this.name,
-    this.email,
-    this.dateCreated,
-  });
-
-  String id;
-  String name;
-  String email;
-  DateTime dateCreated;
-
-  factory Overseer.fromJson(String id, Map<String, dynamic> json) => Overseer(
-    id: id,
-    name: json["name"] == null ? null : json["name"],
-    email: json["email"] == null ? null : json["email"],
-    dateCreated: json["date_created"] == null ? null : DateTime.parse(json["date_created"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "name": name == null ? null : name,
-    "email": email == null ? null : email,
-    "date_created": dateCreated == null ? null : dateCreated.toIso8601String(),
-  };
-
-  static Future<Overseer> getOverseer(
+  static Future<UserDetail> getUserDetails(
       DocumentReference ref, {String collection = "job_shifts"}) async{
     if(ref!=null){
       DocumentSnapshot ds = await FirebaseFirestore.instance
-                          .collection(collection).doc(ref.id).get();
+          .collection(collection).doc(ref.id).get();
       if(ds.exists && ds.data().length >0){
-        return Overseer.fromJson(ds.id, ds.data());
+        Map json = ds.data();
+        return UserDetail(
+          id: ds.id,
+          name: json["name"] ?? "",
+          dateCreated: json["date_created"] == null ? null :
+          DateTime.parse(json["date_created"]),
+          email: json["email"] == null ? null : json["email"],
+        );
       }
     }
     return null;
   }
 }
+
+
 
 
 
