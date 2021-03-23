@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/temp/employer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fielder_models/core/db_models/old/employer_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_data_schema.dart';
@@ -10,6 +11,8 @@ import 'package:fielder_models/core/db_models/old/workers_model.dart';
 class JobShiftDataModel {
   String docID;
   EmployerModel employer;
+  UserDetail supervisor;
+  UserDetail manager;
   DateTime endDate;
   int endTimeInt;
   String jobTitle;
