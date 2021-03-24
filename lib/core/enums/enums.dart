@@ -90,3 +90,8 @@ enum SlotType {
   ActiveCompleted,
 }
 
+enum BrandingImageType{
+  Logo,
+  Banner
+}
+
