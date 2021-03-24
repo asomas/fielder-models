@@ -56,7 +56,7 @@ class GeneralContact(ContactSerializer):
 
 class SICCodeSerializer(serializers.Serializer):
     code = serializers.CharField()
-    description = serializers.CharField(max_length=200)
+    description = serializers.CharField(max_length=200, allow_null=True)
 
 
 class CompanySerializer(serializers.Serializer):
