@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .common import *
 
 # new
-class UserOrganisationSerializer(serializers.Serializer):
+class OrganisationSubscriptionSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=COMPANY_NAME_MAX_LENGTH)
     status = serializers.ChoiceField(
         required=True, choices=["accepted", "declined", "pending"]
@@ -20,7 +20,7 @@ class OrganisationUserSerializer(serializers.Serializer):
     name = serializers.CharField()
     email = serializers.EmailField()
     organisations = serializers.DictField(
-        child=UserOrganisationSerializer(), allow_empty=True
+        child=OrganisationSubscriptionSerializer(), allow_empty=True
     )
     date_created = serializers.DateTimeField()
 
