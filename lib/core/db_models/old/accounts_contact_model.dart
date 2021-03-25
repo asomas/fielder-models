@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:fielder_models/core/db_models/old/schema/employer_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/organisation_schema.dart';
 
 class AccountsContactModel {
   String email;
@@ -19,25 +19,25 @@ class AccountsContactModel {
     Map<String, dynamic> tempMap = Map();
     if (secondaryNumber != null) {
       if (secondaryNumber.isNotEmpty) {
-        tempMap[EmployerSchema.secondaryNumber] = secondaryNumber;
+        tempMap[OrganisationSchema.secondaryNumber] = secondaryNumber;
       }
     }
 
     if (email != null) {
       if (email.isNotEmpty) {
-        tempMap[EmployerSchema.email] = email;
+        tempMap[OrganisationSchema.email] = email;
       }
     }
 
     if (preferredNumber != null) {
       if (preferredNumber.isNotEmpty) {
-        tempMap[EmployerSchema.preferredNumber] = preferredNumber;
+        tempMap[OrganisationSchema.preferredNumber] = preferredNumber;
       }
     }
 
     if (name != null) {
       if (name.isNotEmpty) {
-        tempMap[EmployerSchema.name] = name;
+        tempMap[OrganisationSchema.name] = name;
       }
     }
 
@@ -48,10 +48,10 @@ class AccountsContactModel {
     @required Map<String, dynamic> map,
   }) {
     if (map.isNotEmpty) {
-      final String _email = map[EmployerSchema.email] ?? '';
-      final String _name = map[EmployerSchema.name] ?? '';
-      final String _preferredNumber = map[EmployerSchema.preferredNumber] ?? '';
-      final String _secondaryNumber = map[EmployerSchema.secondaryNumber] ?? '';
+      final String _email = map[OrganisationSchema.email] ?? '';
+      final String _name = map[OrganisationSchema.name] ?? '';
+      final String _preferredNumber = map[OrganisationSchema.preferredNumber] ?? '';
+      final String _secondaryNumber = map[OrganisationSchema.secondaryNumber] ?? '';
       return AccountsContactModel(
         secondaryNumber: _secondaryNumber,
         email: _email,

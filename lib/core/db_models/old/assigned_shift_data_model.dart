@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fielder_models/core/db_models/old/employer_model.dart';
+import 'package:fielder_models/core/db_models/old/organisation_model.dart';
 import 'package:fielder_models/core/db_models/old/shift_data_model.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
 
 class AssignedShiftDataModel {
   String docID;
-  EmployerModel employer;
+  OrganisationModel organisation;
   DateTime endDate;
   int endTimeInt;
   String jobTitle;
@@ -20,7 +20,7 @@ class AssignedShiftDataModel {
 
   AssignedShiftDataModel({
     this.docID,
-    this.employer,
+    this.organisation,
     this.endDate,
     this.endTimeInt,
     this.jobTitle,
@@ -33,7 +33,7 @@ class AssignedShiftDataModel {
     this.worker,
   }) : assert(
           docID != null &&
-              employer != null &&
+              organisation != null &&
               endDate != null &&
               endTimeInt != null &&
               jobID != null &&
@@ -70,15 +70,15 @@ class AssignedShiftDataModel {
         final String _jobTitle = map['job_title'] ?? '';
         final DocumentReference _jobRef = map['job_ref'] ?? '';
         final String _role = map['role'] ?? '';
-        EmployerModel _employer;
+        OrganisationModel _organisation;
         WorkerModel _worker;
-        final DocumentReference _employerRef = map['employer_ref'];
+        final DocumentReference _organisationRef = map['organisation_ref'];
         final DocumentReference _workerRef = map['worker_ref'];
 
-        if (_employerRef != null) {
-          _employer = EmployerModel.fromMap(
-            docID: _employerRef.id,
-            map: map['employer_data'] ?? {},
+        if (_organisationRef != null) {
+          _organisation = OrganisationModel.fromMap(
+            docID: _organisationRef.id,
+            map: map['organisation_data'] ?? {},
           );
         }
 
@@ -99,7 +99,7 @@ class AssignedShiftDataModel {
             jobTitle: _jobTitle,
             jobID: _jobRef.id,
             role: _role,
-            employer: _employer,
+            organisation: _organisation,
             worker: _worker,
             workerId:_workerRef.id,
           );

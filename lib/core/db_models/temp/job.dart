@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/old/additional_info_model.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/default_location_data_model.dart';
-import 'package:fielder_models/core/db_models/old/employer_model.dart';
+import 'package:fielder_models/core/db_models/old/organisation_model.dart';
 import 'package:fielder_models/core/db_models/old/qualification_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
@@ -145,7 +145,7 @@ class JobLocationDataModel {
 
 class JobShiftDataModel {
   String docID;
-  EmployerModel employer;
+  OrganisationModel organisation;
   DateTime endDate;
   int endTimeInt;
   String jobTitle;
@@ -160,7 +160,7 @@ class JobShiftDataModel {
 
   JobShiftDataModel(
       {this.docID,
-      this.employer,
+      this.organisation,
       this.endDate,
       this.endTimeInt,
       this.jobTitle,
@@ -174,7 +174,7 @@ class JobShiftDataModel {
       this.workerModel})
       : assert(
           docID != null &&
-              employer != null &&
+              organisation != null &&
               endDate != null &&
               endTimeInt != null &&
               jobID != null &&
@@ -211,13 +211,13 @@ class JobShiftDataModel {
         final String _jobTitle = map['job_title'] ?? '';
         final DocumentReference _jobRef = map['job_ref'] ?? '';
         final String _role = map['role'] ?? '';
-        EmployerModel _employer;
-        final DocumentReference _employerRef = map['employer_ref'];
+        OrganisationModel _organisation;
+        final DocumentReference _organisationRef = map['organisation_ref'];
 
-        if (_employerRef != null) {
-          _employer = EmployerModel.fromMap(
-            docID: _employerRef.id,
-            map: map['employer_data'] ?? {},
+        if (_organisationRef != null) {
+          _organisation = OrganisationModel.fromMap(
+            docID: _organisationRef.id,
+            map: map['organisation_data'] ?? {},
           );
         }
         WorkerTrackedTimeModel _workerLogModel;
@@ -239,7 +239,7 @@ class JobShiftDataModel {
               jobTitle: _jobTitle,
               jobID: _jobRef?.id,
               role: _role,
-              employer: _employer,
+              organisation: _organisation,
               workerLogModel: _workerLogModel,
               workerId: _workerRef?.id,
               workerModel: map.containsKey(ShiftDataSchema.workerData)
@@ -256,14 +256,14 @@ class JobShiftDataModel {
 
 class JobSummaryDataModel {
   String docID;
-  String employerID;
+  String organisationID;
   JobDataModel jobDataModel;
   String jobID;
   List<WorkerModel> workersArray;
 
   JobSummaryDataModel({
     this.docID,
-    this.employerID,
+    this.organisationID,
     this.jobDataModel,
     this.jobID,
     this.workersArray,
@@ -277,10 +277,10 @@ class JobSummaryDataModel {
   }) {
     if (map.isNotEmpty) {
       try {
-        String _employerID = '';
-        final DocumentReference _employerRef = map[JobSummarySchema.employerRef];
-        if (_employerRef != null) {
-          _employerID = _employerRef.id;
+        String _organisationID = '';
+        final DocumentReference _organisationRef = map[JobSummarySchema.organisationRef];
+        if (_organisationRef != null) {
+          _organisationID = _organisationRef.id;
           String _jobID = '';
           final DocumentReference _jobRef = map[JobSummarySchema.jobRef];
           if (_jobRef != null) {
@@ -304,7 +304,7 @@ class JobSummaryDataModel {
             if (_jobID.isNotEmpty) {
               return JobSummaryDataModel(
                 docID: docID,
-                employerID: _employerID,
+                organisationID: _organisationID,
                 jobDataModel: _jobDataModel,
                 jobID: _jobID,
                 workersArray: _allWorkerArray,
@@ -438,8 +438,8 @@ class JobTemplateModel {
 //   final tempMap = Map();
 //   tempMap[JobTemplateSchema.additionalRequirements] = additionalRequirments;
 //   tempMap[JobTemplateSchema.defaultLocationRef] = defaultLocation;
-//   tempMap[JobTemplateSchema.employerData] = employerData;
-//   tempMap[JobTemplateSchema.employerRef] = employerRef;
+//   tempMap[JobTemplateSchema.organisationData] = organisationData;
+//   tempMap[JobTemplateSchema.organisationRef] = organisationRef;
 //   tempMap[JobTemplateSchema.jobTitle] = jobTitle;
 //   tempMap[JobTemplateSchema.location] = workLocationAddress;
 //   tempMap[JobTemplateSchema.name] = name;
@@ -455,18 +455,18 @@ class JobTemplateModel {
 
 class JobSearchTemplate {
   final num limit;
-  final List<EmployerJobTemplate> employerJobTemplate;
+  final List<OrganisationJobTemplate> organisationJobTemplate;
   final List<FielderJobTemplate> fielderJobTemplate;
 
-  JobSearchTemplate({this.limit, this.employerJobTemplate, this.fielderJobTemplate});
+  JobSearchTemplate({this.limit, this.organisationJobTemplate, this.fielderJobTemplate});
 
   factory JobSearchTemplate.fromMap(Map<String, dynamic> map) {
     JobSearchTemplate temp;
     try {
       temp = JobSearchTemplate(
-          limit: map["employer_templates"] != null ? map["employer_templates"]["limit"] : 10,
-          employerJobTemplate:
-              map["employer_templates"] != null ? _getEmployerJobTemplate(map["employer_templates"]["hits"]) : [],
+          limit: map["organisation_templates"] != null ? map["organisation_templates"]["limit"] : 10,
+          organisationJobTemplate:
+              map["organisation_templates"] != null ? _getOrganisationJobTemplate(map["organisation_templates"]["hits"]) : [],
           fielderJobTemplate:
               map["fielder_templates"] != null ? _getFielderJobTemplate(map["fielder_templates"]["hits"]) : []);
       return temp;
@@ -476,10 +476,10 @@ class JobSearchTemplate {
     }
   }
 
-  static List<EmployerJobTemplate> _getEmployerJobTemplate(List hits) {
-    List<EmployerJobTemplate> list = [];
+  static List<OrganisationJobTemplate> _getOrganisationJobTemplate(List hits) {
+    List<OrganisationJobTemplate> list = [];
     hits.forEach((element) {
-      list = (hits).map((model) => EmployerJobTemplate.fromMap(model)).toList();
+      list = (hits).map((model) => OrganisationJobTemplate.fromMap(model)).toList();
     });
     return list;
   }
@@ -493,22 +493,22 @@ class JobSearchTemplate {
   }
 }
 
-class EmployerJobTemplate {
-  final String employerTemplateID;
-  final String employerTemplateName;
-  final String employerID;
+class OrganisationJobTemplate {
+  final String organisationTemplateID;
+  final String organisationTemplateName;
+  final String organisationID;
 
-  EmployerJobTemplate({
-    this.employerTemplateID,
-    this.employerTemplateName,
-    this.employerID,
+  OrganisationJobTemplate({
+    this.organisationTemplateID,
+    this.organisationTemplateName,
+    this.organisationID,
   });
 
-  factory EmployerJobTemplate.fromMap(Map<String, dynamic> map) {
-    return EmployerJobTemplate(
-        employerTemplateID: map["employer_template_id"] ?? "",
-        employerTemplateName: map["name"] ?? "",
-        employerID: map["employer_id"] ?? "");
+  factory OrganisationJobTemplate.fromMap(Map<String, dynamic> map) {
+    return OrganisationJobTemplate(
+        organisationTemplateID: map["organisation_template_id"] ?? "",
+        organisationTemplateName: map["name"] ?? "",
+        organisationID: map["organisation_id"] ?? "");
   }
 }
 

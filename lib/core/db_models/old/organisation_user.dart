@@ -1,9 +1,9 @@
-// collection name: employer_user
+// collection name: organisation_user
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class EmployerUser {
+class OrganisationUser {
   String email;
-  Map<String, UserOrganisation> organisations; // id of map should be an Id of employer in employer collection
+  Map<String, UserOrganisation> organisations; // id of map should be an Id of organisation in organisation collection
   Timestamp dateCreated;
 }
 

@@ -6,9 +6,9 @@ class JobTemplateSchema {
   static const String additionalRequirementValue = 'additional_requirement_value';
   static const String defaultLocationRef = 'default_location_ref';
   static const String description = 'description';
-  static const String employerData = 'employer_data';
+  static const String organisationData = 'organisation_data';
   static const String emplayerDataName = 'name';
-  static const String employerRef = 'employer_ref';
+  static const String organisationRef = 'organisation_ref';
   static const String jobTitle = 'job_title';
   static const String location = 'location';
   static const String name = 'name';
@@ -35,10 +35,10 @@ class JobTemplateSchema {
   static const String shift_data = 'shift_data';
   static const String enablePayDetection = 'enable_pay_deduction';
 
-  static const String employerTemplateId = "employer_template_id";
-  static const String employerTemplateName = "name";
-  static const String employerId = "employer_id";
-  static const String employerTemplateLimit = "limit";
+  static const String organisationTemplateId = "organisation_template_id";
+  static const String organisationTemplateName = "name";
+  static const String organisationId = "organisation_id";
+  static const String organisationTemplateLimit = "limit";
 
   static const String fielderTemplateId = "fielder_template_id";
   static const String fielderTemplateName = "name";

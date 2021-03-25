@@ -5,9 +5,9 @@ class WorkerAssignmentsSchema {
   static const String workerLogRef = "worker_log_ref";
   static const String workerRef = "worker_ref";
   static const String jobShiftData = "job_shift_data";
-  static const String employerData = "employer_data";
+  static const String organisationData = "organisation_data";
   static const String name = "name";
-  static const String employerRef = "employer_ref";
+  static const String organisationRef = "organisation_ref";
   static const String endTime = "end_time";
   static const String jobRef = "job_ref";
   static const String jobTitle = "job_title";

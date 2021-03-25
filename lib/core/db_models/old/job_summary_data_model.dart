@@ -6,14 +6,14 @@ import 'package:fielder_models/core/db_models/old/workers_model.dart';
 
 class JobSummaryDataModel {
   String docID;
-  String employerID;
+  String organisationID;
   JobDataModel jobDataModel;
   String jobID;
   List<WorkerModel> workersArray;
 
   JobSummaryDataModel({
     this.docID,
-    this.employerID,
+    this.organisationID,
     this.jobDataModel,
     this.jobID,
     this.workersArray,
@@ -27,11 +27,11 @@ class JobSummaryDataModel {
   }) {
     if (map.isNotEmpty) {
       try {
-        String _employerID = '';
-        final DocumentReference _employerRef =
-            map[JobSummarySchema.employerRef];
-        if (_employerRef != null) {
-          _employerID = _employerRef.id;
+        String _organisationID = '';
+        final DocumentReference _organisationRef =
+            map[JobSummarySchema.organisationRef];
+        if (_organisationRef != null) {
+          _organisationID = _organisationRef.id;
           String _jobID = '';
           final DocumentReference _jobRef = map[JobSummarySchema.jobRef];
           if (_jobRef != null) {
@@ -57,7 +57,7 @@ class JobSummaryDataModel {
             if (_jobID.isNotEmpty) {
               return JobSummaryDataModel(
                 docID: docID,
-                employerID: _employerID,
+                organisationID: _organisationID,
                 jobDataModel: _jobDataModel,
                 jobID: _jobID,
                 workersArray: _allWorkerArray,

@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:fielder_models/core/db_models/old/accounts_contact_model.dart';
 import 'package:fielder_models/core/db_models/old/alternative_contact_model.dart';
 import 'package:fielder_models/core/db_models/old/primary_contact_model.dart';
-import 'package:fielder_models/core/db_models/old/schema/employer_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/organisation_schema.dart';
 
-class EmployerModel {
+class OrganisationModel {
   AccountsContactModel accountsContactModel;
   AlternativeContactModel alternativeContactModel;
   String docID;
@@ -15,7 +15,7 @@ class EmployerModel {
   String brandBanner;
   String primaryColor;
 
-  EmployerModel(
+  OrganisationModel(
       {this.accountsContactModel,
       this.alternativeContactModel,
       this.docID,
@@ -25,47 +25,47 @@ class EmployerModel {
       this.brandBanner,
       this.logoUrl,
       this.primaryColor});
-  factory EmployerModel.fromMap({
+  factory OrganisationModel.fromMap({
     @required Map<String, dynamic> map,
     @required String docID,
     String namee,
   }) {
     if (map.isNotEmpty) {
       try {
-        final String _name = map[EmployerSchema.name] ?? '';
-        final String _email = map[EmployerSchema.email] ?? '';
-        final String _logoUrl = map[EmployerSchema.logo_url] ?? '';
-        final String _primaryColor = map[EmployerSchema.primary_color] ?? '';
-        final String _brandBanner =map[EmployerSchema.brand_banner] ?? '';
+        final String _name = map[OrganisationSchema.name] ?? '';
+        final String _email = map[OrganisationSchema.email] ?? '';
+        final String _logoUrl = map[OrganisationSchema.logo_url] ?? '';
+        final String _primaryColor = map[OrganisationSchema.primary_color] ?? '';
+        final String _brandBanner =map[OrganisationSchema.brand_banner] ?? '';
 
         AccountsContactModel _accountsContactModel;
         final Map<String, dynamic> _accountsContactRef =
-            map[EmployerSchema.accountsContact];
+            map[OrganisationSchema.accountsContact];
         if (_accountsContactRef != null) {
           _accountsContactModel = AccountsContactModel.fromMap(
-            map: map[EmployerSchema.accountsContact] ?? {},
+            map: map[OrganisationSchema.accountsContact] ?? {},
           );
         }
 
         AlternativeContactModel _alternativeContactModel;
         final Map<String, dynamic> _alternativeContact =
-            map[EmployerSchema.alternativeContact];
+            map[OrganisationSchema.alternativeContact];
         if (_alternativeContact != null) {
           _alternativeContactModel = AlternativeContactModel.fromMap(
-            map: map[EmployerSchema.alternativeContact] ?? {},
+            map: map[OrganisationSchema.alternativeContact] ?? {},
           );
         }
 
         PrimaryContactModel _primaryContactModel;
         final Map<String, dynamic> _primaryContactRef =
-            map[EmployerSchema.primaryContact];
+            map[OrganisationSchema.primaryContact];
         if (_primaryContactRef != null) {
           _primaryContactModel = PrimaryContactModel.fromMap(
-            map: map[EmployerSchema.primaryContact] ?? {},
+            map: map[OrganisationSchema.primaryContact] ?? {},
           );
         }
 
-        return EmployerModel(
+        return OrganisationModel(
             accountsContactModel: _accountsContactModel,
             alternativeContactModel: _alternativeContactModel,
             docID: docID,
@@ -80,7 +80,7 @@ class EmployerModel {
             brandBanner: _brandBanner,
             primaryContactModel: _primaryContactModel);
       } catch (e) {
-        print('EmployerModel.fromMap error: $e');
+        print('OrganisationModel.fromMap error: $e');
       }
     } else {
       print("MAP IS EMPTY");
@@ -93,13 +93,13 @@ class EmployerModel {
 
     try {
       _map = {
-        EmployerSchema.primaryContact: primaryContactModel.toJSON() ?? {},
-        EmployerSchema.alternativeContact:
+        OrganisationSchema.primaryContact: primaryContactModel.toJSON() ?? {},
+        OrganisationSchema.alternativeContact:
             alternativeContactModel.toJSON() ?? {},
-        EmployerSchema.accountsContact: accountsContactModel.toJSON() ?? {},
+        OrganisationSchema.accountsContact: accountsContactModel.toJSON() ?? {},
       };
     } catch (error) {
-      print('EmployerModel toJSON error: $error');
+      print('OrganisationModel toJSON error: $error');
     }
 
     return _map;

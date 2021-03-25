@@ -1,5 +1,5 @@
 class StaffStatusSchema {
-  static const String employerRef = "employer_ref";
+  static const String organisationRef = "organisation_ref";
   static const String isStaff = "is_staff";
   static const String status = "status";
   static const String workerFirstName = "worker_first_name";

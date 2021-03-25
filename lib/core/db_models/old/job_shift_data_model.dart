@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fielder_models/core/db_models/temp/employer.dart';
+import 'package:fielder_models/core/db_models/temp/organisation.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fielder_models/core/db_models/old/employer_model.dart';
+import 'package:fielder_models/core/db_models/old/organisation_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_data_schema.dart';
 import 'package:fielder_models/core/db_models/old/shift_data_model.dart';
 import 'package:fielder_models/core/db_models/old/shift_location_model.dart';
@@ -10,7 +10,7 @@ import 'package:fielder_models/core/db_models/old/workers_model.dart';
 
 class JobShiftDataModel {
   String docID;
-  EmployerModel employer;
+  OrganisationModel organisation;
   DocumentReference supervisorRef;
   DocumentReference managerRef;
   DateTime endDate;
@@ -28,7 +28,7 @@ class JobShiftDataModel {
 
   JobShiftDataModel(
       {this.docID,
-      this.employer,
+      this.organisation,
       this.endDate,
       this.endTimeInt,
       this.jobTitle,
@@ -45,7 +45,7 @@ class JobShiftDataModel {
       this.managerRef})
       : assert(
           docID != null &&
-              employer != null &&
+              organisation != null &&
               endDate != null &&
               endTimeInt != null &&
               jobID != null &&
@@ -82,17 +82,17 @@ class JobShiftDataModel {
         final String _jobTitle = map['job_title'] ?? '';
         final DocumentReference _jobRef = map['job_ref'] ?? '';
         final String _role = map['role'] ?? '';
-        EmployerModel _employer;
+        OrganisationModel _organisation;
         ShiftLocationDataModel _shiftLocationDataModel;
-        final DocumentReference _employerRef = map['employer_ref'];
+        final DocumentReference _organisationRef = map['organisation_ref'];
         final DocumentReference _locationRef = map['location_ref'];
         final DocumentReference _supervisorRef = map['supervisor_ref'];
         final DocumentReference _managerRef = map['manager_ref'];
 
-        if (_employerRef != null) {
-          _employer = EmployerModel.fromMap(
-            docID: _employerRef.id,
-            map: map['employer_data'] ?? {},
+        if (_organisationRef != null) {
+          _organisation = OrganisationModel.fromMap(
+            docID: _organisationRef.id,
+            map: map['organisation_data'] ?? {},
           );
         }
         if (_locationRef != null) {
@@ -120,7 +120,7 @@ class JobShiftDataModel {
             jobTitle: _jobTitle,
             jobID: _jobRef?.id,
             role: _role,
-            employer: _employer,
+            organisation: _organisation,
             supervisorRef: _supervisorRef,
             managerRef: _managerRef,
             shiftLocationDataModel: _shiftLocationDataModel,

@@ -2,18 +2,18 @@
 
 class JobSearchTemplate {
   final num limit;
-  final List<EmployerJobTemplate> employerJobTemplate;
+  final List<OrganisationJobTemplate> organisationJobTemplate;
   final List<FielderJobTemplate> fielderJobTemplate;
 
-  JobSearchTemplate({this.limit, this.employerJobTemplate, this.fielderJobTemplate});
+  JobSearchTemplate({this.limit, this.organisationJobTemplate, this.fielderJobTemplate});
 
   factory JobSearchTemplate.fromMap(Map<String, dynamic> map){
     JobSearchTemplate temp;
     try{
       temp = JobSearchTemplate(
-                limit: map["employer_templates"]!= null ? map["employer_templates"]["limit"] : 10,
-                employerJobTemplate: map["employer_templates"]!= null ? 
-                                    _getEmployerJobTemplate(map["employer_templates"]["hits"]) : [],
+                limit: map["organisation_templates"]!= null ? map["organisation_templates"]["limit"] : 10,
+                organisationJobTemplate: map["organisation_templates"]!= null ?
+                                    _getOrganisationJobTemplate(map["organisation_templates"]["hits"]) : [],
                 fielderJobTemplate: map["fielder_templates"]!= null ?
                                     _getFielderJobTemplate(map["fielder_templates"]["hits"]) : []
            );
@@ -24,10 +24,10 @@ class JobSearchTemplate {
     }
   }
 
-  static List<EmployerJobTemplate> _getEmployerJobTemplate(List hits){
-    List<EmployerJobTemplate> list = [];
+  static List<OrganisationJobTemplate> _getOrganisationJobTemplate(List hits){
+    List<OrganisationJobTemplate> list = [];
     hits.forEach((element) {
-      list =  (hits).map((model)=> EmployerJobTemplate.fromMap(model)).toList();
+      list =  (hits).map((model)=> OrganisationJobTemplate.fromMap(model)).toList();
     });
     return list;
   }
@@ -41,23 +41,23 @@ class JobSearchTemplate {
   }
 }
 
-class EmployerJobTemplate {
+class OrganisationJobTemplate {
 
-  final String employerTemplateID;
-  final String employerTemplateName;
-  final String employerID;
+  final String organisationTemplateID;
+  final String organisationTemplateName;
+  final String organisationID;
 
-  EmployerJobTemplate({
-    this.employerTemplateID,
-    this.employerTemplateName,
-    this.employerID,
+  OrganisationJobTemplate({
+    this.organisationTemplateID,
+    this.organisationTemplateName,
+    this.organisationID,
   });
 
-  factory EmployerJobTemplate.fromMap(Map<String, dynamic> map){
-    return EmployerJobTemplate(
-      employerTemplateID: map["employer_template_id"] ?? "",
-      employerTemplateName: map["name"] ?? "",
-      employerID: map["employer_id"] ?? ""
+  factory OrganisationJobTemplate.fromMap(Map<String, dynamic> map){
+    return OrganisationJobTemplate(
+      organisationTemplateID: map["organisation_template_id"] ?? "",
+      organisationTemplateName: map["name"] ?? "",
+      organisationID: map["organisation_id"] ?? ""
     );
   }
 

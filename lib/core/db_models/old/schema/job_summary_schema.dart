@@ -5,7 +5,7 @@ class JobSummarySchema {
   static const String city = 'city';
   static const String country = 'country';
   static const String county = 'county';
-  static const String employerRef = 'employer_ref';
+  static const String organisationRef = 'organisation_ref';
   static const String endDate = 'end_date';
   static const String firstName = 'first_name';
   static const String id = 'id';

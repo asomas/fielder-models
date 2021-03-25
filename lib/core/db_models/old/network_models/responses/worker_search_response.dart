@@ -42,13 +42,13 @@ class WorkerSearchResponse {
 
 class WorkerDataModel {
   String id;
-  String employerId;
+  String organisationId;
   String firstName;
   String lastName;
 
   WorkerDataModel({
     this.id,
-    this.employerId,
+    this.organisationId,
     this.firstName,
     this.lastName,
   });
@@ -57,11 +57,11 @@ class WorkerDataModel {
     if (json.isNotEmpty) {
       String id = json["id"];
       String firstName = json["first_name"];
-      String employerId = json["employer_id"];
-      if (id != null && firstName != null && employerId != null) {
+      String organisationId = json["organisation_id"];
+      if (id != null && firstName != null && organisationId != null) {
         return WorkerDataModel(
           id: id,
-          employerId: employerId,
+          organisationId: organisationId,
           firstName: firstName,
           lastName: json["last_name"] ?? '',
         );
@@ -72,7 +72,7 @@ class WorkerDataModel {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "employer_id": employerId,
+        "organisation_id": organisationId,
         "first_name": firstName,
         "last_name": lastName,
       };

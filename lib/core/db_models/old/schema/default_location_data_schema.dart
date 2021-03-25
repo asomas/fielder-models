@@ -17,5 +17,5 @@ class DefaultLocationDataSchema {
   static const String shortName = 'short_name';
   static const String archived = 'archived';
   static const String isLive = 'is_live';
-  static const String employerRef = 'employer_ref';
+  static const String organisationRef = 'organisation_ref';
 }

@@ -195,7 +195,7 @@ class WorkerTrackedTimeModel {
 class Workers {
   String docID;
   DateTime createdAt;
-  String fullTimeEmployerId;
+  String fullTimeOrganisationId;
   bool isCompleted;
   String firstName;
   String lastName;
@@ -207,7 +207,7 @@ class Workers {
   Workers(
       {this.docID,
       this.createdAt,
-      this.fullTimeEmployerId,
+      this.fullTimeOrganisationId,
       this.isCompleted,
       this.firstName,
       this.lastName,
@@ -237,7 +237,7 @@ class Workers {
         );
       }
 
-      final DocumentReference _fullTimeEmployerIdRef = map['full_time_employer_ref'];
+      final DocumentReference _fullTimeOrganisationIdRef = map['full_time_organisation_ref'];
       final bool _isCompleted = map['is_completed'] ?? false;
       final String _phone = map['phone'] ?? '';
       final String _uID = map['uid'] ?? '';
@@ -248,7 +248,7 @@ class Workers {
         docID: docID,
         createdAt: _createdAtDateTime,
         uId: _uID,
-        fullTimeEmployerId: _fullTimeEmployerIdRef.id,
+        fullTimeOrganisationId: _fullTimeOrganisationIdRef.id,
         phone: _phone,
         isCompleted: _isCompleted,
         updatedAt: _updatedAtDateTime,

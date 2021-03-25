@@ -82,8 +82,8 @@ class EnumHelpers {
       case SideMenuItems.Schedule:
         return AppStrings.schedule;
 
-      case SideMenuItems.EmployerSetup:
-        return AppStrings.employerSetup;
+      case SideMenuItems.OrganisationSetup:
+        return AppStrings.organisationSetup;
 
       case SideMenuItems.Payment:
         return AppStrings.payment;
@@ -107,8 +107,8 @@ class EnumHelpers {
       case AppStrings.schedule:
         return SideMenuItems.Schedule;
 
-      case AppStrings.employerSetup:
-        return SideMenuItems.EmployerSetup;
+      case AppStrings.organisationSetup:
+        return SideMenuItems.OrganisationSetup;
 
       case AppStrings.payment:
         return SideMenuItems.Payment;

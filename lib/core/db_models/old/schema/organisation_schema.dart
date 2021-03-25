@@ -1,4 +1,4 @@
-class EmployerSchema {
+class OrganisationSchema {
   static const String accountsContact = "accounts_contact";
   static const String alternativeContact = "alternative_contact";
   static const String email = "email";

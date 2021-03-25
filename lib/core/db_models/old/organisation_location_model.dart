@@ -2,25 +2,25 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/default_location_data_schema.dart';
 
-class EmployerLocation{
+class OrganisationLocation{
 
   String docId;
   AddressModel address;
   bool archived;
   GeoPoint coords;
-  DocumentReference employerRef;
+  DocumentReference organisationRef;
   String formattedAddress;
   String iconUrl;
   String name;
   String shortName;
   bool isLive;
 
-  EmployerLocation(
+  OrganisationLocation(
       {this.docId,
       this.address,
       this.archived = false,
       this.coords,
-      this.employerRef,
+      this.organisationRef,
       this.formattedAddress = "",
       this.iconUrl,
       this.name = "",
@@ -28,14 +28,14 @@ class EmployerLocation{
       this.isLive = false}
       );
   
-  factory EmployerLocation.fromMap(Map map, String docID){
+  factory OrganisationLocation.fromMap(Map map, String docID){
     try{
-      return EmployerLocation(
+      return OrganisationLocation(
         docId: docID,
         address: AddressModel.fromMap(map: map[DefaultLocationDataSchema.address]),
         archived: map[DefaultLocationDataSchema.archived],
         coords: map[DefaultLocationDataSchema.coordinates],
-        employerRef: map[DefaultLocationDataSchema.employerRef],
+        organisationRef: map[DefaultLocationDataSchema.organisationRef],
         formattedAddress: map[DefaultLocationDataSchema.formatted_address],
         iconUrl: map[DefaultLocationDataSchema.iconUrl],
         name: map[DefaultLocationDataSchema.name],

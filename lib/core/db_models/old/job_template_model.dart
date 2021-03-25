@@ -150,8 +150,8 @@ class JobTemplateModel {
 //   final tempMap = Map();
 //   tempMap[JobTemplateSchema.additionalRequirements] = additionalRequirments;
 //   tempMap[JobTemplateSchema.defaultLocationRef] = defaultLocation;
-//   tempMap[JobTemplateSchema.employerData] = employerData;
-//   tempMap[JobTemplateSchema.employerRef] = employerRef;
+//   tempMap[JobTemplateSchema.organisationData] = organisationData;
+//   tempMap[JobTemplateSchema.organisationRef] = organisationRef;
 //   tempMap[JobTemplateSchema.jobTitle] = jobTitle;
 //   tempMap[JobTemplateSchema.location] = workLocationAddress;
 //   tempMap[JobTemplateSchema.name] = name;

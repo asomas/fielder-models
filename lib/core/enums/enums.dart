@@ -13,7 +13,7 @@ enum SideMenuItems {
   MyJobs,
   MyStaff,
   Schedule,
-  EmployerSetup,
+  OrganisationSetup,
   Settings,
   Payment
 }

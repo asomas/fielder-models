@@ -1,4 +1,4 @@
-import 'package:fielder_models/core/db_models/old/schema/employer_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/organisation_schema.dart';
 
 class AlternativePrefModel {
   String email;
@@ -9,15 +9,15 @@ class AlternativePrefModel {
   AlternativePrefModel();
 
   AlternativePrefModel.fromJson(Map<String, dynamic> json)
-      : email = json[EmployerSchema.email],
-        name = json[EmployerSchema.name],
-        preferredNumber = json[EmployerSchema.preferredNumber],
-        secondaryNumber = json[EmployerSchema.secondaryNumber];
+      : email = json[OrganisationSchema.email],
+        name = json[OrganisationSchema.name],
+        preferredNumber = json[OrganisationSchema.preferredNumber],
+        secondaryNumber = json[OrganisationSchema.secondaryNumber];
 
   Map<String, dynamic> toJson() => {
-    EmployerSchema.email: email,
-    EmployerSchema.name: name,
-    EmployerSchema.preferredNumber: preferredNumber,
-    EmployerSchema.secondaryNumber: secondaryNumber,
+    OrganisationSchema.email: email,
+    OrganisationSchema.name: name,
+    OrganisationSchema.preferredNumber: preferredNumber,
+    OrganisationSchema.secondaryNumber: secondaryNumber,
   };
 }

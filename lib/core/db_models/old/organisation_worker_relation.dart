@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
-class EmployerWorkerRelation {
-  String employerID;
+class OrganisationWorkerRelation {
+  String organisationID;
   bool isStaff;
   String pictureUrl;
   String workerFirstName;
@@ -10,8 +10,8 @@ class EmployerWorkerRelation {
   String phone;
   String workerId;
 
-  EmployerWorkerRelation(
-      {this.employerID,
+  OrganisationWorkerRelation(
+      {this.organisationID,
       this.isStaff,
       this.pictureUrl,
       this.workerFirstName,
@@ -19,12 +19,12 @@ class EmployerWorkerRelation {
       this.phone,
       this.workerId});
 
-  factory EmployerWorkerRelation.fromMap({
+  factory OrganisationWorkerRelation.fromMap({
     @required Map<String, dynamic> map,
     @required String docID,
   }) {
     if (map.isNotEmpty) {
-      final DocumentReference _employerIdRef = map['employer_ref'];
+      final DocumentReference _organisationIdRef = map['organisation_ref'];
       final bool _isStaff = map['is_staff'] ?? false;
       final String _pictureURL = map['picture_url'] ?? '';
       final String _firstName = map['worker_first_name'] ?? '';
@@ -32,8 +32,8 @@ class EmployerWorkerRelation {
       final String _phone = map['phone'] ?? '';
       final DocumentReference _workerIdRef = map['worker_ref'];
 
-      return EmployerWorkerRelation(
-          employerID: _employerIdRef.id,
+      return OrganisationWorkerRelation(
+          organisationID: _organisationIdRef.id,
           isStaff: _isStaff,
           pictureUrl: _pictureURL,
           workerFirstName: _firstName,
