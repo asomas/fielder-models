@@ -9,7 +9,7 @@ class OrganisationUser {
   String name; // max value 156
   String email; // valid email
   var organizations = Map<String,
-      OrganisationSubstription>(); // id of map should be an Id of organisation in organisation collection
+      OrganisationSubscription>(); // id of map should be an Id of organisation in organisation collection
   Timestamp dateCreated; // FirestoreTimeStamp
 
   // Test Example
@@ -33,7 +33,7 @@ class OrganisationUser {
 
     if (data != null) {
       data.forEach((key, value) {
-        var user = OrganisationSubstription.fromMap(value);
+        var user = OrganisationSubscription.fromMap(value);
         var data = {key.toString(): user};
         organisationUser.organizations.addAll(data);
       });
@@ -44,11 +44,11 @@ class OrganisationUser {
   }
 
   Map toJson() => {
-        "name": name,
-        "email": email,
-        "organizations": organizations,
-        "date_created": dateCreated,
-      };
+    "name": name,
+    "email": email,
+    "organizations": organizations,
+    "date_created": dateCreated,
+  };
 }
 
 // Validate all the condition inside fromMap if everything is good
@@ -59,14 +59,14 @@ class OrganisationUser {
 //https://pub.dev/packages/json_schema
 
 // helper
-class OrganisationSubstription {
+class OrganisationSubscription {
   String name; //max length 75
   AcceptanceStatus status; // check into fromMap and return the StatusEnums
   Roles role; // check into fromMap and return the RolesEnum
 
-  static OrganisationSubstription fromMap(Map<String, dynamic> map) {
+  static OrganisationSubscription fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-    OrganisationSubstription userOrganization = OrganisationSubstription();
+    OrganisationSubscription userOrganization = OrganisationSubscription();
     userOrganization.name = map['name'];
     userOrganization.role = getRole(map['role']);
     userOrganization.status = getAcceptanceStatus(map['status']);
@@ -119,10 +119,10 @@ class OrganisationSubstription {
   }
 
   Map toJson() => {
-        "name": name,
-        "role": role,
-        "status": status,
-      };
+    "name": name,
+    "role": role,
+    "status": status,
+  };
 }
 
 // Collection name: organisations
@@ -141,9 +141,9 @@ class Organisation {
   }
 
   Map toJson() => {
-        "company_name": companyName,
-        "brand_color": brandColor,
-      };
+    "company_name": companyName,
+    "brand_color": brandColor,
+  };
 }
 
 class Contact {
@@ -169,10 +169,10 @@ class BillingContact extends Contact {
   }
 
   Map toJson() => {
-        "name": name,
-        "phone": phone,
-        "email": email,
-      };
+    "name": name,
+    "phone": phone,
+    "email": email,
+  };
 }
 
 class GeneralContact extends Contact {
@@ -194,11 +194,11 @@ class GeneralContact extends Contact {
   }
 
   Map toJson() => {
-        "name": name,
-        "phone": phone,
-        "email": email,
-        "website": website,
-      };
+    "name": name,
+    "phone": phone,
+    "email": email,
+    "website": website,
+  };
 }
 
 class SICCode {
@@ -277,9 +277,9 @@ class Company {
     company.incorporationDate = map['incorporation_date'];
     company.registrationNumber = map['registration_number'];
     company.sicCodes =
-        List<SICCode>.from(map["sic_codes"].map((x) => SICCode.fromMap(x)));
+    List<SICCode>.from(map["sic_codes"].map((x) => SICCode.fromMap(x)));
     company.directors =
-        List<Director>.from(map["directors"].map((x) => Director.fromMap(x)));
+    List<Director>.from(map["directors"].map((x) => Director.fromMap(x)));
 
     company.address = AddressBasic.fromMap(map['address']);
     company.lastUpdated = map['last_updated'];
@@ -311,9 +311,9 @@ class CompaniesResults {
       );
 
   Map<String, dynamic> toJson() => {
-        "page_number": pageNumber,
-        "items": List<dynamic>.from(items.map((x) => x.toJson())),
-      };
+    "page_number": pageNumber,
+    "items": List<dynamic>.from(items.map((x) => x.toJson())),
+  };
 }
 
 class CompanyDetail {
@@ -326,14 +326,14 @@ class CompanyDetail {
   String title;
 
   factory CompanyDetail.fromJson(Map<String, dynamic> json) => CompanyDetail(
-        companyNumber: json["company_number"],
-        title: json["title"],
-      );
+    companyNumber: json["company_number"],
+    title: json["title"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "company_number": companyNumber,
-        "title": title,
-      };
+    "company_number": companyNumber,
+    "title": title,
+  };
 }
 
 class UsersList {
@@ -344,17 +344,17 @@ class UsersList {
   List<UserDetail> users;
 
   factory UsersList.fromJson(Map<String, dynamic> json) => UsersList(
-        users: json["users"] == null
-            ? null
-            : List<UserDetail>.from(
-                json["users"].map((x) => UserDetail.fromJson(x))),
-      );
+    users: json["users"] == null
+        ? null
+        : List<UserDetail>.from(
+        json["users"].map((x) => UserDetail.fromJson(x))),
+  );
 
   Map<String, dynamic> toJson() => {
-        "users": users == null
-            ? null
-            : List<dynamic>.from(users.map((x) => x.toJson())),
-      };
+    "users": users == null
+        ? null
+        : List<dynamic>.from(users.map((x) => x.toJson())),
+  };
 }
 
 class UserDetail {
@@ -377,28 +377,28 @@ class UserDetail {
   String manager;
 
   factory UserDetail.fromJson(Map<String, dynamic> json) => UserDetail(
-        id: json["id"],
-        name: json["name"] == null ? null : json["name"],
-        email: json["email"] == null ? null : json["email"],
-        dateCreated: json["date_created"] == null
-            ? null
-            : DateTime.parse(json["date_created"]),
-        status: json["status"] == null
-            ? null
-            : OrganisationSubstription.getAcceptanceStatus(json['status']),
-        role: json["role"] == null ? null : json["role"],
-        manager: json["manager"] == null ? null : json["manager"],
-      );
+    id: json["id"],
+    name: json["name"] == null ? null : json["name"],
+    email: json["email"] == null ? null : json["email"],
+    dateCreated: json["date_created"] == null
+        ? null
+        : DateTime.parse(json["date_created"]),
+    status: json["status"] == null
+        ? null
+        : OrganisationSubscription.getAcceptanceStatus(json['status']),
+    role: json["role"] == null ? null : json["role"],
+    manager: json["manager"] == null ? null : json["manager"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "name": name == null ? null : name,
-        "email": email == null ? null : email,
-        "date_created":
-            dateCreated == null ? null : dateCreated.toIso8601String(),
-        "status": status == null ? null : status,
-        "role": role == null ? null : role,
-        "manager": manager == null ? null : manager,
-      };
+    "name": name == null ? null : name,
+    "email": email == null ? null : email,
+    "date_created":
+    dateCreated == null ? null : dateCreated.toIso8601String(),
+    "status": status == null ? null : status,
+    "role": role == null ? null : role,
+    "manager": manager == null ? null : manager,
+  };
 
   static Future<UserDetail> getUserDetails(DocumentReference ref,
       {String collection = "shift_pattern_patterns"}) async {
