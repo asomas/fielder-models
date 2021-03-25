@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fielder_models/core/db_models/old/organisation_model.dart';
-import 'package:fielder_models/core/db_models/old/shift_pattern_data_model.dart';
+import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
 
 class UnassignedShiftDataModel {
   String docID;
@@ -90,7 +90,7 @@ class UnassignedShiftDataModel {
           );
         }
       } catch (e) {
-        print('Unassigned JobShiftDataModel fromMap error: $e');
+        print('Unassigned ShiftPatternDataModel fromMap error: $e');
       }
     }
     return null;

@@ -8,7 +8,7 @@ import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
 import 'package:fielder_models/core/db_models/old/worker_tracked_time_model.dart';
-import 'package:fielder_models/core/db_models/old/shift_pattern_data_model.dart';
+import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
@@ -143,7 +143,7 @@ class JobLocationDataModel {
   }
 }
 
-class JobShiftDataModel {
+class ShiftPatternDataModel {
   String docID;
   OrganisationModel organisation;
   DateTime endDate;
@@ -158,7 +158,7 @@ class JobShiftDataModel {
   WorkerTrackedTimeModel workerLogModel;
   WorkerModel workerModel;
 
-  JobShiftDataModel(
+  ShiftPatternDataModel(
       {this.docID,
       this.organisation,
       this.endDate,
@@ -183,7 +183,7 @@ class JobShiftDataModel {
               startTimeInt != null,
         );
 
-  factory JobShiftDataModel.fromMap({
+  factory ShiftPatternDataModel.fromMap({
     @required Map<String, dynamic> map,
     @required String docID,
   }) {
@@ -222,14 +222,14 @@ class JobShiftDataModel {
         }
         WorkerTrackedTimeModel _workerLogModel;
         final DocumentReference _workerRef = map['worker_ref'];
-        final DocumentReference _workerLogRef = map['worker_tracked_time_ref'];
+        final DocumentReference _workerLogRef = map['shift_activity_ref'];
 
         if (_workerRef != null && _workerLogRef != null) {
           _workerLogModel =
               WorkerTrackedTimeModel.fromMap(map: map['worker_tracked_time_data'] ?? {}, docID: _workerLogRef.id);
         }
         if (_jobRef != null) {
-          return JobShiftDataModel(
+          return ShiftPatternDataModel(
               docID: docID,
               startDate: _startDate,
               endDate: _endDate,
@@ -247,7 +247,7 @@ class JobShiftDataModel {
                   : null);
         }
       } catch (e) {
-        print('JobShiftDataModel fromMap error: $e');
+        print('ShiftPatternDataModel fromMap error: $e');
       }
     }
     return null;

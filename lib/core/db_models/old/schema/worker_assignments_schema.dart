@@ -1,10 +1,10 @@
 class WorkerAssignmentsSchema {
   static const String endDate = "end_date";
-  static const String jobShiftRef = "job_shift_pattern_ref";
+  static const String jobShiftRef = "shift_pattern_pattern_ref";
   static const String startDate = "start_date";
   static const String workerLogRef = "worker_log_ref";
   static const String workerRef = "worker_ref";
-  static const String jobShiftData = "job_shift_pattern_data";
+  static const String jobShiftData = "shift_pattern_pattern_data";
   static const String organisationData = "organisation_data";
   static const String name = "name";
   static const String organisationRef = "organisation_ref";
