@@ -24,7 +24,7 @@ class ShiftPatternDataModel {
   String workerId;
   WorkerTrackedTimeModel workerLogModel;
   WorkerModel workerModel;
-  ShiftLocationDataModel shift_patternLocationDataModel;
+  ShiftLocationDataModel shiftPatternLocationDataModel;
 
   ShiftPatternDataModel(
       {this.docID,
@@ -39,7 +39,7 @@ class ShiftPatternDataModel {
       this.startTimeInt,
       this.workerId,
       this.workerLogModel,
-      this.shift_patternLocationDataModel,
+      this.shiftPatternLocationDataModel,
       this.workerModel,
       this.supervisorRef,
       this.managerRef})
@@ -123,7 +123,7 @@ class ShiftPatternDataModel {
             organisation: _organisation,
             supervisorRef: _supervisorRef,
             managerRef: _managerRef,
-            shift_patternLocationDataModel: _shift_patternLocationDataModel,
+              shiftPatternLocationDataModel: _shift_patternLocationDataModel,
             workerLogModel: _workerLogModel,
             workerId: _workerRef?.id,
             workerModel: map.containsKey(ShiftDataSchema.workerData)
