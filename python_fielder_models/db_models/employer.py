@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .common import *
 
 # new
-class UserOrganizationSerializer(serializers.Serializer):
+class UserOrganisationSerializer(serializers.Serializer):
     name = serializers.CharField(max_length=COMPANY_NAME_MAX_LENGTH)
     status = serializers.ChoiceField(
         required=True, choices=["accepted", "declined", "pending"]
@@ -14,13 +14,13 @@ class UserOrganizationSerializer(serializers.Serializer):
 
 
 # new
-class EmployerUserSerializer(serializers.Serializer):
-    """collection with name employer_users"""
+class OrganisationUserSerializer(serializers.Serializer):
+    """collection with name organisation_users"""
 
     name = serializers.CharField()
     email = serializers.EmailField()
-    organizations = serializers.DictField(
-        child=UserOrganizationSerializer(), allow_empty=True
+    organisations = serializers.DictField(
+        child=UserOrganisationSerializer(), allow_empty=True
     )
     date_created = serializers.DateTimeField()
 
@@ -33,22 +33,22 @@ class ContactSerializer(serializers.Serializer):
     email = serializers.EmailField(required=False, allow_null=True)
 
 
-class EmployerSerializer(serializers.Serializer):
-    """collection with name employers"""
+class OrganisationSerializer(serializers.Serializer):
+    """collection with name organisations"""
 
     company_name = serializers.CharField(max_length=COMPANY_NAME_MAX_LENGTH)
     brand_color = serializers.RegexField(HEX_COLOR_REGEX)
 
 
 class BillingContact(ContactSerializer):
-    """Document has fixed ID, billing_contact, inside Subcollection called company_info.  So the complete path to this document is  employers/employer_id/company_info/billing_contact"""
+    """Document has fixed ID, billing_contact, inside Subcollection called company_info.  So the complete path to this document is  organisations/organisation_id/company_info/billing_contact"""
 
     # note, inherits fields from contacts Serializer
     pass
 
 
 class GeneralContact(ContactSerializer):
-    """Document has fixed ID, general_contact, inside Subcollection called company_info.  So the complete path to this document is  employers/employer_id/company_info/general_contact"""
+    """Document has fixed ID, general_contact, inside Subcollection called company_info.  So the complete path to this document is  organisations/organisation_id/company_info/general_contact"""
 
     # note, inherits fields e.g. email from contacts Serializer
     website = serializers.URLField(required=False, allow_null=True)
@@ -60,7 +60,7 @@ class SICCodeSerializer(serializers.Serializer):
 
 
 class CompanySerializer(serializers.Serializer):
-    """Document has fixed ID, main, inside Subcollection called company_info.  So the complete path to this document is  employers/employer_id/company_info/main"""
+    """Document has fixed ID, main, inside Subcollection called company_info.  So the complete path to this document is  organisations/organisation_id/company_info/main"""
 
     class DirectorSerializer(serializers.Serializer):
         name = serializers.CharField(max_length=FULL_NAME_MAX_LENGTH)
