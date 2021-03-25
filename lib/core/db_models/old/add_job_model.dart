@@ -62,7 +62,7 @@ class AddJobModel {
     try {
       print('job created invoked');
 
-      List<dynamic> _shift_patternsMapArray = shift_patternsArray?.isNotEmpty == true
+      List<dynamic> _shiftPatternsMapArray = shift_patternsArray?.isNotEmpty == true
           ? shift_patternsArray.map((e) => e.toJSON()).toList()
           : [];
 
@@ -89,7 +89,7 @@ class AddJobModel {
                 : [],
         // JobTemplateSchema.defaultLocationdata:
         //     defaultLocationData.toJSON() ?? {},
-        JobTemplateSchema.shift_pattern_data: _shift_patternsMapArray,
+        JobTemplateSchema.shift_pattern_data: _shiftPatternsMapArray,
         JobTemplateSchema.enablePayDetection: payDetectionEnabled,
         JobTemplateSchema.checksIds: (checksArray?.isNotEmpty == true)
             ? checksArray.map((e) => e.checkID).toList() ?? []

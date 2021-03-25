@@ -13,7 +13,7 @@ class Offers{
   
   factory Offers.fromMap(String id, Map<String, dynamic> map)=>
     Offers(
-      shift_patternData: PatternDataModel.fromMap(map["shift_pattern_pattern_id"], map),
+      shift_patternData: PatternDataModel.fromMap(map["shift_pattern_id"], map),
       workerData: WorkerModel.fromMap(map: map["worker_data"], docID: map["worker_ref"].id),
       status: map["status"],
       offerID : id,
