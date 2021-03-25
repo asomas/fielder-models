@@ -17,7 +17,7 @@ class ShiftDataSchema {
   static const String existingLocationId = "existing_location_id";
   static const String workerRef = "worker_ref";
   static const String workerData = "worker_data";
-  static const String shiftDate = "shift_date";
+  static const String shift_patternDate = "shift_pattern_date";
   static const String googlePlaceData = "google_place_data";
   static const String placeId = "google_place_id";
   static const String coords = "coords";

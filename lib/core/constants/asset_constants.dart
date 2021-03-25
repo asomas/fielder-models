@@ -9,9 +9,9 @@ class AssetsConstants {
   static const String inactiveJobIcon = 'assets/icons/inactive_job.png';
   static const String recurringActiveIcon = 'assets/icons/active_repeat.png';
   static const String recurringInactiveIcon = 'assets/icons/repeat_inactive.png';
-  static const String lateShiftIcon = 'assets/icons/late_shift.png';
-  static const String missedShiftIcon = 'assets/icons/missed_shift.png';
-  static const String completedShiftIcon = 'assets/icons/completed_shift.png';
+  static const String lateShiftIcon = 'assets/icons/late_shift_pattern.png';
+  static const String missedShiftIcon = 'assets/icons/missed_shift_pattern.png';
+  static const String completedShiftIcon = 'assets/icons/completed_shift_pattern.png';
   static const String jobAssign = 'assets/icons/assign_person.png';
   static const String checkIcon = 'assets/icons/check.png';
   static const String unassigned = 'assets/icons/unassigned.png';
@@ -35,17 +35,17 @@ class AssetsConstants {
   static const String currencyPound = 'assets/icons/currency-pound.png';
   static const String layoutDashboard = 'assets/icons/layout-dashboard.png';
   static const String iconAfterShiftStartClockedIn =
-      'assets/icons/icon_after_shift_start_clocked_in.png';
+      'assets/icons/icon_after_shift_pattern_start_clocked_in.png';
   static const String iconAfterShiftStartNotClockedIn =
-      'assets/icons/icon_after_shift_start_not_clocked_in.png';
+      'assets/icons/icon_after_shift_pattern_start_not_clocked_in.png';
   static const String iconAfterShiftStartProblem =
-      'assets/icons/icon_after_shift_start_problem.png';
+      'assets/icons/icon_after_shift_pattern_start_problem.png';
   static const String iconArrowBack = 'assets/icons/icon_arrow_back.png';
   static const String iconArrowForward = 'assets/icons/icon_arrow_forward.png';
   static const String iconBeforeShiftStartClockedIn =
-      'assets/icons/icon_before_shift_start_clocked_in.png';
+      'assets/icons/icon_before_shift_pattern_start_clocked_in.png';
   static const String iconBeforeShiftStartProblem =
-      'assets/icons/icon_before_shift_start_problem.png';
+      'assets/icons/icon_before_shift_pattern_start_problem.png';
   static const String iconBtnGoogleSigninLightFocus =
       'assets/icons/icon_btn_google_signin_light_focus.png';
   static const String iconClock = 'assets/icons/icon_clock.png';

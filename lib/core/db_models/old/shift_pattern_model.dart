@@ -5,9 +5,9 @@ import 'package:fielder_models/core/enums/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:fielder_models/core/db_models/old/google_place_model.dart';
-import 'package:fielder_models/core/db_models/old/schema/shift_data_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
 
-import 'schema/shift_data_schema.dart';
+import 'schema/shift_pattern_data_schema.dart';
 
 class ShiftModel {
   String docID;
@@ -21,7 +21,7 @@ class ShiftModel {
   String existingLocationId;
   GooglePlaceModel googlePlaceModel;
   String title;
-  String shiftDate;
+  String shift_patternDate;
   DocumentReference workerRef;
 
   ShiftModel({
@@ -36,17 +36,17 @@ class ShiftModel {
     this.title,
     this.existingLocationId,
     this.workerRef,
-    this.shiftDate,
+    this.shift_patternDate,
     this.googlePlaceModel
   }) : assert(
           startDate != null && startTimeInt != null && endTimeInt != null,
         );
 
   factory ShiftModel.fromMap(String docID, Map<String, dynamic> map){
-    ShiftModel shiftDataModel;
+    ShiftModel shift_patternDataModel;
     try{
       if(map?.isNotEmpty == true){
-        shiftDataModel = ShiftModel(
+        shift_patternDataModel = ShiftModel(
             docID: docID,
             title: map[ShiftDataSchema.title] ?? "",
             startDate: map[ShiftDataSchema.startDate]?.toDate(),
@@ -57,11 +57,11 @@ class ShiftModel {
            // intervalType: map[ShiftDataSchema.repeatIntervalType],
             recurrence: RecurrenceModel.fromMap(map: map[ShiftDataSchema.recurrence]),
             workerRef: map[ShiftDataSchema.workerRef],
-            shiftDate: map[ShiftDataSchema.shiftDate],
+            shift_patternDate: map[ShiftDataSchema.shift_patternDate],
             googlePlaceModel: GooglePlaceModel.fromMap(map[ShiftDataSchema.googlePlaceData]),
         );
       }
-      return shiftDataModel;
+      return shift_patternDataModel;
     }catch(e){
     print('ShiftDataModel toJSON error: $e');
     return null;
@@ -139,7 +139,7 @@ class RecurrenceModel {
     try {
       int _intervalAmount = intervalAmount ?? 1;
       String _repeatIntervalType = EnumHelpers.getStringForFrequency(
-        shiftFrequency: repeatIntervalType,
+        shift_patternFrequency: repeatIntervalType,
       );
 
       //Backend doesnot support NONE for now
@@ -171,7 +171,7 @@ class RecurrenceModel {
   }) {
     if (map.isNotEmpty) {
       final int _intervalAmount = map['interval_amount'];
-      final ShiftFrequencies _repeatIntervalType= EnumHelpers.getFrequencyForString(shiftFrequency:map['repeat_interval_type'] ?? '');
+      final ShiftFrequencies _repeatIntervalType= EnumHelpers.getFrequencyForString(shift_patternFrequency:map['repeat_interval_type'] ?? '');
       final bool _isMonday = map['monday'] ?? false;
       final bool _isTuesday = map['tuesday'] ?? false;
       final bool _isWednesday = map['wednesday'] ?? false;

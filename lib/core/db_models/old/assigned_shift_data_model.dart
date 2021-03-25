@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fielder_models/core/db_models/old/organisation_model.dart';
-import 'package:fielder_models/core/db_models/old/shift_data_model.dart';
+import 'package:fielder_models/core/db_models/old/shift_pattern_data_model.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
 
 class AssignedShiftDataModel {

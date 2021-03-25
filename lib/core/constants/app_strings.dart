@@ -12,7 +12,7 @@ class AppStrings {
   static const String AlternativeContact = "Alternative Contact";
   static const String AlternativeContactName = "Alternative Contact Name";
   static const String assigned = "Assigned";
-  static const String assignThisShiftOnly = "Assign to this shift only";
+  static const String assignThisShiftOnly = "Assign to this shift_pattern only";
   static const String assignToThisAndFuture = "Assign to this and future recurrences";
   static const String availability = "Availability";
   static const String back = "Back";
@@ -105,14 +105,14 @@ class AppStrings {
   static const String organisationSetup = "OrganisationSetup";
   static const String secondaryContactNumber = "secondary Contact Number";
   static const String settings = "Settings";
-  static const String shiftStart = "Shift Start";
+  static const String shift_patternStart = "Shift Start";
   static const String searchTeam = "Search Team";
   static const String selectInformation = "Select Information";
   static const String selectTemplate = "Select Template";
   static const String selectOne = "Select One";
   static const String enterBudget = "Enter Budget";
-  static const String shiftEnd = "Shift End";
-  static const String shift = "Shift";
+  static const String shift_patternEnd = "Shift End";
+  static const String shift_pattern = "Shift";
   static const String signIn = "Sign In";
   static const String signInToYourAccount = "Sign In To Your Account";
   static const String signUp = "Sign Up";
@@ -124,8 +124,8 @@ class AppStrings {
   static const String saveAsTemplateMessage =
       "Would you like to save this job as a new template?";
   static const String skillsHeading = "Skills, Qualifications & Checks";
-  static const String shiftDetails = "Shift Details";
-  static const String shiftDetailsText =
+  static const String shift_patternDetails = "Shift Details";
+  static const String shift_patternDetailsText =
       "Please specify where and when you require the Worker to attend this job.";
   static const String selectDates = "Select Date(s)";
   static const String selectFrequency = "Select Frequency";

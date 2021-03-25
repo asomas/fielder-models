@@ -35,7 +35,7 @@ enum SlotStatus {
 
 enum UserJobInfoEnum {
   description,
-  shift,
+  shift_pattern,
   skills,
   payment,
   hire,

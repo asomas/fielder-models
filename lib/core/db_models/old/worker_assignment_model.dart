@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fielder_models/core/db_models/old/job_shift_data_model.dart';
+import 'package:fielder_models/core/db_models/old/job_shift_pattern_data_model.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fielder_models/core/db_models/old/job_shift_data_model.dart';
+import 'package:fielder_models/core/db_models/old/job_shift_pattern_data_model.dart';
 import 'package:fielder_models/core/db_models/old/worker_log_model.dart';
 
 class WorkerAssignmentModel {
@@ -51,7 +51,7 @@ class WorkerAssignmentModel {
         }
         final JobShiftDataModel _jobShiftData = JobShiftDataModel.fromMap(
           docID: jobShiftID,
-          map: map['job_shift_data'] ?? {},
+          map: map['job_shift_pattern_data'] ?? {},
         );
 
         WorkerLogModel _workerLog;
