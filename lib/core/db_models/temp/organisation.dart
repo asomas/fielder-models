@@ -401,7 +401,7 @@ class UserDetail {
   };
 
   static Future<UserDetail> getUserDetails(DocumentReference ref,
-      {String collection = "shift_pattern_patterns"}) async {
+      {String collection = "shift_patterns"}) async {
     if (ref != null) {
       DocumentSnapshot ds = await FirebaseFirestore.instance
           .collection(collection)
