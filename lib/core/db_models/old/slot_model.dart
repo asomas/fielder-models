@@ -19,7 +19,7 @@ class SlotModel {
   final String jobID;
   final DateTime weekDay;
   final bool recurring;
-  final String shift_patternTitle;
+  final String shiftPatternTitle;
   final String slotTypeImage;
   final SlotIconStatus slotIconStatus;
   final String location;
@@ -48,7 +48,7 @@ class SlotModel {
       this.assigned = false,
       this.jobID,
       this.weekDay,
-      this.shift_patternTitle,
+      this.shiftPatternTitle,
       this.slotTypeImage = AssetsConstants.inactiveJobIcon,
       this.slotIconStatus = SlotIconStatus.Inactive,
       this.recurring = false,
