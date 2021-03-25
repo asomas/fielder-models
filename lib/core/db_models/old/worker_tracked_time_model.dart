@@ -6,7 +6,7 @@ class WorkerTrackedTimeModel {
   DateTime clockInTime;
   GeoPoint clockInLocation;
   DateTime clockOutTime;
-  DateTime shift_patternDate;
+  DateTime shiftPatternDate;
   GeoPoint clockOutLocation;
 
   WorkerTrackedTimeModel({
@@ -14,7 +14,7 @@ class WorkerTrackedTimeModel {
     this.clockInLocation,
     this.clockOutTime,
     this.clockOutLocation,
-    this.shift_patternDate,
+    this.shiftPatternDate,
     this.docID,
   }) : assert(
           clockInTime != null && clockInLocation != null && docID != null,
@@ -56,7 +56,7 @@ class WorkerTrackedTimeModel {
           clockInTime: _clockInDateTime,
           clockInLocation: _clockInLocation,
           clockOutTime: _clockOutDateTime,
-          shift_patternDate: _shift_patternDateDateTime,
+          shiftPatternDate: _shift_patternDateDateTime,
           clockOutLocation: _clockOutLocation,
         );
       } on Exception catch (e) {
