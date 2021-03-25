@@ -8,34 +8,34 @@ import 'package:json_schema/json_schema.dart';
 class OrganisationUser {
   String name; // max value 156
   String email; // valid email
-  var organizations = Map<String,
+  var organisations = Map<String,
       OrganisationSubscription>(); // id of map should be an Id of organisation in organisation collection
   Timestamp dateCreated; // FirestoreTimeStamp
 
   // Test Example
   String testJson =
-      '{ "name": "Test", "email": "abc@test.com", "organizations": {"org1": {"name": "Deepak", "role": "", "status": '
+      '{ "name": "Test", "email": "abc@test.com", "organisations": {"org1": {"name": "Deepak", "role": "", "status": '
       '""}}, '
       '"date_created": ""}';
 
   static OrganisationUser fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
     print("inside map ${map}");
-    //print("organization ${map['organizations']}");
+    //print("organisation ${map['organisations']}");
     var name = map['name'];
     print("name is ${name}");
 
     OrganisationUser organisationUser = OrganisationUser();
     organisationUser.name = map['name'];
     organisationUser.email = map['email'];
-    //organisationUser.organizations = map['organizations'];
-    var data = map['organizations'] as Map;
+    //organisationUser.organisations = map['organisations'];
+    var data = map['organisations'] as Map;
 
     if (data != null) {
       data.forEach((key, value) {
         var user = OrganisationSubscription.fromMap(value);
         var data = {key.toString(): user};
-        organisationUser.organizations.addAll(data);
+        organisationUser.organisations.addAll(data);
       });
     }
     organisationUser.dateCreated = map['date_created'];
@@ -46,7 +46,7 @@ class OrganisationUser {
   Map toJson() => {
     "name": name,
     "email": email,
-    "organizations": organizations,
+    "organisations": organisations,
     "date_created": dateCreated,
   };
 }
@@ -66,11 +66,11 @@ class OrganisationSubscription {
 
   static OrganisationSubscription fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-    OrganisationSubscription userOrganization = OrganisationSubscription();
-    userOrganization.name = map['name'];
-    userOrganization.role = getRole(map['role']);
-    userOrganization.status = getAcceptanceStatus(map['status']);
-    return userOrganization;
+    OrganisationSubscription userOrganisation = OrganisationSubscription();
+    userOrganisation.name = map['name'];
+    userOrganisation.role = getRole(map['role']);
+    userOrganisation.status = getAcceptanceStatus(map['status']);
+    return userOrganisation;
   }
 
   static Roles getRole(String role) {
