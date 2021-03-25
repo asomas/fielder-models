@@ -4,7 +4,7 @@ import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/job_template_model.dart';
 import 'package:fielder_models/core/db_models/old/qualification_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
-import 'package:fielder_models/core/db_models/old/shift_data_model.dart';
+import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'default_location_data_model.dart';
 
@@ -28,7 +28,7 @@ class AddJobModel {
   int earlyLeaver;
   int overTimeRate;
   DefaultLocationDataModel defaultLocationData;
-  List<ShiftDataModel> shiftsArray;
+  List<PatternDataModel> shiftPatternsArray;
   bool volunteer;
   bool payDetectionEnabled;
 
@@ -50,7 +50,7 @@ class AddJobModel {
       this.requiredQualification,
       this.skillsArray,
       this.defaultLocationData,
-      this.shiftsArray,
+      this.shiftPatternsArray,
       this.volunteer = false,
       this.payDetectionEnabled = true,
       this.checksArray,
@@ -62,8 +62,8 @@ class AddJobModel {
     try {
       print('job created invoked');
 
-      List<dynamic> _shiftsMapArray = shiftsArray?.isNotEmpty == true
-          ? shiftsArray.map((e) => e.toJSON()).toList()
+      List<dynamic> _shiftPatternsMapArray = shiftPatternsArray?.isNotEmpty == true
+          ? shiftPatternsArray.map((e) => e.toJSON()).toList()
           : [];
 
       _map = {
@@ -89,7 +89,7 @@ class AddJobModel {
                 : [],
         // JobTemplateSchema.defaultLocationdata:
         //     defaultLocationData.toJSON() ?? {},
-        JobTemplateSchema.shift_data: _shiftsMapArray,
+        JobTemplateSchema.shiftPatternData: _shiftPatternsMapArray,
         JobTemplateSchema.enablePayDetection: payDetectionEnabled,
         JobTemplateSchema.checksIds: (checksArray?.isNotEmpty == true)
             ? checksArray.map((e) => e.checkID).toList() ?? []
@@ -176,7 +176,7 @@ class AddJobModel {
     requiredQualification = [];
     skillsArray = [];
     defaultLocationData = null;
-    shiftsArray = [];
+    shiftPatternsArray = [];
     checksArray = [];
   }
 

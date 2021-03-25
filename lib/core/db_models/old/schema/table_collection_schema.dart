@@ -8,7 +8,7 @@ class FbCollections {
   static const String organisationWorkerRelation = "organisation_worker_relations";
   static const String invitations = "invitations";
   static const String skills = "skills";
-  static const String jobShifts = "job_shifts";
+  static const String jobShifts = "shift_pattern_patterns";
   static const String jobSummaries = "job_summaries";
   static const String jobTemplates = "job_templates";
   static const String jobs = "jobs";

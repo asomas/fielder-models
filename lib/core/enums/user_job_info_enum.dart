@@ -1,6 +1,6 @@
 enum UserJobInfoEnum {
   description,
-  shift,
+  shiftPattern,
   skills,
   payment,
   hire

@@ -2,13 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/temp/organisation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fielder_models/core/db_models/old/organisation_model.dart';
-import 'package:fielder_models/core/db_models/old/schema/shift_data_schema.dart';
-import 'package:fielder_models/core/db_models/old/shift_data_model.dart';
-import 'package:fielder_models/core/db_models/old/shift_location_model.dart';
+import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
+import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
+import 'package:fielder_models/core/db_models/old/shift_pattern_location_model.dart';
 import 'package:fielder_models/core/db_models/old/worker_tracked_time_model.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
 
-class JobShiftDataModel {
+class ShiftPatternDataModel {
   String docID;
   OrganisationModel organisation;
   DocumentReference supervisorRef;
@@ -24,9 +24,9 @@ class JobShiftDataModel {
   String workerId;
   WorkerTrackedTimeModel workerLogModel;
   WorkerModel workerModel;
-  ShiftLocationDataModel shiftLocationDataModel;
+  ShiftLocationDataModel shift_patternLocationDataModel;
 
-  JobShiftDataModel(
+  ShiftPatternDataModel(
       {this.docID,
       this.organisation,
       this.endDate,
@@ -39,7 +39,7 @@ class JobShiftDataModel {
       this.startTimeInt,
       this.workerId,
       this.workerLogModel,
-      this.shiftLocationDataModel,
+      this.shift_patternLocationDataModel,
       this.workerModel,
       this.supervisorRef,
       this.managerRef})
@@ -54,7 +54,7 @@ class JobShiftDataModel {
               startTimeInt != null,
         );
 
-  factory JobShiftDataModel.fromMap({
+  factory ShiftPatternDataModel.fromMap({
     @required Map<String, dynamic> map,
     @required String docID,
   }) {
@@ -83,7 +83,7 @@ class JobShiftDataModel {
         final DocumentReference _jobRef = map['job_ref'] ?? '';
         final String _role = map['role'] ?? '';
         OrganisationModel _organisation;
-        ShiftLocationDataModel _shiftLocationDataModel;
+        ShiftLocationDataModel _shift_patternLocationDataModel;
         final DocumentReference _organisationRef = map['organisation_ref'];
         final DocumentReference _locationRef = map['location_ref'];
         final DocumentReference _supervisorRef = map['supervisor_ref'];
@@ -96,21 +96,21 @@ class JobShiftDataModel {
           );
         }
         if (_locationRef != null) {
-          _shiftLocationDataModel = ShiftLocationDataModel.fromMap(
+          _shift_patternLocationDataModel = ShiftLocationDataModel.fromMap(
               map["location_data"]
           );
         }
         WorkerTrackedTimeModel _workerLogModel;
         final DocumentReference _workerRef = map['worker_ref'];
         final DocumentReference _workerLogRef =
-            map['worker_tracked_time_ref'] ;
+            map['shift_activity_ref'] ;
 
         if (_workerRef != null && _workerLogRef != null) {
           _workerLogModel = WorkerTrackedTimeModel.fromMap(
               map: map['worker_tracked_time_data'] ?? {}, docID: _workerLogRef.id);
         }
         if (_jobRef != null) {
-          return JobShiftDataModel(
+          return ShiftPatternDataModel(
             docID: docID,
             startDate: _startDate,
             endDate: _endDate,
@@ -123,7 +123,7 @@ class JobShiftDataModel {
             organisation: _organisation,
             supervisorRef: _supervisorRef,
             managerRef: _managerRef,
-            shiftLocationDataModel: _shiftLocationDataModel,
+            shift_patternLocationDataModel: _shift_patternLocationDataModel,
             workerLogModel: _workerLogModel,
             workerId: _workerRef?.id,
             workerModel: map.containsKey(ShiftDataSchema.workerData)
@@ -132,7 +132,7 @@ class JobShiftDataModel {
           );
         }
       } catch (e) {
-        print('JobShiftDataModel fromMap error: $e');
+        print('ShiftPatternDataModel fromMap error: $e');
       }
     }
     return null;

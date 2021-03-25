@@ -6,7 +6,7 @@ class WorkerTrackedTimeModel {
   DateTime clockInTime;
   GeoPoint clockInLocation;
   DateTime clockOutTime;
-  DateTime shiftDate;
+  DateTime shift_patternDate;
   GeoPoint clockOutLocation;
 
   WorkerTrackedTimeModel({
@@ -14,7 +14,7 @@ class WorkerTrackedTimeModel {
     this.clockInLocation,
     this.clockOutTime,
     this.clockOutLocation,
-    this.shiftDate,
+    this.shift_patternDate,
     this.docID,
   }) : assert(
           clockInTime != null && clockInLocation != null && docID != null,
@@ -29,7 +29,7 @@ class WorkerTrackedTimeModel {
         final GeoPoint _clockInLocation = map['clock_in_location'];
         final GeoPoint _clockOutLocation = map['clock_out_location'];
         final Timestamp _clockInTimeStamp = map['clock_in_time'];
-        final Timestamp _shiftDateTimeStamp = map['shift_date'];
+        final Timestamp _shift_patternDateTimeStamp = map['shift_pattern_date'];
         DateTime _clockInDateTime;
         if (_clockInTimeStamp != null) {
           _clockInDateTime = DateTime.fromMillisecondsSinceEpoch(
@@ -44,10 +44,10 @@ class WorkerTrackedTimeModel {
           );
         }
 
-        DateTime _shiftDateDateTime;
-        if (_shiftDateTimeStamp != null) {
-          _shiftDateDateTime = DateTime.fromMillisecondsSinceEpoch(
-            _shiftDateTimeStamp.millisecondsSinceEpoch,
+        DateTime _shift_patternDateDateTime;
+        if (_shift_patternDateTimeStamp != null) {
+          _shift_patternDateDateTime = DateTime.fromMillisecondsSinceEpoch(
+            _shift_patternDateTimeStamp.millisecondsSinceEpoch,
           );
         }
 
@@ -56,7 +56,7 @@ class WorkerTrackedTimeModel {
           clockInTime: _clockInDateTime,
           clockInLocation: _clockInLocation,
           clockOutTime: _clockOutDateTime,
-          shiftDate: _shiftDateDateTime,
+          shift_patternDate: _shift_patternDateDateTime,
           clockOutLocation: _clockOutLocation,
         );
       } on Exception catch (e) {

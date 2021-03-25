@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/old/shift_pattern_data_model.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fielder_models/core/db_models/old/job_shift_data_model.dart';
 
 class WorkerAssignmentModel {
   final String docID;
   final DateTime endDate;
-  JobShiftDataModel jobShift;
+  ShiftPatternDataModel jobShift;
   WorkerLogModel log;
   final DateTime startDate;
   final String workerID;
@@ -18,7 +18,11 @@ class WorkerAssignmentModel {
     this.jobShift,
     this.log,
   }) : assert(
-          docID != null && endDate != null && jobShift != null && startDate != null && workerID != null,
+          docID != null &&
+              endDate != null &&
+              jobShift != null &&
+              startDate != null &&
+              workerID != null,
         );
 
   factory WorkerAssignmentModel.fromMap({
@@ -43,9 +47,10 @@ class WorkerAssignmentModel {
             _endTimeStamp.millisecondsSinceEpoch,
           );
         }
-        final JobShiftDataModel _jobShiftData = JobShiftDataModel.fromMap(
+        final ShiftPatternDataModel _jobShiftData =
+            ShiftPatternDataModel.fromMap(
           docID: jobShiftID,
-          map: map['job_shift_data'] ?? {},
+          map: map['shift_pattern_pattern_data'] ?? {},
         );
 
         WorkerLogModel _workerLog;
@@ -237,7 +242,8 @@ class Workers {
         );
       }
 
-      final DocumentReference _fullTimeOrganisationIdRef = map['full_time_organisation_ref'];
+      final DocumentReference _fullTimeOrganisationIdRef =
+          map['full_time_organisation_ref'];
       final bool _isCompleted = map['is_completed'] ?? false;
       final String _phone = map['phone'] ?? '';
       final String _uID = map['uid'] ?? '';

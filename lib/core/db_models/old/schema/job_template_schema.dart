@@ -32,7 +32,7 @@ class JobTemplateSchema {
   static const String checksIds = "check_ids";
   static const String checksRef = "check_ref";
   static const String defaultLocationdata = 'default_location_data';
-  static const String shift_data = 'shift_data';
+  static const String shiftPatternData = 'shift_pattern_data';
   static const String enablePayDetection = 'enable_pay_deduction';
 
   static const String organisationTemplateId = "organisation_template_id";

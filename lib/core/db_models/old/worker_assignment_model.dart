@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fielder_models/core/db_models/old/job_shift_data_model.dart';
+import 'package:fielder_models/core/db_models/old/shift_pattern_data_model.dart';
+
 import 'package:flutter/cupertino.dart';
-import 'package:fielder_models/core/db_models/old/job_shift_data_model.dart';
+
 import 'package:fielder_models/core/db_models/old/worker_log_model.dart';
 
 class WorkerAssignmentModel {
   final String docID;
   final DateTime endDate;
-  JobShiftDataModel jobShift;
+  ShiftPatternDataModel jobShift;
   WorkerLogModel log;
   final DateTime startDate;
   final String workerID;
@@ -49,9 +50,9 @@ class WorkerAssignmentModel {
             _endTimeStamp.millisecondsSinceEpoch,
           );
         }
-        final JobShiftDataModel _jobShiftData = JobShiftDataModel.fromMap(
+        final ShiftPatternDataModel _jobShiftData = ShiftPatternDataModel.fromMap(
           docID: jobShiftID,
-          map: map['job_shift_data'] ?? {},
+          map: map['shift_pattern_pattern_data'] ?? {},
         );
 
         WorkerLogModel _workerLog;
