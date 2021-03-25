@@ -9,7 +9,7 @@ class OrganisationUser {
   String name; // max value 156
   String email; // valid email
   var organizations = Map<String,
-      UserOrganization>(); // id of map should be an Id of organisation in organisation collection
+      OrganisationSubstription>(); // id of map should be an Id of organisation in organisation collection
   Timestamp dateCreated; // FirestoreTimeStamp
 
   // Test Example
@@ -33,7 +33,7 @@ class OrganisationUser {
 
     if (data != null) {
       data.forEach((key, value) {
-        var user = UserOrganization.fromMap(value);
+        var user = OrganisationSubstription.fromMap(value);
         var data = {key.toString(): user};
         organisationUser.organizations.addAll(data);
       });
@@ -59,14 +59,14 @@ class OrganisationUser {
 //https://pub.dev/packages/json_schema
 
 // helper
-class UserOrganization {
+class OrganisationSubstription {
   String name; //max length 75
   AcceptanceStatus status; // check into fromMap and return the StatusEnums
   Roles role; // check into fromMap and return the RolesEnum
 
-  static UserOrganization fromMap(Map<String, dynamic> map) {
+  static OrganisationSubstription fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-    UserOrganization userOrganization = UserOrganization();
+    OrganisationSubstription userOrganization = OrganisationSubstription();
     userOrganization.name = map['name'];
     userOrganization.role = getRole(map['role']);
     userOrganization.status = getAcceptanceStatus(map['status']);
@@ -385,7 +385,7 @@ class UserDetail {
             : DateTime.parse(json["date_created"]),
         status: json["status"] == null
             ? null
-            : UserOrganization.getAcceptanceStatus(json['status']),
+            : OrganisationSubstription.getAcceptanceStatus(json['status']),
         role: json["role"] == null ? null : json["role"],
         manager: json["manager"] == null ? null : json["manager"],
       );
