@@ -20,7 +20,7 @@ class PatternDataModel {
   String existingLocationId;
   GooglePlaceModel googlePlaceModel;
   String title;
-  String shift_patternDate;
+  String shiftPatternDate;
   DocumentReference workerRef;
   WorkerModel workerModel;
 
@@ -36,7 +36,7 @@ class PatternDataModel {
     this.title,
     this.existingLocationId,
     this.workerRef,
-    this.shift_patternDate,
+    this.shiftPatternDate,
     this.googlePlaceModel,
     this.workerModel
   }) : assert(
@@ -44,10 +44,10 @@ class PatternDataModel {
         );
 
   factory PatternDataModel.fromMap(String docID, Map<String, dynamic> map){
-    PatternDataModel shift_patternDataModel;
+    PatternDataModel shiftPatternDataModel;
     try{
       if(map?.isNotEmpty == true){
-        shift_patternDataModel = PatternDataModel(
+        shiftPatternDataModel = PatternDataModel(
             docID: docID,
             title: map[ShiftDataSchema.title] ?? "",
             startDate: map[ShiftDataSchema.startDate]?.toDate(),
@@ -58,14 +58,14 @@ class PatternDataModel {
             intervalType: map[ShiftDataSchema.repeatIntervalType],
             recurrence: RecurrenceModel.fromMap(map: map[ShiftDataSchema.recurrence]),
             workerRef: map[ShiftDataSchema.workerRef],
-            shift_patternDate: map[ShiftDataSchema.shift_patternDate],
+            shiftPatternDate: map[ShiftDataSchema.shiftPatternDate],
             googlePlaceModel: GooglePlaceModel.fromMap(map[ShiftDataSchema.googlePlaceData],),
             workerModel: map.containsKey(ShiftDataSchema.workerData)
                 ? WorkerModel.fromMap(map: map[ShiftDataSchema.workerData],
                 docID: map[ShiftDataSchema.workerRef]?.id) : null
         );
       }
-      return shift_patternDataModel;
+      return shiftPatternDataModel;
     }catch(e){
     print('ShiftDataModel toJSON error: $e');
     return null;
@@ -133,7 +133,7 @@ class RecurrenceModel {
     try {
       int _intervalAmount = intervalAmount ?? 1;
       String _repeatIntervalType = EnumHelpers.getStringForFrequency(
-        shift_patternFrequency: repeatIntervalType,
+        shiftPatternFrequency: repeatIntervalType,
       );
 
       //Backend doesnot support NONE for now
@@ -165,7 +165,7 @@ class RecurrenceModel {
   }) {
     if (map.isNotEmpty) {
       final int _intervalAmount = map['interval_amount'];
-      final ShiftFrequencies _repeatIntervalType= EnumHelpers.getFrequencyForString(shift_patternFrequency:map['repeat_interval_type'] ?? '');
+      final ShiftFrequencies _repeatIntervalType= EnumHelpers.getFrequencyForString(shiftPatternFrequency:map['repeat_interval_type'] ?? '');
       final bool _isMonday = map['monday'] ?? false;
       final bool _isTuesday = map['tuesday'] ?? false;
       final bool _isWednesday = map['wednesday'] ?? false;

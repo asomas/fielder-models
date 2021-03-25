@@ -57,7 +57,7 @@ class ShiftModel {
            // intervalType: map[ShiftDataSchema.repeatIntervalType],
             recurrence: RecurrenceModel.fromMap(map: map[ShiftDataSchema.recurrence]),
             workerRef: map[ShiftDataSchema.workerRef],
-            shift_patternDate: map[ShiftDataSchema.shift_patternDate],
+            shift_patternDate: map[ShiftDataSchema.shiftPatternDate],
             googlePlaceModel: GooglePlaceModel.fromMap(map[ShiftDataSchema.googlePlaceData]),
         );
       }
@@ -139,7 +139,7 @@ class RecurrenceModel {
     try {
       int _intervalAmount = intervalAmount ?? 1;
       String _repeatIntervalType = EnumHelpers.getStringForFrequency(
-        shift_patternFrequency: repeatIntervalType,
+        shiftPatternFrequency: repeatIntervalType,
       );
 
       //Backend doesnot support NONE for now
@@ -171,7 +171,7 @@ class RecurrenceModel {
   }) {
     if (map.isNotEmpty) {
       final int _intervalAmount = map['interval_amount'];
-      final ShiftFrequencies _repeatIntervalType= EnumHelpers.getFrequencyForString(shift_patternFrequency:map['repeat_interval_type'] ?? '');
+      final ShiftFrequencies _repeatIntervalType= EnumHelpers.getFrequencyForString(shiftPatternFrequency:map['repeat_interval_type'] ?? '');
       final bool _isMonday = map['monday'] ?? false;
       final bool _isTuesday = map['tuesday'] ?? false;
       final bool _isWednesday = map['wednesday'] ?? false;

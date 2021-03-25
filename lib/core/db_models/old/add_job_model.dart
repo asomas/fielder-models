@@ -28,7 +28,7 @@ class AddJobModel {
   int earlyLeaver;
   int overTimeRate;
   DefaultLocationDataModel defaultLocationData;
-  List<PatternDataModel> shift_patternsArray;
+  List<PatternDataModel> shiftPatternsArray;
   bool volunteer;
   bool payDetectionEnabled;
 
@@ -50,7 +50,7 @@ class AddJobModel {
       this.requiredQualification,
       this.skillsArray,
       this.defaultLocationData,
-      this.shift_patternsArray,
+      this.shiftPatternsArray,
       this.volunteer = false,
       this.payDetectionEnabled = true,
       this.checksArray,
@@ -62,8 +62,8 @@ class AddJobModel {
     try {
       print('job created invoked');
 
-      List<dynamic> _shiftPatternsMapArray = shift_patternsArray?.isNotEmpty == true
-          ? shift_patternsArray.map((e) => e.toJSON()).toList()
+      List<dynamic> _shiftPatternsMapArray = shiftPatternsArray?.isNotEmpty == true
+          ? shiftPatternsArray.map((e) => e.toJSON()).toList()
           : [];
 
       _map = {
@@ -89,7 +89,7 @@ class AddJobModel {
                 : [],
         // JobTemplateSchema.defaultLocationdata:
         //     defaultLocationData.toJSON() ?? {},
-        JobTemplateSchema.shift_pattern_data: _shiftPatternsMapArray,
+        JobTemplateSchema.shiftPatternData: _shiftPatternsMapArray,
         JobTemplateSchema.enablePayDetection: payDetectionEnabled,
         JobTemplateSchema.checksIds: (checksArray?.isNotEmpty == true)
             ? checksArray.map((e) => e.checkID).toList() ?? []
@@ -176,7 +176,7 @@ class AddJobModel {
     requiredQualification = [];
     skillsArray = [];
     defaultLocationData = null;
-    shift_patternsArray = [];
+    shiftPatternsArray = [];
     checksArray = [];
   }
 

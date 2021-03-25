@@ -40,9 +40,9 @@ class EnumHelpers {
   }
 
   static String getStringForFrequency({
-    @required ShiftFrequencies shift_patternFrequency,
+    @required ShiftFrequencies shiftPatternFrequency,
   }) {
-    switch (shift_patternFrequency) {
+    switch (shiftPatternFrequency) {
       case ShiftFrequencies.Daily:
         return 'Daily';
       case ShiftFrequencies.None:
@@ -55,9 +55,9 @@ class EnumHelpers {
   }
 
   static ShiftFrequencies getFrequencyForString({
-    @required String shift_patternFrequency,
+    @required String shiftPatternFrequency,
   }) {
-    switch (shift_patternFrequency) {
+    switch (shiftPatternFrequency) {
       case 'Daily':
         return ShiftFrequencies.Daily;
       case 'None':
