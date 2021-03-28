@@ -55,7 +55,7 @@ class WorkerLogModel {
           clockInLocation: _clockInLocation,
           clockOutTime: _clockOutDateTime,
           clockOutLocation: _clockOutLocation,
-          jobShiftRef: map['shift_pattern_pattern_ref'],
+          jobShiftRef: map['shift_pattern_ref'],
           workerID: map['worker_ref']?.id ?? "",
         );
       } on Exception catch (e) {
