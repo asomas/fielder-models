@@ -32,11 +32,11 @@ class AssignWorkerModel {
 
 class StaffModel {
 
-  final String workerId;
-  final String firstName;
-  final String lastName;
-  final String pictureUrl;
-  final bool isStaff;
+   String workerId;
+   String firstName;
+   String lastName;
+   String pictureUrl;
+   bool isStaff;
 
   StaffModel({this.workerId, this.isStaff,this.firstName, this.lastName, this.pictureUrl});
 
@@ -54,11 +54,11 @@ class StaffModel {
 
 class FielderModel {
 
-  final String workerId;
-  final bool isStaff;
-  final String firstName;
-  final String lastName;
-  final String pictureUrl;
+   String workerId;
+   bool isStaff;
+   String firstName;
+   String lastName;
+   String pictureUrl;
 
   FielderModel({this.workerId, this.isStaff,this.firstName, this.lastName, this.pictureUrl});
 
