@@ -50,7 +50,7 @@ class WorkerAssignmentModel {
         final ShiftPatternDataModel _jobShiftData =
             ShiftPatternDataModel.fromMap(
           docID: jobShiftID,
-          map: map['shift_pattern_pattern_data'] ?? {},
+          map: map['shift_pattern_data'] ?? {},
         );
 
         WorkerLogModel _workerLog;
@@ -142,14 +142,14 @@ class WorkerLogModel {
   }
 }
 
-class WorkerTrackedTimeModel {
+class ShiftActivitiesModel {
   String docID;
   DateTime clockInTime;
   GeoPoint clockInLocation;
   DateTime clockOutTime;
   GeoPoint clockOutLocation;
 
-  WorkerTrackedTimeModel({
+  ShiftActivitiesModel({
     this.clockInTime,
     this.clockInLocation,
     this.clockOutTime,
@@ -159,7 +159,7 @@ class WorkerTrackedTimeModel {
           clockInTime != null && clockInLocation != null && docID != null,
         );
 
-  factory WorkerTrackedTimeModel.fromMap({
+  factory ShiftActivitiesModel.fromMap({
     @required Map<String, dynamic> map,
     @required String docID,
   }) {
@@ -182,7 +182,7 @@ class WorkerTrackedTimeModel {
           );
         }
 
-        return WorkerTrackedTimeModel(
+        return ShiftActivitiesModel(
           docID: docID,
           clockInTime: _clockInDateTime,
           clockInLocation: _clockInLocation,
@@ -190,7 +190,7 @@ class WorkerTrackedTimeModel {
           clockOutLocation: _clockOutLocation,
         );
       } on Exception catch (e) {
-        print("WorkerTrackedTimeModel.fromMap error $e");
+        print("ShiftActivitiesModel.fromMap error $e");
       }
     }
     return null;
