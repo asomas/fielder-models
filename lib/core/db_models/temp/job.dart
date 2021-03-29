@@ -7,7 +7,7 @@ import 'package:fielder_models/core/db_models/old/qualification_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
-import 'package:fielder_models/core/db_models/old/worker_tracked_time_model.dart';
+import 'package:fielder_models/core/db_models/old/shift_activities_model.dart';
 import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -155,7 +155,7 @@ class ShiftPatternDataModel {
   DateTime startDate;
   int startTimeInt;
   String workerId;
-  WorkerTrackedTimeModel workerLogModel;
+  ShiftActivitiesModel shiftActivitiesModel;
   WorkerModel workerModel;
 
   ShiftPatternDataModel(
@@ -170,7 +170,7 @@ class ShiftPatternDataModel {
       this.startDate,
       this.startTimeInt,
       this.workerId,
-      this.workerLogModel,
+      this.shiftActivitiesModel,
       this.workerModel})
       : assert(
           docID != null &&
@@ -220,13 +220,13 @@ class ShiftPatternDataModel {
             map: map['organisation_data'] ?? {},
           );
         }
-        WorkerTrackedTimeModel _workerLogModel;
+        ShiftActivitiesModel _shiftActivitiesModel;
         final DocumentReference _workerRef = map['worker_ref'];
-        final DocumentReference _workerLogRef = map['shift_activity_ref'];
+        final DocumentReference _shiftActivityRef = map['shift_activity_ref'];
 
-        if (_workerRef != null && _workerLogRef != null) {
-          _workerLogModel =
-              WorkerTrackedTimeModel.fromMap(map: map['worker_tracked_time_data'] ?? {}, docID: _workerLogRef.id);
+        if (_workerRef != null && _shiftActivityRef != null) {
+          _shiftActivitiesModel =
+              ShiftActivitiesModel.fromMap(map: map['shift_activity_data'] ?? {}, docID: _shiftActivityRef.id);
         }
         if (_jobRef != null) {
           return ShiftPatternDataModel(
@@ -240,7 +240,7 @@ class ShiftPatternDataModel {
               jobID: _jobRef?.id,
               role: _role,
               organisation: _organisation,
-              workerLogModel: _workerLogModel,
+              shiftActivitiesModel: _shiftActivitiesModel,
               workerId: _workerRef?.id,
               workerModel: map.containsKey(ShiftDataSchema.workerData)
                   ? WorkerModel.fromMap(map: map[ShiftDataSchema.workerData], docID: map[ShiftDataSchema.workerRef]?.id)

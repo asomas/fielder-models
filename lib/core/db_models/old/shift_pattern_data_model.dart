@@ -5,7 +5,7 @@ import 'package:fielder_models/core/db_models/old/organisation_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
 import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
 import 'package:fielder_models/core/db_models/old/shift_pattern_location_model.dart';
-import 'package:fielder_models/core/db_models/old/worker_tracked_time_model.dart';
+import 'package:fielder_models/core/db_models/old/shift_activities_model.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
 
 class ShiftPatternDataModel {
@@ -22,9 +22,9 @@ class ShiftPatternDataModel {
   DateTime startDate;
   int startTimeInt;
   String workerId;
-  WorkerTrackedTimeModel workerLogModel;
+  ShiftActivitiesModel shiftActivitiesModel;
   WorkerModel workerModel;
-  ShiftLocationDataModel shiftPatternLocationDataModel;
+  ShiftLocationDataModel shiftLocationDataModel;
 
   ShiftPatternDataModel(
       {this.docID,
@@ -38,8 +38,8 @@ class ShiftPatternDataModel {
       this.startDate,
       this.startTimeInt,
       this.workerId,
-      this.workerLogModel,
-      this.shiftPatternLocationDataModel,
+      this.shiftActivitiesModel,
+      this.shiftLocationDataModel,
       this.workerModel,
       this.supervisorRef,
       this.managerRef})
@@ -83,7 +83,7 @@ class ShiftPatternDataModel {
         final DocumentReference _jobRef = map['job_ref'] ?? '';
         final String _role = map['role'] ?? '';
         OrganisationModel _organisation;
-        ShiftLocationDataModel _shift_patternLocationDataModel;
+        ShiftLocationDataModel _shiftLocationDataModel;
         final DocumentReference _organisationRef = map['organisation_ref'];
         final DocumentReference _locationRef = map['location_ref'];
         final DocumentReference _supervisorRef = map['supervisor_ref'];
@@ -96,18 +96,18 @@ class ShiftPatternDataModel {
           );
         }
         if (_locationRef != null) {
-          _shift_patternLocationDataModel = ShiftLocationDataModel.fromMap(
+          _shiftLocationDataModel = ShiftLocationDataModel.fromMap(
               map["location_data"]
           );
         }
-        WorkerTrackedTimeModel _workerLogModel;
+        ShiftActivitiesModel _shiftActivitiesModel;
         final DocumentReference _workerRef = map['worker_ref'];
-        final DocumentReference _workerLogRef =
+        final DocumentReference _shiftActivityRef =
             map['shift_activity_ref'] ;
 
-        if (_workerRef != null && _workerLogRef != null) {
-          _workerLogModel = WorkerTrackedTimeModel.fromMap(
-              map: map['worker_tracked_time_data'] ?? {}, docID: _workerLogRef.id);
+        if (_workerRef != null && _shiftActivityRef != null) {
+          _shiftActivitiesModel = ShiftActivitiesModel.fromMap(
+              map: map['shift_activity_data'] ?? {}, docID: _shiftActivityRef.id);
         }
         if (_jobRef != null) {
           return ShiftPatternDataModel(
@@ -123,8 +123,8 @@ class ShiftPatternDataModel {
             organisation: _organisation,
             supervisorRef: _supervisorRef,
             managerRef: _managerRef,
-              shiftPatternLocationDataModel: _shift_patternLocationDataModel,
-            workerLogModel: _workerLogModel,
+              shiftLocationDataModel: _shiftLocationDataModel,
+            shiftActivitiesModel: _shiftActivitiesModel,
             workerId: _workerRef?.id,
             workerModel: map.containsKey(ShiftDataSchema.workerData)
                   ? WorkerModel.fromMap(map: map[ShiftDataSchema.workerData],
