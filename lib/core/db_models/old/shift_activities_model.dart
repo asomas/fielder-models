@@ -29,7 +29,7 @@ class ShiftActivitiesModel {
         final GeoPoint _clockInLocation = map['clock_in_location'];
         final GeoPoint _clockOutLocation = map['clock_out_location'];
         final Timestamp _clockInTimeStamp = map['clock_in_time'];
-        final Timestamp _shift_patternDateTimeStamp = map['shift_date'];
+        final Timestamp _shiftPatternDateTimeStamp = map['shift_date'];
         DateTime _clockInDateTime;
         if (_clockInTimeStamp != null) {
           _clockInDateTime = DateTime.fromMillisecondsSinceEpoch(
@@ -45,9 +45,9 @@ class ShiftActivitiesModel {
         }
 
         DateTime _shiftPatternDateTime;
-        if (_shift_patternDateTimeStamp != null) {
+        if (_shiftPatternDateTimeStamp != null) {
           _shiftPatternDateTime = DateTime.fromMillisecondsSinceEpoch(
-            _shift_patternDateTimeStamp.millisecondsSinceEpoch,
+            _shiftPatternDateTimeStamp.millisecondsSinceEpoch,
           );
         }
 
