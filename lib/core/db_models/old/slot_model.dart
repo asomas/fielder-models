@@ -18,6 +18,7 @@ class SlotModel {
   final bool assigned;
   final String jobID;
   final DateTime weekDay;
+  final String workerId;
   final bool recurring;
   final String shiftPatternTitle;
   final String slotTypeImage;
@@ -35,6 +36,7 @@ class SlotModel {
 
   SlotModel(
       {this.assignmentID,
+      this.workerId,
       this.profileName = '',
       this.jobTitle = '',
       this.slotContentText = '',
