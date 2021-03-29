@@ -1,26 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
-class WorkerTrackedTimeModel {
+class ShiftActivitiesModel {
   String docID;
   DateTime clockInTime;
   GeoPoint clockInLocation;
   DateTime clockOutTime;
-  DateTime shiftPatternDate;
+  DateTime shiftDate;
   GeoPoint clockOutLocation;
 
-  WorkerTrackedTimeModel({
+  ShiftActivitiesModel({
     this.clockInTime,
     this.clockInLocation,
     this.clockOutTime,
     this.clockOutLocation,
-    this.shiftPatternDate,
+    this.shiftDate,
     this.docID,
   }) : assert(
           clockInTime != null && clockInLocation != null && docID != null,
         );
 
-  factory WorkerTrackedTimeModel.fromMap({
+  factory ShiftActivitiesModel.fromMap({
     @required Map<String, dynamic> map,
     @required String docID,
   }) {
@@ -29,7 +29,7 @@ class WorkerTrackedTimeModel {
         final GeoPoint _clockInLocation = map['clock_in_location'];
         final GeoPoint _clockOutLocation = map['clock_out_location'];
         final Timestamp _clockInTimeStamp = map['clock_in_time'];
-        final Timestamp _shift_patternDateTimeStamp = map['shift_pattern_date'];
+        final Timestamp _shift_patternDateTimeStamp = map['shift_date'];
         DateTime _clockInDateTime;
         if (_clockInTimeStamp != null) {
           _clockInDateTime = DateTime.fromMillisecondsSinceEpoch(
@@ -44,23 +44,23 @@ class WorkerTrackedTimeModel {
           );
         }
 
-        DateTime _shift_patternDateDateTime;
+        DateTime _shiftPatternDateTime;
         if (_shift_patternDateTimeStamp != null) {
-          _shift_patternDateDateTime = DateTime.fromMillisecondsSinceEpoch(
+          _shiftPatternDateTime = DateTime.fromMillisecondsSinceEpoch(
             _shift_patternDateTimeStamp.millisecondsSinceEpoch,
           );
         }
 
-        return WorkerTrackedTimeModel(
+        return ShiftActivitiesModel(
           docID: docID,
           clockInTime: _clockInDateTime,
           clockInLocation: _clockInLocation,
           clockOutTime: _clockOutDateTime,
-          shiftPatternDate: _shift_patternDateDateTime,
+          shiftDate: _shiftPatternDateTime,
           clockOutLocation: _clockOutLocation,
         );
       } on Exception catch (e) {
-        print("WorkerTrackedTimeModel.fromMap error $e");
+        print("ShiftActivitiesModel.fromMap error $e");
       }
     }
     return null;

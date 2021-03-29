@@ -52,7 +52,7 @@ class WorkerAssignmentModel {
         }
         final ShiftPatternDataModel _jobShiftData = ShiftPatternDataModel.fromMap(
           docID: jobShiftID,
-          map: map['shift_pattern_pattern_data'] ?? {},
+          map: map['shift_pattern_data'] ?? {},
         );
 
         WorkerLogModel _workerLog;
