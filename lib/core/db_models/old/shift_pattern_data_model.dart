@@ -83,7 +83,7 @@ class ShiftPatternDataModel {
         final DocumentReference _jobRef = map['job_ref'] ?? '';
         final String _role = map['role'] ?? '';
         OrganisationModel _organisation;
-        ShiftLocationDataModel _shiftPatternLocationDataModel;
+        ShiftLocationDataModel _shiftLocationDataModel;
         final DocumentReference _organisationRef = map['organisation_ref'];
         final DocumentReference _locationRef = map['location_ref'];
         final DocumentReference _supervisorRef = map['supervisor_ref'];
@@ -96,7 +96,7 @@ class ShiftPatternDataModel {
           );
         }
         if (_locationRef != null) {
-          _shiftPatternLocationDataModel = ShiftLocationDataModel.fromMap(
+          _shiftLocationDataModel = ShiftLocationDataModel.fromMap(
               map["location_data"]
           );
         }
@@ -123,7 +123,7 @@ class ShiftPatternDataModel {
             organisation: _organisation,
             supervisorRef: _supervisorRef,
             managerRef: _managerRef,
-              shiftLocationDataModel: _shiftPatternLocationDataModel,
+              shiftLocationDataModel: _shiftLocationDataModel,
             shiftActivitiesModel: _shiftActivitiesModel,
             workerId: _workerRef?.id,
             workerModel: map.containsKey(ShiftDataSchema.workerData)
