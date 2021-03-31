@@ -9,7 +9,7 @@ class OrganisationModel {
   AlternativeContactModel alternativeContactModel;
   String docID;
   PrimaryContactModel primaryContactModel;
-  String company_name;
+  String companyName;
   String email;
   String logoUrl;
   String brandBanner;
@@ -20,7 +20,7 @@ class OrganisationModel {
       this.alternativeContactModel,
       this.docID,
       this.primaryContactModel,
-      this.company_name,
+      this.companyName,
       this.email,
       this.brandBanner,
       this.logoUrl,
@@ -69,7 +69,7 @@ class OrganisationModel {
             accountsContactModel: _accountsContactModel,
             alternativeContactModel: _alternativeContactModel,
             docID: docID,
-            company_name: _name != null
+            companyName: _name != null
                 ? _name
                 : namee != null
                     ? namee
