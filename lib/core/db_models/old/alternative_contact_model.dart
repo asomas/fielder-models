@@ -36,7 +36,7 @@ class AlternativeContactModel {
 
     if (name != null) {
       if (name.isNotEmpty) {
-        tempMap[OrganisationSchema.name] = name;
+        tempMap[OrganisationSchema.company_name] = name;
       }
     }
 
@@ -48,7 +48,7 @@ class AlternativeContactModel {
   }) {
     if (map.isNotEmpty) {
       final String _email = map[OrganisationSchema.email] ?? '';
-      final String _name = map[OrganisationSchema.name] ?? '';
+      final String _name = map[OrganisationSchema.company_name] ?? '';
       final String _preferredNumber = map[OrganisationSchema.preferredNumber] ?? '';
       final String _secondaryNumber = map[OrganisationSchema.secondaryNumber] ?? '';
       return AlternativeContactModel(
