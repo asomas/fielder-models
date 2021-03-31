@@ -9,7 +9,7 @@ class OrganisationModel {
   AlternativeContactModel alternativeContactModel;
   String docID;
   PrimaryContactModel primaryContactModel;
-  String companyName;
+  String name;
   String email;
   String logoUrl;
   String brandBanner;
@@ -20,7 +20,7 @@ class OrganisationModel {
       this.alternativeContactModel,
       this.docID,
       this.primaryContactModel,
-      this.companyName,
+      this.name,
       this.email,
       this.brandBanner,
       this.logoUrl,
@@ -32,7 +32,7 @@ class OrganisationModel {
   }) {
     if (map.isNotEmpty) {
       try {
-        final String _name = map[OrganisationSchema.company_name] ?? '';
+        final String _name = map[OrganisationSchema.name] ?? '';
         final String _email = map[OrganisationSchema.email] ?? '';
         final String _logoUrl = map[OrganisationSchema.logo_url] ?? '';
         final String _primaryColor = map[OrganisationSchema.primary_color] ?? '';
@@ -69,7 +69,7 @@ class OrganisationModel {
             accountsContactModel: _accountsContactModel,
             alternativeContactModel: _alternativeContactModel,
             docID: docID,
-            companyName: _name != null
+            name: _name != null
                 ? _name
                 : namee != null
                     ? namee

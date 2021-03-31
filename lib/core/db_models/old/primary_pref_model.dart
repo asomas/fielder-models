@@ -10,13 +10,13 @@ class PrimaryPrefModel {
 
   PrimaryPrefModel.fromJson(Map<String, dynamic> json)
       : email = json[OrganisationSchema.email],
-        name = json[OrganisationSchema.company_name],
+        name = json[OrganisationSchema.name],
         preferredNumber = json[OrganisationSchema.preferredNumber],
         secondaryNumber = json[OrganisationSchema.secondaryNumber];
 
   Map<String, dynamic> toJson() => {
     OrganisationSchema.email: email,
-    OrganisationSchema.company_name: name,
+    OrganisationSchema.name: name,
     OrganisationSchema.preferredNumber: preferredNumber,
     OrganisationSchema.secondaryNumber: secondaryNumber,
   };
