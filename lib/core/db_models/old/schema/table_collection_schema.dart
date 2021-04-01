@@ -5,7 +5,8 @@ class FbCollections {
   static const String organisationDaySummaries = "organisation_day_summaries";
   static const String organisations = "organisations";
   static const String organisationUser = "organisation_users";
-  static const String organisationWorkerRelation = "organisation_worker_relations";
+  static const String organisationWorkerRelation =
+      "organisation_worker_relations";
   static const String invitations = "invitations";
   static const String skills = "skills";
   static const String jobShifts = "shift_patterns";
@@ -18,4 +19,7 @@ class FbCollections {
   static const String workerLogs = "worker_logs";
   static const String workers = "workers";
   static const String fielderJobTemplates = "fielder_job_templates";
+  static const String organisationRef = "organisation_ref";
+  static const String supervisorRef = "supervisor_ref";
+  static const String managerRef = "manager_ref";
 }
