@@ -18,51 +18,54 @@ class JobSummaryDataModel {
     this.jobID,
     this.workersArray,
   }) : assert(
-          docID != null && jobDataModel != null && jobID != null,
-        );
+  docID != null && jobDataModel != null && jobID != null,
+  );
 
   factory JobSummaryDataModel.fromMap({
     @required Map<String, dynamic> map,
     @required String docID,
   }) {
+    print("data map is ${map}");
+    print("data doc id is ${docID}");
     if (map.isNotEmpty) {
       try {
         String _organisationID = '';
         final DocumentReference _organisationRef =
-            map[JobSummarySchema.organisationRef];
+        map[JobSummarySchema.organisationRef];
+        print("organisation ref ${_organisationRef ?? null}");
         if (_organisationRef != null) {
           _organisationID = _organisationRef.id;
           String _jobID = '';
           final DocumentReference _jobRef = map[JobSummarySchema.jobRef];
-          if (_jobRef != null) {
-            _jobID = _jobRef.id;
+          print("Job ref ${_jobRef ?? null}");
 
-            final JobDataModel _jobDataModel = JobDataModel.fromMap(
-                map: map[JobSummarySchema.jobData] ?? {}, docID: _jobID
+          _jobID = docID;
+
+          final JobDataModel _jobDataModel = JobDataModel.fromMap(
+              map: map ?? {}, docID: _jobID
+          );
+          final Map<String, dynamic> workers =
+              map[JobSummarySchema.workers] ?? {};
+          List<WorkerModel> _allWorkerArray = [];
+          workers.forEach((key, element) {
+            final WorkerModel _worker = WorkerModel.fromMap(
+              map: element,
+              docID: key,
             );
-            final Map<String, dynamic> workers =
-                map[JobSummarySchema.workers] ?? {};
-            List<WorkerModel> _allWorkerArray = [];
-            workers.forEach((key, element) {
-              final WorkerModel _worker = WorkerModel.fromMap(
-                map: element,
-                docID: key,
-              );
 
-              if (_worker != null) {
-                _allWorkerArray.add(_worker);
-              }
-            });
-
-            if (_jobID.isNotEmpty) {
-              return JobSummaryDataModel(
-                docID: docID,
-                organisationID: _organisationID,
-                jobDataModel: _jobDataModel,
-                jobID: _jobID,
-                workersArray: _allWorkerArray,
-              );
+            if (_worker != null) {
+              _allWorkerArray.add(_worker);
             }
+          });
+
+          if (_jobID.isNotEmpty) {
+            return JobSummaryDataModel(
+              docID: docID,
+              organisationID: _organisationID,
+              jobDataModel: _jobDataModel,
+              jobID: _jobID,
+              workersArray: _allWorkerArray,
+            );
           }
         }
       } catch (e) {
