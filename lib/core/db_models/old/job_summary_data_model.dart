@@ -18,8 +18,8 @@ class JobSummaryDataModel {
     this.jobID,
     this.workersArray,
   }) : assert(
-  docID != null && jobDataModel != null && jobID != null,
-  );
+          docID != null && jobDataModel != null && jobID != null,
+        );
 
   factory JobSummaryDataModel.fromMap({
     @required Map<String, dynamic> map,
@@ -31,7 +31,7 @@ class JobSummaryDataModel {
       try {
         String _organisationID = '';
         final DocumentReference _organisationRef =
-        map[JobSummarySchema.organisationRef];
+            map[JobSummarySchema.organisationRef];
         print("organisation ref ${_organisationRef ?? null}");
         if (_organisationRef != null) {
           _organisationID = _organisationRef.id;
@@ -41,9 +41,8 @@ class JobSummaryDataModel {
 
           _jobID = docID;
 
-          final JobDataModel _jobDataModel = JobDataModel.fromMap(
-              map: map ?? {}, docID: _jobID
-          );
+          final JobDataModel _jobDataModel =
+              JobDataModel.fromMap(map: map ?? {}, docID: _jobID);
           final Map<String, dynamic> workers =
               map[JobSummarySchema.workers] ?? {};
           List<WorkerModel> _allWorkerArray = [];
