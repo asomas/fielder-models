@@ -32,7 +32,7 @@ class OrganisationModel {
   }) {
     if (map.isNotEmpty) {
       try {
-        final String _name = map[OrganisationSchema.name] ?? '';
+        final String _name = map[OrganisationSchema.companyName] ?? '';
         final String _email = map[OrganisationSchema.email] ?? '';
         final String _logoUrl = map[OrganisationSchema.logo_url] ?? '';
         final String _primaryColor = map[OrganisationSchema.primary_color] ?? '';
