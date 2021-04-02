@@ -25,11 +25,11 @@ class JobSummaryDataModel {
   }) {
     if (map.isNotEmpty) {
       try {
-        String _organisationID = '';
+        String _organisationId = '';
         final DocumentReference _organisationRef =
             map[JobSummarySchema.organisationRef];
         if (_organisationRef != null) {
-          _organisationID = _organisationRef.id;
+          _organisationId = _organisationRef.id;
           String _jobId = '';
           final DocumentReference _jobRef = map[JobSummarySchema.jobRef];
 
@@ -53,7 +53,7 @@ class JobSummaryDataModel {
 
           if (_jobId.isNotEmpty) {
             return JobSummaryDataModel(
-              organisationId: _organisationID,
+              organisationId: _organisationId,
               jobDataModel: _jobDataModel,
               jobId: _jobId,
               workersArray: _allWorkerArray,
