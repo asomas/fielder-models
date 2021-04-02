@@ -21,7 +21,7 @@ class JobSummaryDataModel {
 
   factory JobSummaryDataModel.fromMap({
     @required Map<String, dynamic> map,
-    @required String docID,
+    @required String docId,
   }) {
     if (map.isNotEmpty) {
       try {
@@ -30,13 +30,13 @@ class JobSummaryDataModel {
             map[JobSummarySchema.organisationRef];
         if (_organisationRef != null) {
           _organisationID = _organisationRef.id;
-          String _jobID = '';
+          String _jobId = '';
           final DocumentReference _jobRef = map[JobSummarySchema.jobRef];
 
-          _jobID = docID;
+          _jobId = docId;
 
           final JobDataModel _jobDataModel =
-              JobDataModel.fromMap(map: map ?? {}, docID: _jobID);
+              JobDataModel.fromMap(map: map ?? {}, docID: _jobId);
           final Map<String, dynamic> workers =
               map[JobSummarySchema.workers] ?? {};
           List<WorkerModel> _allWorkerArray = [];
@@ -51,11 +51,11 @@ class JobSummaryDataModel {
             }
           });
 
-          if (_jobID.isNotEmpty) {
+          if (_jobId.isNotEmpty) {
             return JobSummaryDataModel(
               organisationId: _organisationID,
               jobDataModel: _jobDataModel,
-              jobId: _jobID,
+              jobId: _jobId,
               workersArray: _allWorkerArray,
             );
           }
