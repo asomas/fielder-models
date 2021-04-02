@@ -9,7 +9,7 @@ class SlotModel {
   final int endHour;
   final int startMin;
   final int endMin;
-  final SlotStatus slotStatus;
+  final SlotStatus slotStatus; //TODO REMOVE AFTER REFACTOR
   final String profileName;
   final String jobTitle;
   final String slotContentText;

@@ -8,6 +8,7 @@ class ShiftActivitiesModel {
   DateTime clockOutTime;
   DateTime shiftDate;
   GeoPoint clockOutLocation;
+  DocumentReference shiftPatternRef;
 
   ShiftActivitiesModel({
     this.clockInTime,
@@ -16,6 +17,7 @@ class ShiftActivitiesModel {
     this.clockOutLocation,
     this.shiftDate,
     this.docID,
+    this.shiftPatternRef
   }) : assert(
           clockInTime != null && clockInLocation != null && docID != null,
         );
@@ -26,6 +28,7 @@ class ShiftActivitiesModel {
   }) {
     if (map.isNotEmpty) {
       try {
+        final DocumentReference _shiftPatternRef = map['shift_pattern_ref'];
         final GeoPoint _clockInLocation = map['clock_in_location'];
         final GeoPoint _clockOutLocation = map['clock_out_location'];
         final Timestamp _clockInTimeStamp = map['clock_in_time'];
@@ -58,6 +61,7 @@ class ShiftActivitiesModel {
           clockOutTime: _clockOutDateTime,
           shiftDate: _shiftPatternDateTime,
           clockOutLocation: _clockOutLocation,
+          shiftPatternRef: _shiftPatternRef
         );
       } on Exception catch (e) {
         print("ShiftActivitiesModel.fromMap error $e");
