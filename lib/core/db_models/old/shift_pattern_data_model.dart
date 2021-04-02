@@ -124,7 +124,7 @@ class ShiftPatternDataModel {
             supervisorRef: _supervisorRef,
             managerRef: _managerRef,
               shiftLocationDataModel: _shiftLocationDataModel,
-            shiftActivitiesModel: _shiftActivitiesModel,
+            shiftActivitiesModel: null,//_shiftActivitiesModel,
             workerId: _workerRef?.id,
             workerModel: map.containsKey(ShiftDataSchema.workerData)
                   ? WorkerModel.fromMap(map: map[ShiftDataSchema.workerData],
@@ -136,5 +136,26 @@ class ShiftPatternDataModel {
       }
     }
     return null;
+  }
+
+  ShiftPatternDataModel copyWith(ShiftPatternDataModel shiftPatternDataModel){
+    return ShiftPatternDataModel(
+        docID: shiftPatternDataModel.docID,
+        startDate: shiftPatternDataModel.startDate,
+        endDate: shiftPatternDataModel.endDate,
+        startTimeInt: shiftPatternDataModel.startTimeInt,
+        endTimeInt: shiftPatternDataModel.endTimeInt,
+        recurrence: shiftPatternDataModel.recurrence,
+        jobTitle: shiftPatternDataModel.jobTitle,
+        jobID: shiftPatternDataModel.jobID,
+        role: shiftPatternDataModel.role,
+        organisation: shiftPatternDataModel.organisation,
+        supervisorRef: shiftPatternDataModel.supervisorRef,
+        managerRef: shiftPatternDataModel.managerRef,
+        shiftLocationDataModel: shiftPatternDataModel.shiftLocationDataModel,
+        shiftActivitiesModel: shiftPatternDataModel.shiftActivitiesModel,
+        workerId: shiftPatternDataModel.workerId,
+        workerModel: shiftPatternDataModel.workerModel
+    );
   }
 }
