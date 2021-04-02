@@ -5,64 +5,59 @@ import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
 
 class JobSummaryDataModel {
-  String docID;
-  String organisationID;
+  String organisationId;
   JobDataModel jobDataModel;
-  String jobID;
+  String jobId;
   List<WorkerModel> workersArray;
 
   JobSummaryDataModel({
-    this.docID,
-    this.organisationID,
+    this.organisationId,
     this.jobDataModel,
-    this.jobID,
+    this.jobId,
     this.workersArray,
   }) : assert(
-          docID != null && jobDataModel != null && jobID != null,
+          jobDataModel != null && jobId != null,
         );
 
   factory JobSummaryDataModel.fromMap({
     @required Map<String, dynamic> map,
-    @required String docID,
+    @required String docId,
   }) {
     if (map.isNotEmpty) {
       try {
-        String _organisationID = '';
+        String _organisationId = '';
         final DocumentReference _organisationRef =
             map[JobSummarySchema.organisationRef];
         if (_organisationRef != null) {
-          _organisationID = _organisationRef.id;
-          String _jobID = '';
+          _organisationId = _organisationRef.id;
+          String _jobId = '';
           final DocumentReference _jobRef = map[JobSummarySchema.jobRef];
-          if (_jobRef != null) {
-            _jobID = _jobRef.id;
 
-            final JobDataModel _jobDataModel = JobDataModel.fromMap(
-                map: map[JobSummarySchema.jobData] ?? {}, docID: _jobID
+          _jobId = docId;
+
+          final JobDataModel _jobDataModel =
+              JobDataModel.fromMap(map: map ?? {}, docID: _jobId);
+          final Map<String, dynamic> workers =
+              map[JobSummarySchema.workers] ?? {};
+          List<WorkerModel> _allWorkerArray = [];
+          workers.forEach((key, element) {
+            final WorkerModel _worker = WorkerModel.fromMap(
+              map: element,
+              docID: key,
             );
-            final Map<String, dynamic> workers =
-                map[JobSummarySchema.workers] ?? {};
-            List<WorkerModel> _allWorkerArray = [];
-            workers.forEach((key, element) {
-              final WorkerModel _worker = WorkerModel.fromMap(
-                map: element,
-                docID: key,
-              );
 
-              if (_worker != null) {
-                _allWorkerArray.add(_worker);
-              }
-            });
-
-            if (_jobID.isNotEmpty) {
-              return JobSummaryDataModel(
-                docID: docID,
-                organisationID: _organisationID,
-                jobDataModel: _jobDataModel,
-                jobID: _jobID,
-                workersArray: _allWorkerArray,
-              );
+            if (_worker != null) {
+              _allWorkerArray.add(_worker);
             }
+          });
+
+          if (_jobId.isNotEmpty) {
+            return JobSummaryDataModel(
+              organisationId: _organisationId,
+              jobDataModel: _jobDataModel,
+              jobId: _jobId,
+              workersArray: _allWorkerArray,
+            );
           }
         }
       } catch (e) {
