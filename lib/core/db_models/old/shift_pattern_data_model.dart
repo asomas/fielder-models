@@ -42,17 +42,7 @@ class ShiftPatternDataModel {
       this.shiftLocationDataModel,
       this.workerModel,
       this.supervisorRef,
-      this.managerRef})
-      : assert(
-          docID != null &&
-              organisation != null &&
-              endDate != null &&
-              endTimeInt != null &&
-              jobID != null &&
-              recurrence != null &&
-              startDate != null &&
-              startTimeInt != null,
-        );
+      this.managerRef});
 
   factory ShiftPatternDataModel.fromMap({
     @required Map<String, dynamic> map,
