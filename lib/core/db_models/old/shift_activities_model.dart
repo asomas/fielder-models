@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tuple/tuple.dart';
 
 class ShiftActivitiesModel {
   String docID;

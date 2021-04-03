@@ -95,3 +95,8 @@ enum BrandingImageType{
   Banner
 }
 
+enum RenderSlot {
+  Single,
+  Week,
+}
+
