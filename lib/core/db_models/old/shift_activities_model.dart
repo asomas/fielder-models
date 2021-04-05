@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/old/schema/shift_actvities_schema.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:tuple/tuple.dart';
 
@@ -29,18 +30,18 @@ class ShiftActivitiesModel {
   }) {
     if (map.isNotEmpty) {
       try {
-        final DocumentReference _shiftPatternRef = map['shift_pattern_ref'];
-        final GeoPoint _clockInLocation = map['clock_in_location'];
-        final GeoPoint _clockOutLocation = map['clock_out_location'];
-        final Timestamp _clockInTimeStamp = map['clock_in_time'];
-        final Timestamp _shiftPatternDateTimeStamp = map['shift_date'];
+        final DocumentReference _shiftPatternRef = map[ShiftActivitiesSchema.shiftPatternRef];
+        final GeoPoint _clockInLocation = map[ShiftActivitiesSchema.clockInLocation];
+        final GeoPoint _clockOutLocation = map[ShiftActivitiesSchema.clockOutLocation];
+        final Timestamp _clockInTimeStamp = map[ShiftActivitiesSchema.clockInTime];
+        final Timestamp _clockOutTimeStamp = map[ShiftActivitiesSchema.clockOutTime];
+        final Timestamp _shiftPatternDateTimeStamp = map[ShiftActivitiesSchema.shiftDate];
         DateTime _clockInDateTime;
         if (_clockInTimeStamp != null) {
           _clockInDateTime = DateTime.fromMillisecondsSinceEpoch(
             _clockInTimeStamp.millisecondsSinceEpoch,
           );
         }
-        final Timestamp _clockOutTimeStamp = map['clock_out_time'];
         DateTime _clockOutDateTime;
         if (_clockOutTimeStamp != null) {
           _clockOutDateTime = DateTime.fromMillisecondsSinceEpoch(
