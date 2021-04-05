@@ -4,7 +4,7 @@ import 'package:fielder_models/core/enums/enums.dart';
 import 'package:fielder_models/core/enums/slot_status_enums.dart';
 
 class SlotModel {
-  final String assignmentID;
+  final String assignmentId;
   final int startHour;
   final int endHour;
   final int startMin;
@@ -13,16 +13,16 @@ class SlotModel {
   final String profileName;
   final String jobTitle;
   final String slotContentText;
-  final String picUrl;
+  final String workerAvatarUrl;
   final String statusAssetName;
   final bool assigned;
-  final String jobID;
+  final String jobId;
   final DateTime weekDay;
   final String workerId;
   final bool recurring;
   final String shiftPatternTitle;
   final String slotTypeImage;
-  final SlotIconStatus slotIconStatus;
+  final SlotStatusIcon slotStatusIcon;
   final String location;
   final double latitude;
   final double longitude;
@@ -32,15 +32,15 @@ class SlotModel {
   final double clockOutLongitude;
   final DateTime clockInTime;
   final DateTime clockOutTime;
-  final String organisationName;
+  final String organisationCompanyName;
 
   SlotModel(
-      {this.assignmentID,
+      {this.assignmentId,
       this.workerId,
       this.profileName = '',
       this.jobTitle = '',
       this.slotContentText = '',
-      this.picUrl = '',
+      this.workerAvatarUrl = '',
       this.endHour,
       this.startHour,
       this.startMin,
@@ -48,11 +48,11 @@ class SlotModel {
       this.slotStatus = SlotStatus.Empty,
       this.statusAssetName = '',
       this.assigned = false,
-      this.jobID,
+      this.jobId,
       this.weekDay,
       this.shiftPatternTitle,
       this.slotTypeImage = AssetsConstants.inactiveJobIcon,
-      this.slotIconStatus = SlotIconStatus.Inactive,
+      this.slotStatusIcon = SlotStatusIcon.Inactive,
       this.recurring = false,
       this.location,
       this.latitude,
@@ -63,6 +63,6 @@ class SlotModel {
       this.clockOutLongitude,
       this.clockInTime,
       this.clockOutTime,
-      this.organisationName = ""
+      this.organisationCompanyName = ""
       });
 }

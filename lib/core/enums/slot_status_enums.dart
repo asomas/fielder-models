@@ -4,7 +4,7 @@
   Orange
  }
 
- enum SlotIconStatus{
+ enum SlotStatusIcon{
    RecurringActive,
    RecurringInactive,
    Active,
