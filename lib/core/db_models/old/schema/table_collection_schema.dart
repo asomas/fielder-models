@@ -12,6 +12,7 @@ class FbCollections {
   static const String jobShifts = "shift_patterns";
   static const String jobSummaries = "job_summaries";
   static const String jobTemplates = "job_templates";
+  static const String shiftActivities = "shift_activities";
   static const String jobs = "jobs";
   static const String locations = "locations";
   static const String qualifications = "qualifications";
