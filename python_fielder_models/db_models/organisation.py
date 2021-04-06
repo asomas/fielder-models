@@ -51,7 +51,7 @@ class GeneralContact(ContactSerializer):
     """Document has fixed ID, general_contact, inside Subcollection called company_info.  So the complete path to this document is  organisations/organisation_id/company_info/general_contact"""
 
     # note, inherits fields e.g. email from contacts Serializer
-    website = serializers.URLField(required=False, allow_null=True)
+    website = serializers.RegexField(WEBSITE_REGEX, required=False, allow_null=True)
 
 
 class SICCodeSerializer(serializers.Serializer):

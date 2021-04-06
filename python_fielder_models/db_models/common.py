@@ -3,6 +3,9 @@ from rest_framework import serializers
 DATE_FIELD_REGEX = "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
 PHONE_FIELD_REGEX = "^\+44[0-9]{10}$"
 HEX_COLOR_REGEX = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"
+WEBSITE_REGEX = (
+    "^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$"
+)
 
 COMPANY_NAME_MAX_LENGTH = 156
 FULL_NAME_MAX_LENGTH = 75
