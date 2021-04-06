@@ -9,12 +9,12 @@ FULL_NAME_MAX_LENGTH = 75
 
 
 class AddressBasicDBSerializer(serializers.Serializer):
-    name = serializers.CharField()
+    name = serializers.CharField(allow_null=True)
     street = serializers.CharField(allow_null=True)
-    town = serializers.CharField()
+    town = serializers.CharField(allow_null=True)
     county = serializers.CharField(allow_null=True)
-    country = serializers.CharField()
-    postcode = serializers.CharField()
+    country = serializers.CharField(allow_null=True)
+    postcode = serializers.CharField(allow_null=True)
     po_box = serializers.CharField(allow_null=True)
 
 
