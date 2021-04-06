@@ -3,7 +3,7 @@ from .common import *
 
 # new
 class OrganisationSubscriptionSerializer(serializers.Serializer):
-    name = serializers.CharField(max_length=COMPANY_NAME_MAX_LENGTH)
+    company_name = serializers.CharField(max_length=COMPANY_NAME_MAX_LENGTH)
     status = serializers.ChoiceField(
         required=True, choices=["accepted", "declined", "pending"]
     )
@@ -66,7 +66,7 @@ class CompanySerializer(serializers.Serializer):
         name = serializers.CharField(max_length=FULL_NAME_MAX_LENGTH)
         appointment_date = serializers.DateTimeField()
 
-    name = serializers.CharField(max_length=COMPANY_NAME_MAX_LENGTH)
+    company_name = serializers.CharField(max_length=COMPANY_NAME_MAX_LENGTH)
     incorporation_date = serializers.DateTimeField()
     registration_number = serializers.CharField(min_length=8, max_length=8)
     sic_codes = serializers.ListField(allow_empty=False, child=SICCodeSerializer())
