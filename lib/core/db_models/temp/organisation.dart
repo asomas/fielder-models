@@ -60,14 +60,14 @@ class OrganisationUser {
 
 // helper
 class OrganisationSubscription {
-  String name; //max length 75
+  String companyName; //max length 75
   AcceptanceStatus status; // check into fromMap and return the StatusEnums
   Roles role; // check into fromMap and return the RolesEnum
 
   static OrganisationSubscription fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
     OrganisationSubscription userOrganisation = OrganisationSubscription();
-    userOrganisation.name = map['name'];
+    userOrganisation.companyName = map['company_name'];
     userOrganisation.role = getRole(map['role']);
     userOrganisation.status = getAcceptanceStatus(map['status']);
     return userOrganisation;
@@ -119,7 +119,7 @@ class OrganisationSubscription {
   }
 
   Map toJson() => {
-    "name": name,
+    "name": companyName,
     "role": role,
     "status": status,
   };
@@ -258,7 +258,7 @@ class AddressBasic {
 class Company {
   // Document has fixed ID, main, inside Subcollection called company_info.  So the complete path to this document is
   // organisations/organisation_id/company_info/main
-  String name; //validate
+  String companyName; //validate
   Timestamp incorporationDate; // Validate
   String registrationNumber; //min & max length 8
   List<SICCode> sicCodes;
@@ -273,7 +273,7 @@ class Company {
   static Company fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
     Company company = Company();
-    company.name = map['name'];
+    company.companyName = map['company_name'];
     company.incorporationDate = map['incorporation_date'];
     company.registrationNumber = map['registration_number'];
     company.sicCodes =
