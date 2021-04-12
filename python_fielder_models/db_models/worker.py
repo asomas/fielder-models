@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .common import *
 
 
-class WorkHistory(serializers.Serializer):
+class WorkHistorySerializer(serializers.Serializer):
     class ReferenceSerializer(serializers.Serializer):
         value = serializers.CharField(allow_null=True)
 
@@ -22,11 +22,17 @@ class WorkHistory(serializers.Serializer):
     sic_code = SICCodeSerializer(required=False, allow_null=True)
     location = serializers.CharField(required=False, allow_null=True)
     position = serializers.CharField(required=False, allow_null=True)
-    start_date = serializers.RegexField(DATE_FIELD_REGEX)
-    end_date = serializers.RegexField(DATE_FIELD_REGEX)
-    summary = serializers.CharField(required=False, allow_null=True)
-    skills = serializers.ListField(required=False, child=SkillSerializer())
-    qualifications = serializers.ListField(
-        required=False, child=QualificationSerializer()
+    start_date = serializers.RegexField(
+        DATE_FIELD_REGEX, required=False, allow_null=True
     )
-    checks = serializers.ListField(required=False, child=CheckSerializer())
+    end_date = serializers.RegexField(DATE_FIELD_REGEX, required=False, allow_null=True)
+    summary = serializers.CharField(required=False, allow_null=True)
+    skills = serializers.ListField(
+        required=False, allow_null=True, child=SkillSerializer()
+    )
+    qualifications = serializers.ListField(
+        required=False, allow_null=True, child=QualificationSerializer()
+    )
+    checks = serializers.ListField(
+        required=False, allow_null=True, child=CheckSerializer()
+    )
