@@ -11,6 +11,9 @@ class WorkHistorySerializer(serializers.Serializer):
     class SICCodeSerializer(ReferenceSerializer):
         sic_code_ref = DocumentReferenceField()
 
+    class OccupationSerializer(ReferenceSerializer):
+        occupation_ref = DocumentReferenceField()
+
     class SkillSerializer(ReferenceSerializer):
         skill_ref = DocumentReferenceField()
 
@@ -23,7 +26,7 @@ class WorkHistorySerializer(serializers.Serializer):
     organisation_name = serializers.CharField(required=False, allow_null=True)
     sic_code = SICCodeSerializer(required=False, allow_null=True)
     location = serializers.CharField(required=False, allow_null=True)
-    position = serializers.CharField(required=False, allow_null=True)
+    occupation = OccupationSerializer(required=False, allow_null=True)
     start_date = serializers.RegexField(
         DATE_FIELD_REGEX, required=False, allow_null=True
     )
