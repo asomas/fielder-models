@@ -1,7 +1,7 @@
 from fielder_backend_utils.rest_utils import DocumentReferenceField
 from rest_framework import serializers
 
-from .common import *
+from ..db_models.common import *
 
 
 class WorkHistoryAPISerializer(serializers.Serializer):
