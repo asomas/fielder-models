@@ -36,3 +36,4 @@ class WorkHistorySerializer(serializers.Serializer):
     checks = serializers.ListField(
         required=False, allow_null=True, child=CheckSerializer()
     )
+    worker_ref = DocumentReferenceField()
