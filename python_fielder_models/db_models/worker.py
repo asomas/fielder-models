@@ -53,17 +53,14 @@ class EducationSerializer(serializers.Serializer):
     class CourseSerializer(ReferenceSerializer):
         course_ref = DocumentReferenceField()
 
-
     class LevelSerializer(ReferenceSerializer):
         level_ref = DocumentReferenceField()
-
 
     class GradeSerializer(ReferenceSerializer):
         grade_ref = DocumentReferenceField()
 
     class KnowledgeAreaSerializer(ReferenceSerializer):
         knowledge_area_ref = DocumentReferenceField()
-
 
     education_institution = EducationInstitutionSerializer(required=False, allow_null=True)
     location = serializers.CharField(required=False, allow_null=True)
@@ -80,3 +77,4 @@ class EducationSerializer(serializers.Serializer):
         required=False, allow_null=True, child=KnowledgeAreaSerializer()
     )       
     worker_ref = DocumentReferenceField()
+
