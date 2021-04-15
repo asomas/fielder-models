@@ -42,3 +42,41 @@ class WorkHistorySerializer(serializers.Serializer):
         required=False, allow_null=True, child=CheckSerializer()
     )
     worker_ref = DocumentReferenceField()
+
+class EducationSerializer(serializers.Serializer):
+    class ReferenceSerializer(serializers.Serializer):
+        value = serializers.CharField(allow_null=True)
+
+    class EducationInstitutionSerializer(ReferenceSerializer):
+        education_institution_ref = DocumentReferenceField()
+
+    class CourseSerializer(ReferenceSerializer):
+        course_ref = DocumentReferenceField()
+
+
+    class LevelSerializer(ReferenceSerializer):
+        level_ref = DocumentReferenceField()
+
+
+    class GradeSerializer(ReferenceSerializer):
+        grade_ref = DocumentReferenceField()
+
+    class KnowledgeAreaSerializer(ReferenceSerializer):
+        knowledge_area_ref = DocumentReferenceField()
+
+
+    education_institution = EducationInstitutionSerializer(required=False, allow_null=True)
+    location = serializers.CharField(required=False, allow_null=True)
+    course = CourseSerializer(required=False, allow_null=True)
+    level= LevelSerializer(required=False, allow_null=True)
+    grade = GradeSerializer(required=False, allow_null=True)
+    award = serializers.BooleanField(required=False, allow_null=True)     
+    start_date = serializers.RegexField(
+        DATE_FIELD_REGEX, required=False, allow_null=True
+    )
+    end_date = serializers.RegexField(DATE_FIELD_REGEX, required=False, allow_null=True)
+    summary = serializers.CharField(required=False, allow_null=True)
+    knowledge_areas = serializers.ListField(
+        required=False, allow_null=True, child=KnowledgeAreaSerializer()
+    )       
+    worker_ref = DocumentReferenceField()
