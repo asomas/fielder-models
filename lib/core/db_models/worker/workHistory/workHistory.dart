@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/worker/schema/workerHistorySchema.dart';
 
 class WorkHistory {
@@ -11,7 +12,7 @@ class WorkHistory {
   SicCode sicCode;
   List<Skill> skills;
   String summary;
-  String workerRef;
+  DocumentReference workerRef;
 
   WorkHistory(
       {this.checks,
@@ -64,7 +65,7 @@ class WorkHistory {
 }
 
 class Occupation {
-  String occupationRef;
+  DocumentReference occupationRef;
   String value;
 
   Occupation({
@@ -84,7 +85,7 @@ class Occupation {
 }
 
 class Check {
-  String checkRef;
+  DocumentReference checkRef;
   String value;
 
   Check({
@@ -104,7 +105,7 @@ class Check {
 }
 
 class Qualification {
-  String qualificationRef;
+  DocumentReference qualificationRef;
   String value;
 
   Qualification({
@@ -124,7 +125,7 @@ class Qualification {
 }
 
 class SicCode {
-  String sicCodeRef;
+  DocumentReference sicCodeRef;
   String value;
 
   SicCode({
@@ -144,7 +145,7 @@ class SicCode {
 }
 
 class Skill {
-  String skillRef;
+  DocumentReference skillRef;
   String value;
 
   Skill({
