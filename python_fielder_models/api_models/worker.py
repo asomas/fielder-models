@@ -1,7 +1,7 @@
 from fielder_backend_utils.rest_utils import DocumentReferenceField
 from rest_framework import serializers
 
-from ..db_models.common import *
+from ..api_models.common import *
 from ..db_models.worker import *
 
 
@@ -51,7 +51,7 @@ class ValueSerializer(serializers.Serializer):
 
 class StaffDetailsPersnoalDetailsResponse(serializers.Serializer):
     full_name = serializers.CharField(required=False, allow_null=True, max_length=FULL_NAME_MAX_LENGTH)
-    prefered_name = serializers.CharField(required=False, allow_null=True, max_length=FULL_NAME_MAX_LENGTH)
+    preferred_name = serializers.CharField(required=False, allow_null=True, max_length=FULL_NAME_MAX_LENGTH)
     address = AddressSerializer(required=False, allow_null=True)
     phone_number = serializers.RegexField(PHONE_FIELD_REGEX, required=False, allow_null=True)
     email = serializers.EmailField()
