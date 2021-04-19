@@ -157,6 +157,7 @@ class ShiftPatternDataModel {
   String workerId;
   ShiftActivitiesModel shiftActivitiesModel;
   WorkerModel workerModel;
+  bool isUnavailableForOrganisation;
 
   ShiftPatternDataModel(
       {this.docID,
@@ -171,7 +172,9 @@ class ShiftPatternDataModel {
       this.startTimeInt,
       this.workerId,
       this.shiftActivitiesModel,
-      this.workerModel})
+      this.workerModel,
+      this.isUnavailableForOrganisation = false
+      })
       : assert(
           docID != null &&
               organisation != null &&
@@ -186,6 +189,7 @@ class ShiftPatternDataModel {
   factory ShiftPatternDataModel.fromMap({
     @required Map<String, dynamic> map,
     @required String docID,
+    bool isUnavailable = false
   }) {
     if (map.isNotEmpty) {
       try {
@@ -239,6 +243,7 @@ class ShiftPatternDataModel {
               jobTitle: _jobTitle,
               jobID: _jobRef?.id,
               role: _role,
+              isUnavailableForOrganisation: isUnavailable,
               organisation: _organisation,
               shiftActivitiesModel: _shiftActivitiesModel,
               workerId: _workerRef?.id,

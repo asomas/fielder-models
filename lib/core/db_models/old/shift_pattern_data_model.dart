@@ -25,6 +25,7 @@ class ShiftPatternDataModel {
   ShiftActivitiesModel shiftActivitiesModel;
   WorkerModel workerModel;
   ShiftLocationDataModel shiftLocationDataModel;
+  bool isUnavailableForOrganisation;
 
   ShiftPatternDataModel(
       {this.docID,
@@ -42,11 +43,14 @@ class ShiftPatternDataModel {
       this.shiftLocationDataModel,
       this.workerModel,
       this.supervisorRef,
-      this.managerRef});
+      this.managerRef,
+      this.isUnavailableForOrganisation = false
+      });
 
   factory ShiftPatternDataModel.fromMap({
     @required Map<String, dynamic> map,
     @required String docID,
+    bool isUnavailable = false
   }) {
     if (map.isNotEmpty) {
       try {
@@ -110,6 +114,7 @@ class ShiftPatternDataModel {
             jobTitle: _jobTitle,
             jobID: _jobRef?.id,
             role: _role,
+            isUnavailableForOrganisation: isUnavailable,
             organisation: _organisation,
             supervisorRef: _supervisorRef,
             managerRef: _managerRef,
