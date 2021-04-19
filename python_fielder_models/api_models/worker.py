@@ -1,7 +1,7 @@
 from fielder_backend_utils.rest_utils import DocumentReferenceField
 from rest_framework import serializers
 
-from ..db_models.common import *
+from ..api_models.common import *
 from ..db_models.worker import *
 
 
