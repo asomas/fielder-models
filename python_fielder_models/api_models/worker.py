@@ -105,6 +105,3 @@ class ShiftsAndAvailabilityResponse(serializers.Serializer):
 class WorkerDetailRquest(serializers.Serializer):
     worker_id = serializers.CharField()
     organisation_id = serializers.CharField()
-
-
-    
