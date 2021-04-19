@@ -45,10 +45,6 @@ class WorkHistoryAPISerializer(serializers.Serializer):
     )
 
 
-class ValueSerializer(serializers.Serializer):
-    value = serializers.CharField()
-
-
 class StaffDetailsPersnoalDetailsResponse(serializers.Serializer):
     full_name = serializers.CharField(
         required=False, allow_null=True, max_length=FULL_NAME_MAX_LENGTH
@@ -60,25 +56,24 @@ class StaffDetailsPersnoalDetailsResponse(serializers.Serializer):
     phone_number = serializers.RegexField(
         PHONE_FIELD_REGEX, required=False, allow_null=True
     )
-    email = serializers.EmailField()
     skills = serializers.ListField(
-        required=False, allow_null=True, child=ValueSerializer()
+        required=False, allow_null=True, child=serializers.CharField()
     )
     checks = serializers.ListField(
-        required=False, allow_null=True, child=ValueSerializer()
+        required=False, allow_null=True, child=serializer.CharField()
     )
     personal_statement = serializers.CharField(required=False, allow_null=True)
 
 
 class StaffDetailsProfessionalDetailsResponse(serializers.Serializer):
     skills = serializers.ListField(
-        required=False, allow_null=True, child=ValueSerializer()
+        required=False, allow_null=True, child=serializer.CharField()
     )
     qualifications = serializers.ListField(
-        required=False, allow_null=True, child=ValueSerializer()
+        required=False, allow_null=True, child=serializer.CharField()
     )
     checks = serializers.ListField(
-        required=False, allow_null=True, child=ValueSerializer()
+        required=False, allow_null=True, child=serializer.CharField()
     )
     work_histories = serializers.ListField(
         required=False, allow_null=True, child=WorkHistorySerializer()
