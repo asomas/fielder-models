@@ -60,20 +60,20 @@ class StaffDetailsPersnoalDetailsResponse(serializers.Serializer):
         required=False, allow_null=True, child=serializers.CharField()
     )
     checks = serializers.ListField(
-        required=False, allow_null=True, child=serializer.CharField()
+        required=False, allow_null=True, child=serializers.CharField()
     )
     personal_statement = serializers.CharField(required=False, allow_null=True)
 
 
 class StaffDetailsProfessionalDetailsResponse(serializers.Serializer):
     skills = serializers.ListField(
-        required=False, allow_null=True, child=serializer.CharField()
+        required=False, allow_null=True, child=serializers.CharField()
     )
     qualifications = serializers.ListField(
-        required=False, allow_null=True, child=serializer.CharField()
+        required=False, allow_null=True, child=serializers.CharField()
     )
     checks = serializers.ListField(
-        required=False, allow_null=True, child=serializer.CharField()
+        required=False, allow_null=True, child=serializers.CharField()
     )
     work_histories = serializers.ListField(
         required=False, allow_null=True, child=WorkHistorySerializer()
