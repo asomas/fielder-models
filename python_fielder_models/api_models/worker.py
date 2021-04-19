@@ -49,10 +49,10 @@ class StaffDetailsPersnoalDetailsResponse(serializers.Serializer):
     full_name = serializers.CharField(
         required=False, allow_null=True, max_length=FULL_NAME_MAX_LENGTH
     )
-    prefered_name = serializers.CharField(
+    preferred_name = serializers.CharField(
         required=False, allow_null=True, max_length=FULL_NAME_MAX_LENGTH
     )
-    address = serializers.CharField(required=False, allow_null=True)
+    address = SumsubAddressSerializer(required=False, allow_null=True)
     phone_number = serializers.RegexField(
         PHONE_FIELD_REGEX, required=False, allow_null=True
     )
