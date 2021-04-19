@@ -27,6 +27,30 @@ class WorkHistory {
       this.summary,
       this.workerRef});
 
+  bool checkAllFieldsNull() {
+    return [
+      endDate,
+      location,
+      occupation,
+      organisationName,
+      sicCode,
+      startDate,
+      summary
+    ].any((element) {
+      if (element != null && element != "") {
+        return false;
+      } else {
+        if (checks.length > 0 ||
+            qualifications.length > 0 ||
+            skills.length > 0) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+    });
+  }
+
   factory WorkHistory.fromJson(Map<String, dynamic> json) => WorkHistory(
       checks: json[WorkerHistorySchema.checks] != null
           ? List<Check>.from(
@@ -48,20 +72,20 @@ class WorkHistory {
           ? json[WorkerHistorySchema.organisationName]
           : "",
       qualifications: json[WorkerHistorySchema.qualifications] != null
-          ? json[WorkerHistorySchema.qualifications]
+          ? List<Qualification>.from(json[WorkerHistorySchema.qualifications]
+              .map((x) => Qualification.fromJson(x)))
           : [],
       sicCode: json[WorkerHistorySchema.sic_code] != null
-          ? json[WorkerHistorySchema.sic_code]
+          ? SicCode.fromJson(json[WorkerHistorySchema.sic_code])
           : null,
       skills: json[WorkerHistorySchema.skills] != null
-          ? json[WorkerHistorySchema.skills]
+          ? List<Skill>.from(
+              json[WorkerHistorySchema.skills].map((x) => Skill.fromJson(x)))
           : [],
       summary: json[WorkerHistorySchema.summary] != null
           ? json[WorkerHistorySchema.summary]
           : "",
-      workerRef: json[WorkerHistorySchema.workerRef] != null
-          ? json[WorkerHistorySchema.workerRef]
-          : "");
+      workerRef: json[WorkerHistorySchema.workerRef] != null ? json[WorkerHistorySchema.workerRef] : "");
 }
 
 class Occupation {
