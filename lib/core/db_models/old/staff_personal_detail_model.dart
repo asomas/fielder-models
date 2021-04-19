@@ -1,5 +1,7 @@
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
+import 'package:fielder_models/core/db_models/old/schema/staff_personal_detail_schema.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
+import 'package:fielder_models/core/db_models/worker/workHistory/workHistory.dart';
 
 class StaffPersonalDetailModel{
   String fullName;
@@ -25,24 +27,26 @@ class StaffPersonalDetailModel{
     if(map != null && map.isNotEmpty){
       try{
         return StaffPersonalDetailModel(
-          fullName: map["full_name"] ?? "",
-          preferredName: map["preferred_name"] ?? "",
-          addressModel: AddressModel.fromMap(map["address"]),
-          phoneNumber: map["phone_number"] ?? "",
-          personalStatement: map["personal_statement"] ?? "",
-          email: map["email"],
-          skillsModelList: (map["skills"] as List)?.isNotEmpty == true
-              ? (map["skills"] as List)
-              .map((e) => SkillsModel.fromMap(
-              map: e,
-              docID: ""
-          )).toList() : [],
-          checkModelList: (map["checks"] as List)?.isNotEmpty == true
-              ? (map["checks"] as List)
-              .map((e) => CheckModel.fromMap(
-              map: e,
-              checkID: ""
-          )).toList() : [],
+          fullName: map[StaffPersonalDetailSchema.fullName] ?? "",
+          preferredName: map[StaffPersonalDetailSchema.preferredName] ?? "",
+          addressModel: AddressModel.fromMap(map[StaffPersonalDetailSchema.address]),
+          phoneNumber: map[StaffPersonalDetailSchema.phoneNumber] ?? "",
+          personalStatement: map[StaffPersonalDetailSchema.personalStatement] ?? "",
+          email: map[StaffPersonalDetailSchema.email],
+          skillsModelList: map[StaffPersonalDetailSchema.skills] != null
+              ? List<Skill>.from(
+              map[StaffPersonalDetailSchema.skills].map((e) =>
+                  SkillsModel.fromMap(
+                      map: e,
+                  )))
+              : [],
+          checkModelList: map[StaffPersonalDetailSchema.checks] != null
+              ? List<CheckModel>.from(
+              map[StaffPersonalDetailSchema.checks].map((e) =>
+                  CheckModel.fromMap(
+                    map: e,
+                  )))
+              : [],
         );
       }
       catch(e){
@@ -77,12 +81,12 @@ class AddressModel {
     if(map != null && map.isNotEmpty){
       try{
         List _orderedKeys = [
-          map["building"] ,
-          map["street"],
-          map["county"],
-          map["city"] ,
-          map["country"],
-          map["postal_code"]
+          map[StaffPersonalDetailSchema.building] ,
+          map[StaffPersonalDetailSchema.street],
+          map[StaffPersonalDetailSchema.county],
+          map[StaffPersonalDetailSchema.city] ,
+          map[StaffPersonalDetailSchema.country],
+          map[StaffPersonalDetailSchema.postalCode]
         ];
         List _addressList = [];
         _orderedKeys.forEach((element) {
@@ -92,12 +96,12 @@ class AddressModel {
         });
         String _fullAddress = _addressList?.join(", ");
         return AddressModel(
-            building: map["building"] ?? "",
-            street: map["street"] ?? "",
-            county: map["county"] ?? "",
-            city: map["city"] ?? "",
-            country: map["country"] ?? "",
-            postalCode: map["postal_code"] ?? "",
+            building: map[StaffPersonalDetailSchema.building] ?? "",
+            street: map[StaffPersonalDetailSchema.street] ?? "",
+            county: map[StaffPersonalDetailSchema.county] ?? "",
+            city: map[StaffPersonalDetailSchema.city] ?? "",
+            country: map[StaffPersonalDetailSchema.country] ?? "",
+            postalCode: map[StaffPersonalDetailSchema.postalCode] ?? "",
             fullAddress: _fullAddress ?? ""
         );
       }catch(e){

@@ -1,5 +1,6 @@
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/qualification_model.dart';
+import 'package:fielder_models/core/db_models/old/schema/staff_professional_detail_schema.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'package:fielder_models/core/db_models/worker/education/education.dart';
 import 'package:fielder_models/core/db_models/worker/workHistory/workHistory.dart';
@@ -24,29 +25,21 @@ class StaffProfessionalDetailModel{
     if(map != null && map.isNotEmpty){
       try{
         return StaffProfessionalDetailModel(
-          skillsModelList: (map["skills"] as List)?.isNotEmpty == true
-              ? (map["skills"] as List)
-              .map((e) => SkillsModel.fromMap(
+          skillsModelList: (map[StaffProfessionalDetailSchema.skills] as List)?.isNotEmpty == true
+              ? (map[StaffProfessionalDetailSchema.skills] as List).map((e) => SkillsModel.fromMap(
               map: e,
-              docID: ""
           )).toList() : [],
-          checkModelList: (map["checks"] as List)?.isNotEmpty == true
-              ? (map["checks"] as List)
-              .map((e) => CheckModel.fromMap(
-              map: e,
-              checkID: ""
-          )).toList() : [],
-          qualificationModelList: (map["qualifications"] as List)?.isNotEmpty == true
-                ? (map["qualifications"] as List)
-                .map((e) => QualificationModel.fromMap(
-                map: e,
-                docID: ""
-          )).toList() : [],
-          workHistoryList: (map["work_history"] as List)?.isNotEmpty == true
-              ? (map["work_history"] as List)
-              .map((e) => WorkHistory.fromJson(e)).toList() : [],
-          educationList: (map["education"] as List)?.isNotEmpty == true
-              ? (map["education"] as List)
+          checkModelList: (map[StaffProfessionalDetailSchema.checks] as List)?.isNotEmpty == true
+              ? (map[StaffProfessionalDetailSchema.checks] as List)
+              .map((e) => CheckModel.fromMap(map: e,)).toList() : [],
+          qualificationModelList: (map[StaffProfessionalDetailSchema.qualifications] as List)?.isNotEmpty == true
+                ? (map[StaffProfessionalDetailSchema.qualifications] as List)
+              .map((e) => QualificationModel.fromMap(map: e,)).toList() : [],
+          workHistoryList: (map[StaffProfessionalDetailSchema.workHistory] as List)?.isNotEmpty == true
+              ? (map[StaffProfessionalDetailSchema.workHistory] as List).map((e) =>
+              WorkHistory.fromJson(e)).toList() : [],
+          educationList: (map[StaffProfessionalDetailSchema.education] as List)?.isNotEmpty == true
+              ? (map[StaffProfessionalDetailSchema.education] as List)
               .map((e) => Education.fromJson(e)).toList() : [],
         );
       }
