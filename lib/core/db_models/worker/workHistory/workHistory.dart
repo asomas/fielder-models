@@ -99,7 +99,9 @@ class Occupation {
 
   factory Occupation.fromJson(Map<String, dynamic> json) => Occupation(
         occupationRef: json[WorkerHistorySchema.occupationRef],
-        value: json[WorkerHistorySchema.value],
+        value: json[WorkerHistorySchema.value] != null
+            ? json[WorkerHistorySchema.value]
+            : "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -119,7 +121,9 @@ class Check {
 
   factory Check.fromJson(Map<String, dynamic> json) => Check(
         checkRef: json[WorkerHistorySchema.checkRef],
-        value: json[WorkerHistorySchema.value],
+        value: json[WorkerHistorySchema.value] != null
+            ? json[WorkerHistorySchema.value]
+            : "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -139,7 +143,9 @@ class Qualification {
 
   factory Qualification.fromJson(Map<String, dynamic> json) => Qualification(
         qualificationRef: json[WorkerHistorySchema.qualificationRef],
-        value: json[WorkerHistorySchema.value],
+        value: json[WorkerHistorySchema.value] != null
+            ? json[WorkerHistorySchema.value]
+            : "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -159,7 +165,9 @@ class SicCode {
 
   factory SicCode.fromJson(Map<String, dynamic> json) => SicCode(
         sicCodeRef: json[WorkerHistorySchema.sicCodeRef],
-        value: json[WorkerHistorySchema.value],
+        value: json[WorkerHistorySchema.value] != null
+            ? json[WorkerHistorySchema.value]
+            : "",
       );
 
   Map<String, dynamic> toJson() => {
