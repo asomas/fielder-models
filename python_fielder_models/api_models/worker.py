@@ -92,12 +92,17 @@ class WorkerUnavailabilitySerializer(serializers.Serializer):
     start_time = serializers.IntegerField(min_value=0, max_value=86400)
 
 
-class ShiftsAndAvailabilityResponse(serializers.Serializer):
+class UnavailabilitiesResponse(serializers.Serializer):
     worker_unavailabilities = serializers.ListField(
         allow_empty=[], child=WorkerUnavailabilitySerializer()
     )
 
 
-class WorkerDetailRquest(serializers.Serializer):
+class WorkerDetailRequest(serializers.Serializer):
     worker_id = serializers.CharField()
     organisation_id = serializers.CharField()
+
+
+class UnavailabilitiesRequest(WorkerDetailRequest):
+    start_date = serializers.RegexField(DATE_FIELD_REGEX)
+    end_date = serializers.RegexField(DATE_FIELD_REGEX)
