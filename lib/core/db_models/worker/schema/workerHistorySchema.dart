@@ -19,4 +19,6 @@ class WorkerHistorySchema {
   static const String workerRef = "worker_ref";
   static const String workHistoryId = "work_history_id";
   static const String message = "message";
+  static const String update = "update";
+  static const String occupations = "occupations";
 }
