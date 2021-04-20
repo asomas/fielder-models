@@ -5,7 +5,7 @@ class NewsNotificationSchema {
   static const String dismissed = "dismissed";
   static const String image = "image";
   static const String expiresAt = "expires_at";
-  static const String message_id = "message_id";
+  static const String messageId = "message_id";
   static const String read = "read";
   static const String subTitle = "subTitle";
   static const String title = "title";

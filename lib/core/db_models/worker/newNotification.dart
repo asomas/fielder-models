@@ -51,8 +51,8 @@ class NewsNotification {
         image: json[NewsNotificationSchema.image] != null
             ? json[NewsNotificationSchema.image]
             : "",
-        messageId: json[NewsNotificationSchema.message_id] != null
-            ? json[NewsNotificationSchema.message_id]
+        messageId: json[NewsNotificationSchema.messageId] != null
+            ? json[NewsNotificationSchema.messageId]
             : "",
         read: json[NewsNotificationSchema.read] != null
             ? json[NewsNotificationSchema.read]
