@@ -32,6 +32,15 @@ class SkillsModel {
     return null;
   }
 
+  factory SkillsModel.fromString(String value){
+    if(value != null && value.isNotEmpty){
+      return SkillsModel(
+        value: value,
+      );
+    }
+    return null;
+  }
+
   List<String> toJSON() {
     return [];
   }

@@ -31,4 +31,13 @@ class QualificationModel {
     }
     return null;
   }
+
+  factory QualificationModel.fromString(String value){
+    if(value != null && value.isNotEmpty){
+      return QualificationModel(
+        value: value,
+      );
+    }
+    return null;
+  }
 }

@@ -25,27 +25,24 @@ class StaffPersonalDetailModel{
   
   factory StaffPersonalDetailModel.fromMap(Map<String, dynamic> map){
     if(map != null && map.isNotEmpty){
+      print("MAPS_________$map");
       try{
         return StaffPersonalDetailModel(
           fullName: map[StaffPersonalDetailSchema.fullName] ?? "",
           preferredName: map[StaffPersonalDetailSchema.preferredName] ?? "",
-          addressModel: AddressModel.fromMap(map[StaffPersonalDetailSchema.address]),
           phoneNumber: map[StaffPersonalDetailSchema.phoneNumber] ?? "",
           personalStatement: map[StaffPersonalDetailSchema.personalStatement] ?? "",
           email: map[StaffPersonalDetailSchema.email],
+          addressModel: AddressModel.fromMap(map[StaffPersonalDetailSchema.address]),
           skillsModelList: map[StaffPersonalDetailSchema.skills] != null
-              ? List<Skill>.from(
+              ? List<SkillsModel>.from(
               map[StaffPersonalDetailSchema.skills].map((e) =>
-                  SkillsModel.fromMap(
-                      map: e,
-                  )))
+                  SkillsModel.fromString(e)))
               : [],
           checkModelList: map[StaffPersonalDetailSchema.checks] != null
               ? List<CheckModel>.from(
               map[StaffPersonalDetailSchema.checks].map((e) =>
-                  CheckModel.fromMap(
-                    map: e,
-                  )))
+                  CheckModel.fromString(e)))
               : [],
         );
       }
@@ -61,19 +58,19 @@ class StaffPersonalDetailModel{
 class AddressModel {
   String building;
   String street;
-  String county;
-  String city;
-  String country;
-  String postalCode;
+  String houseNumber;
+  String locality;
+  String town;
+  String postCode;
   String fullAddress;
 
   AddressModel({
     this.building,
     this.street,
-    this.county,
-    this.city,
-    this.country,
-    this.postalCode,
+    this.houseNumber,
+    this.locality,
+    this.town,
+    this.postCode,
     this.fullAddress
   });
 
@@ -83,10 +80,10 @@ class AddressModel {
         List _orderedKeys = [
           map[StaffPersonalDetailSchema.building] ,
           map[StaffPersonalDetailSchema.street],
-          map[StaffPersonalDetailSchema.county],
-          map[StaffPersonalDetailSchema.city] ,
-          map[StaffPersonalDetailSchema.country],
-          map[StaffPersonalDetailSchema.postalCode]
+          map[StaffPersonalDetailSchema.houseNumber],
+          map[StaffPersonalDetailSchema.locality] ,
+          map[StaffPersonalDetailSchema.town],
+          map[StaffPersonalDetailSchema.postcode]
         ];
         List _addressList = [];
         _orderedKeys.forEach((element) {
@@ -98,10 +95,10 @@ class AddressModel {
         return AddressModel(
             building: map[StaffPersonalDetailSchema.building] ?? "",
             street: map[StaffPersonalDetailSchema.street] ?? "",
-            county: map[StaffPersonalDetailSchema.county] ?? "",
-            city: map[StaffPersonalDetailSchema.city] ?? "",
-            country: map[StaffPersonalDetailSchema.country] ?? "",
-            postalCode: map[StaffPersonalDetailSchema.postalCode] ?? "",
+            houseNumber: map[StaffPersonalDetailSchema.houseNumber] ?? "",
+            locality: map[StaffPersonalDetailSchema.locality] ?? "",
+            town: map[StaffPersonalDetailSchema.town] ?? "",
+            postCode: map[StaffPersonalDetailSchema.postcode] ?? "",
             fullAddress: _fullAddress ?? ""
         );
       }catch(e){
