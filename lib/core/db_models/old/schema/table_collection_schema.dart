@@ -23,7 +23,11 @@ class FbCollections {
   static const String organisationRef = "organisation_ref";
   static const String supervisorRef = "supervisor_ref";
   static const String managerRef = "manager_ref";
+  static const String workerRef = "worker_ref";
   static const String checks = "checks";
   static const String occupations = "occupations";
   static const String workHistories = "work_histories";
+  static const String workerNotificationMessage = "worker_notification_messages";
+  static const String workerId = "worker_id";
+  static const String organisationId = "organisation_id";
 }
