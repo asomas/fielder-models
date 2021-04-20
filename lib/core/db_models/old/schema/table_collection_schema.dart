@@ -26,4 +26,5 @@ class FbCollections {
   static const String checks = "checks";
   static const String occupations = "occupations";
   static const String workHistories = "work_histories";
+  static const String workerNotificationMessage = "worker_notification_messages";
 }
