@@ -12,4 +12,5 @@ class NewsNotificationSchema {
   static const String type = "type";
   static const String readAt = "read_at";
   static const String withNotification = "with_notification";
+  static const String workerRef = "worker_ref";
 }
