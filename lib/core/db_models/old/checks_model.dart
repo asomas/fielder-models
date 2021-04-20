@@ -31,4 +31,13 @@ class CheckModel{
     }
     return null;
   }
+
+  factory CheckModel.fromString(String value){
+    if(value != null && value.isNotEmpty){
+      return CheckModel(
+        value: value,
+      );
+    }
+    return null;
+  }
 }

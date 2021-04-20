@@ -9,8 +9,8 @@ class StaffPersonalDetailSchema {
   static const String checks = "checks";
   static const String building = "building";
   static const String street = "street";
-  static const String county = "county";
-  static const String city = "city";
-  static const String country = "country";
-  static const String postalCode = "postal_code";
+  static const String houseNumber = "house_number";
+  static const String locality = "locality";
+  static const String town = "town";
+  static const String postcode = "postcode";
 }

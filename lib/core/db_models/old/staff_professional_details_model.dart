@@ -26,17 +26,16 @@ class StaffProfessionalDetailModel{
       try{
         return StaffProfessionalDetailModel(
           skillsModelList: (map[StaffProfessionalDetailSchema.skills] as List)?.isNotEmpty == true
-              ? (map[StaffProfessionalDetailSchema.skills] as List).map((e) => SkillsModel.fromMap(
-              map: e,
-          )).toList() : [],
+              ? (map[StaffProfessionalDetailSchema.skills] as List).map((e) =>
+              SkillsModel.fromString(e)).toList() : [],
           checkModelList: (map[StaffProfessionalDetailSchema.checks] as List)?.isNotEmpty == true
               ? (map[StaffProfessionalDetailSchema.checks] as List)
-              .map((e) => CheckModel.fromMap(map: e,)).toList() : [],
+              .map((e) => CheckModel.fromString(e)).toList() : [],
           qualificationModelList: (map[StaffProfessionalDetailSchema.qualifications] as List)?.isNotEmpty == true
                 ? (map[StaffProfessionalDetailSchema.qualifications] as List)
-              .map((e) => QualificationModel.fromMap(map: e,)).toList() : [],
-          workHistoryList: (map[StaffProfessionalDetailSchema.workHistory] as List)?.isNotEmpty == true
-              ? (map[StaffProfessionalDetailSchema.workHistory] as List).map((e) =>
+              .map((e) => QualificationModel.fromString(e)).toList() : [],
+          workHistoryList: (map[StaffProfessionalDetailSchema.workHistories] as List)?.isNotEmpty == true
+              ? (map[StaffProfessionalDetailSchema.workHistories] as List).map((e) =>
               WorkHistory.fromJson(e)).toList() : [],
           educationList: (map[StaffProfessionalDetailSchema.education] as List)?.isNotEmpty == true
               ? (map[StaffProfessionalDetailSchema.education] as List)
