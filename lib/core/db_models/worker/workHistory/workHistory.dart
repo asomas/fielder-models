@@ -119,12 +119,10 @@ class Occupation {
       }
       return Occupation(
         occupationRef: documentReference,
-        value: json[WorkerHistorySchema.value],
-      );
+        value: json[WorkerHistorySchema.value] ?? "",
     }
     return null;
   }
-
 
   Map<String, dynamic> toJson() => {
         WorkerHistorySchema.occupationRef: occupationRef,
@@ -153,7 +151,7 @@ class Check {
       }
       return Check(
         checkRef: documentReference,
-        value: json[WorkerHistorySchema.value],
+        value: json[WorkerHistorySchema.value] ?? "",
       );
     }
     return null;
@@ -186,7 +184,7 @@ class Qualification {
       }
       return Qualification(
         qualificationRef: documentReference,
-        value: json[WorkerHistorySchema.value],
+        value: json[WorkerHistorySchema.value] ?? "",
       );
     }
     return null;
@@ -220,7 +218,7 @@ class SicCode {
       }
       return SicCode(
         sicCodeRef: documentReference,
-        value: json[WorkerHistorySchema.value],
+        value: json[WorkerHistorySchema.value] ?? "",
       );
     }
     return null;
