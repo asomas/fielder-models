@@ -25,7 +25,6 @@ class StaffPersonalDetailModel{
   
   factory StaffPersonalDetailModel.fromMap(Map<String, dynamic> map){
     if(map != null && map.isNotEmpty){
-      print("MAPS_________$map");
       try{
         return StaffPersonalDetailModel(
           fullName: map[StaffPersonalDetailSchema.fullName] ?? "",
