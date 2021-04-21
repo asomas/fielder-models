@@ -54,19 +54,27 @@ class ShiftPatternDataModel {
   }) {
     if (map.isNotEmpty) {
       try {
-        final Timestamp _startTimeStamp = map['start_date'];
+        final _startTimeStamp = map['start_date'];
         DateTime _startDate;
         if (_startTimeStamp != null) {
-          _startDate = DateTime.fromMillisecondsSinceEpoch(
-            _startTimeStamp.millisecondsSinceEpoch,
-          );
+          if(_startTimeStamp is Timestamp){
+            _startDate = DateTime.fromMillisecondsSinceEpoch(
+              _startTimeStamp.millisecondsSinceEpoch,
+            );
+          }else{
+            _startDate = DateTime.parse(_startTimeStamp.toString().split("T")[0]);
+          }
         }
-        final Timestamp _endTimeStamp = map['end_date'];
+        final _endTimeStamp = map['end_date'];
         DateTime _endDate;
         if (_endTimeStamp != null) {
-          _endDate = DateTime.fromMillisecondsSinceEpoch(
-            _endTimeStamp.millisecondsSinceEpoch,
-          );
+          if(_endTimeStamp is Timestamp){
+            _endDate = DateTime.fromMillisecondsSinceEpoch(
+              _endTimeStamp.millisecondsSinceEpoch,
+            );
+          }else{
+            _endDate = DateTime.parse(_endTimeStamp.toString().split("T")[0]);
+          }
         }
         final int _startTimeInt = map['start_time'];
         final int _endTimeInt = map['end_time'];
@@ -74,7 +82,7 @@ class ShiftPatternDataModel {
           map: map['recurrence'] ?? {},
         );
         final String _jobTitle = map['job_title'] ?? '';
-        final DocumentReference _jobRef = map['job_ref'] ?? '';
+        final DocumentReference _jobRef = map['job_ref'];
         final String _role = map['role'] ?? '';
         OrganisationModel _organisation;
         ShiftLocationDataModel _shiftLocationDataModel;
@@ -103,8 +111,8 @@ class ShiftPatternDataModel {
           _shiftActivitiesModel = ShiftActivitiesModel.fromMap(
               map: map['shift_activity_data'] ?? {}, docID: _shiftActivityRef.id);
         }
-        if (_jobRef != null) {
-          return ShiftPatternDataModel(
+
+        return ShiftPatternDataModel(
             docID: docID,
             startDate: _startDate,
             endDate: _endDate,
@@ -118,14 +126,13 @@ class ShiftPatternDataModel {
             organisation: _organisation,
             supervisorRef: _supervisorRef,
             managerRef: _managerRef,
-              shiftLocationDataModel: _shiftLocationDataModel,
+            shiftLocationDataModel: _shiftLocationDataModel,
             shiftActivitiesModel: null,//_shiftActivitiesModel,
             workerId: _workerRef?.id,
             workerModel: map.containsKey(ShiftDataSchema.workerData)
-                  ? WorkerModel.fromMap(map: map[ShiftDataSchema.workerData],
-                  docID: map[ShiftDataSchema.workerRef]?.id) : null
-          );
-        }
+                ? WorkerModel.fromMap(map: map[ShiftDataSchema.workerData],
+                docID: map[ShiftDataSchema.workerRef]?.id) : null
+        );
       } catch (e) {
         print('ShiftPatternDataModel fromMap error: $e');
       }
@@ -150,7 +157,8 @@ class ShiftPatternDataModel {
         shiftLocationDataModel: shiftPatternDataModel.shiftLocationDataModel,
         shiftActivitiesModel: shiftPatternDataModel.shiftActivitiesModel,
         workerId: shiftPatternDataModel.workerId,
-        workerModel: shiftPatternDataModel.workerModel
+        workerModel: shiftPatternDataModel.workerModel,
+        isUnavailableForOrganisation: shiftPatternDataModel.isUnavailableForOrganisation
     );
   }
 }
