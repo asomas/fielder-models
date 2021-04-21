@@ -53,8 +53,8 @@ class StaffDetailsPersnoalDetailsResponse(serializers.Serializer):
         required=False, allow_null=True, max_length=FULL_NAME_MAX_LENGTH
     )
     address = SumsubAddressSerializer(required=False, allow_null=True)
-    phone_number = serializers.RegexField(
-        PHONE_FIELD_REGEX, required=False, allow_null=True
+    phone_number = serializers.CharField(
+        required=False, allow_null=True, allow_empty=True
     )
     skills = serializers.ListField(
         required=False, allow_null=True, child=serializers.CharField()
