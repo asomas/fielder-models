@@ -92,7 +92,7 @@ class WorkerUnavailabilitySerializer(serializers.Serializer):
 
 class UnavailabilitiesResponse(serializers.Serializer):
     worker_unavailabilities = serializers.ListField(
-        allow_empty=[], child=WorkerUnavailabilitySerializer()
+        allow_empty=True, child=WorkerUnavailabilitySerializer()
     )
 
 
