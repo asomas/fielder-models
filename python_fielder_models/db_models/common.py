@@ -38,11 +38,12 @@ class VerifiedDateSerializer(VerifiedBaseSerializer):
 class VerifiedDateTimeSerializer(VerifiedBaseSerializer):
     value = serializers.DateTimeField()
 
+
 class RecurrenceSerializer(serializers.Serializer):
     friday = serializers.BooleanField(default=False)
     interval_amount = serializers.IntegerField(min_value=0)
     monday = serializers.BooleanField(default=False)
-    repeat_interval_type = serializers.ChoiceField(choices=['None', 'Daily', 'Weekly'])
+    repeat_interval_type = serializers.ChoiceField(choices=[None, "Daily", "Weekly"])
     saturday = serializers.BooleanField(default=False)
     sunday = serializers.BooleanField(default=False)
     thursday = serializers.BooleanField(default=False)
