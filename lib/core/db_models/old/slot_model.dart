@@ -33,6 +33,7 @@ class SlotModel {
   final DateTime clockInTime;
   final DateTime clockOutTime;
   final String organisationCompanyName;
+  final bool isUnavailable;
 
   SlotModel(
       {this.assignmentId,
@@ -63,6 +64,7 @@ class SlotModel {
       this.clockOutLongitude,
       this.clockInTime,
       this.clockOutTime,
-      this.organisationCompanyName = ""
+      this.organisationCompanyName = "",
+      this.isUnavailable = false
       });
 }
