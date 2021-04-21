@@ -43,6 +43,7 @@ class RecurrenceSerializer(serializers.Serializer):
     friday = serializers.BooleanField(default=False)
     interval_amount = serializers.IntegerField(min_value=0)
     monday = serializers.BooleanField(default=False)
+    tuesday = serializers.BooleanField(default=False)
     repeat_interval_type = serializers.ChoiceField(
         choices=[None, "Daily", "Weekly"], allow_null=True
     )
