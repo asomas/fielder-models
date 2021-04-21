@@ -13,6 +13,7 @@ class WorkHistory {
   List<Skill> skills;
   String summary;
   DocumentReference workerRef;
+  String docId;
 
   WorkHistory(
       {this.checks,
@@ -25,12 +26,15 @@ class WorkHistory {
       this.skills,
       this.startDate,
       this.summary,
-      this.workerRef});
+      this.workerRef,
+      this.docId});
 
-  static DocumentReference documentReferenceFromString(String stringDocumentReference){
+  static DocumentReference documentReferenceFromString(
+      String stringDocumentReference) {
     List<String> splitReference = stringDocumentReference.split("/");
-    return FirebaseFirestore.instance.
-    collection(splitReference[0]).doc(splitReference[1]);
+    return FirebaseFirestore.instance
+        .collection(splitReference[0])
+        .doc(splitReference[1]);
   }
 
   bool checkAllFieldsNull() {
@@ -57,45 +61,48 @@ class WorkHistory {
     });
   }
 
-  factory WorkHistory.fromJson(Map<String, dynamic> json) => WorkHistory(
-      checks: json[WorkerHistorySchema.checks] != null
-          ? List<Check>.from(
-              json[WorkerHistorySchema.checks].map((x) => Check.fromJson(x)))
-          : [],
-      endDate: json[WorkerHistorySchema.endDate] != null
-          ? json[WorkerHistorySchema.endDate]
-          : "",
-      startDate: json[WorkerHistorySchema.startDate] != null
-          ? json[WorkerHistorySchema.startDate]
-          : "",
-      location: json[WorkerHistorySchema.location] != null
-          ? json[WorkerHistorySchema.location]
-          : "",
-      occupation: json[WorkerHistorySchema.occupation] != null
-          ? Occupation.fromJson(json[WorkerHistorySchema.occupation])
-          : null,
-      organisationName: json[WorkerHistorySchema.organisationName] != null
-          ? json[WorkerHistorySchema.organisationName]
-          : "",
-      qualifications: json[WorkerHistorySchema.qualifications] != null
-          ? List<Qualification>.from(json[WorkerHistorySchema.qualifications]
-              .map((x) => Qualification.fromJson(x)))
-          : [],
-      sicCode: json[WorkerHistorySchema.sic_code] != null
-          ? SicCode.fromJson(json[WorkerHistorySchema.sic_code])
-          : null,
-      skills: json[WorkerHistorySchema.skills] != null
-          ? List<Skill>.from(
-              json[WorkerHistorySchema.skills].map((x) => Skill.fromJson(x)))
-          : [],
-      summary: json[WorkerHistorySchema.summary] != null
-          ? json[WorkerHistorySchema.summary]
-          : "",
-      workerRef: json[WorkerHistorySchema.workerRef] != null ?
-          json[WorkerHistorySchema.workerRef] is String ?
-              documentReferenceFromString(json[WorkerHistorySchema.workerRef])
-         : json[WorkerHistorySchema.workerRef] : null
-  );
+  factory WorkHistory.fromJson(Map<String, dynamic> json, {String docId}) =>
+      WorkHistory(
+          docId: docId,
+          checks: json[WorkerHistorySchema.checks] != null
+              ? List<Check>.from(json[WorkerHistorySchema.checks]
+                  .map((x) => Check.fromJson(x)))
+              : [],
+          endDate: json[WorkerHistorySchema.endDate] != null
+              ? json[WorkerHistorySchema.endDate]
+              : "",
+          startDate: json[WorkerHistorySchema.startDate] != null
+              ? json[WorkerHistorySchema.startDate]
+              : "",
+          location: json[WorkerHistorySchema.location] != null
+              ? json[WorkerHistorySchema.location]
+              : "",
+          occupation: json[WorkerHistorySchema.occupation] != null
+              ? Occupation.fromJson(json[WorkerHistorySchema.occupation])
+              : null,
+          organisationName: json[WorkerHistorySchema.organisationName] != null
+              ? json[WorkerHistorySchema.organisationName]
+              : "",
+          qualifications: json[WorkerHistorySchema.qualifications] != null
+              ? List<Qualification>.from(
+                  json[WorkerHistorySchema.qualifications]
+                      .map((x) => Qualification.fromJson(x)))
+              : [],
+          sicCode: json[WorkerHistorySchema.sic_code] != null
+              ? SicCode.fromJson(json[WorkerHistorySchema.sic_code])
+              : null,
+          skills: json[WorkerHistorySchema.skills] != null
+              ? List<Skill>.from(json[WorkerHistorySchema.skills]
+                  .map((x) => Skill.fromJson(x)))
+              : [],
+          summary: json[WorkerHistorySchema.summary] != null
+              ? json[WorkerHistorySchema.summary]
+              : "",
+          workerRef: json[WorkerHistorySchema.workerRef] != null
+              ? json[WorkerHistorySchema.workerRef] is String
+                  ? documentReferenceFromString(json[WorkerHistorySchema.workerRef])
+                  : json[WorkerHistorySchema.workerRef]
+              : null);
 }
 
 class Occupation {
@@ -108,18 +115,17 @@ class Occupation {
   });
 
   factory Occupation.fromJson(Map<String, dynamic> json) {
-    if(json != null && json.isNotEmpty){
+    if (json != null && json.isNotEmpty) {
       DocumentReference documentReference;
-      if(json[WorkerHistorySchema.occupationRef] is String){
+      if (json[WorkerHistorySchema.occupationRef] is String) {
         documentReference = WorkHistory.documentReferenceFromString(
-            json[WorkerHistorySchema.occupationRef]
-        );
-      }else{
+            json[WorkerHistorySchema.occupationRef]);
+      } else {
         documentReference = json[WorkerHistorySchema.occupationRef];
       }
       return Occupation(
-        occupationRef: documentReference,
-        value: json[WorkerHistorySchema.value] ?? "");
+          occupationRef: documentReference,
+          value: json[WorkerHistorySchema.value] ?? "");
     }
     return null;
   }
@@ -140,13 +146,12 @@ class Check {
   });
 
   factory Check.fromJson(Map<String, dynamic> json) {
-    if(json != null && json.isNotEmpty){
+    if (json != null && json.isNotEmpty) {
       DocumentReference documentReference;
-      if(json[WorkerHistorySchema.checkRef] is String){
+      if (json[WorkerHistorySchema.checkRef] is String) {
         documentReference = WorkHistory.documentReferenceFromString(
-            json[WorkerHistorySchema.checkRef]
-        );
-      }else{
+            json[WorkerHistorySchema.checkRef]);
+      } else {
         documentReference = json[WorkerHistorySchema.checkRef];
       }
       return Check(
@@ -173,13 +178,12 @@ class Qualification {
   });
 
   factory Qualification.fromJson(Map<String, dynamic> json) {
-    if(json != null && json.isNotEmpty){
+    if (json != null && json.isNotEmpty) {
       DocumentReference documentReference;
-      if(json[WorkerHistorySchema.qualificationRef] is String){
+      if (json[WorkerHistorySchema.qualificationRef] is String) {
         documentReference = WorkHistory.documentReferenceFromString(
-            json[WorkerHistorySchema.qualificationRef]
-        );
-      }else{
+            json[WorkerHistorySchema.qualificationRef]);
+      } else {
         documentReference = json[WorkerHistorySchema.qualificationRef];
       }
       return Qualification(
@@ -189,7 +193,6 @@ class Qualification {
     }
     return null;
   }
-
 
   Map<String, dynamic> toJson() => {
         WorkerHistorySchema.qualificationRef: qualificationRef,
@@ -207,13 +210,12 @@ class SicCode {
   });
 
   factory SicCode.fromJson(Map<String, dynamic> json) {
-    if(json != null && json.isNotEmpty){
+    if (json != null && json.isNotEmpty) {
       DocumentReference documentReference;
-      if(json[WorkerHistorySchema.sicCodeRef] is String){
+      if (json[WorkerHistorySchema.sicCodeRef] is String) {
         documentReference = WorkHistory.documentReferenceFromString(
-            json[WorkerHistorySchema.sicCodeRef]
-        );
-      }else{
+            json[WorkerHistorySchema.sicCodeRef]);
+      } else {
         documentReference = json[WorkerHistorySchema.sicCodeRef];
       }
       return SicCode(
@@ -240,13 +242,12 @@ class Skill {
   });
 
   factory Skill.fromJson(Map<String, dynamic> json) {
-    if(json != null && json.isNotEmpty){
+    if (json != null && json.isNotEmpty) {
       DocumentReference documentReference;
-      if(json[WorkerHistorySchema.skillRef] is String){
+      if (json[WorkerHistorySchema.skillRef] is String) {
         documentReference = WorkHistory.documentReferenceFromString(
-            json[WorkerHistorySchema.skillRef]
-        );
-      }else{
+            json[WorkerHistorySchema.skillRef]);
+      } else {
         documentReference = json[WorkerHistorySchema.skillRef];
       }
       return Skill(
