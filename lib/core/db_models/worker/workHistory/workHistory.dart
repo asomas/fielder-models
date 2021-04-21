@@ -119,7 +119,7 @@ class Occupation {
       }
       return Occupation(
         occupationRef: documentReference,
-        value: json[WorkerHistorySchema.value] ?? "",
+        value: json[WorkerHistorySchema.value] ?? "");
     }
     return null;
   }
