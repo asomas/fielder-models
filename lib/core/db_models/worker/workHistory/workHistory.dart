@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/schema/workerHistorySchema.dart';
 
 class WorkHistory {
   List<Check> checks;
   String endDate;
   String startDate;
-  String location;
+  LocationDetail location;
   Occupation occupation;
   String organisationName;
   List<Qualification> qualifications;
@@ -75,7 +76,7 @@ class WorkHistory {
               ? json[WorkerHistorySchema.startDate]
               : "",
           location: json[WorkerHistorySchema.location] != null
-              ? json[WorkerHistorySchema.location]
+              ? LocationDetail.fromJson(json[WorkerHistorySchema.location])
               : "",
           occupation: json[WorkerHistorySchema.occupation] != null
               ? Occupation.fromJson(json[WorkerHistorySchema.occupation])
