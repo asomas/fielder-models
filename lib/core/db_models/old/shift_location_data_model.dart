@@ -3,16 +3,16 @@ import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/coordinates_data_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/default_location_data_schema.dart';
 
-class LocationDataModel {
+class ShiftLocationDataModel {
   final GeoPoint coordinates;
   final String address;
 
-  LocationDataModel({
+  ShiftLocationDataModel({
     this.address,
     this.coordinates,
   });
 
-  factory LocationDataModel.fromMap(Map<String,dynamic> map){
+  factory ShiftLocationDataModel.fromMap(Map<String,dynamic> map){
     if(map?.isNotEmpty == true &&
         map[DefaultLocationDataSchema.coordinates] != null){
       String _address = "";
@@ -22,7 +22,7 @@ class LocationDataModel {
       if(map[DefaultLocationDataSchema.formatted_address] != null){
         _address = _address + map[DefaultLocationDataSchema.formatted_address];
       }
-      return LocationDataModel(
+      return ShiftLocationDataModel(
           coordinates: map[DefaultLocationDataSchema.coordinates],
           address: _address
       );
