@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:fielder_models/core/db_models/old/organisation_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
 import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
-import 'package:fielder_models/core/db_models/old/shift_pattern_location_model.dart';
+import 'package:fielder_models/core/db_models/old/location_data_model.dart';
 import 'package:fielder_models/core/db_models/old/shift_activities_model.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
 
@@ -24,7 +24,7 @@ class ShiftPatternDataModel {
   String workerId;
   ShiftActivitiesModel shiftActivitiesModel;
   WorkerModel workerModel;
-  ShiftLocationDataModel shiftLocationDataModel;
+  LocationDataModel shiftLocationDataModel;
   bool isUnavailableForOrganisation;
 
   ShiftPatternDataModel(
@@ -85,7 +85,7 @@ class ShiftPatternDataModel {
         final DocumentReference _jobRef = map['job_ref'];
         final String _role = map['role'] ?? '';
         OrganisationModel _organisation;
-        ShiftLocationDataModel _shiftLocationDataModel;
+        LocationDataModel _shiftLocationDataModel;
         final DocumentReference _organisationRef = map['organisation_ref'];
         final DocumentReference _locationRef = map['location_ref'];
         final DocumentReference _supervisorRef = map['supervisor_ref'];
@@ -98,7 +98,7 @@ class ShiftPatternDataModel {
           );
         }
         if (_locationRef != null) {
-          _shiftLocationDataModel = ShiftLocationDataModel.fromMap(
+          _shiftLocationDataModel = LocationDataModel.fromMap(
               map["location_data"]
           );
         }
