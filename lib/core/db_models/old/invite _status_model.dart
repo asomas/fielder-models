@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
 import 'package:fielder_models/core/db_models/old/additional_info_model.dart';
 import 'package:fielder_models/core/db_models/old/job_template_model.dart';
@@ -6,6 +7,7 @@ import 'package:fielder_models/core/db_models/old/qualification_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
+import 'package:fielder_models/core/enums/enums.dart';
 import 'default_location_data_model.dart';
 
 class InviteStatusModel {
@@ -65,4 +67,24 @@ class InviteStatusModel {
     workerPhone = "";
   }
 
+}
+
+
+class UploadCsvModel{
+
+  String firstName;
+  String lastName;
+  String phoneNumber;
+  CsvWorkerType workerType;
+
+  UploadCsvModel(
+      {this.firstName, this.lastName, this.phoneNumber, this.workerType});
+
+  factory UploadCsvModel.fromMap(Map<String, dynamic> map) =>
+      UploadCsvModel(
+        firstName: map[UploadCsvSchema.firstName],
+        lastName: map[UploadCsvSchema.lastName],
+        phoneNumber: map[UploadCsvSchema.phoneNumber],
+        workerType: EnumHelpers.workerTypeFromString(map[UploadCsvSchema.type]),
+      );
 }
