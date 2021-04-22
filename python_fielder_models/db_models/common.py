@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from ..api_models.common import LocationSerializer
 
 DATE_FIELD_REGEX = "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
 PHONE_FIELD_REGEX = "^\+44[0-9]{10}$"
@@ -51,3 +52,7 @@ class RecurrenceSerializer(serializers.Serializer):
     sunday = serializers.BooleanField(default=False)
     thursday = serializers.BooleanField(default=False)
     wednesday = serializers.BooleanField(default=False)
+
+
+class LocationDBSerializer(LocationSerializer):
+    pass
