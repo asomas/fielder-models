@@ -5,4 +5,12 @@ class LocationSchema {
   static const String name = "name";
   static const String placeId = "place_id";
   static const String google = "google";
+  static const String coords = "coords";
+  static const String building = "building";
+  static const String street = "street";
+  static const String county = "county";
+  static const String city = "city";
+  static const String country = "country";
+  static const String postalCode = "postal_code";
+  static const String address = "address";
 }
