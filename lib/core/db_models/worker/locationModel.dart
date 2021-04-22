@@ -2,16 +2,16 @@ import 'dart:ffi';
 
 import 'package:fielder_models/core/db_models/worker/schema/locationSchema.dart';
 
-class LocationDetail {
+class LocationModelDetail {
   String name;
   String formattedAddress;
   Coordinates coordinates;
   Address address;
 
-  LocationDetail(
+  LocationModelDetail(
       {this.name, this.coordinates, this.formattedAddress, this.address});
 
-  factory LocationDetail.fromJson(Map<String, dynamic> json) => LocationDetail(
+  factory LocationModelDetail.fromJson(Map<String, dynamic> json) => LocationModelDetail(
       name: json[LocationSchema.name] != null ? json[LocationSchema.name] : "",
       formattedAddress: json[LocationSchema.formattedAddress] != null
           ? json[LocationSchema.formattedAddress]

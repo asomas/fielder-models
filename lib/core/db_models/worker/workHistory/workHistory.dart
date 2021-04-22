@@ -6,7 +6,7 @@ class WorkHistory {
   List<Check> checks;
   String endDate;
   String startDate;
-  LocationDetail location;
+  LocationModelDetail location;
   Occupation occupation;
   String organisationName;
   List<Qualification> qualifications;
@@ -76,7 +76,7 @@ class WorkHistory {
               ? json[WorkerHistorySchema.startDate]
               : "",
           location: json[WorkerHistorySchema.location] != null
-              ? LocationDetail.fromJson(json[WorkerHistorySchema.location])
+              ? LocationModelDetail.fromJson(json[WorkerHistorySchema.location])
               : "",
           occupation: json[WorkerHistorySchema.occupation] != null
               ? Occupation.fromJson(json[WorkerHistorySchema.occupation])
