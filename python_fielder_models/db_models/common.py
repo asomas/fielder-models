@@ -55,4 +55,4 @@ class RecurrenceSerializer(serializers.Serializer):
 
 
 class LocationDBSerializer(LocationSerializer):
-    pass
+    formatted_address = serializers.CharField(required=False, allow_blank=True)
