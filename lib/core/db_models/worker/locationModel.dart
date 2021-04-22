@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:fielder_models/core/db_models/worker/schema/locationSchema.dart';
 
 class LocationDetail {
@@ -23,14 +25,14 @@ class LocationDetail {
 }
 
 class Coordinates {
-  String lat;
-  String lng;
+  Float lat;
+  Float lng;
 
   Coordinates({this.lat, this.lng});
 
   factory Coordinates.fromJson(Map<String, dynamic> json) => Coordinates(
-        lat: json[LocationSchema.lat].toDouble(),
-        lng: json[LocationSchema.lng].toDouble(),
+        lat: json[LocationSchema.lat],
+        lng: json[LocationSchema.lng],
       );
 }
 
@@ -60,7 +62,7 @@ class Address {
         county: json[LocationSchema.county] != null
             ? json[LocationSchema.county]
             : "",
-        city: json[LocationSchema.county] != null
+        city: json[LocationSchema.city] != null
             ? json[LocationSchema.city]
             : "",
         country: json[LocationSchema.country] != null
