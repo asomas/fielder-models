@@ -1,6 +1,6 @@
 class WorkerHistorySchema {
   static const String companyNumber = "company_number";
-  static const String location = "location";
+  static const String locationData = "location_data";
   static const String occupation = "occupation";
   static const String startDate = "start_date";
   static const String endDate = "end_date";
@@ -21,4 +21,6 @@ class WorkerHistorySchema {
   static const String message = "message";
   static const String update = "update";
   static const String occupations = "occupations";
+  static const String googlePlaceId = "google_place_id";
+  static const String googlePlaceData = "google_place_data";
 }

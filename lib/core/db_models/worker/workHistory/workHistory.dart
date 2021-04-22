@@ -75,9 +75,9 @@ class WorkHistory {
           startDate: json[WorkerHistorySchema.startDate] != null
               ? json[WorkerHistorySchema.startDate]
               : "",
-          location: json[WorkerHistorySchema.location] != null
-              ? LocationModelDetail.fromJson(json[WorkerHistorySchema.location])
-              : "",
+          location: json[WorkerHistorySchema.locationData] != null
+              ? LocationModelDetail.fromJson(json[WorkerHistorySchema.locationData])
+              : null,
           occupation: json[WorkerHistorySchema.occupation] != null
               ? Occupation.fromJson(json[WorkerHistorySchema.occupation])
               : null,

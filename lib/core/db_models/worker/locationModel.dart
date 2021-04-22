@@ -17,16 +17,16 @@ class LocationModelDetail {
           ? json[LocationSchema.formattedAddress]
           : "",
       coordinates: json[LocationSchema.coords] != null
-          ? json[LocationSchema.coords]
+          ? Coordinates.fromJson(json[LocationSchema.coords])
           : null,
       address: json[LocationSchema.address] != null
-          ? json[LocationSchema.address]
+          ? Address.fromJson(json[LocationSchema.address])
           : null);
 }
 
 class Coordinates {
-  Float lat;
-  Float lng;
+  double lat;
+  double lng;
 
   Coordinates({this.lat, this.lng});
 
