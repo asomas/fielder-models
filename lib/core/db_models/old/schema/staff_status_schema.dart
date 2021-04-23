@@ -8,3 +8,14 @@ class StaffStatusSchema {
   static const String workerRef = "worker_ref";
   static const String createdAt = "created_at";
 }
+
+class UploadCsvSchema {
+  static const String firstName = "first_name";
+  static const String lastName = "last_name";
+  static const String csv = "csv";
+  static const String phoneNumber = "phone_number";
+  static const String type = "type";
+  static const String myFielder = "my_fielder";
+  static const String myStaff = "my_staff";
+  static const String fileName = "staff_invite_csv.csv";
+}

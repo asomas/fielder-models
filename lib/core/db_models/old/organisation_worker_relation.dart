@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/old/schema/organisation_worker_relation_schema.dart';
 import 'package:flutter/cupertino.dart';
 
 class OrganisationWorkerRelation {
@@ -8,6 +9,7 @@ class OrganisationWorkerRelation {
   String workerFirstName;
   String workerLastName;
   String phone;
+  DateTime lastReview;
   String workerId;
 
   OrganisationWorkerRelation(
@@ -17,6 +19,7 @@ class OrganisationWorkerRelation {
       this.workerFirstName,
       this.workerLastName,
       this.phone,
+      this.lastReview,
       this.workerId});
 
   factory OrganisationWorkerRelation.fromMap({
@@ -24,22 +27,33 @@ class OrganisationWorkerRelation {
     @required String docID,
   }) {
     if (map.isNotEmpty) {
-      final DocumentReference _organisationIdRef = map['organisation_ref'];
-      final bool _isStaff = map['is_staff'] ?? false;
-      final String _pictureURL = map['picture_url'] ?? '';
-      final String _firstName = map['worker_first_name'] ?? '';
-      final String _lastName = map['worker_last_name'] ?? '';
-      final String _phone = map['phone'] ?? '';
-      final DocumentReference _workerIdRef = map['worker_ref'];
+      try{
+        final DocumentReference _organisationIdRef = map[OrganisationWorkerRelationSchema.organisationRef];
+        final bool _isStaff = map[OrganisationWorkerRelationSchema.isStaff] ?? false;
+        final String _pictureURL = map[OrganisationWorkerRelationSchema.pictureUrl] ?? '';
+        final String _firstName = map[OrganisationWorkerRelationSchema.workerFirstName] ?? '';
+        final String _lastName = map[OrganisationWorkerRelationSchema.workerLastName] ?? '';
+        final String _phone = map[OrganisationWorkerRelationSchema.phone] ?? '';
+        final Timestamp _lastReviewTimeStamp = map[OrganisationWorkerRelationSchema.lastShiftDate];
+        final DocumentReference _workerIdRef = map[OrganisationWorkerRelationSchema.workerRef];
+        DateTime _lastReviewDate;
+        if(_lastReviewTimeStamp != null){
+          _lastReviewDate = _lastReviewTimeStamp.toDate();
+        }
 
-      return OrganisationWorkerRelation(
-          organisationID: _organisationIdRef.id,
-          isStaff: _isStaff,
-          pictureUrl: _pictureURL,
-          workerFirstName: _firstName,
-          workerLastName: _lastName,
-          phone: _phone,
-          workerId: _workerIdRef.id);
+        return OrganisationWorkerRelation(
+            organisationID: _organisationIdRef.id,
+            isStaff: _isStaff,
+            pictureUrl: _pictureURL,
+            workerFirstName: _firstName,
+            workerLastName: _lastName,
+            phone: _phone,
+            lastReview: _lastReviewDate,
+            workerId: _workerIdRef.id);
+      }catch(e){
+        print("organisation_worker_relation.dart_____Model Catch_________$e");
+        return null;
+      }
     }
     return null;
   }

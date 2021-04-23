@@ -86,8 +86,8 @@ class AddressModel {
         ];
         List _addressList = [];
         _orderedKeys.forEach((element) {
-          if (map[element] != null && map[element].isNotEmpty) {
-            _addressList.add(map[element]);
+          if (element!= null && element.isNotEmpty) {
+            _addressList.add(element);
           }
         });
         String _fullAddress = _addressList?.join(", ");
