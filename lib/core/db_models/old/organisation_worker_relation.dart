@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/old/schema/organisation_worker_relation_schema.dart';
 import 'package:flutter/cupertino.dart';
 
 class OrganisationWorkerRelation {
@@ -27,14 +28,14 @@ class OrganisationWorkerRelation {
   }) {
     if (map.isNotEmpty) {
       try{
-        final DocumentReference _organisationIdRef = map['organisation_ref'];
-        final bool _isStaff = map['is_staff'] ?? false;
-        final String _pictureURL = map['picture_url'] ?? '';
-        final String _firstName = map['worker_first_name'] ?? '';
-        final String _lastName = map['worker_last_name'] ?? '';
-        final String _phone = map['phone'] ?? '';
-        final Timestamp _lastReviewTimeStamp = map['last_shift_date'];
-        final DocumentReference _workerIdRef = map['worker_ref'];
+        final DocumentReference _organisationIdRef = map[OrganisationWorkerRelationSchema.organisationRef];
+        final bool _isStaff = map[OrganisationWorkerRelationSchema.isStaff] ?? false;
+        final String _pictureURL = map[OrganisationWorkerRelationSchema.pictureUrl] ?? '';
+        final String _firstName = map[OrganisationWorkerRelationSchema.workerFirstName] ?? '';
+        final String _lastName = map[OrganisationWorkerRelationSchema.workerLastName] ?? '';
+        final String _phone = map[OrganisationWorkerRelationSchema.phone] ?? '';
+        final Timestamp _lastReviewTimeStamp = map[OrganisationWorkerRelationSchema.lastShiftDate];
+        final DocumentReference _workerIdRef = map[OrganisationWorkerRelationSchema.workerRef];
         DateTime _lastReviewDate;
         if(_lastReviewTimeStamp != null){
           _lastReviewDate = _lastReviewTimeStamp.toDate();
