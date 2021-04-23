@@ -100,3 +100,8 @@ enum RenderSlot {
   Week,
 }
 
+enum WorkerType {
+  Fielder,
+  Staff,
+}
+

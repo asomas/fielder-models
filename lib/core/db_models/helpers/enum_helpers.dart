@@ -1,11 +1,34 @@
 import 'package:fielder_models/core/constants/app_colors.dart';
 import 'package:fielder_models/core/constants/app_strings.dart';
+import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
 class EnumHelpers {
+
+  static WorkerType workerTypeFromString(String type) {
+    switch (type) {
+      case UploadCsvSchema.myFielder:
+        return WorkerType.Fielder;
+      case UploadCsvSchema.myStaff:
+        return WorkerType.Staff;
+      default:
+        return null;
+    }
+  }
+
+  static String stringFromWorkerType(WorkerType type) {
+    switch (type) {
+      case WorkerType.Fielder:
+        return UploadCsvSchema.myFielder;
+      case WorkerType.Staff:
+        return UploadCsvSchema.myStaff;
+      default:
+        return "";
+    }
+  }
 
   static OfferStatus getOfferStatusFromString(String status) {
     switch (status) {
