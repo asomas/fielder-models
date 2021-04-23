@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:fielder_models/core/db_models/worker/schema/locationSchema.dart';
 
 class LocationModelDetail {
