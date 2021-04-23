@@ -75,7 +75,7 @@ class UploadCsvModel{
   String firstName;
   String lastName;
   String phoneNumber;
-  CsvWorkerType workerType;
+  WorkerType workerType;
 
   UploadCsvModel(
       {this.firstName, this.lastName, this.phoneNumber, this.workerType});

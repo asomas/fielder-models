@@ -8,22 +8,22 @@ import 'package:flutter/material.dart';
 
 class EnumHelpers {
 
-  static CsvWorkerType workerTypeFromString(String type) {
+  static WorkerType workerTypeFromString(String type) {
     switch (type) {
       case UploadCsvSchema.myFielder:
-        return CsvWorkerType.Fielder;
+        return WorkerType.Fielder;
       case UploadCsvSchema.myStaff:
-        return CsvWorkerType.Staff;
+        return WorkerType.Staff;
       default:
         return null;
     }
   }
 
-  static String stringFromWorkerType(CsvWorkerType type) {
+  static String stringFromWorkerType(WorkerType type) {
     switch (type) {
-      case CsvWorkerType.Fielder:
+      case WorkerType.Fielder:
         return UploadCsvSchema.myFielder;
-      case CsvWorkerType.Staff:
+      case WorkerType.Staff:
         return UploadCsvSchema.myStaff;
       default:
         return "";

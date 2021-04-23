@@ -100,7 +100,7 @@ enum RenderSlot {
   Week,
 }
 
-enum CsvWorkerType {
+enum WorkerType {
   Fielder,
   Staff,
 }
