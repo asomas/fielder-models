@@ -29,6 +29,7 @@ class WorkHistoryAPISerializer(serializers.Serializer):
     )
     google_place_data = GooglePlaceDataSerializer(required=False, allow_null=True)
     occupation = OccupationSerializer(required=False, allow_null=True)
+    job_title = serializers.CharField(required=False, allow_null=True)
     start_date = serializers.RegexField(
         DATE_FIELD_REGEX, required=False, allow_null=True
     )
