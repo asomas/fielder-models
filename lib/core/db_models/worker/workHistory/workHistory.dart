@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/schema/workerHistorySchema.dart';
 
+enum WorkerType { EXTERNAL, FIELDER, EDUCATION }
+
 class WorkHistory {
   List<Check> checks;
   String endDate;
@@ -14,21 +16,26 @@ class WorkHistory {
   List<Skill> skills;
   String summary;
   DocumentReference workerRef;
+  DocumentReference jobRef;
   String docId;
+  WorkerType workerType;
+  int totalHours;
+  int totalShifts;
 
-  WorkHistory(
-      {this.checks,
-        this.endDate,
-        this.location,
-        this.occupation,
-        this.organisationName,
-        this.qualifications,
-        this.sicCode,
-        this.skills,
-        this.startDate,
-        this.summary,
-        this.workerRef,
-        this.docId});
+  WorkHistory({this.checks,
+    this.endDate,
+    this.location,
+    this.occupation,
+    this.organisationName,
+    this.qualifications,
+    this.sicCode,
+    this.skills,
+    this.startDate,
+    this.summary,
+    this.workerRef,
+    this.jobRef,
+    this.workerType,
+    this.docId, this.totalHours, this.totalShifts});
 
   static DocumentReference documentReferenceFromString(
       String stringDocumentReference) {
@@ -90,12 +97,39 @@ class WorkHistory {
               ? List<Skill>.from(json[WorkerHistorySchema.skills]
               .map((x) => Skill.fromJson(x)))
               : [],
-          summary: json[WorkerHistorySchema.summary] != null ? json[WorkerHistorySchema.summary] : "",
+          summary: json[WorkerHistorySchema.summary] != null
+              ? json[WorkerHistorySchema.summary]
+              : "",
+          workerType: getWorkerType(json[WorkerHistorySchema.type]),
           workerRef: json[WorkerHistorySchema.workerRef] != null
               ? json[WorkerHistorySchema.workerRef] is String
               ? documentReferenceFromString(json[WorkerHistorySchema.workerRef])
               : json[WorkerHistorySchema.workerRef]
-              : null);
+              : null,
+          jobRef: json[WorkerHistorySchema.jobRef] != null
+              ? json[WorkerHistorySchema.jobRef] is String
+              ? documentReferenceFromString(json[WorkerHistorySchema.jobRef])
+              : json[WorkerHistorySchema.jobRef]
+              : null,
+          totalHours: json[WorkerHistorySchema.totalHours] != null
+              ? json[WorkerHistorySchema.totalHours]
+              : 0,
+          totalShifts: json[WorkerHistorySchema.totalShifts] != null ? json[
+          WorkerHistorySchema.totalShifts] : 0
+      );
+
+
+  static WorkerType getWorkerType(String type) {
+    WorkerType workerType = WorkerType.EXTERNAL;
+    if (type == WorkerHistorySchema.external) {
+      workerType = WorkerType.EXTERNAL;
+    } else if (type == WorkerHistorySchema.fielder) {
+      workerType = WorkerType.FIELDER;
+    } else if (type == WorkerHistorySchema.education) {
+      workerType = WorkerType.EDUCATION;
+    }
+    return workerType;
+  }
 }
 
 class Occupation {
@@ -123,10 +157,11 @@ class Occupation {
     return null;
   }
 
-  Map<String, dynamic> toJson() => {
-    WorkerHistorySchema.occupationRef: occupationRef,
-    WorkerHistorySchema.value: value,
-  };
+  Map<String, dynamic> toJson() =>
+      {
+        WorkerHistorySchema.occupationRef: occupationRef,
+        WorkerHistorySchema.value: value,
+      };
 }
 
 class Check {
@@ -155,10 +190,11 @@ class Check {
     return null;
   }
 
-  Map<String, dynamic> toJson() => {
-    WorkerHistorySchema.checkRef: checkRef,
-    WorkerHistorySchema.value: value,
-  };
+  Map<String, dynamic> toJson() =>
+      {
+        WorkerHistorySchema.checkRef: checkRef,
+        WorkerHistorySchema.value: value,
+      };
 }
 
 class Qualification {
@@ -187,10 +223,11 @@ class Qualification {
     return null;
   }
 
-  Map<String, dynamic> toJson() => {
-    WorkerHistorySchema.qualificationRef: qualificationRef,
-    WorkerHistorySchema.value: value,
-  };
+  Map<String, dynamic> toJson() =>
+      {
+        WorkerHistorySchema.qualificationRef: qualificationRef,
+        WorkerHistorySchema.value: value,
+      };
 }
 
 class SicCode {
@@ -219,10 +256,11 @@ class SicCode {
     return null;
   }
 
-  Map<String, dynamic> toJson() => {
-    WorkerHistorySchema.sicCodeRef: sicCodeRef,
-    WorkerHistorySchema.value: value,
-  };
+  Map<String, dynamic> toJson() =>
+      {
+        WorkerHistorySchema.sicCodeRef: sicCodeRef,
+        WorkerHistorySchema.value: value,
+      };
 }
 
 class Skill {
@@ -251,8 +289,12 @@ class Skill {
     return null;
   }
 
-  Map<String, dynamic> toJson() => {
-    WorkerHistorySchema.occupationRef: skillRef,
-    WorkerHistorySchema.value: value,
-  };
+  Map<String, dynamic> toJson() =>
+      {
+        WorkerHistorySchema.occupationRef: skillRef,
+        WorkerHistorySchema.value: value,
+      };
+
 }
+
+

@@ -24,5 +24,6 @@ class JobSummarySchema {
   static const String workerId = 'worker_id';
   static const String workers = 'workers';
   static const String totalShiftsCount = 'total_shift_count';
+  static const String rate = 'rate';
 
 }
