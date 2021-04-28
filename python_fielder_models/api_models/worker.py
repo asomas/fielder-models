@@ -105,3 +105,40 @@ class WorkerDetailRequest(serializers.Serializer):
 class UnavailabilitiesRequest(WorkerDetailRequest):
     start_date = serializers.RegexField(DATE_FIELD_REGEX)
     end_date = serializers.RegexField(DATE_FIELD_REGEX)
+
+
+class EducationAPISerializer(serializers.Serializer):
+    class ValueSerializer(serializers.Serializer):
+        value = serializers.CharField(allow_null=True)
+
+    class EducationInstitutionSerializer(ValueSerializer):
+        education_institution_ref = DocumentReferenceField()
+
+    class CourseSerializer(ValueSerializer):
+        course_ref = DocumentReferenceField()
+
+    class LevelSerializer(ValueSerializer):
+        level_ref = DocumentReferenceField()
+
+    class GradeSerializer(ValueSerializer):
+        grade_ref = DocumentReferenceField()
+
+    class KnowledgeAreaSerializer(ValueSerializer):
+        knowledge_area_ref = DocumentReferenceField()
+
+    education_institution = EducationInstitutionSerializer(
+        required=False, allow_null=True
+    )
+    location = serializers.CharField(required=False, allow_null=True)
+    course = CourseSerializer(required=False, allow_null=True)
+    level = LevelSerializer(required=False, allow_null=True)
+    grade = GradeSerializer(required=False, allow_null=True)
+    award = serializers.BooleanField(required=False, allow_null=True)
+    start_date = serializers.RegexField(
+        DATE_FIELD_REGEX, required=False, allow_null=True
+    )
+    end_date = serializers.RegexField(DATE_FIELD_REGEX, required=False, allow_null=True)
+    summary = serializers.CharField(required=False, allow_null=True)
+    knowledge_areas = serializers.ListField(
+        required=False, allow_null=True, child=KnowledgeAreaSerializer()
+    )
