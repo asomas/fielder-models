@@ -26,6 +26,7 @@ class ShiftPatternDataModel {
   WorkerModel workerModel;
   ShiftLocationDataModel shiftLocationDataModel;
   bool isUnavailableForOrganisation;
+  bool isRecurring;
 
   ShiftPatternDataModel(
       {this.docID,
@@ -44,40 +45,42 @@ class ShiftPatternDataModel {
       this.workerModel,
       this.supervisorRef,
       this.managerRef,
-      this.isUnavailableForOrganisation = false
-      });
+      this.isUnavailableForOrganisation = false,
+      this.isRecurring});
 
-  factory ShiftPatternDataModel.fromMap({
-    @required Map<String, dynamic> map,
-    @required String docID,
-    bool isUnavailable = false
-  }) {
+  factory ShiftPatternDataModel.fromMap(
+      {@required Map<String, dynamic> map,
+      @required String docID,
+      bool isUnavailable = false}) {
     if (map.isNotEmpty) {
       try {
         final _startTimeStamp = map['start_date'];
         DateTime _startDate;
         if (_startTimeStamp != null) {
-          if(_startTimeStamp is Timestamp){
+          if (_startTimeStamp is Timestamp) {
             _startDate = DateTime.fromMillisecondsSinceEpoch(
               _startTimeStamp.millisecondsSinceEpoch,
             );
-          }else{
-            _startDate = DateTime.parse(_startTimeStamp.toString().split("T")[0]);
+          } else {
+            _startDate =
+                DateTime.parse(_startTimeStamp.toString().split("T")[0]);
           }
         }
         final _endTimeStamp = map['end_date'];
         DateTime _endDate;
         if (_endTimeStamp != null) {
-          if(_endTimeStamp is Timestamp){
+          if (_endTimeStamp is Timestamp) {
             _endDate = DateTime.fromMillisecondsSinceEpoch(
               _endTimeStamp.millisecondsSinceEpoch,
             );
-          }else{
+          } else {
             _endDate = DateTime.parse(_endTimeStamp.toString().split("T")[0]);
           }
         }
         final int _startTimeInt = map['start_time'];
         final int _endTimeInt = map['end_time'];
+        final bool _isRecurring =
+            map[ShiftDataSchema.isRecurring] != null ? map[ShiftDataSchema.isRecurring] : false;
         final RecurrenceModel _recurrence = RecurrenceModel.fromMap(
           map: map['recurrence'] ?? {},
         );
@@ -98,18 +101,17 @@ class ShiftPatternDataModel {
           );
         }
         if (_locationRef != null) {
-          _shiftLocationDataModel = ShiftLocationDataModel.fromMap(
-              map["location_data"]
-          );
+          _shiftLocationDataModel =
+              ShiftLocationDataModel.fromMap(map["location_data"]);
         }
         ShiftActivitiesModel _shiftActivitiesModel;
         final DocumentReference _workerRef = map['worker_ref'];
-        final DocumentReference _shiftActivityRef =
-            map['shift_activity_ref'] ;
+        final DocumentReference _shiftActivityRef = map['shift_activity_ref'];
 
         if (_workerRef != null && _shiftActivityRef != null) {
           _shiftActivitiesModel = ShiftActivitiesModel.fromMap(
-              map: map['shift_activity_data'] ?? {}, docID: _shiftActivityRef.id);
+              map: map['shift_activity_data'] ?? {},
+              docID: _shiftActivityRef.id);
         }
 
         return ShiftPatternDataModel(
@@ -127,12 +129,15 @@ class ShiftPatternDataModel {
             supervisorRef: _supervisorRef,
             managerRef: _managerRef,
             shiftLocationDataModel: _shiftLocationDataModel,
-            shiftActivitiesModel: null,//_shiftActivitiesModel,
+            shiftActivitiesModel: null,
+            isRecurring: _isRecurring,
+            //_shiftActivitiesModel,
             workerId: _workerRef?.id,
             workerModel: map.containsKey(ShiftDataSchema.workerData)
-                ? WorkerModel.fromMap(map: map[ShiftDataSchema.workerData],
-                docID: map[ShiftDataSchema.workerRef]?.id) : null
-        );
+                ? WorkerModel.fromMap(
+                    map: map[ShiftDataSchema.workerData],
+                    docID: map[ShiftDataSchema.workerRef]?.id)
+                : null);
       } catch (e) {
         print('ShiftPatternDataModel fromMap error: $e');
       }
@@ -140,7 +145,7 @@ class ShiftPatternDataModel {
     return null;
   }
 
-  ShiftPatternDataModel copyWith(ShiftPatternDataModel shiftPatternDataModel){
+  ShiftPatternDataModel copyWith(ShiftPatternDataModel shiftPatternDataModel) {
     return ShiftPatternDataModel(
         docID: shiftPatternDataModel.docID,
         startDate: shiftPatternDataModel.startDate,
@@ -158,7 +163,7 @@ class ShiftPatternDataModel {
         shiftActivitiesModel: shiftPatternDataModel.shiftActivitiesModel,
         workerId: shiftPatternDataModel.workerId,
         workerModel: shiftPatternDataModel.workerModel,
-        isUnavailableForOrganisation: shiftPatternDataModel.isUnavailableForOrganisation
-    );
+        isUnavailableForOrganisation:
+            shiftPatternDataModel.isUnavailableForOrganisation);
   }
 }

@@ -12,7 +12,9 @@ class JobDataModel {
   DateTime endDate;
   double totalHours;
   int totalShiftsCount;
-  double rate;
+  int rate;
+  int overtimeRate;
+  String payCalculation;
   List<String> issuesArray;
   List<WorkerModel> workersArray;
   List<JobLocationDataModel> locationsArray;
@@ -28,6 +30,8 @@ class JobDataModel {
     this.workersArray,
     this.locationsArray,
     this.rate,
+    this.payCalculation,
+    this.overtimeRate,
     this.totalShiftsCount = 0,
   }) : assert(docID != null);
 
@@ -54,7 +58,10 @@ class JobDataModel {
         final bool _active = map[JobSummarySchema.active] ?? false;
         final String _jobTitle = map[JobSummarySchema.jobTitle] ?? '';
         final double _totalHours = map[JobSummarySchema.totalHours] ?? 0;
-        final double _rate = map[JobSummarySchema.rate] ?? 0;
+        final int _rate = map[JobSummarySchema.rate] ?? 0;
+        final int _overtimeRate = map[JobSummarySchema.overtimeRate] ?? 0;
+        final String _payCalculation =
+            map[JobSummarySchema.payCalculation] ?? "";
         final Map<String, dynamic> workers =
             map[JobSummarySchema.workers] ?? {};
         List<WorkerModel> _allWorkerArray = [];
@@ -102,6 +109,8 @@ class JobDataModel {
             locationsArray: _allLocationArray,
             issuesArray: _allIssuesArray,
             rate: _rate,
+            overtimeRate: _overtimeRate,
+            payCalculation: _payCalculation,
             totalShiftsCount: map[JobSummarySchema.totalShiftsCount]);
       } catch (e) {
         print('JobDataModel fromMap error: $e');

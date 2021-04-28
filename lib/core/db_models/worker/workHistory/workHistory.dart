@@ -12,8 +12,8 @@ class WorkHistory {
   Occupation occupation;
   String organisationName;
   List<Qualification> qualifications;
-  SicCode sicCode;
   List<Skill> skills;
+  List<SicCode> sicCode;
   String summary;
   DocumentReference workerRef;
   DocumentReference jobRef;
@@ -50,9 +50,9 @@ class WorkHistory {
         location != null ||
         occupation != null ||
         organisationName != "" ||
-        sicCode != null ||
         startDate != "" ||
         summary != "" ||
+        sicCode.length > 0 ||
         checks.length > 0 ||
         qualifications.length > 0 ||
         skills.length > 0) {
@@ -90,9 +90,10 @@ class WorkHistory {
               json[WorkerHistorySchema.qualifications]
                   .map((x) => Qualification.fromJson(x)))
               : [],
-          sicCode: json[WorkerHistorySchema.sic_code] != null
-              ? SicCode.fromJson(json[WorkerHistorySchema.sic_code])
-              : null,
+          sicCode: json[WorkerHistorySchema.sicCode] != null
+              ? List<SicCode>.from(json[WorkerHistorySchema.sicCode]
+              .map((x) => SicCode.fromJson(x)))
+              : [],
           skills: json[WorkerHistorySchema.skills] != null
               ? List<Skill>.from(json[WorkerHistorySchema.skills]
               .map((x) => Skill.fromJson(x)))
