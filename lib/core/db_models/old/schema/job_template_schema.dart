@@ -34,7 +34,7 @@ class JobTemplateSchema {
   static const String defaultLocationdata = 'default_location_data';
   static const String shiftPatternData = 'shift_pattern_data';
   static const String enablePayDetection = 'enable_pay_deduction';
-
+  static const String occupation = 'occupation';
   static const String organisationTemplateId = "organisation_template_id";
   static const String organisationTemplateName = "name";
   static const String organisationId = "organisation_id";

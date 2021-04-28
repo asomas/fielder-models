@@ -14,6 +14,7 @@ class WorkHistory {
   List<Skill> skills;
   String summary;
   DocumentReference workerRef;
+  String jobTitle;
   String docId;
 
   WorkHistory(
@@ -28,7 +29,9 @@ class WorkHistory {
         this.startDate,
         this.summary,
         this.workerRef,
-        this.docId});
+        this.docId,
+        this.jobTitle
+      });
 
   static DocumentReference documentReferenceFromString(
       String stringDocumentReference) {
@@ -62,6 +65,9 @@ class WorkHistory {
               ? List<Check>.from(json[WorkerHistorySchema.checks]
               .map((x) => Check.fromJson(x)))
               : [],
+          jobTitle: json[WorkerHistorySchema.jobTitle] != null
+              ? json[WorkerHistorySchema.jobTitle]
+              : "",
           endDate: json[WorkerHistorySchema.endDate] != null
               ? json[WorkerHistorySchema.endDate]
               : "",
