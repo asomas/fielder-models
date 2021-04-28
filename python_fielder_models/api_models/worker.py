@@ -129,7 +129,7 @@ class EducationAPISerializer(serializers.Serializer):
     education_institution = EducationInstitutionSerializer(
         required=False, allow_null=True
     )
-    location = serializers.CharField(required=False, allow_null=True)
+    google_place_data = GooglePlaceDataSerializer(required=False, allow_null=True)
     course = CourseSerializer(required=False, allow_null=True)
     level = LevelSerializer(required=False, allow_null=True)
     grade = GradeSerializer(required=False, allow_null=True)
