@@ -4,7 +4,7 @@ from rest_framework import serializers
 from .common import *
 
 
-class WorkHistorySerializer(serializers.Serializer):
+class WorkExperienceSerializer(serializers.Serializer):
     class ReferenceSerializer(serializers.Serializer):
         value = serializers.CharField(allow_null=True)
 
@@ -17,14 +17,7 @@ class WorkHistorySerializer(serializers.Serializer):
     class SkillSerializer(ReferenceSerializer):
         skill_ref = DocumentReferenceField()
 
-    class QualificationSerializer(ReferenceSerializer):
-        qualification_ref = DocumentReferenceField()
-
-    class CheckSerializer(ReferenceSerializer):
-        check_ref = DocumentReferenceField()
-
     organisation_name = serializers.CharField(required=False, allow_null=True)
-    sic_code = SICCodeSerializer(required=False, allow_null=True)
     location_data = LocationDBSerializer(required=False, allow_null=True)
     occupation = OccupationSerializer(required=False, allow_null=True)
     job_title = serializers.CharField(required=False, allow_null=True)
@@ -36,14 +29,20 @@ class WorkHistorySerializer(serializers.Serializer):
     skills = serializers.ListField(
         required=False, allow_null=True, child=SkillSerializer()
     )
-    qualifications = serializers.ListField(
-        required=False, allow_null=True, child=QualificationSerializer()
-    )
-    checks = serializers.ListField(
-        required=False, allow_null=True, child=CheckSerializer()
+    sic_codes = serializers.ListField(
+        required=False, allow_null=True, child=SICCodeSerializer()
     )
     worker_ref = DocumentReferenceField()
+    type = serializers.ChoiceField((
+        ("External"),
+        ("Fielder"),
+        ("Education"),
+    ), required=False, allow_null=True)
 
+class FielderWorkExperienceSerializer(WorkExperienceSerializer):
+    job_ref = DocumentReferenceField(required=False, allow_null=True)
+    total_hours = serializers.IntegerField(required=False, allow_null=True)
+    total_shifts = serializers.IntegerField(required=False, allow_null=True)
 
 class EducationSerializer(serializers.Serializer):
     class ReferenceSerializer(serializers.Serializer):
