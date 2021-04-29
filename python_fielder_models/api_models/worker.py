@@ -136,3 +136,6 @@ class EducationAPISerializer(serializers.Serializer):
     knowledge_areas = serializers.ListField(
         required=False, allow_null=True, child=KnowledgeAreaSerializer()
     )
+
+class NewsFeedDismissAPIRequestSerializer(serializers.Serializer):
+    dismissed = serializers.BooleanField()
