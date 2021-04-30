@@ -1,14 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/schema/educationSchema.dart';
 
 class Education {
   EducationInstitution educationInstitution;
   String endDate;
   String startDate;
-  String location;
+  LocationModelDetail location;
   Course course;
   bool award;
   Level level;
+  String type;
   Grade grade;
   List<KnowledgeArea> knowledgeAreaList;
   String summary;
@@ -41,9 +43,10 @@ class Education {
       award: json[EducationSchema.award] != null
           ? json[EducationSchema.award]
           : false,
-      location: json[EducationSchema.location] != null
-          ? json[EducationSchema.location]
-          : "",
+      location: json[EducationSchema.location_data] != null
+          ? LocationModelDetail.fromJson(
+          json[EducationSchema.location_data])
+          : null,
       course: json[EducationSchema.course] != null
           ? Course.fromJson(json[EducationSchema.course])
           : null,
@@ -77,7 +80,7 @@ class Course {
 
   factory Course.fromJson(Map<String, dynamic> json) => Course(
     courseRef: json[EducationSchema.courseRef],
-    value: json[EducationSchema.value],
+    value: json[EducationSchema.value]??"",
   );
 
   Map<String, dynamic> toJson() => {
@@ -97,7 +100,7 @@ class EducationInstitution {
 
   factory EducationInstitution.fromJson(Map<String, dynamic> json) => EducationInstitution(
     educationInstitutionRef: json[EducationSchema.educationInstitutionRef],
-    value: json[EducationSchema.value],
+    value: json[EducationSchema.value]??"",
   );
 
   Map<String, dynamic> toJson() => {
@@ -117,7 +120,7 @@ class Level {
 
   factory Level.fromJson(Map<String, dynamic> json) => Level(
     levelRef: json[EducationSchema.levelRef],
-    value: json[EducationSchema.value],
+    value: json[EducationSchema.value]??"",
   );
 
   Map<String, dynamic> toJson() => {
@@ -137,7 +140,7 @@ class Grade {
 
   factory Grade.fromJson(Map<String, dynamic> json) => Grade(
     gradeRef: json[EducationSchema.gradeRef],
-    value: json[EducationSchema.value],
+    value: json[EducationSchema.value]??"",
   );
 
   Map<String, dynamic> toJson() => {
@@ -157,7 +160,7 @@ class KnowledgeArea {
 
   factory KnowledgeArea.fromJson(Map<String, dynamic> json) => KnowledgeArea(
     knowledgeAreaRef: json[EducationSchema.knowledgeAreaRef],
-    value: json[EducationSchema.value],
+    value: json[EducationSchema.value]??"",
   );
 
   Map<String, dynamic> toJson() => {
