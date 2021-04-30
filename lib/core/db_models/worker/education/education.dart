@@ -3,6 +3,7 @@ import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/schema/educationSchema.dart';
 
 class Education {
+  String docId;
   EducationInstitution educationInstitution;
   String endDate;
   String startDate;
@@ -16,9 +17,9 @@ class Education {
   String summary;
   DocumentReference workerRef;
 
-
   Education(
-      {this.educationInstitution,
+      {this.docId,
+      this.educationInstitution,
       this.endDate,
       this.startDate,
       this.location,
@@ -30,43 +31,63 @@ class Education {
       this.summary,
       this.workerRef});
 
-  factory Education.fromJson(Map<String, dynamic> json) => Education(
-      educationInstitution: json[EducationSchema.educationInstitution] != null
-           ? EducationInstitution.fromJson(json[EducationSchema.educationInstitution])
-           : null,
-      endDate: json[EducationSchema.endDate] != null
-          ? json[EducationSchema.endDate]
-          : "",
-      startDate: json[EducationSchema.startDate] != null
-          ? json[EducationSchema.startDate]
-          : "",
-      award: json[EducationSchema.award] != null
-          ? json[EducationSchema.award]
-          : false,
-      location: json[EducationSchema.location_data] != null
-          ? LocationModelDetail.fromJson(
-          json[EducationSchema.location_data])
-          : null,
-      course: json[EducationSchema.course] != null
-          ? Course.fromJson(json[EducationSchema.course])
-          : null,
-      level: json[EducationSchema.level] != null
-          ?  Level.fromJson(json[EducationSchema.level])
-          : null,
-      grade: json[EducationSchema.grade] != null
-          ?  Grade.fromJson(json[EducationSchema.grade])
-          : null,
-      knowledgeAreaList: json[EducationSchema.knowledgeAreas] != null
-          ? List<KnowledgeArea>.from(
-          json[EducationSchema.knowledgeAreas].map((x) =>
-              KnowledgeArea.fromJson(x)))
-          : [],
-      summary: json[EducationSchema.summary] != null
-          ? json[EducationSchema.summary]
-          : "",
-      workerRef: json[EducationSchema.workerRef] != null
-          ? json[EducationSchema.workerRef]
-          : "");
+  bool checkAllFieldsNull() {
+    if (endDate != "" ||
+        location != null ||
+        educationInstitution != null ||
+        course != null ||
+        award != null ||
+        startDate != "" ||
+        summary != "" ||
+        level != null ||
+        grade != null ||
+        knowledgeAreaList.length > 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  factory Education.fromJson(Map<String, dynamic> json, {String docId}) =>
+      Education(
+          docId: docId,
+          educationInstitution:
+              json[EducationSchema.educationInstitution] != null
+                  ? EducationInstitution.fromJson(
+                      json[EducationSchema.educationInstitution])
+                  : null,
+          endDate: json[EducationSchema.endDate] != null
+              ? json[EducationSchema.endDate]
+              : "",
+          startDate: json[EducationSchema.startDate] != null
+              ? json[EducationSchema.startDate]
+              : "",
+          award: json[EducationSchema.award] != null
+              ? json[EducationSchema.award]
+              : null,
+          location: json[EducationSchema.location_data] != null
+              ? LocationModelDetail.fromJson(
+                  json[EducationSchema.location_data])
+              : null,
+          course: json[EducationSchema.course] != null
+              ? Course.fromJson(json[EducationSchema.course])
+              : null,
+          level: json[EducationSchema.level] != null
+              ? Level.fromJson(json[EducationSchema.level])
+              : null,
+          grade: json[EducationSchema.grade] != null
+              ? Grade.fromJson(json[EducationSchema.grade])
+              : null,
+          knowledgeAreaList: json[EducationSchema.knowledgeAreas] != null
+              ? List<KnowledgeArea>.from(json[EducationSchema.knowledgeAreas]
+                  .map((x) => KnowledgeArea.fromJson(x)))
+              : [],
+          summary: json[EducationSchema.summary] != null
+              ? json[EducationSchema.summary]
+              : "",
+          workerRef: json[EducationSchema.workerRef] != null
+              ? json[EducationSchema.workerRef]
+              : "");
 }
 
 class Course {
@@ -79,14 +100,14 @@ class Course {
   });
 
   factory Course.fromJson(Map<String, dynamic> json) => Course(
-    courseRef: json[EducationSchema.courseRef],
-    value: json[EducationSchema.value]??"",
-  );
+        courseRef: json[EducationSchema.courseRef],
+        value: json[EducationSchema.value] ?? "",
+      );
 
   Map<String, dynamic> toJson() => {
-    EducationSchema.courseRef: courseRef,
-    EducationSchema.value: value,
-  };
+        EducationSchema.courseRef: courseRef,
+        EducationSchema.value: value,
+      };
 }
 
 class EducationInstitution {
@@ -98,15 +119,16 @@ class EducationInstitution {
     this.value,
   });
 
-  factory EducationInstitution.fromJson(Map<String, dynamic> json) => EducationInstitution(
-    educationInstitutionRef: json[EducationSchema.educationInstitutionRef],
-    value: json[EducationSchema.value]??"",
-  );
+  factory EducationInstitution.fromJson(Map<String, dynamic> json) =>
+      EducationInstitution(
+        educationInstitutionRef: json[EducationSchema.educationInstitutionRef],
+        value: json[EducationSchema.value] ?? "",
+      );
 
   Map<String, dynamic> toJson() => {
-    EducationSchema.educationInstitutionRef: educationInstitutionRef,
-    EducationSchema.value: value,
-  };
+        EducationSchema.educationInstitutionRef: educationInstitutionRef,
+        EducationSchema.value: value,
+      };
 }
 
 class Level {
@@ -119,14 +141,14 @@ class Level {
   });
 
   factory Level.fromJson(Map<String, dynamic> json) => Level(
-    levelRef: json[EducationSchema.levelRef],
-    value: json[EducationSchema.value]??"",
-  );
+        levelRef: json[EducationSchema.levelRef],
+        value: json[EducationSchema.value] ?? "",
+      );
 
   Map<String, dynamic> toJson() => {
-    EducationSchema.levelRef: levelRef,
-    EducationSchema.value: value,
-  };
+        EducationSchema.levelRef: levelRef,
+        EducationSchema.value: value,
+      };
 }
 
 class Grade {
@@ -139,14 +161,14 @@ class Grade {
   });
 
   factory Grade.fromJson(Map<String, dynamic> json) => Grade(
-    gradeRef: json[EducationSchema.gradeRef],
-    value: json[EducationSchema.value]??"",
-  );
+        gradeRef: json[EducationSchema.gradeRef],
+        value: json[EducationSchema.value] ?? "",
+      );
 
   Map<String, dynamic> toJson() => {
-    EducationSchema.gradeRef: gradeRef,
-    EducationSchema.value: value,
-  };
+        EducationSchema.gradeRef: gradeRef,
+        EducationSchema.value: value,
+      };
 }
 
 class KnowledgeArea {
@@ -159,12 +181,12 @@ class KnowledgeArea {
   });
 
   factory KnowledgeArea.fromJson(Map<String, dynamic> json) => KnowledgeArea(
-    knowledgeAreaRef: json[EducationSchema.knowledgeAreaRef],
-    value: json[EducationSchema.value]??"",
-  );
+        knowledgeAreaRef: json[EducationSchema.knowledgeAreaRef],
+        value: json[EducationSchema.value] ?? "",
+      );
 
   Map<String, dynamic> toJson() => {
-    EducationSchema.knowledgeAreaRef: knowledgeAreaRef,
-    EducationSchema.value: value,
-  };
+        EducationSchema.knowledgeAreaRef: knowledgeAreaRef,
+        EducationSchema.value: value,
+      };
 }

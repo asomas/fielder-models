@@ -6,6 +6,7 @@ import 'package:fielder_models/core/db_models/worker/schema/workerHistorySchema.
 import 'package:fielder_models/core/db_models/worker/workHistory/workHistory.dart';
 
 class WorkHistoryEducationCombine {
+  String docId;
   String type;
   String endDate;
   String startDate;
@@ -13,12 +14,29 @@ class WorkHistoryEducationCombine {
   String organisationName;
   List<Skill> skills;
   List<KnowledgeArea> knowledgeAreaList;
+  List<SicCode> sicCode;
+  Occupation occupation;
+  EducationInstitution educationInstitution;
+  Course course;
 
-  WorkHistoryEducationCombine({this.type, this.endDate, this.startDate,this.location,this.organisationName,this.skills,this
-  .knowledgeAreaList});
+  WorkHistoryEducationCombine(
+      {this.docId,
+      this.type,
+      this.endDate,
+      this.startDate,
+      this.location,
+      this.organisationName,
+      this.skills,
+      this.knowledgeAreaList,
+      this.sicCode,
+      this.occupation,
+      this.educationInstitution,
+      this.course});
 
-  factory WorkHistoryEducationCombine.fromJson(Map<String, dynamic> json) =>
+  factory WorkHistoryEducationCombine.fromJson(Map<String, dynamic> json,
+          {String docId}) =>
       WorkHistoryEducationCombine(
+        docId: docId,
         endDate: json[EducationSchema.endDate] != null
             ? json[EducationSchema.endDate]
             : "",
@@ -26,20 +44,32 @@ class WorkHistoryEducationCombine {
             ? json[EducationSchema.startDate]
             : "",
         location: json[EducationSchema.location_data] != null
-            ? LocationModelDetail.fromJson(
-            json[EducationSchema.location_data])
+            ? LocationModelDetail.fromJson(json[EducationSchema.location_data])
             : null,
         organisationName: json[WorkerHistorySchema.organisationName] != null
             ? json[WorkerHistorySchema.organisationName]
             : "",
         skills: json[WorkerHistorySchema.skills] != null
-            ? List<Skill>.from(json[WorkerHistorySchema.skills]
-            .map((x) => Skill.fromJson(x)))
+            ? List<Skill>.from(
+                json[WorkerHistorySchema.skills].map((x) => Skill.fromJson(x)))
             : [],
         knowledgeAreaList: json[EducationSchema.knowledgeAreas] != null
-            ? List<KnowledgeArea>.from(
-            json[EducationSchema.knowledgeAreas].map((x) =>
-                KnowledgeArea.fromJson(x)))
+            ? List<KnowledgeArea>.from(json[EducationSchema.knowledgeAreas]
+                .map((x) => KnowledgeArea.fromJson(x)))
             : [],
+        sicCode: json[WorkerHistorySchema.sic_code] != null
+            ? List<SicCode>.from(json[WorkerHistorySchema.sic_code]
+                .map((x) => SicCode.fromJson(x)))
+            : [],
+        occupation: json[WorkerHistorySchema.occupation] != null
+            ? Occupation.fromJson(json[WorkerHistorySchema.occupation])
+            : null,
+        educationInstitution: json[EducationSchema.educationInstitution] != null
+            ? EducationInstitution.fromJson(
+                json[EducationSchema.educationInstitution])
+            : null,
+        course: json[EducationSchema.course] != null
+            ? Course.fromJson(json[EducationSchema.course])
+            : null,
       );
 }
