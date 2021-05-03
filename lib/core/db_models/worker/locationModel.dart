@@ -1,39 +1,30 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/worker/schema/locationSchema.dart';
 
 class LocationModelDetail {
   String name;
   String formattedAddress;
-  Coordinates coordinates;
+  GeoPoint coordinates;
   Address address;
 
   LocationModelDetail(
       {this.name, this.coordinates, this.formattedAddress, this.address});
 
-  factory LocationModelDetail.fromJson(Map<String, dynamic> json) => LocationModelDetail(
-      name: json[LocationSchema.name] != null ? json[LocationSchema.name] : "",
-      formattedAddress: json[LocationSchema.formattedAddress] != null
-          ? json[LocationSchema.formattedAddress]
-          : "",
-      coordinates: json[LocationSchema.coords] != null
-          ? Coordinates.fromJson(json[LocationSchema.coords])
-          : null,
-      address: json[LocationSchema.address] != null
-          ? Address.fromJson(json[LocationSchema.address])
-          : null);
+  factory LocationModelDetail.fromJson(Map<String, dynamic> json) =>
+      LocationModelDetail(
+          name: json[LocationSchema.name] != null
+              ? json[LocationSchema.name]
+              : "",
+          formattedAddress: json[LocationSchema.formattedAddress] != null
+              ? json[LocationSchema.formattedAddress]
+              : "",
+          coordinates: json[LocationSchema.coords] != null
+              ? json[LocationSchema.coords]
+              : null,
+          address: json[LocationSchema.address] != null
+              ? Address.fromJson(json[LocationSchema.address])
+              : null);
 }
-
-class Coordinates {
-  double lat;
-  double lng;
-
-  Coordinates({this.lat, this.lng});
-
-  factory Coordinates.fromJson(Map<String, dynamic> json) => Coordinates(
-        lat: json[LocationSchema.lat],
-        lng: json[LocationSchema.lng],
-      );
-}
-
 class Address {
   String building;
   String street;
@@ -60,9 +51,8 @@ class Address {
         county: json[LocationSchema.county] != null
             ? json[LocationSchema.county]
             : "",
-        city: json[LocationSchema.city] != null
-            ? json[LocationSchema.city]
-            : "",
+        city:
+            json[LocationSchema.city] != null ? json[LocationSchema.city] : "",
         country: json[LocationSchema.country] != null
             ? json[LocationSchema.country]
             : "",
