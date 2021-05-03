@@ -105,3 +105,9 @@ enum WorkerType {
   Staff,
 }
 
+enum ShiftAssignStatus {
+  Assign,
+  Unassign,
+  Pending
+}
+

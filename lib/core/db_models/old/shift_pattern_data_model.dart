@@ -16,6 +16,7 @@ class ShiftPatternDataModel {
   DateTime endDate;
   int endTimeInt;
   String jobTitle;
+  String jobRefId;
   String jobID;
   RecurrenceModel recurrence;
   String role;
@@ -43,6 +44,7 @@ class ShiftPatternDataModel {
       this.shiftLocationDataModel,
       this.workerModel,
       this.supervisorRef,
+      this.jobRefId,
       this.managerRef,
       this.isUnavailableForOrganisation = false
       });
@@ -82,6 +84,7 @@ class ShiftPatternDataModel {
           map: map['recurrence'] ?? {},
         );
         final String _jobTitle = map['job_title'] ?? '';
+        final String _jobRefId = map['job_reference_id'];
         final DocumentReference _jobRef = map['job_ref'];
         final String _role = map['role'] ?? '';
         OrganisationModel _organisation;
@@ -121,6 +124,7 @@ class ShiftPatternDataModel {
             recurrence: _recurrence,
             jobTitle: _jobTitle,
             jobID: _jobRef?.id,
+            jobRefId: _jobRefId,
             role: _role,
             isUnavailableForOrganisation: isUnavailable,
             organisation: _organisation,
@@ -150,6 +154,7 @@ class ShiftPatternDataModel {
         recurrence: shiftPatternDataModel.recurrence,
         jobTitle: shiftPatternDataModel.jobTitle,
         jobID: shiftPatternDataModel.jobID,
+        jobRefId: shiftPatternDataModel.jobRefId,
         role: shiftPatternDataModel.role,
         organisation: shiftPatternDataModel.organisation,
         supervisorRef: shiftPatternDataModel.supervisorRef,
@@ -158,7 +163,7 @@ class ShiftPatternDataModel {
         shiftActivitiesModel: shiftPatternDataModel.shiftActivitiesModel,
         workerId: shiftPatternDataModel.workerId,
         workerModel: shiftPatternDataModel.workerModel,
-        isUnavailableForOrganisation: shiftPatternDataModel.isUnavailableForOrganisation
+        isUnavailableForOrganisation: shiftPatternDataModel.isUnavailableForOrganisation,
     );
   }
 }
