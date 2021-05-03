@@ -35,5 +35,5 @@ class GooglePlaceDataSerializer(serializers.Serializer):
 
 class LocationSerializer(serializers.Serializer):
     address = AddressSerializer()
-    coords = GeolocationSerializer()
+    # coords = GeolocationSerializer()
     name = serializers.CharField()
