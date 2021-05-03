@@ -93,15 +93,14 @@ class Education {
 class Course {
   DocumentReference courseRef;
   String value;
+  String courseId;
 
-  Course({
-    this.courseRef,
-    this.value,
-  });
+  Course({this.courseRef, this.value, this.courseId});
 
   factory Course.fromJson(Map<String, dynamic> json) => Course(
         courseRef: json[EducationSchema.courseRef],
         value: json[EducationSchema.value] ?? "",
+        courseId: json[EducationSchema.courseId] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -112,17 +111,17 @@ class Course {
 
 class EducationInstitution {
   DocumentReference educationInstitutionRef;
+  String institutionId;
   String value;
 
-  EducationInstitution({
-    this.educationInstitutionRef,
-    this.value,
-  });
+  EducationInstitution(
+      {this.educationInstitutionRef, this.value, this.institutionId});
 
   factory EducationInstitution.fromJson(Map<String, dynamic> json) =>
       EducationInstitution(
         educationInstitutionRef: json[EducationSchema.educationInstitutionRef],
         value: json[EducationSchema.value] ?? "",
+        institutionId: json[EducationSchema.institutionId] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -134,15 +133,14 @@ class EducationInstitution {
 class Level {
   DocumentReference levelRef;
   String value;
+  String levelId;
 
-  Level({
-    this.levelRef,
-    this.value,
-  });
+  Level({this.levelRef, this.value, this.levelId});
 
   factory Level.fromJson(Map<String, dynamic> json) => Level(
         levelRef: json[EducationSchema.levelRef],
         value: json[EducationSchema.value] ?? "",
+        levelId: json[EducationSchema.levelId] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -154,15 +152,14 @@ class Level {
 class Grade {
   DocumentReference gradeRef;
   String value;
+  String gradeId;
 
-  Grade({
-    this.gradeRef,
-    this.value,
-  });
+  Grade({this.gradeRef, this.value, this.gradeId});
 
   factory Grade.fromJson(Map<String, dynamic> json) => Grade(
         gradeRef: json[EducationSchema.gradeRef],
         value: json[EducationSchema.value] ?? "",
+        gradeId: json[EducationSchema.gradeId] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -174,15 +171,14 @@ class Grade {
 class KnowledgeArea {
   DocumentReference knowledgeAreaRef;
   String value;
+  String knowledgeAreaId;
 
-  KnowledgeArea({
-    this.knowledgeAreaRef,
-    this.value,
-  });
+  KnowledgeArea({this.knowledgeAreaRef, this.value, this.knowledgeAreaId});
 
   factory KnowledgeArea.fromJson(Map<String, dynamic> json) => KnowledgeArea(
         knowledgeAreaRef: json[EducationSchema.knowledgeAreaRef],
         value: json[EducationSchema.value] ?? "",
+        knowledgeAreaId: json[EducationSchema.knowledgeAreaId] ?? "",
       );
 
   Map<String, dynamic> toJson() => {

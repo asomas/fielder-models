@@ -16,4 +16,10 @@ class EducationSchema {
   static const String knowledgeAreas = "knowledge_areas";
   static const String workerRef = "worker_ref";
   static const String value = "value";
+  static const String institutionId = "institution_id";
+  static const String courseId = "course_id";
+  static const String levelId = "level_id";
+  static const String gradeId = "grade_id";
+  static const String knowledgeAreaId = "knowledge_area_id";
+  static const String hits = "hits";
 }
