@@ -10,6 +10,7 @@ import 'package:fielder_models/core/db_models/old/workers_model.dart';
 
 class ShiftPatternDataModel {
   String docID;
+  String shiftPatternRef;
   OrganisationModel organisation;
   DocumentReference supervisorRef;
   DocumentReference managerRef;
@@ -30,6 +31,7 @@ class ShiftPatternDataModel {
 
   ShiftPatternDataModel(
       {this.docID,
+      this.shiftPatternRef,
       this.organisation,
       this.endDate,
       this.endTimeInt,
@@ -86,6 +88,7 @@ class ShiftPatternDataModel {
         final String _jobTitle = map['job_title'] ?? '';
         final String _jobRefId = map['job_reference_id'];
         final DocumentReference _jobRef = map['job_ref'];
+        final String _shiftPatternRef = map['shift_pattern_reference_id'];
         final String _role = map['role'] ?? '';
         OrganisationModel _organisation;
         ShiftLocationDataModel _shiftLocationDataModel;
@@ -117,6 +120,7 @@ class ShiftPatternDataModel {
 
         return ShiftPatternDataModel(
             docID: docID,
+            shiftPatternRef: _shiftPatternRef,
             startDate: _startDate,
             endDate: _endDate,
             startTimeInt: _startTimeInt,
@@ -164,6 +168,7 @@ class ShiftPatternDataModel {
         workerId: shiftPatternDataModel.workerId,
         workerModel: shiftPatternDataModel.workerModel,
         isUnavailableForOrganisation: shiftPatternDataModel.isUnavailableForOrganisation,
+        shiftPatternRef: shiftPatternDataModel.shiftPatternRef
     );
   }
 }
