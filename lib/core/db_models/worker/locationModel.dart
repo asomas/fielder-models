@@ -26,18 +26,6 @@ class LocationModelDetail {
               : null);
 }
 
-class Coordinates {
-  double lat;
-  double lng;
-
-  Coordinates({this.lat, this.lng});
-
-  factory Coordinates.fromJson(Map<String, dynamic> json) => Coordinates(
-        lat: json[LocationSchema.lat],
-        lng: json[LocationSchema.lng],
-      );
-}
-
 class Address {
   String building;
   String street;
