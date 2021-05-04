@@ -57,8 +57,8 @@ class WorkHistoryEducationCombine {
             ? List<KnowledgeArea>.from(json[EducationSchema.knowledgeAreas]
                 .map((x) => KnowledgeArea.fromJson(x)))
             : [],
-        sicCode: json[WorkerHistorySchema.sic_code] != null
-            ? List<SicCode>.from(json[WorkerHistorySchema.sic_code]
+        sicCode: json[WorkerHistorySchema.sicCode] != null
+            ? List<SicCode>.from(json[WorkerHistorySchema.sicCode]
                 .map((x) => SicCode.fromJson(x)))
             : [],
         occupation: json[WorkerHistorySchema.occupation] != null
