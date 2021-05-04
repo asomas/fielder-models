@@ -24,6 +24,10 @@ class WorkerHistorySchema {
   static const String googlePlaceId = "google_place_id";
   static const String googlePlaceData = "google_place_data";
   static const String jobTitle = "job_title";
+  static const String type = "type";
+  static const String jobRef = "job_ref";
+  static const String totalHours = "total_hours";
+  static const String totalShifts= "total_shifts";
 
   static const String institution = "institution";
   static const String institutions = "institutions";
@@ -44,4 +48,5 @@ class WorkerHistorySchema {
   static const String award = "award";
   static const String knowledgeAreaRef = "knowledge_area_ref";
   static const String knowledgeAreas = "knowledge_areas";
+
 }
