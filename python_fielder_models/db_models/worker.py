@@ -33,23 +33,29 @@ class WorkExperienceSerializer(serializers.Serializer):
         required=False, allow_null=True, child=SICCodeSerializer()
     )
     worker_ref = DocumentReferenceField()
-    type = serializers.ChoiceField((
-        ("External"),
-        ("Fielder"),
-        ("Education"),
-    ), required=False, allow_null=True)
+    type = serializers.ChoiceField(
+        (
+            ("External"),
+            ("Fielder"),
+            ("Education"),
+        ),
+        required=False,
+        allow_null=True,
+    )
+
 
 class FielderWorkExperienceSerializer(WorkExperienceSerializer):
     job_ref = DocumentReferenceField(required=False, allow_null=True)
     total_hours = serializers.IntegerField(required=False, allow_null=True)
     total_shifts = serializers.IntegerField(required=False, allow_null=True)
 
+
 class EducationSerializer(serializers.Serializer):
     class ReferenceSerializer(serializers.Serializer):
         value = serializers.CharField(allow_null=True)
 
-    class EducationInstitutionSerializer(ReferenceSerializer):
-        education_institution_ref = DocumentReferenceField()
+    class InstitutionSerializer(ReferenceSerializer):
+        institution_ref = DocumentReferenceField()
 
     class CourseSerializer(ReferenceSerializer):
         course_ref = DocumentReferenceField()
@@ -63,9 +69,7 @@ class EducationSerializer(serializers.Serializer):
     class KnowledgeAreaSerializer(ReferenceSerializer):
         knowledge_area_ref = DocumentReferenceField()
 
-    education_institution = EducationInstitutionSerializer(
-        required=False, allow_null=True
-    )
+    institution = InstitutionSerializer(required=False, allow_null=True)
     location_data = LocationDBSerializer(required=False, allow_null=True)
     course = CourseSerializer(required=False, allow_null=True)
     level = LevelSerializer(required=False, allow_null=True)
