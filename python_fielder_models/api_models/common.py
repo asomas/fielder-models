@@ -10,8 +10,8 @@ class AddressSerializer(serializers.Serializer):
     street = serializers.CharField(required=False, allow_null=True, default=None)
     county = serializers.CharField(required=False, allow_null=True, default=None)
     city = serializers.CharField(required=False, allow_null=True, default=None)
-    country = serializers.CharField()
-    postal_code = serializers.CharField()
+    country = serializers.CharField(required=False, allow_null=True, default=None)
+    postal_code = serializers.CharField(required=False, allow_null=True, default=None)
 
 
 class SumsubAddressSerializer(serializers.Serializer):
