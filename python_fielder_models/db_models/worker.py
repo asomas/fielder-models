@@ -75,10 +75,8 @@ class EducationSerializer(serializers.Serializer):
     level = LevelSerializer(required=False, allow_null=True)
     grade = GradeSerializer(required=False, allow_null=True)
     award = serializers.BooleanField(required=False, allow_null=True)
-    start_date = serializers.RegexField(
-        DATE_FIELD_REGEX, required=False, allow_null=True
-    )
-    end_date = serializers.RegexField(DATE_FIELD_REGEX, required=False, allow_null=True)
+    start_date = serializers.DateTimeField(required=False, allow_null=True)
+    end_date = serializers.DateTimeField(required=False, allow_null=True)
     summary = serializers.CharField(required=False, allow_null=True)
     knowledge_areas = serializers.ListField(
         required=False, allow_null=True, child=KnowledgeAreaSerializer()
