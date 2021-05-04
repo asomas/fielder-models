@@ -19,7 +19,7 @@ class WorkerModel {
     @required Map<String, dynamic> map,
     @required String docID,
   }) {
-    if (map.isNotEmpty) {
+    if (map != null && map.isNotEmpty) {
       final String _firstName = map['first_name'] ?? '';
       final String _lastName = map['last_name'] ?? '';
       final String _pictureURL = map['picture_url'] ?? '';
