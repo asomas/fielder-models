@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/temp/organisation.dart';
+import 'package:fielder_models/core/db_models/worker/occupation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fielder_models/core/db_models/old/organisation_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
@@ -10,7 +11,7 @@ import 'package:fielder_models/core/db_models/old/workers_model.dart';
 
 class ShiftPatternDataModel {
   String docID;
-  String shiftPatternRef;
+  String shiftPatternRefId;
   OrganisationModel organisation;
   DocumentReference supervisorRef;
   DocumentReference managerRef;
@@ -27,11 +28,12 @@ class ShiftPatternDataModel {
   ShiftActivitiesModel shiftActivitiesModel;
   WorkerModel workerModel;
   ShiftLocationDataModel shiftLocationDataModel;
+  OccupationModel occupationModel;
   bool isUnavailableForOrganisation;
 
   ShiftPatternDataModel(
       {this.docID,
-      this.shiftPatternRef,
+      this.shiftPatternRefId,
       this.organisation,
       this.endDate,
       this.endTimeInt,
@@ -48,6 +50,7 @@ class ShiftPatternDataModel {
       this.supervisorRef,
       this.jobRefId,
       this.managerRef,
+      this.occupationModel,
       this.isUnavailableForOrganisation = false
       });
 
@@ -88,10 +91,12 @@ class ShiftPatternDataModel {
         final String _jobTitle = map['job_title'] ?? '';
         final String _jobRefId = map['job_reference_id'];
         final DocumentReference _jobRef = map['job_ref'];
+        final DocumentReference _occupationRef = map['organisation_ref'];
         final String _shiftPatternRef = map['shift_pattern_reference_id'];
         final String _role = map['role'] ?? '';
         OrganisationModel _organisation;
         ShiftLocationDataModel _shiftLocationDataModel;
+        OccupationModel _occupationModel;
         final DocumentReference _organisationRef = map['organisation_ref'];
         final DocumentReference _locationRef = map['location_ref'];
         final DocumentReference _supervisorRef = map['supervisor_ref'];
@@ -108,6 +113,9 @@ class ShiftPatternDataModel {
               map["location_data"]
           );
         }
+        if (_occupationRef != null) {
+          _occupationModel = OccupationModel.fromJson( map["occupation"]);
+        }
         ShiftActivitiesModel _shiftActivitiesModel;
         final DocumentReference _workerRef = map['worker_ref'];
         final DocumentReference _shiftActivityRef =
@@ -120,7 +128,7 @@ class ShiftPatternDataModel {
 
         return ShiftPatternDataModel(
             docID: docID,
-            shiftPatternRef: _shiftPatternRef,
+            shiftPatternRefId: _shiftPatternRef,
             startDate: _startDate,
             endDate: _endDate,
             startTimeInt: _startTimeInt,
@@ -139,7 +147,8 @@ class ShiftPatternDataModel {
             workerId: _workerRef?.id,
             workerModel: map.containsKey(ShiftDataSchema.workerData)
                 ? WorkerModel.fromMap(map: map[ShiftDataSchema.workerData],
-                docID: map[ShiftDataSchema.workerRef]?.id) : null
+                docID: map[ShiftDataSchema.workerRef]?.id) : null,
+            occupationModel: _occupationModel
         );
       } catch (e) {
         print('ShiftPatternDataModel fromMap error: $e');
@@ -168,7 +177,8 @@ class ShiftPatternDataModel {
         workerId: shiftPatternDataModel.workerId,
         workerModel: shiftPatternDataModel.workerModel,
         isUnavailableForOrganisation: shiftPatternDataModel.isUnavailableForOrganisation,
-        shiftPatternRef: shiftPatternDataModel.shiftPatternRef
+        shiftPatternRefId: shiftPatternDataModel.shiftPatternRefId,
+        occupationModel: shiftPatternDataModel.occupationModel
     );
   }
 }
