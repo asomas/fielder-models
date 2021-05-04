@@ -17,11 +17,31 @@ class WorkerHistorySchema {
   static const String value = "value";
   static const String sic_code = "sic_code";
   static const String workerRef = "worker_ref";
-  static const String workHistoryId = "work_history_id";
+  static const String workExperienceId = "work_experience_id";
   static const String message = "message";
   static const String update = "update";
   static const String occupations = "occupations";
   static const String googlePlaceId = "google_place_id";
   static const String googlePlaceData = "google_place_data";
   static const String jobTitle = "job_title";
+
+  static const String institution = "institution";
+  static const String institutions = "institutions";
+  static const String institutionRef = "institution_ref";
+
+
+  static const String course = "course";
+  static const String courses = "courses";
+  static const String courseRef = "course_ref";
+
+  static const String level = "level";
+  static const String levels = "levels";
+  static const String levelRef = "level_ref";
+
+  static const String grade = "grade";
+  static const String grades = "grades";
+  static const String gradeRef = "grade_ref";
+  static const String award = "award";
+  static const String knowledgeAreaRef = "knowledge_area_ref";
+  static const String knowledgeAreas = "knowledge_areas";
 }

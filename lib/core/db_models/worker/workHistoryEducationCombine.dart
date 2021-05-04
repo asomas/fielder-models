@@ -8,8 +8,8 @@ import 'package:fielder_models/core/db_models/worker/workHistory/workHistory.dar
 class WorkHistoryEducationCombine {
   String docId;
   String type;
-  String endDate;
-  String startDate;
+  Timestamp endDate;
+  Timestamp startDate;
   LocationModelDetail location;
   String organisationName;
   List<Skill> skills;
@@ -39,10 +39,10 @@ class WorkHistoryEducationCombine {
         docId: docId,
         endDate: json[EducationSchema.endDate] != null
             ? json[EducationSchema.endDate]
-            : "",
+            : null,
         startDate: json[EducationSchema.startDate] != null
             ? json[EducationSchema.startDate]
-            : "",
+            : null,
         location: json[EducationSchema.location_data] != null
             ? LocationModelDetail.fromJson(json[EducationSchema.location_data])
             : null,

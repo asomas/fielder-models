@@ -4,8 +4,8 @@ import 'package:fielder_models/core/db_models/worker/schema/workerHistorySchema.
 
 class WorkHistory {
   List<Check> checks;
-  String endDate;
-  String startDate;
+  Timestamp endDate;
+  Timestamp startDate;
   LocationModelDetail location;
   Occupation occupation;
   String organisationName;
@@ -42,12 +42,12 @@ class WorkHistory {
   }
 
   bool checkAllFieldsNull() {
-    if (endDate != "" ||
+    if (endDate != null||
         location != null ||
         occupation != null ||
         organisationName != "" ||
         sicCode != null ||
-        startDate != "" ||
+        startDate !=null||
         summary != "" ||
         checks.length > 0 ||
         qualifications.length > 0 ||
@@ -70,10 +70,10 @@ class WorkHistory {
               : "",
           endDate: json[WorkerHistorySchema.endDate] != null
               ? json[WorkerHistorySchema.endDate]
-              : "",
+              : null,
           startDate: json[WorkerHistorySchema.startDate] != null
               ? json[WorkerHistorySchema.startDate]
-              : "",
+              : null,
           location: json[WorkerHistorySchema.locationData] != null
               ? LocationModelDetail.fromJson(
               json[WorkerHistorySchema.locationData])
