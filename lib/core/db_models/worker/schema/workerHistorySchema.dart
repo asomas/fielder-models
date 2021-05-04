@@ -15,7 +15,7 @@ class WorkerHistorySchema {
   static const String sicCodeRef = "sic_code_ref";
   static const String checkRef = "check_ref";
   static const String value = "value";
-  static const String sicCode = "sic_code";
+  static const String sicCode = "sic_codes";
   static const String workerRef = "worker_ref";
   static const String workHistoryId = "work_history_id";
   static const String message = "message";
@@ -23,11 +23,12 @@ class WorkerHistorySchema {
   static const String occupations = "occupations";
   static const String googlePlaceId = "google_place_id";
   static const String googlePlaceData = "google_place_data";
-  static const String external = "external";
-  static const String fielder  = "fielder";
-  static const String education = "education";
+  static const String external = "External";
+  static const String fielder  = "Fielder";
+  static const String education = "Education";
   static const String type = "type";
   static const String jobRef = "job_ref";
   static const String totalHours = "total_hours";
   static const String totalShifts= "total_shifts";
+  static const String workExperienceId= "work_experience_id";
 }

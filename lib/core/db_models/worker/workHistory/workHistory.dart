@@ -6,8 +6,8 @@ enum WorkerType { EXTERNAL, FIELDER, EDUCATION }
 
 class WorkHistory {
   List<Check> checks;
-  String endDate;
-  String startDate;
+  Timestamp endDate;
+  Timestamp startDate;
   LocationModelDetail location;
   Occupation occupation;
   String organisationName;
@@ -19,7 +19,7 @@ class WorkHistory {
   DocumentReference jobRef;
   String docId;
   WorkerType workerType;
-  int totalHours;
+  double totalHours;
   int totalShifts;
 
   WorkHistory({this.checks,
@@ -46,11 +46,11 @@ class WorkHistory {
   }
 
   bool checkAllFieldsNull() {
-    if (endDate != "" ||
+    if (endDate !=null ||
         location != null ||
         occupation != null ||
         organisationName != "" ||
-        startDate != "" ||
+        startDate != null ||
         summary != "" ||
         sicCode.length > 0 ||
         checks.length > 0 ||
@@ -71,10 +71,10 @@ class WorkHistory {
               : [],
           endDate: json[WorkerHistorySchema.endDate] != null
               ? json[WorkerHistorySchema.endDate]
-              : "",
+              : null,
           startDate: json[WorkerHistorySchema.startDate] != null
               ? json[WorkerHistorySchema.startDate]
-              : "",
+              : null,
           location: json[WorkerHistorySchema.locationData] != null
               ? LocationModelDetail.fromJson(
               json[WorkerHistorySchema.locationData])
@@ -113,7 +113,7 @@ class WorkHistory {
               : json[WorkerHistorySchema.jobRef]
               : null,
           totalHours: json[WorkerHistorySchema.totalHours] != null
-              ? json[WorkerHistorySchema.totalHours]
+              ? double.parse(json[WorkerHistorySchema.totalHours].toString())
               : 0,
           totalShifts: json[WorkerHistorySchema.totalShifts] != null ? json[
           WorkerHistorySchema.totalShifts] : 0
