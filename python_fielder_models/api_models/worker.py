@@ -5,7 +5,7 @@ from ..api_models.common import *
 from ..db_models.worker import *
 
 
-class WorkHistoryAPISerializer(serializers.Serializer):
+class WorkExperienceAPISerializer(serializers.Serializer):
     class ReferenceSerializer(serializers.Serializer):
         value = serializers.CharField(allow_null=True)
 
@@ -17,12 +17,6 @@ class WorkHistoryAPISerializer(serializers.Serializer):
 
     class SkillSerializer(ReferenceSerializer):
         skill_ref = DocumentReferenceField()
-
-    class QualificationSerializer(ReferenceSerializer):
-        qualification_ref = DocumentReferenceField()
-
-    class CheckSerializer(ReferenceSerializer):
-        check_ref = DocumentReferenceField()
 
     company_number = serializers.CharField(
         required=False, allow_null=True, min_length=8, max_length=8
@@ -38,12 +32,12 @@ class WorkHistoryAPISerializer(serializers.Serializer):
     skills = serializers.ListField(
         required=False, allow_null=True, child=SkillSerializer()
     )
-    qualifications = serializers.ListField(
-        required=False, allow_null=True, child=QualificationSerializer()
+    sic_codes = serializers.ListField(
+        required=False, allow_null=True, child=SICCodeSerializer()
     )
-    checks = serializers.ListField(
-        required=False, allow_null=True, child=CheckSerializer()
-    )
+
+class FielderWorkExperienceRequestSerializer(serializers.Serializer):
+    shift_activity_id = serializers.CharField()
 
 
 class StaffDetailsPersnoalDetailsResponse(serializers.Serializer):
@@ -74,8 +68,8 @@ class StaffDetailsProfessionalDetailsResponse(serializers.Serializer):
     checks = serializers.ListField(
         required=False, allow_null=True, child=serializers.CharField()
     )
-    work_histories = serializers.ListField(
-        required=False, allow_null=True, child=WorkHistorySerializer()
+    work_experiences = serializers.ListField(
+        required=False, allow_null=True, child=WorkExperienceSerializer()
     )
     educations = serializers.ListField(
         required=False, allow_null=True, child=EducationSerializer()
@@ -105,3 +99,43 @@ class WorkerDetailRequest(serializers.Serializer):
 class UnavailabilitiesRequest(WorkerDetailRequest):
     start_date = serializers.RegexField(DATE_FIELD_REGEX)
     end_date = serializers.RegexField(DATE_FIELD_REGEX)
+
+
+class EducationAPISerializer(serializers.Serializer):
+    class ValueSerializer(serializers.Serializer):
+        value = serializers.CharField(allow_null=True)
+
+    class EducationInstitutionSerializer(ValueSerializer):
+        education_institution_ref = DocumentReferenceField()
+
+    class CourseSerializer(ValueSerializer):
+        course_ref = DocumentReferenceField()
+
+    class LevelSerializer(ValueSerializer):
+        level_ref = DocumentReferenceField()
+
+    class GradeSerializer(ValueSerializer):
+        grade_ref = DocumentReferenceField()
+
+    class KnowledgeAreaSerializer(ValueSerializer):
+        knowledge_area_ref = DocumentReferenceField()
+
+    education_institution = EducationInstitutionSerializer(
+        required=False, allow_null=True
+    )
+    google_place_data = GooglePlaceDataSerializer(required=False, allow_null=True)
+    course = CourseSerializer(required=False, allow_null=True)
+    level = LevelSerializer(required=False, allow_null=True)
+    grade = GradeSerializer(required=False, allow_null=True)
+    award = serializers.BooleanField(required=False, allow_null=True)
+    start_date = serializers.RegexField(
+        DATE_FIELD_REGEX, required=False, allow_null=True
+    )
+    end_date = serializers.RegexField(DATE_FIELD_REGEX, required=False, allow_null=True)
+    summary = serializers.CharField(required=False, allow_null=True)
+    knowledge_areas = serializers.ListField(
+        required=False, allow_null=True, child=KnowledgeAreaSerializer()
+    )
+
+class NewsFeedDismissAPIRequestSerializer(serializers.Serializer):
+    dismissed = serializers.BooleanField()

@@ -39,37 +39,30 @@ class PatternDataModel {
     this.shiftPatternDate,
     this.googlePlaceModel,
     this.workerModel
-  }) : assert(
-          startDate != null && startTimeInt != null && endTimeInt != null,
-        );
+  });
 
   factory PatternDataModel.fromMap(String docID, Map<String, dynamic> map){
     PatternDataModel shiftPatternDataModel;
-    try{
-      if(map?.isNotEmpty == true){
-        shiftPatternDataModel = PatternDataModel(
-            docID: docID,
-            title: map[ShiftDataSchema.title] ?? "",
-            startDate: map[ShiftDataSchema.startDate]?.toDate(),
-            endDate: map[ShiftDataSchema.endDate]?.toDate(),
-            startTimeInt: map[ShiftDataSchema.startTime],
-            endTimeInt: map[ShiftDataSchema.endTime],
-            intervalAmount: map[ShiftDataSchema.intervalAmount],
-            intervalType: map[ShiftDataSchema.repeatIntervalType],
-            recurrence: RecurrenceModel.fromMap(map: map[ShiftDataSchema.recurrence]),
-            workerRef: map[ShiftDataSchema.workerRef],
-            shiftPatternDate: map[ShiftDataSchema.shiftPatternDate],
-            googlePlaceModel: GooglePlaceModel.fromMap(map[ShiftDataSchema.googlePlaceData],),
-            workerModel: map.containsKey(ShiftDataSchema.workerData)
-                ? WorkerModel.fromMap(map: map[ShiftDataSchema.workerData],
-                docID: map[ShiftDataSchema.workerRef]?.id) : null
-        );
-      }
-      return shiftPatternDataModel;
-    }catch(e){
-    print('ShiftDataModel toJSON error: $e');
-    return null;
+    if(map != null && map.isNotEmpty == true){
+      shiftPatternDataModel = PatternDataModel(
+          docID: docID,
+          title: map[ShiftDataSchema.title] ?? "",
+          startDate: map[ShiftDataSchema.startDate]?.toDate(),
+          endDate: map[ShiftDataSchema.endDate]?.toDate(),
+          startTimeInt: map[ShiftDataSchema.startTime],
+          endTimeInt: map[ShiftDataSchema.endTime],
+          intervalAmount: map[ShiftDataSchema.intervalAmount],
+          intervalType: map[ShiftDataSchema.repeatIntervalType],
+          recurrence: RecurrenceModel.fromMap(map: map[ShiftDataSchema.recurrence]),
+          workerRef: map[ShiftDataSchema.workerRef],
+          shiftPatternDate: map[ShiftDataSchema.shiftPatternDate],
+          googlePlaceModel: GooglePlaceModel.fromMap(map[ShiftDataSchema.googlePlaceData],),
+          workerModel: map.containsKey(ShiftDataSchema.workerData)
+              ? WorkerModel.fromMap(map: map[ShiftDataSchema.workerData],
+              docID: map[ShiftDataSchema.workerRef]?.id) : null
+      );
     }
+    return shiftPatternDataModel;
   }
 
   Map<String, dynamic> toJSON() {
@@ -163,7 +156,7 @@ class RecurrenceModel {
     @required Map<String, dynamic> map,
 
   }) {
-    if (map.isNotEmpty) {
+    if (map != null && map.isNotEmpty) {
       final int _intervalAmount = map['interval_amount'];
       final ShiftFrequencies _repeatIntervalType= EnumHelpers.getFrequencyForString(shiftPatternFrequency:map['repeat_interval_type'] ?? '');
       final bool _isMonday = map['monday'] ?? false;

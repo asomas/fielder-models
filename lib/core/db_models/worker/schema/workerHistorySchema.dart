@@ -33,4 +33,5 @@ class WorkerHistorySchema {
   static const String workExperienceId= "work_experience_id";
   static const String description= "description";
   static const String code= "code";
+  static const String jobTitle = "job_title";
 }

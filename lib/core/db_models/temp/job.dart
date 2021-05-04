@@ -155,6 +155,7 @@ class ShiftPatternDataModel {
   DateTime startDate;
   int startTimeInt;
   String workerId;
+  String jobRefId;
   ShiftActivitiesModel shiftActivitiesModel;
   WorkerModel workerModel;
   bool isUnavailableForOrganisation;
@@ -166,6 +167,7 @@ class ShiftPatternDataModel {
       this.endTimeInt,
       this.jobTitle,
       this.jobID,
+      this.jobRefId,
       this.recurrence,
       this.role,
       this.startDate,
@@ -213,6 +215,7 @@ class ShiftPatternDataModel {
           map: map['recurrence'] ?? {},
         );
         final String _jobTitle = map['job_title'] ?? '';
+        final String _jobRefId = map['job_reference_id'];
         final DocumentReference _jobRef = map['job_ref'] ?? '';
         final String _role = map['role'] ?? '';
         OrganisationModel _organisation;
@@ -235,6 +238,7 @@ class ShiftPatternDataModel {
         if (_jobRef != null) {
           return ShiftPatternDataModel(
               docID: docID,
+              jobRefId: _jobRefId,
               startDate: _startDate,
               endDate: _endDate,
               startTimeInt: _startTimeInt,

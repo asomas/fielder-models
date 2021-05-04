@@ -6,6 +6,7 @@ import 'package:fielder_models/core/db_models/old/qualification_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
+import 'package:fielder_models/core/db_models/worker/occupation.dart';
 import 'default_location_data_model.dart';
 
 class AddJobModel {
@@ -31,6 +32,7 @@ class AddJobModel {
   List<PatternDataModel> shiftPatternsArray;
   bool volunteer;
   bool payDetectionEnabled;
+  OccupationModel occupationModel;
 
   AddJobModel(
       {this.description = '',
@@ -54,7 +56,9 @@ class AddJobModel {
       this.volunteer = false,
       this.payDetectionEnabled = true,
       this.checksArray,
-      this.checks});
+      this.checks,
+      this.occupationModel
+      });
 
   Map<String, dynamic> toJSON() {
     print('AddJobModel toJSON invoked');
@@ -76,6 +80,7 @@ class AddJobModel {
         JobTemplateSchema.lateArrival: lateArrival,
         JobTemplateSchema.earlyLeaver: earlyLeaver,
         JobTemplateSchema.overtimeRate: overTimeRate,
+        JobTemplateSchema.occupation : occupationModel.toJson(),
         JobTemplateSchema.skillsIds: (skillsArray?.isNotEmpty == true)
             ? skillsArray.map((e) => e.docID).toList() ?? []
             : [],
@@ -122,6 +127,8 @@ class AddJobModel {
         overTimeRate: data[JobTemplateSchema.overtimeRate] ?? 0,
         payDetectionEnabled:
             data[JobTemplateSchema.enablePayDetection] ?? false,
+        occupationModel: data[JobTemplateSchema.occupation] != null ?
+          OccupationModel.fromJson(data[JobTemplateSchema.occupation]) : null,
         checksArray:
             (data[JobTemplateSchema.checks] as List)?.isNotEmpty == true
                 ? (data[JobTemplateSchema.checks] as List)
@@ -178,6 +185,7 @@ class AddJobModel {
     defaultLocationData = null;
     shiftPatternsArray = [];
     checksArray = [];
+    occupationModel = null;
   }
 
 // sprint 8 work

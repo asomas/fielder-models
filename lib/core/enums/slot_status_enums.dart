@@ -15,5 +15,6 @@
    ClockedInLate,
    ClockedOut,
    ClockedOutLate,
+   NotClockedOut,
    Approved
  }

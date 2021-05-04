@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/worker/schema/newsNotificationSchema.dart';
 
 class NewsNotification {
+  String id;
   String articleUrl;
   String body;
   Timestamp createdAt;
@@ -17,7 +18,8 @@ class NewsNotification {
   bool withNotification;
 
   NewsNotification(
-      {this.articleUrl,
+      {this.id,
+      this.articleUrl,
       this.body,
       this.createdAt,
       this.dismissed,
@@ -31,8 +33,9 @@ class NewsNotification {
       this.type,
       this.withNotification});
 
-  factory NewsNotification.fromJson(Map<String, dynamic> json) =>
+  factory NewsNotification.fromJson(Map<String, dynamic> json, String docId) =>
       NewsNotification(
+        id: docId,
         articleUrl: json[NewsNotificationSchema.articleUrl] != null
             ? json[NewsNotificationSchema.articleUrl]
             : "",
