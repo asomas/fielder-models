@@ -46,7 +46,7 @@ class WorkHistory {
   }
 
   bool checkAllFieldsNull() {
-    if (endDate !=null ||
+    if (endDate != null ||
         location != null ||
         occupation != null ||
         organisationName != "" ||
@@ -232,26 +232,19 @@ class Qualification {
 }
 
 class SicCode {
-  DocumentReference sicCodeRef;
-  String value;
+  String code;
+  String description;
 
   SicCode({
-    this.sicCodeRef,
-    this.value,
+    this.code,
+    this.description,
   });
 
   factory SicCode.fromJson(Map<String, dynamic> json) {
     if (json != null && json.isNotEmpty) {
-      DocumentReference documentReference;
-      if (json[WorkerHistorySchema.sicCodeRef] is String) {
-        documentReference = WorkHistory.documentReferenceFromString(
-            json[WorkerHistorySchema.sicCodeRef]);
-      } else {
-        documentReference = json[WorkerHistorySchema.sicCodeRef];
-      }
       return SicCode(
-        sicCodeRef: documentReference,
-        value: json[WorkerHistorySchema.value] ?? "",
+        code: json[WorkerHistorySchema.code] ?? "",
+        description: json[WorkerHistorySchema.description] ?? "",
       );
     }
     return null;
@@ -259,8 +252,8 @@ class SicCode {
 
   Map<String, dynamic> toJson() =>
       {
-        WorkerHistorySchema.sicCodeRef: sicCodeRef,
-        WorkerHistorySchema.value: value,
+        WorkerHistorySchema.code: code,
+        WorkerHistorySchema.description: description,
       };
 }
 
