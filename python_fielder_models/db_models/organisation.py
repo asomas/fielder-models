@@ -54,10 +54,6 @@ class GeneralContact(ContactSerializer):
     website = serializers.RegexField(WEBSITE_REGEX, required=False, allow_null=True)
 
 
-class SICCodeSerializer(serializers.Serializer):
-    code = serializers.CharField()
-    description = serializers.CharField(max_length=200, allow_null=True)
-
 
 class CompanySerializer(serializers.Serializer):
     """Document has fixed ID, main, inside Subcollection called company_info.  So the complete path to this document is  organisations/organisation_id/company_info/main"""

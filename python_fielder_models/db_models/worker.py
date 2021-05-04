@@ -8,8 +8,6 @@ class WorkExperienceSerializer(serializers.Serializer):
     class ReferenceSerializer(serializers.Serializer):
         value = serializers.CharField(allow_null=True)
 
-    class SICCodeSerializer(ReferenceSerializer):
-        sic_code_ref = DocumentReferenceField()
 
     class OccupationSerializer(ReferenceSerializer):
         occupation_ref = DocumentReferenceField()
