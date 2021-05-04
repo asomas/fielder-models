@@ -85,6 +85,6 @@ class EducationSerializer(serializers.Serializer):
     )
     worker_ref = DocumentReferenceField()
     type = serializers.ChoiceField(
-        (("Fielder"),),
+        (("Education"),),
         required=True,
     )
