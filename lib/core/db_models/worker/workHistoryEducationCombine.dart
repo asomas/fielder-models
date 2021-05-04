@@ -7,7 +7,7 @@ import 'package:fielder_models/core/db_models/worker/workHistory/workHistory.dar
 
 class WorkHistoryEducationCombine {
   String docId;
-  String type;
+  WorkerType workerType;
   Timestamp endDate;
   Timestamp startDate;
   LocationModelDetail location;
@@ -21,7 +21,6 @@ class WorkHistoryEducationCombine {
 
   WorkHistoryEducationCombine(
       {this.docId,
-      this.type,
       this.endDate,
       this.startDate,
       this.location,
@@ -31,7 +30,8 @@ class WorkHistoryEducationCombine {
       this.sicCode,
       this.occupation,
       this.educationInstitution,
-      this.course});
+      this.course,
+      this.workerType});
 
   factory WorkHistoryEducationCombine.fromJson(Map<String, dynamic> json,
           {String docId}) =>
@@ -71,5 +71,6 @@ class WorkHistoryEducationCombine {
         course: json[EducationSchema.course] != null
             ? Course.fromJson(json[EducationSchema.course])
             : null,
+        workerType: WorkHistory.getWorkerType(json[WorkerHistorySchema.type]),
       );
 }

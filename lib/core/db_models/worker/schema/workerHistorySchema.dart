@@ -24,6 +24,9 @@ class WorkerHistorySchema {
   static const String googlePlaceId = "google_place_id";
   static const String googlePlaceData = "google_place_data";
   static const String jobTitle = "job_title";
+  static const String external = "External";
+  static const String fielder  = "Fielder";
+  static const String education = "Education";
   static const String type = "type";
   static const String jobRef = "job_ref";
   static const String totalHours = "total_hours";
