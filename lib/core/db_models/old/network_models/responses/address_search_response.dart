@@ -117,13 +117,7 @@ class Google {
   String placeId;
   String name;
 
-  Google({
-    this.address,
-    this.lat,
-    this.lng,
-    this.placeId,
-    this.name
-  });
+  Google({this.address, this.lat, this.lng, this.placeId, this.name});
 
   factory Google.fromJson(Map<String, dynamic> json) => Google(
         address: json["formatted_address"],

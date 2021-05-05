@@ -1,3 +1,3 @@
 class AdditionalRequirmentsSchema {
-  static const String value='value';
+  static const String value = 'value';
 }

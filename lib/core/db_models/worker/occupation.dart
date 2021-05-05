@@ -3,14 +3,8 @@ import 'package:fielder_models/core/db_models/old/schema/table_collection_schema
 import 'package:fielder_models/core/db_models/worker/schema/occupationSchema.dart';
 
 class OccupationModel {
-  OccupationModel({
-    this.occupationId,
-    this.value,
-    this.description,
-    this.occupationRef
-  });
-
-
+  OccupationModel(
+      {this.occupationId, this.value, this.description, this.occupationRef});
 
   DocumentReference occupationRef;
   String occupationId;
@@ -18,7 +12,7 @@ class OccupationModel {
   String description;
 
   factory OccupationModel.fromJson(Map<String, dynamic> json) {
-    if(json!=null && json.isNotEmpty){
+    if (json != null && json.isNotEmpty) {
       return OccupationModel(
         occupationId: json[OccupationSchema.occupationId],
         occupationRef: json[OccupationSchema.occupationRef],
@@ -31,8 +25,9 @@ class OccupationModel {
 
   Map<String, dynamic> toJson() => {
         OccupationSchema.occupationId: occupationId,
-        OccupationSchema.occupationRef : occupationRef?.toString() ?? "${FbCollections.occupations}/$occupationId",
+        OccupationSchema.occupationRef: occupationRef?.toString() ??
+            "${FbCollections.occupations}/$occupationId",
         OccupationSchema.value: value,
-        OccupationSchema.description : description
+        OccupationSchema.description: description
       };
 }

@@ -12,54 +12,52 @@ class AddressModel {
   AddressModel({
     this.country,
     this.city,
-    this.building ,
+    this.building,
     this.county,
     this.postalCode,
     this.street,
   });
 
   Map<String, dynamic> toJSON() {
-    Map<String,dynamic> tempMap = Map();
-    if(country !=null) {
-      if(country.isNotEmpty) {
+    Map<String, dynamic> tempMap = Map();
+    if (country != null) {
+      if (country.isNotEmpty) {
         tempMap[DefaultLocationDataSchema.country] = country;
       }
     }
 
-    if(city !=null) {
-      if(city.isNotEmpty) {
+    if (city != null) {
+      if (city.isNotEmpty) {
         tempMap[DefaultLocationDataSchema.city] = city;
       }
     }
 
-    if(building !=null) {
-      if(building.isNotEmpty) {
+    if (building != null) {
+      if (building.isNotEmpty) {
         tempMap[DefaultLocationDataSchema.building] = building;
       }
     }
 
-    if(county !=null) {
-      if(county.isNotEmpty) {
+    if (county != null) {
+      if (county.isNotEmpty) {
         tempMap[DefaultLocationDataSchema.county] = county;
       }
     }
 
-    if(postalCode !=null) {
-      if(postalCode.isNotEmpty) {
+    if (postalCode != null) {
+      if (postalCode.isNotEmpty) {
         tempMap[DefaultLocationDataSchema.postalCode] = postalCode;
       }
     }
 
-    if(street !=null) {
-      if(street.isNotEmpty) {
+    if (street != null) {
+      if (street.isNotEmpty) {
         tempMap[DefaultLocationDataSchema.street] = street;
       }
     }
 
-
     return tempMap;
   }
-
 
   factory AddressModel.fromMap({
     @required Map<String, dynamic> map,
@@ -71,23 +69,20 @@ class AddressModel {
         final String _county = map[DefaultLocationDataSchema.county] ?? '';
         final String _country = map[DefaultLocationDataSchema.country] ?? '';
         final String _city = map[DefaultLocationDataSchema.city] ?? '';
-        final String _postalCode = map[DefaultLocationDataSchema.postalCode] ?? '';
-
+        final String _postalCode =
+            map[DefaultLocationDataSchema.postalCode] ?? '';
 
         return AddressModel(
-          building: _building,
-          street: _street,
-          county: _county,
-          country: _country,
-          city: _city,
-          postalCode: _postalCode
-        );
-
+            building: _building,
+            street: _street,
+            county: _county,
+            country: _country,
+            city: _city,
+            postalCode: _postalCode);
       } catch (e) {
         print('AddressModel fromMap error: $e');
       }
     }
     return null;
   }
-
 }

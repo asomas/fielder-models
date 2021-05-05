@@ -15,11 +15,10 @@ class QualificationModel {
     @required String docID,
   }) {
     if (map.isNotEmpty) {
-       String _value;
-      if(map.containsKey("value")){
+      String _value;
+      if (map.containsKey("value")) {
         _value = map['value'] ?? '';
-      }
-      else if(map.containsKey(JobTemplateSchema.qualificationValue)){
+      } else if (map.containsKey(JobTemplateSchema.qualificationValue)) {
         _value = map[JobTemplateSchema.qualificationValue] ?? '';
       }
       if (_value.isNotEmpty) {
@@ -32,8 +31,8 @@ class QualificationModel {
     return null;
   }
 
-  factory QualificationModel.fromString(String value){
-    if(value != null && value.isNotEmpty){
+  factory QualificationModel.fromString(String value) {
+    if (value != null && value.isNotEmpty) {
       return QualificationModel(
         value: value,
       );

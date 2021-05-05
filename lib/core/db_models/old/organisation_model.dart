@@ -35,8 +35,9 @@ class OrganisationModel {
         final String _name = map[OrganisationSchema.companyName] ?? '';
         final String _email = map[OrganisationSchema.email] ?? '';
         final String _logoUrl = map[OrganisationSchema.logo_url] ?? '';
-        final String _primaryColor = map[OrganisationSchema.primary_color] ?? '';
-        final String _brandBanner =map[OrganisationSchema.brand_banner] ?? '';
+        final String _primaryColor =
+            map[OrganisationSchema.primary_color] ?? '';
+        final String _brandBanner = map[OrganisationSchema.brand_banner] ?? '';
 
         AccountsContactModel _accountsContactModel;
         final Map<String, dynamic> _accountsContactRef =

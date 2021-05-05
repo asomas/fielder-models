@@ -13,7 +13,8 @@ class AppStrings {
   static const String AlternativeContactName = "Alternative Contact Name";
   static const String assigned = "Assigned";
   static const String assignThisShiftOnly = "Assign to this shift only";
-  static const String assignToThisAndFuture = "Assign to this and future recurrences";
+  static const String assignToThisAndFuture =
+      "Assign to this and future recurrences";
   static const String availability = "Availability";
   static const String back = "Back";
   static const String busy = "Busy";
@@ -22,7 +23,7 @@ class AppStrings {
   static const String Cancel = "Cancel";
   static const String certificate = "Certificates";
   static const String checks = "Checks";
-  static const String confirm ="Confirm";
+  static const String confirm = "Confirm";
   static const String confirmed =
       "Your confirmed Worker match will be sent to you soon.";
   static const String contactDetails = "Contact Details";
@@ -152,6 +153,6 @@ class AppStrings {
   static const String helpTextDescription =
       "Please briefly describe the positioning, highlighting 3-5 key responsibilities. You can add bullets by using the * in front of a new line and it will be automatically formatted.";
 
-  static const String dummy = "Body: Lorem Ipsum is simply dummy text of the printing and typesetting industry.";
-
+  static const String dummy =
+      "Body: Lorem Ipsum is simply dummy text of the printing and typesetting industry.";
 }
