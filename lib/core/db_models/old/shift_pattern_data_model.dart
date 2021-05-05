@@ -30,6 +30,7 @@ class ShiftPatternDataModel {
   ShiftLocationDataModel shiftLocationDataModel;
   OccupationModel occupationModel;
   bool isUnavailableForOrganisation;
+  bool isRecurring;
 
   ShiftPatternDataModel(
       {this.docID,
@@ -51,7 +52,8 @@ class ShiftPatternDataModel {
       this.jobRefId,
       this.managerRef,
       this.occupationModel,
-      this.isUnavailableForOrganisation = false
+      this.isUnavailableForOrganisation = false,
+      this.isRecurring
       });
 
   factory ShiftPatternDataModel.fromMap({
@@ -85,6 +87,8 @@ class ShiftPatternDataModel {
         }
         final int _startTimeInt = map['start_time'];
         final int _endTimeInt = map['end_time'];
+        final bool _isRecurring =
+            map[ShiftDataSchema.isRecurring] != null ? map[ShiftDataSchema.isRecurring] : false;
         final RecurrenceModel _recurrence = RecurrenceModel.fromMap(
           map: map['recurrence'] ?? {},
         );
@@ -143,7 +147,9 @@ class ShiftPatternDataModel {
             supervisorRef: _supervisorRef,
             managerRef: _managerRef,
             shiftLocationDataModel: _shiftLocationDataModel,
-            shiftActivitiesModel: null,//_shiftActivitiesModel,
+            shiftActivitiesModel: null,
+            isRecurring: _isRecurring,
+            //_shiftActivitiesModel,
             workerId: _workerRef?.id,
             workerModel: map.containsKey(ShiftDataSchema.workerData)
                 ? WorkerModel.fromMap(map: map[ShiftDataSchema.workerData],
