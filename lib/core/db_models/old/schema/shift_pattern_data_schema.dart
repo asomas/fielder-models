@@ -22,4 +22,5 @@ class ShiftDataSchema {
   static const String placeId = "google_place_id";
   static const String coords = "coords";
   static const String workerUnavailabilities = "worker_unavailabilities";
+  static const String isRecurring = "is_recurring";
 }

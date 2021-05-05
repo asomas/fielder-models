@@ -23,11 +23,10 @@ class WorkerAssignmentsSchema {
   static const String thursday = "thursday";
   static const String tuesday = "tuesday";
   static const String wednesday = "wednesday";
-  static const String role  = "role";
-  static const String startTime  = "start_time";
-  static const String clockInLocation  = "clock_in_location";
-  static const String clockInTime  = "clock_in_time";
-  static const String clockOutTime  = "clock_out_time";
-  static const String clockOutLocation  = "clock_out_location";
-
+  static const String role = "role";
+  static const String startTime = "start_time";
+  static const String clockInLocation = "clock_in_location";
+  static const String clockInTime = "clock_in_time";
+  static const String clockOutTime = "clock_out_time";
+  static const String clockOutLocation = "clock_out_location";
 }

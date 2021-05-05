@@ -12,15 +12,15 @@ class ShiftActivitiesModel {
   GeoPoint clockOutLocation;
   DocumentReference shiftPatternRef;
 
-  ShiftActivitiesModel({
-    this.clockInTime,
-    this.clockInLocation,
-    this.clockOutTime,
-    this.clockOutLocation,
-    this.shiftDate,
-    this.docID,
-    this.shiftPatternRef
-  }) : assert(
+  ShiftActivitiesModel(
+      {this.clockInTime,
+      this.clockInLocation,
+      this.clockOutTime,
+      this.clockOutLocation,
+      this.shiftDate,
+      this.docID,
+      this.shiftPatternRef})
+      : assert(
           clockInTime != null && clockInLocation != null && docID != null,
         );
 
@@ -30,12 +30,18 @@ class ShiftActivitiesModel {
   }) {
     if (map.isNotEmpty) {
       try {
-        final DocumentReference _shiftPatternRef = map[ShiftActivitiesSchema.shiftPatternRef];
-        final GeoPoint _clockInLocation = map[ShiftActivitiesSchema.clockInLocation];
-        final GeoPoint _clockOutLocation = map[ShiftActivitiesSchema.clockOutLocation];
-        final Timestamp _clockInTimeStamp = map[ShiftActivitiesSchema.clockInTime];
-        final Timestamp _clockOutTimeStamp = map[ShiftActivitiesSchema.clockOutTime];
-        final Timestamp _shiftPatternDateTimeStamp = map[ShiftActivitiesSchema.shiftDate];
+        final DocumentReference _shiftPatternRef =
+            map[ShiftActivitiesSchema.shiftPatternRef];
+        final GeoPoint _clockInLocation =
+            map[ShiftActivitiesSchema.clockInLocation];
+        final GeoPoint _clockOutLocation =
+            map[ShiftActivitiesSchema.clockOutLocation];
+        final Timestamp _clockInTimeStamp =
+            map[ShiftActivitiesSchema.clockInTime];
+        final Timestamp _clockOutTimeStamp =
+            map[ShiftActivitiesSchema.clockOutTime];
+        final Timestamp _shiftPatternDateTimeStamp =
+            map[ShiftActivitiesSchema.shiftDate];
         DateTime _clockInDateTime;
         if (_clockInTimeStamp != null) {
           _clockInDateTime = DateTime.fromMillisecondsSinceEpoch(
@@ -57,14 +63,13 @@ class ShiftActivitiesModel {
         }
 
         return ShiftActivitiesModel(
-          docID: docID,
-          clockInTime: _clockInDateTime,
-          clockInLocation: _clockInLocation,
-          clockOutTime: _clockOutDateTime,
-          shiftDate: _shiftPatternDateTime,
-          clockOutLocation: _clockOutLocation,
-          shiftPatternRef: _shiftPatternRef
-        );
+            docID: docID,
+            clockInTime: _clockInDateTime,
+            clockInLocation: _clockInLocation,
+            clockOutTime: _clockOutDateTime,
+            shiftDate: _shiftPatternDateTime,
+            clockOutLocation: _clockOutLocation,
+            shiftPatternRef: _shiftPatternRef);
       } on Exception catch (e) {
         print("ShiftActivitiesModel.fromMap error $e");
       }

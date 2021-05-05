@@ -1,5 +1,5 @@
 class EducationSchema {
-  static const String educationInstitutionRef= "education_institution_ref";
+  static const String educationInstitutionRef = "education_institution_ref";
   static const String courseRef = "course_ref";
   static const String levelRef = "level_ref";
   static const String gradeRef = "grade_ref";

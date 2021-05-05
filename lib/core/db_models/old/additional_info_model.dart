@@ -16,10 +16,10 @@ class AdditionalInfoModel {
   }) {
     if ((map != null) && (map.isNotEmpty)) {
       String _value;
-      if(map.containsKey("value")){
+      if (map.containsKey("value")) {
         _value = map['value'] ?? '';
-      }
-      else if(map.containsKey(JobTemplateSchema.additionalRequirementValue)){
+      } else if (map
+          .containsKey(JobTemplateSchema.additionalRequirementValue)) {
         _value = map[JobTemplateSchema.additionalRequirementValue] ?? '';
       }
       if (_value.isNotEmpty) {

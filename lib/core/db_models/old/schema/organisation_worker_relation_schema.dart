@@ -1,5 +1,4 @@
-class OrganisationWorkerRelationSchema{
-
+class OrganisationWorkerRelationSchema {
   static const String organisationRef = "organisation_ref";
   static const String isStaff = "is_staff";
   static const String pictureUrl = "picture_url";
@@ -8,5 +7,4 @@ class OrganisationWorkerRelationSchema{
   static const String phone = "phone";
   static const String lastShiftDate = "last_shift_date";
   static const String workerRef = "worker_ref";
-
 }

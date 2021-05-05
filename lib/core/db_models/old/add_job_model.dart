@@ -57,8 +57,7 @@ class AddJobModel {
       this.payDetectionEnabled = true,
       this.checksArray,
       this.checks,
-      this.occupationModel
-      });
+      this.occupationModel});
 
   Map<String, dynamic> toJSON() {
     print('AddJobModel toJSON invoked');
@@ -66,9 +65,10 @@ class AddJobModel {
     try {
       print('job created invoked');
 
-      List<dynamic> _shiftPatternsMapArray = shiftPatternsArray?.isNotEmpty == true
-          ? shiftPatternsArray.map((e) => e.toJSON()).toList()
-          : [];
+      List<dynamic> _shiftPatternsMapArray =
+          shiftPatternsArray?.isNotEmpty == true
+              ? shiftPatternsArray.map((e) => e.toJSON()).toList()
+              : [];
 
       _map = {
         JobTemplateSchema.name: templateName,
@@ -80,7 +80,7 @@ class AddJobModel {
         JobTemplateSchema.lateArrival: lateArrival,
         JobTemplateSchema.earlyLeaver: earlyLeaver,
         JobTemplateSchema.overtimeRate: overTimeRate,
-        JobTemplateSchema.occupation : occupationModel.toJson(),
+        JobTemplateSchema.occupation: occupationModel.toJson(),
         JobTemplateSchema.skillsIds: (skillsArray?.isNotEmpty == true)
             ? skillsArray.map((e) => e.docID).toList() ?? []
             : [],
@@ -127,8 +127,9 @@ class AddJobModel {
         overTimeRate: data[JobTemplateSchema.overtimeRate] ?? 0,
         payDetectionEnabled:
             data[JobTemplateSchema.enablePayDetection] ?? false,
-        occupationModel: data[JobTemplateSchema.occupation] != null ?
-          OccupationModel.fromJson(data[JobTemplateSchema.occupation]) : null,
+        occupationModel: data[JobTemplateSchema.occupation] != null
+            ? OccupationModel.fromJson(data[JobTemplateSchema.occupation])
+            : null,
         checksArray:
             (data[JobTemplateSchema.checks] as List)?.isNotEmpty == true
                 ? (data[JobTemplateSchema.checks] as List)

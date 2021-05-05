@@ -15,18 +15,18 @@ class SlotModel {
   final bool isUnavailable;
 
   SlotModel({
-      this.shiftId,
-      this.slotText = '',
-      this.workerAvatarUrl,
-      this.startTime,
-      this.endTime,
-      this.workerId,
-      this.workerName = '',
-      this.weekDay,
-      this.shiftPatternDataModel,
-      this.slotStatusIcon = SlotStatusIcon.Inactive,
-      this.isUnavailable = false,
-      });
+    this.shiftId,
+    this.slotText = '',
+    this.workerAvatarUrl,
+    this.startTime,
+    this.endTime,
+    this.workerId,
+    this.workerName = '',
+    this.weekDay,
+    this.shiftPatternDataModel,
+    this.slotStatusIcon = SlotStatusIcon.Inactive,
+    this.isUnavailable = false,
+  });
 
   @override
   bool operator ==(other) {
@@ -37,6 +37,4 @@ class SlotModel {
   @override
   // TODO: implement hashCode
   int get hashCode => super.hashCode;
-
-
 }

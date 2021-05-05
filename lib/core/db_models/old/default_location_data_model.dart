@@ -11,7 +11,6 @@ class DefaultLocationDataModel {
     this.coordinates,
   });
 
-
   Map<String, dynamic> toJSON() {
     return {
       DefaultLocationDataSchema.address: address.toJSON(),

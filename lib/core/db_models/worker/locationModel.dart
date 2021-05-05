@@ -18,9 +18,7 @@ class LocationModelDetail {
           formattedAddress: json[LocationSchema.formattedAddress] != null
               ? json[LocationSchema.formattedAddress]
               : "",
-          coordinates: json[LocationSchema.coords] != null
-              ? json[LocationSchema.coords]
-              : null,
+          coordinates: json[LocationSchema.coords],
           address: json[LocationSchema.address] != null
               ? Address.fromJson(json[LocationSchema.address])
               : null);

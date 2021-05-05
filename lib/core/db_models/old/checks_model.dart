@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 
-class CheckModel{
+class CheckModel {
   String checkID;
   String value;
 
@@ -12,14 +12,13 @@ class CheckModel{
 
   factory CheckModel.fromMap({
     @required Map<String, dynamic> map,
-    @required String checkID="",
+    @required String checkID = "",
   }) {
     if (map.isNotEmpty) {
       String _value;
-      if(map.containsKey("value")){
+      if (map.containsKey("value")) {
         _value = map['value'] ?? '';
-      }
-      else if(map.containsKey(JobTemplateSchema.checkValue)){
+      } else if (map.containsKey(JobTemplateSchema.checkValue)) {
         _value = map[JobTemplateSchema.checkValue] ?? '';
       }
       if (_value.isNotEmpty) {
@@ -32,8 +31,8 @@ class CheckModel{
     return null;
   }
 
-  factory CheckModel.fromString(String value){
-    if(value != null && value.isNotEmpty){
+  factory CheckModel.fromString(String value) {
+    if (value != null && value.isNotEmpty) {
       return CheckModel(
         value: value,
       );

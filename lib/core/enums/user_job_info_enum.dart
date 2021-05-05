@@ -1,7 +1,1 @@
-enum UserJobInfoEnum {
-  description,
-  shiftPattern,
-  skills,
-  payment,
-  hire
-}
+enum UserJobInfoEnum { description, shiftPattern, skills, payment, hire }
