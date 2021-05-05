@@ -15,15 +15,15 @@ class Workers {
 
   Workers(
       {this.docID,
-        this.createdAt,
-        this.fullTimeOrganisationId,
-        this.isCompleted,
-        this.firstName,
-        this.lastName,
-        this.pictureUrl,
-        this.phone,
-        this.updatedAt,
-        this.uId});
+      this.createdAt,
+      this.fullTimeOrganisationId,
+      this.isCompleted,
+      this.firstName,
+      this.lastName,
+      this.pictureUrl,
+      this.phone,
+      this.updatedAt,
+      this.uId});
 
   factory Workers.fromMap({
     @required Map<String, dynamic> map,
@@ -47,7 +47,7 @@ class Workers {
       }
 
       final DocumentReference _fullTimeOrganisationIdRef =
-      map['full_time_organisation_ref'];
+          map['full_time_organisation_ref'];
       final bool _isCompleted = map['is_completed'] ?? false;
       final String _phone = map['phone'] ?? '';
       final String _uID = map['uid'] ?? '';

@@ -25,12 +25,11 @@ class WorkerModel {
       final String _pictureURL = map['picture_url'] ?? '';
       final bool _isStaff = map['is_staff'] ?? false;
       return WorkerModel(
-        docID: docID,
-        firstName: _firstName,
-        lastName: _lastName,
-        pictureUrl: _pictureURL,
-        isStaff: _isStaff
-      );
+          docID: docID,
+          firstName: _firstName,
+          lastName: _lastName,
+          pictureUrl: _pictureURL,
+          isStaff: _isStaff);
     }
     return null;
   }

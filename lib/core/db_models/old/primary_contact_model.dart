@@ -49,8 +49,10 @@ class PrimaryContactModel {
     if (map.isNotEmpty) {
       final String _email = map[OrganisationSchema.email] ?? '';
       final String _name = map[OrganisationSchema.companyName] ?? '';
-      final String _preferredNumber = map[OrganisationSchema.preferredNumber] ?? '';
-      final String _secondaryNumber = map[OrganisationSchema.secondaryNumber] ?? '';
+      final String _preferredNumber =
+          map[OrganisationSchema.preferredNumber] ?? '';
+      final String _secondaryNumber =
+          map[OrganisationSchema.secondaryNumber] ?? '';
       return PrimaryContactModel(
         secondaryNumber: _secondaryNumber,
         email: _email,

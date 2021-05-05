@@ -27,17 +27,24 @@ class OrganisationWorkerRelation {
     @required String docID,
   }) {
     if (map.isNotEmpty) {
-      try{
-        final DocumentReference _organisationIdRef = map[OrganisationWorkerRelationSchema.organisationRef];
-        final bool _isStaff = map[OrganisationWorkerRelationSchema.isStaff] ?? false;
-        final String _pictureURL = map[OrganisationWorkerRelationSchema.pictureUrl] ?? '';
-        final String _firstName = map[OrganisationWorkerRelationSchema.workerFirstName] ?? '';
-        final String _lastName = map[OrganisationWorkerRelationSchema.workerLastName] ?? '';
+      try {
+        final DocumentReference _organisationIdRef =
+            map[OrganisationWorkerRelationSchema.organisationRef];
+        final bool _isStaff =
+            map[OrganisationWorkerRelationSchema.isStaff] ?? false;
+        final String _pictureURL =
+            map[OrganisationWorkerRelationSchema.pictureUrl] ?? '';
+        final String _firstName =
+            map[OrganisationWorkerRelationSchema.workerFirstName] ?? '';
+        final String _lastName =
+            map[OrganisationWorkerRelationSchema.workerLastName] ?? '';
         final String _phone = map[OrganisationWorkerRelationSchema.phone] ?? '';
-        final Timestamp _lastReviewTimeStamp = map[OrganisationWorkerRelationSchema.lastShiftDate];
-        final DocumentReference _workerIdRef = map[OrganisationWorkerRelationSchema.workerRef];
+        final Timestamp _lastReviewTimeStamp =
+            map[OrganisationWorkerRelationSchema.lastShiftDate];
+        final DocumentReference _workerIdRef =
+            map[OrganisationWorkerRelationSchema.workerRef];
         DateTime _lastReviewDate;
-        if(_lastReviewTimeStamp != null){
+        if (_lastReviewTimeStamp != null) {
           _lastReviewDate = _lastReviewTimeStamp.toDate();
         }
 
@@ -50,7 +57,7 @@ class OrganisationWorkerRelation {
             phone: _phone,
             lastReview: _lastReviewDate,
             workerId: _workerIdRef.id);
-      }catch(e){
+      } catch (e) {
         print("organisation_worker_relation.dart_____Model Catch_________$e");
         return null;
       }

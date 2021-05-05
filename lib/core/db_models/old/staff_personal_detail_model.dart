@@ -3,7 +3,7 @@ import 'package:fielder_models/core/db_models/old/schema/staff_personal_detail_s
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'package:fielder_models/core/db_models/worker/workHistory/workHistory.dart';
 
-class StaffPersonalDetailModel{
+class StaffPersonalDetailModel {
   String fullName;
   String preferredName;
   AddressModel addressModel;
@@ -22,31 +22,31 @@ class StaffPersonalDetailModel{
       this.email,
       this.skillsModelList,
       this.checkModelList});
-  
-  factory StaffPersonalDetailModel.fromMap(Map<String, dynamic> map){
-    if(map != null && map.isNotEmpty){
-      try{
+
+  factory StaffPersonalDetailModel.fromMap(Map<String, dynamic> map) {
+    if (map != null && map.isNotEmpty) {
+      try {
         return StaffPersonalDetailModel(
           fullName: map[StaffPersonalDetailSchema.fullName] ?? "",
           preferredName: map[StaffPersonalDetailSchema.preferredName] ?? "",
           phoneNumber: map[StaffPersonalDetailSchema.phoneNumber] ?? "",
-          personalStatement: map[StaffPersonalDetailSchema.personalStatement] ?? "",
+          personalStatement:
+              map[StaffPersonalDetailSchema.personalStatement] ?? "",
           email: map[StaffPersonalDetailSchema.email],
-          addressModel: AddressModel.fromMap(map[StaffPersonalDetailSchema.address]),
+          addressModel:
+              AddressModel.fromMap(map[StaffPersonalDetailSchema.address]),
           skillsModelList: map[StaffPersonalDetailSchema.skills] != null
-              ? List<SkillsModel>.from(
-              map[StaffPersonalDetailSchema.skills].map((e) =>
-                  SkillsModel.fromString(e)))
+              ? List<SkillsModel>.from(map[StaffPersonalDetailSchema.skills]
+                  .map((e) => SkillsModel.fromString(e)))
               : [],
           checkModelList: map[StaffPersonalDetailSchema.checks] != null
-              ? List<CheckModel>.from(
-              map[StaffPersonalDetailSchema.checks].map((e) =>
-                  CheckModel.fromString(e)))
+              ? List<CheckModel>.from(map[StaffPersonalDetailSchema.checks]
+                  .map((e) => CheckModel.fromString(e)))
               : [],
         );
-      }
-      catch(e){
-        print("staff_personal_detail_model.dart_____StaffPersonalDetailModel Catch $e");
+      } catch (e) {
+        print(
+            "staff_personal_detail_model.dart_____StaffPersonalDetailModel Catch $e");
         return null;
       }
     }
@@ -63,30 +63,29 @@ class AddressModel {
   String postCode;
   String fullAddress;
 
-  AddressModel({
-    this.building,
-    this.street,
-    this.houseNumber,
-    this.locality,
-    this.town,
-    this.postCode,
-    this.fullAddress
-  });
+  AddressModel(
+      {this.building,
+      this.street,
+      this.houseNumber,
+      this.locality,
+      this.town,
+      this.postCode,
+      this.fullAddress});
 
-  factory AddressModel.fromMap(Map<String,dynamic> map){
-    if(map != null && map.isNotEmpty){
-      try{
+  factory AddressModel.fromMap(Map<String, dynamic> map) {
+    if (map != null && map.isNotEmpty) {
+      try {
         List _orderedKeys = [
-          map[StaffPersonalDetailSchema.building] ,
+          map[StaffPersonalDetailSchema.building],
           map[StaffPersonalDetailSchema.street],
           map[StaffPersonalDetailSchema.houseNumber],
-          map[StaffPersonalDetailSchema.locality] ,
+          map[StaffPersonalDetailSchema.locality],
           map[StaffPersonalDetailSchema.town],
           map[StaffPersonalDetailSchema.postcode]
         ];
         List _addressList = [];
         _orderedKeys.forEach((element) {
-          if (element!= null && element.isNotEmpty) {
+          if (element != null && element.isNotEmpty) {
             _addressList.add(element);
           }
         });
@@ -98,9 +97,8 @@ class AddressModel {
             locality: map[StaffPersonalDetailSchema.locality] ?? "",
             town: map[StaffPersonalDetailSchema.town] ?? "",
             postCode: map[StaffPersonalDetailSchema.postcode] ?? "",
-            fullAddress: _fullAddress ?? ""
-        );
-      }catch(e){
+            fullAddress: _fullAddress ?? "");
+      } catch (e) {
         print("staff_personal_detail_model.dart_____Address Model Catch $e");
         return null;
       }

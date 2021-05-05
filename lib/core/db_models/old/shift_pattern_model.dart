@@ -15,8 +15,8 @@ class ShiftModel {
   DateTime endDate;
   int startTimeInt;
   int endTimeInt;
- // int intervalAmount;
- // String intervalType;
+  // int intervalAmount;
+  // String intervalType;
   RecurrenceModel recurrence;
   String existingLocationId;
   GooglePlaceModel googlePlaceModel;
@@ -24,47 +24,49 @@ class ShiftModel {
   String shift_patternDate;
   DocumentReference workerRef;
 
-  ShiftModel({
-    this.docID,
-    this.startDate,
-    this.endDate,
-    this.startTimeInt,
-    this.endTimeInt,
-   // this.intervalAmount = 1,
-   // this.intervalType,
-    this.recurrence,
-    this.title,
-    this.existingLocationId,
-    this.workerRef,
-    this.shift_patternDate,
-    this.googlePlaceModel
-  }) : assert(
+  ShiftModel(
+      {this.docID,
+      this.startDate,
+      this.endDate,
+      this.startTimeInt,
+      this.endTimeInt,
+      // this.intervalAmount = 1,
+      // this.intervalType,
+      this.recurrence,
+      this.title,
+      this.existingLocationId,
+      this.workerRef,
+      this.shift_patternDate,
+      this.googlePlaceModel})
+      : assert(
           startDate != null && startTimeInt != null && endTimeInt != null,
         );
 
-  factory ShiftModel.fromMap(String docID, Map<String, dynamic> map){
+  factory ShiftModel.fromMap(String docID, Map<String, dynamic> map) {
     ShiftModel shift_patternDataModel;
-    try{
-      if(map?.isNotEmpty == true){
+    try {
+      if (map?.isNotEmpty == true) {
         shift_patternDataModel = ShiftModel(
-            docID: docID,
-            title: map[ShiftDataSchema.title] ?? "",
-            startDate: map[ShiftDataSchema.startDate]?.toDate(),
-            endDate: map[ShiftDataSchema.endDate]?.toDate(),
-            startTimeInt: map[ShiftDataSchema.startTime],
-            endTimeInt: map[ShiftDataSchema.endTime],
-           // intervalAmount: map[ShiftDataSchema.intervalAmount],
-           // intervalType: map[ShiftDataSchema.repeatIntervalType],
-            recurrence: RecurrenceModel.fromMap(map: map[ShiftDataSchema.recurrence]),
-            workerRef: map[ShiftDataSchema.workerRef],
-            shift_patternDate: map[ShiftDataSchema.shiftPatternDate],
-            googlePlaceModel: GooglePlaceModel.fromMap(map[ShiftDataSchema.googlePlaceData]),
+          docID: docID,
+          title: map[ShiftDataSchema.title] ?? "",
+          startDate: map[ShiftDataSchema.startDate]?.toDate(),
+          endDate: map[ShiftDataSchema.endDate]?.toDate(),
+          startTimeInt: map[ShiftDataSchema.startTime],
+          endTimeInt: map[ShiftDataSchema.endTime],
+          // intervalAmount: map[ShiftDataSchema.intervalAmount],
+          // intervalType: map[ShiftDataSchema.repeatIntervalType],
+          recurrence:
+              RecurrenceModel.fromMap(map: map[ShiftDataSchema.recurrence]),
+          workerRef: map[ShiftDataSchema.workerRef],
+          shift_patternDate: map[ShiftDataSchema.shiftPatternDate],
+          googlePlaceModel:
+              GooglePlaceModel.fromMap(map[ShiftDataSchema.googlePlaceData]),
         );
       }
       return shift_patternDataModel;
-    }catch(e){
-    print('ShiftDataModel toJSON error: $e');
-    return null;
+    } catch (e) {
+      print('ShiftDataModel toJSON error: $e');
+      return null;
     }
   }
 
@@ -75,14 +77,13 @@ class ShiftModel {
         ShiftDataSchema.startDate: DateFormat('yyyy-MM-dd').format(startDate),
         ShiftDataSchema.startTime: startTimeInt,
         ShiftDataSchema.endTime: endTimeInt,
-      //  ShiftDataSchema.intervalAmount: intervalAmount,
-      //  ShiftDataSchema.repeatIntervalType: intervalType,
+        //  ShiftDataSchema.intervalAmount: intervalAmount,
+        //  ShiftDataSchema.repeatIntervalType: intervalType,
         ShiftDataSchema.recurrence: recurrence.toJSON(),
       };
-      if(existingLocationId!=null){
+      if (existingLocationId != null) {
         jsonMap[ShiftDataSchema.existingLocationId] = existingLocationId;
-      }
-      else if(googlePlaceModel != null){
+      } else if (googlePlaceModel != null) {
         jsonMap[ShiftDataSchema.googlePlaceData] = googlePlaceModel.toJson();
       }
       if (endDate != null) {
@@ -167,11 +168,12 @@ class RecurrenceModel {
 
   factory RecurrenceModel.fromMap({
     @required Map<String, dynamic> map,
-
   }) {
     if (map.isNotEmpty) {
       final int _intervalAmount = map['interval_amount'];
-      final ShiftFrequencies _repeatIntervalType= EnumHelpers.getFrequencyForString(shiftPatternFrequency:map['repeat_interval_type'] ?? '');
+      final ShiftFrequencies _repeatIntervalType =
+          EnumHelpers.getFrequencyForString(
+              shiftPatternFrequency: map['repeat_interval_type'] ?? '');
       final bool _isMonday = map['monday'] ?? false;
       final bool _isTuesday = map['tuesday'] ?? false;
       final bool _isWednesday = map['wednesday'] ?? false;
@@ -179,7 +181,6 @@ class RecurrenceModel {
       final bool _isFriday = map['friday'] ?? false;
       final bool _isSaturday = map['saturday'] ?? false;
       final bool _isSunday = map['sunday'] ?? false;
-
 
       return RecurrenceModel(
         intervalAmount: _intervalAmount,

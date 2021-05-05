@@ -23,6 +23,7 @@ class LocationModelDetail {
               ? Address.fromJson(json[LocationSchema.address])
               : null);
 }
+
 class Address {
   String building;
   String street;

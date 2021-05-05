@@ -24,26 +24,25 @@ class PatternDataModel {
   DocumentReference workerRef;
   WorkerModel workerModel;
 
-  PatternDataModel({
-    this.docID,
-    this.startDate,
-    this.endDate,
-    this.startTimeInt,
-    this.endTimeInt,
-    this.intervalAmount = 1,
-    this.intervalType,
-    this.recurrence,
-    this.title,
-    this.existingLocationId,
-    this.workerRef,
-    this.shiftPatternDate,
-    this.googlePlaceModel,
-    this.workerModel
-  });
+  PatternDataModel(
+      {this.docID,
+      this.startDate,
+      this.endDate,
+      this.startTimeInt,
+      this.endTimeInt,
+      this.intervalAmount = 1,
+      this.intervalType,
+      this.recurrence,
+      this.title,
+      this.existingLocationId,
+      this.workerRef,
+      this.shiftPatternDate,
+      this.googlePlaceModel,
+      this.workerModel});
 
-  factory PatternDataModel.fromMap(String docID, Map<String, dynamic> map){
+  factory PatternDataModel.fromMap(String docID, Map<String, dynamic> map) {
     PatternDataModel shiftPatternDataModel;
-    if(map != null && map.isNotEmpty == true){
+    if (map != null && map.isNotEmpty == true) {
       shiftPatternDataModel = PatternDataModel(
           docID: docID,
           title: map[ShiftDataSchema.title] ?? "",
@@ -53,14 +52,18 @@ class PatternDataModel {
           endTimeInt: map[ShiftDataSchema.endTime],
           intervalAmount: map[ShiftDataSchema.intervalAmount],
           intervalType: map[ShiftDataSchema.repeatIntervalType],
-          recurrence: RecurrenceModel.fromMap(map: map[ShiftDataSchema.recurrence]),
+          recurrence:
+              RecurrenceModel.fromMap(map: map[ShiftDataSchema.recurrence]),
           workerRef: map[ShiftDataSchema.workerRef],
           shiftPatternDate: map[ShiftDataSchema.shiftPatternDate],
-          googlePlaceModel: GooglePlaceModel.fromMap(map[ShiftDataSchema.googlePlaceData],),
+          googlePlaceModel: GooglePlaceModel.fromMap(
+            map[ShiftDataSchema.googlePlaceData],
+          ),
           workerModel: map.containsKey(ShiftDataSchema.workerData)
-              ? WorkerModel.fromMap(map: map[ShiftDataSchema.workerData],
-              docID: map[ShiftDataSchema.workerRef]?.id) : null
-      );
+              ? WorkerModel.fromMap(
+                  map: map[ShiftDataSchema.workerData],
+                  docID: map[ShiftDataSchema.workerRef]?.id)
+              : null);
     }
     return shiftPatternDataModel;
   }
@@ -72,21 +75,20 @@ class PatternDataModel {
         ShiftDataSchema.startDate: DateFormat('yyyy-MM-dd').format(startDate),
         ShiftDataSchema.startTime: startTimeInt,
         ShiftDataSchema.endTime: endTimeInt,
-      //  ShiftDataSchema.intervalAmount: intervalAmount,
-       // ShiftDataSchema.repeatIntervalType: intervalType,
+        //  ShiftDataSchema.intervalAmount: intervalAmount,
+        // ShiftDataSchema.repeatIntervalType: intervalType,
         ShiftDataSchema.recurrence: recurrence.toJSON(),
       };
-      if(existingLocationId!=null){
+      if (existingLocationId != null) {
         jsonMap[ShiftDataSchema.existingLocationId] = existingLocationId;
-      }
-      else if(googlePlaceModel != null){
+      } else if (googlePlaceModel != null) {
         jsonMap[ShiftDataSchema.googlePlaceData] = googlePlaceModel.toJson();
       }
       if (endDate != null) {
         final String _endDateString = DateFormat('yyyy-MM-dd').format(endDate);
         if (_endDateString != null) {
-          if(intervalType!="None")
-          jsonMap[ShiftDataSchema.endDate] = _endDateString;
+          if (intervalType != "None")
+            jsonMap[ShiftDataSchema.endDate] = _endDateString;
         }
       }
       return jsonMap;
@@ -95,7 +97,6 @@ class PatternDataModel {
       return {};
     }
   }
-
 }
 
 class RecurrenceModel {
@@ -154,11 +155,12 @@ class RecurrenceModel {
 
   factory RecurrenceModel.fromMap({
     @required Map<String, dynamic> map,
-
   }) {
     if (map != null && map.isNotEmpty) {
       final int _intervalAmount = map['interval_amount'];
-      final ShiftFrequencies _repeatIntervalType= EnumHelpers.getFrequencyForString(shiftPatternFrequency:map['repeat_interval_type'] ?? '');
+      final ShiftFrequencies _repeatIntervalType =
+          EnumHelpers.getFrequencyForString(
+              shiftPatternFrequency: map['repeat_interval_type'] ?? '');
       final bool _isMonday = map['monday'] ?? false;
       final bool _isTuesday = map['tuesday'] ?? false;
       final bool _isWednesday = map['wednesday'] ?? false;
@@ -166,7 +168,6 @@ class RecurrenceModel {
       final bool _isFriday = map['friday'] ?? false;
       final bool _isSaturday = map['saturday'] ?? false;
       final bool _isSunday = map['sunday'] ?? false;
-
 
       return RecurrenceModel(
         intervalAmount: _intervalAmount,

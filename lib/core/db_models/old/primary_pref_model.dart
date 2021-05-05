@@ -15,9 +15,9 @@ class PrimaryPrefModel {
         secondaryNumber = json[OrganisationSchema.secondaryNumber];
 
   Map<String, dynamic> toJson() => {
-    OrganisationSchema.email: email,
-    OrganisationSchema.companyName: name,
-    OrganisationSchema.preferredNumber: preferredNumber,
-    OrganisationSchema.secondaryNumber: secondaryNumber,
-  };
+        OrganisationSchema.email: email,
+        OrganisationSchema.companyName: name,
+        OrganisationSchema.preferredNumber: preferredNumber,
+        OrganisationSchema.secondaryNumber: secondaryNumber,
+      };
 }

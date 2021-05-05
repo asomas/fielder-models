@@ -31,14 +31,13 @@ class InviteStatusModel {
     //print('AddJobModel toJSON invoked');
     Map<String, dynamic> _map = {};
     try {
-     // print('job created invoked');
+      // print('job created invoked');
 
       _map = {
         StaffStatusSchema.isStaff: isStaff,
         StaffStatusSchema.workerFirstName: workerFirstName,
         StaffStatusSchema.workerLastName: workerLastName,
         StaffStatusSchema.status: status,
-
       };
 
       print("InviteStaffModel map -> $_map");
@@ -55,8 +54,7 @@ class InviteStatusModel {
         workerFirstName: data[StaffStatusSchema.workerFirstName],
         workerLastName: data[StaffStatusSchema.workerLastName],
         workerPhone: data[StaffStatusSchema.workerPhone],
-        createdAt: data[StaffStatusSchema.createdAt]?.toDate()
-    );
+        createdAt: data[StaffStatusSchema.createdAt]?.toDate());
   }
 
   clear() {
@@ -66,12 +64,9 @@ class InviteStatusModel {
     workerLastName = "";
     workerPhone = "";
   }
-
 }
 
-
-class UploadCsvModel{
-
+class UploadCsvModel {
   String firstName;
   String lastName;
   String phoneNumber;
@@ -80,8 +75,7 @@ class UploadCsvModel{
   UploadCsvModel(
       {this.firstName, this.lastName, this.phoneNumber, this.workerType});
 
-  factory UploadCsvModel.fromMap(Map<String, dynamic> map) =>
-      UploadCsvModel(
+  factory UploadCsvModel.fromMap(Map<String, dynamic> map) => UploadCsvModel(
         firstName: map[UploadCsvSchema.firstName],
         lastName: map[UploadCsvSchema.lastName],
         phoneNumber: map[UploadCsvSchema.phoneNumber],

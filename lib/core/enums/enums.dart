@@ -59,26 +59,13 @@ enum CalculatePay { ShiftHours, ClockedInHours }
 
 enum CalendarType { date, time, none }
 
+enum AssignJobCard { Staff, Fielder }
 
-enum AssignJobCard {
-  Staff,
-  Fielder
-}
+enum OfferStatus { Pending, Rejected, Accepted, None }
 
-enum OfferStatus {
-  Pending,
-  Rejected,
-  Accepted,
-  None
-}
-
-enum GenericOverlayType {
-  Jobs,
-  AssignJob
-}
+enum GenericOverlayType { Jobs, AssignJob }
 
 enum ShiftTimeType { start, end, none }
-
 
 enum SlotType {
   InactiveRecurring,
@@ -90,10 +77,7 @@ enum SlotType {
   ActiveCompleted,
 }
 
-enum BrandingImageType{
-  Logo,
-  Banner
-}
+enum BrandingImageType { Logo, Banner }
 
 enum RenderSlot {
   Single,
@@ -105,9 +89,4 @@ enum WorkerType {
   Staff,
 }
 
-enum ShiftAssignStatus {
-  Assign,
-  Unassign,
-  Pending
-}
-
+enum ShiftAssignStatus { Assign, Unassign, Pending }

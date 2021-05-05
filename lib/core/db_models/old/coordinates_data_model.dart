@@ -8,9 +8,7 @@ class CoordinatesModel {
   });
 
   factory CoordinatesModel.fromMap(Map<String, dynamic> map) {
-    return CoordinatesModel(
-        lat: map[""]
-    );
+    return CoordinatesModel(lat: map[""]);
   }
 
   Map<String, dynamic> toJSON() {
