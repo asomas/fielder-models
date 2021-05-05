@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/temp/organisation.dart';
+import 'package:fielder_models/core/db_models/worker/occupation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fielder_models/core/db_models/old/organisation_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
@@ -10,7 +11,7 @@ import 'package:fielder_models/core/db_models/old/workers_model.dart';
 
 class ShiftPatternDataModel {
   String docID;
-  String shiftPatternRef;
+  String shiftPatternRefId;
   OrganisationModel organisation;
   DocumentReference supervisorRef;
   DocumentReference managerRef;
@@ -27,12 +28,13 @@ class ShiftPatternDataModel {
   ShiftActivitiesModel shiftActivitiesModel;
   WorkerModel workerModel;
   ShiftLocationDataModel shiftLocationDataModel;
+  OccupationModel occupationModel;
   bool isUnavailableForOrganisation;
   bool isRecurring;
 
   ShiftPatternDataModel(
       {this.docID,
-      this.shiftPatternRef,
+      this.shiftPatternRefId,
       this.organisation,
       this.endDate,
       this.endTimeInt,
@@ -49,35 +51,37 @@ class ShiftPatternDataModel {
       this.supervisorRef,
       this.jobRefId,
       this.managerRef,
+      this.occupationModel,
       this.isUnavailableForOrganisation = false,
-      this.isRecurring});
+      this.isRecurring
+      });
 
-  factory ShiftPatternDataModel.fromMap(
-      {@required Map<String, dynamic> map,
-      @required String docID,
-      bool isUnavailable = false}) {
+  factory ShiftPatternDataModel.fromMap({
+    @required Map<String, dynamic> map,
+    @required String docID,
+    bool isUnavailable = false
+  }) {
     if (map.isNotEmpty) {
       try {
         final _startTimeStamp = map['start_date'];
         DateTime _startDate;
         if (_startTimeStamp != null) {
-          if (_startTimeStamp is Timestamp) {
+          if(_startTimeStamp is Timestamp){
             _startDate = DateTime.fromMillisecondsSinceEpoch(
               _startTimeStamp.millisecondsSinceEpoch,
             );
-          } else {
-            _startDate =
-                DateTime.parse(_startTimeStamp.toString().split("T")[0]);
+          }else{
+            _startDate = DateTime.parse(_startTimeStamp.toString().split("T")[0]);
           }
         }
         final _endTimeStamp = map['end_date'];
         DateTime _endDate;
         if (_endTimeStamp != null) {
-          if (_endTimeStamp is Timestamp) {
+          if(_endTimeStamp is Timestamp){
             _endDate = DateTime.fromMillisecondsSinceEpoch(
               _endTimeStamp.millisecondsSinceEpoch,
             );
-          } else {
+          }else{
             _endDate = DateTime.parse(_endTimeStamp.toString().split("T")[0]);
           }
         }
@@ -91,10 +95,12 @@ class ShiftPatternDataModel {
         final String _jobTitle = map['job_title'] ?? '';
         final String _jobRefId = map['job_reference_id'];
         final DocumentReference _jobRef = map['job_ref'];
+        final DocumentReference _occupationRef = map['organisation_ref'];
         final String _shiftPatternRef = map['shift_pattern_reference_id'];
         final String _role = map['role'] ?? '';
         OrganisationModel _organisation;
         ShiftLocationDataModel _shiftLocationDataModel;
+        OccupationModel _occupationModel;
         final DocumentReference _organisationRef = map['organisation_ref'];
         final DocumentReference _locationRef = map['location_ref'];
         final DocumentReference _supervisorRef = map['supervisor_ref'];
@@ -107,22 +113,26 @@ class ShiftPatternDataModel {
           );
         }
         if (_locationRef != null) {
-          _shiftLocationDataModel =
-              ShiftLocationDataModel.fromMap(map["location_data"]);
+          _shiftLocationDataModel = ShiftLocationDataModel.fromMap(
+              map["location_data"]
+          );
+        }
+        if (_occupationRef != null) {
+          _occupationModel = OccupationModel.fromJson( map["occupation"]);
         }
         ShiftActivitiesModel _shiftActivitiesModel;
         final DocumentReference _workerRef = map['worker_ref'];
-        final DocumentReference _shiftActivityRef = map['shift_activity_ref'];
+        final DocumentReference _shiftActivityRef =
+            map['shift_activity_ref'] ;
 
         if (_workerRef != null && _shiftActivityRef != null) {
           _shiftActivitiesModel = ShiftActivitiesModel.fromMap(
-              map: map['shift_activity_data'] ?? {},
-              docID: _shiftActivityRef.id);
+              map: map['shift_activity_data'] ?? {}, docID: _shiftActivityRef.id);
         }
 
         return ShiftPatternDataModel(
             docID: docID,
-            shiftPatternRef: _shiftPatternRef,
+            shiftPatternRefId: _shiftPatternRef,
             startDate: _startDate,
             endDate: _endDate,
             startTimeInt: _startTimeInt,
@@ -142,10 +152,10 @@ class ShiftPatternDataModel {
             //_shiftActivitiesModel,
             workerId: _workerRef?.id,
             workerModel: map.containsKey(ShiftDataSchema.workerData)
-                ? WorkerModel.fromMap(
-                    map: map[ShiftDataSchema.workerData],
-                    docID: map[ShiftDataSchema.workerRef]?.id)
-                : null);
+                ? WorkerModel.fromMap(map: map[ShiftDataSchema.workerData],
+                docID: map[ShiftDataSchema.workerRef]?.id) : null,
+            occupationModel: _occupationModel
+        );
       } catch (e) {
         print('ShiftPatternDataModel fromMap error: $e');
       }
@@ -153,7 +163,7 @@ class ShiftPatternDataModel {
     return null;
   }
 
-  ShiftPatternDataModel copyWith(ShiftPatternDataModel shiftPatternDataModel) {
+  ShiftPatternDataModel copyWith(ShiftPatternDataModel shiftPatternDataModel){
     return ShiftPatternDataModel(
         docID: shiftPatternDataModel.docID,
         startDate: shiftPatternDataModel.startDate,
@@ -172,8 +182,9 @@ class ShiftPatternDataModel {
         shiftActivitiesModel: shiftPatternDataModel.shiftActivitiesModel,
         workerId: shiftPatternDataModel.workerId,
         workerModel: shiftPatternDataModel.workerModel,
-        shiftPatternRef: shiftPatternDataModel.shiftPatternRef,
-        isUnavailableForOrganisation:
-            shiftPatternDataModel.isUnavailableForOrganisation);
+        isUnavailableForOrganisation: shiftPatternDataModel.isUnavailableForOrganisation,
+        shiftPatternRefId: shiftPatternDataModel.shiftPatternRefId,
+        occupationModel: shiftPatternDataModel.occupationModel
+    );
   }
 }
