@@ -34,18 +34,10 @@ class WorkerHistorySchema {
   static const String description = "description";
   static const String code = "code";
   static const String jobTitle = "job_title";
-  static const String external = "External";
-  static const String fielder  = "Fielder";
-  static const String education = "Education";
-  static const String type = "type";
-  static const String jobRef = "job_ref";
-  static const String totalHours = "total_hours";
-  static const String totalShifts= "total_shifts";
 
   static const String institution = "institution";
   static const String institutions = "institutions";
   static const String institutionRef = "institution_ref";
-
 
   static const String course = "course";
   static const String courses = "courses";
@@ -61,5 +53,4 @@ class WorkerHistorySchema {
   static const String award = "award";
   static const String knowledgeAreaRef = "knowledge_area_ref";
   static const String knowledgeAreas = "knowledge_areas";
-
 }
