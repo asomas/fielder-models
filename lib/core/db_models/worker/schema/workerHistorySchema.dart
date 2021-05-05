@@ -17,7 +17,6 @@ class WorkerHistorySchema {
   static const String value = "value";
   static const String sicCode = "sic_codes";
   static const String workerRef = "worker_ref";
-  static const String workHistoryId = "work_history_id";
   static const String message = "message";
   static const String update = "update";
   static const String occupations = "occupations";

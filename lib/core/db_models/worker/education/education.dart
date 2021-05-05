@@ -110,22 +110,22 @@ class Course {
 }
 
 class EducationInstitution {
-  DocumentReference educationInstitutionRef;
+  DocumentReference institutionRef;
   String institutionId;
   String value;
 
   EducationInstitution(
-      {this.educationInstitutionRef, this.value, this.institutionId});
+      {this.institutionRef, this.value, this.institutionId});
 
   factory EducationInstitution.fromJson(Map<String, dynamic> json) =>
       EducationInstitution(
-        educationInstitutionRef: json[EducationSchema.educationInstitutionRef],
+        institutionRef: json[EducationSchema.institutionRef],
         value: json[EducationSchema.value] ?? "",
         institutionId: json[EducationSchema.institutionId] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
-        EducationSchema.educationInstitutionRef: educationInstitutionRef,
+        EducationSchema.institutionRef: institutionRef,
         EducationSchema.value: value,
       };
 }
