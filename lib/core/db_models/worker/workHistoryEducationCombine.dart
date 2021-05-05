@@ -64,9 +64,9 @@ class WorkHistoryEducationCombine {
         occupation: json[WorkerHistorySchema.occupation] != null
             ? Occupation.fromJson(json[WorkerHistorySchema.occupation])
             : null,
-        educationInstitution: json[EducationSchema.educationInstitution] != null
+        educationInstitution: json[EducationSchema.institution] != null
             ? EducationInstitution.fromJson(
-                json[EducationSchema.educationInstitution])
+                json[EducationSchema.institution])
             : null,
         course: json[EducationSchema.course] != null
             ? Course.fromJson(json[EducationSchema.course])

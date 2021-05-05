@@ -5,8 +5,8 @@ import 'package:fielder_models/core/db_models/worker/schema/educationSchema.dart
 class Education {
   String docId;
   EducationInstitution educationInstitution;
-  String endDate;
-  String startDate;
+  Timestamp endDate;
+  Timestamp startDate;
   LocationModelDetail location;
   Course course;
   bool award;
@@ -32,12 +32,12 @@ class Education {
       this.workerRef});
 
   bool checkAllFieldsNull() {
-    if (endDate != "" ||
+    if (endDate != null ||
         location != null ||
         educationInstitution != null ||
         course != null ||
         award != null ||
-        startDate != "" ||
+        startDate != null ||
         summary != "" ||
         level != null ||
         grade != null ||
@@ -52,16 +52,16 @@ class Education {
       Education(
           docId: docId,
           educationInstitution:
-              json[EducationSchema.educationInstitution] != null
+              json[EducationSchema.institution] != null
                   ? EducationInstitution.fromJson(
-                      json[EducationSchema.educationInstitution])
+                      json[EducationSchema.institution])
                   : null,
           endDate: json[EducationSchema.endDate] != null
               ? json[EducationSchema.endDate]
-              : "",
+              : null,
           startDate: json[EducationSchema.startDate] != null
               ? json[EducationSchema.startDate]
-              : "",
+              : null,
           award: json[EducationSchema.award] != null
               ? json[EducationSchema.award]
               : null,

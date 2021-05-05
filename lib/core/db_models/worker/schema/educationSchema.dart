@@ -4,7 +4,7 @@ class EducationSchema {
   static const String levelRef = "level_ref";
   static const String gradeRef = "grade_ref";
   static const String knowledgeAreaRef = "knowledge_area_ref";
-  static const String educationInstitution = "education_institution";
+  static const String institution = "institution";
   static const String location_data = "location_data";
   static const String course = "course";
   static const String level = "level";
