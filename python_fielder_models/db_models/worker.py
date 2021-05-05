@@ -8,8 +8,6 @@ class WorkExperienceSerializer(serializers.Serializer):
     class ReferenceSerializer(serializers.Serializer):
         value = serializers.CharField(allow_null=True)
 
-    class SICCodeSerializer(ReferenceSerializer):
-        sic_code_ref = DocumentReferenceField()
 
     class OccupationSerializer(ReferenceSerializer):
         occupation_ref = DocumentReferenceField()
@@ -21,10 +19,8 @@ class WorkExperienceSerializer(serializers.Serializer):
     location_data = LocationDBSerializer(required=False, allow_null=True)
     occupation = OccupationSerializer(required=False, allow_null=True)
     job_title = serializers.CharField(required=False, allow_null=True)
-    start_date = serializers.RegexField(
-        DATE_FIELD_REGEX, required=False, allow_null=True
-    )
-    end_date = serializers.RegexField(DATE_FIELD_REGEX, required=False, allow_null=True)
+    start_date = serializers.DateTimeField(required=False, allow_null=True)
+    end_date = serializers.DateTimeField(required=False, allow_null=True)
     summary = serializers.CharField(required=False, allow_null=True)
     skills = serializers.ListField(
         required=False, allow_null=True, child=SkillSerializer()
@@ -75,10 +71,8 @@ class EducationSerializer(serializers.Serializer):
     level = LevelSerializer(required=False, allow_null=True)
     grade = GradeSerializer(required=False, allow_null=True)
     award = serializers.BooleanField(required=False, allow_null=True)
-    start_date = serializers.RegexField(
-        DATE_FIELD_REGEX, required=False, allow_null=True
-    )
-    end_date = serializers.RegexField(DATE_FIELD_REGEX, required=False, allow_null=True)
+    start_date = serializers.DateTimeField(required=False, allow_null=True)
+    end_date = serializers.DateTimeField(required=False, allow_null=True)
     summary = serializers.CharField(required=False, allow_null=True)
     knowledge_areas = serializers.ListField(
         required=False, allow_null=True, child=KnowledgeAreaSerializer()
