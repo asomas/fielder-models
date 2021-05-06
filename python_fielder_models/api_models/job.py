@@ -13,3 +13,13 @@ class UnAssignWorkerfromShiftPatternRequestSerializer(serializers.Serializer):
         "all"
         )
     )
+
+class DeleteShiftPatternRequestSerializer(serializers.Serializer):
+    shift_date = serializers.DateField(format="%Y-%m-%d", input_formats=["%Y-%m-%d"])
+    range = serializers.ChoiceField(
+        (
+        "current",
+        "future",
+        "all"
+        )
+    )
