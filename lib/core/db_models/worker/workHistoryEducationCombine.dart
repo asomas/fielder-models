@@ -43,8 +43,8 @@ class WorkHistoryEducationCombine {
         startDate: json[EducationSchema.startDate] != null
             ? json[EducationSchema.startDate]
             : null,
-        location: json[EducationSchema.location_data] != null
-            ? LocationModelDetail.fromJson(json[EducationSchema.location_data])
+        location: json[EducationSchema.locationData] != null
+            ? LocationModelDetail.fromJson(json[EducationSchema.locationData])
             : null,
         organisationName: json[WorkerHistorySchema.organisationName] != null
             ? json[WorkerHistorySchema.organisationName]

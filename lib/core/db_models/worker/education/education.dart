@@ -17,19 +17,18 @@ class Education {
   String summary;
   DocumentReference workerRef;
 
-  Education(
-      {this.docId,
-      this.educationInstitution,
-      this.endDate,
-      this.startDate,
-      this.location,
-      this.course,
-      this.award,
-      this.level,
-      this.grade,
-      this.knowledgeAreaList,
-      this.summary,
-      this.workerRef});
+  Education({this.docId,
+    this.educationInstitution,
+    this.endDate,
+    this.startDate,
+    this.location,
+    this.course,
+    this.award,
+    this.level,
+    this.grade,
+    this.knowledgeAreaList,
+    this.summary,
+    this.workerRef});
 
   bool checkAllFieldsNull() {
     if (endDate != null ||
@@ -48,46 +47,54 @@ class Education {
     }
   }
 
-  factory Education.fromJson(Map<String, dynamic> json, {String docId}) =>
-      Education(
-          docId: docId,
-          educationInstitution:
-              json[EducationSchema.institution] != null
-                  ? EducationInstitution.fromJson(
-                      json[EducationSchema.institution])
-                  : null,
-          endDate: json[EducationSchema.endDate] != null
-              ? json[EducationSchema.endDate]
-              : null,
-          startDate: json[EducationSchema.startDate] != null
-              ? json[EducationSchema.startDate]
-              : null,
-          award: json[EducationSchema.award] != null
-              ? json[EducationSchema.award]
-              : null,
-          location: json[EducationSchema.location_data] != null
-              ? LocationModelDetail.fromJson(
-                  json[EducationSchema.location_data])
-              : null,
-          course: json[EducationSchema.course] != null
-              ? Course.fromJson(json[EducationSchema.course])
-              : null,
-          level: json[EducationSchema.level] != null
-              ? Level.fromJson(json[EducationSchema.level])
-              : null,
-          grade: json[EducationSchema.grade] != null
-              ? Grade.fromJson(json[EducationSchema.grade])
-              : null,
-          knowledgeAreaList: json[EducationSchema.knowledgeAreas] != null
-              ? List<KnowledgeArea>.from(json[EducationSchema.knowledgeAreas]
-                  .map((x) => KnowledgeArea.fromJson(x)))
-              : [],
-          summary: json[EducationSchema.summary] != null
-              ? json[EducationSchema.summary]
-              : "",
-          workerRef: json[EducationSchema.workerRef] != null
-              ? json[EducationSchema.workerRef]
-              : "");
+  factory Education.fromJson(Map<String, dynamic> json, {String docId}){
+    var _endDate, _startDate;
+    _endDate = json[EducationSchema.endDate];
+    _startDate = json[EducationSchema.startDate];
+    if(_endDate != null && _endDate is String){
+      String split = _endDate.toString().split("T")[0];
+      _endDate = Timestamp.fromDate(DateTime.parse(split));
+    }
+    if(_startDate != null && _startDate is String){
+      String split = _startDate.toString().split("T")[0];
+      _startDate = Timestamp.fromDate(DateTime.parse(split));
+    }
+    return Education(
+        docId: docId,
+        educationInstitution:
+        json[EducationSchema.institution] != null
+            ? EducationInstitution.fromJson(
+            json[EducationSchema.institution])
+            : null,
+        endDate: _endDate,
+        startDate: _startDate,
+        award: json[EducationSchema.award] != null
+            ? json[EducationSchema.award]
+            : null,
+        location: json[EducationSchema.locationData] != null
+            ? LocationModelDetail.fromJson(
+            json[EducationSchema.locationData])
+            : null,
+        course: json[EducationSchema.course] != null
+            ? Course.fromJson(json[EducationSchema.course])
+            : null,
+        level: json[EducationSchema.level] != null
+            ? Level.fromJson(json[EducationSchema.level])
+            : null,
+        grade: json[EducationSchema.grade] != null
+            ? Grade.fromJson(json[EducationSchema.grade])
+            : null,
+        knowledgeAreaList: json[EducationSchema.knowledgeAreas] != null
+            ? List<KnowledgeArea>.from(json[EducationSchema.knowledgeAreas]
+            .map((x) => KnowledgeArea.fromJson(x)))
+            : [],
+        summary: json[EducationSchema.summary] != null
+            ? json[EducationSchema.summary]
+            : "",
+        workerRef: json[EducationSchema.workerRef] != null
+            ? json[EducationSchema.workerRef]
+            : "");
+  }
 }
 
 class Course {
