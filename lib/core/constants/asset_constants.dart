@@ -8,7 +8,8 @@ class AssetsConstants {
   static const String activeJobIcon = 'assets/icons/jobBolt.png';
   static const String inactiveJobIcon = 'assets/icons/inactive_job.png';
   static const String recurringActiveIcon = 'assets/icons/active_repeat.png';
-  static const String recurringInactiveIcon = 'assets/icons/repeat_inactive.png';
+  static const String recurringInactiveIcon =
+      'assets/icons/repeat_inactive.png';
   static const String lateShiftIcon = 'assets/icons/late_shift.png';
   static const String missedShiftIcon = 'assets/icons/missed_shift.png';
   static const String completedShiftIcon = 'assets/icons/completed_shift.png';

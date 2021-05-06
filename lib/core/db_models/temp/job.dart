@@ -61,7 +61,8 @@ class JobDataModel {
         final bool _active = map[JobSummarySchema.active] ?? false;
         final String _jobTitle = map[JobSummarySchema.jobTitle] ?? '';
         final double _totalHours = map[JobSummarySchema.totalHours] ?? 0;
-        final Map<String, dynamic> workers = map[JobSummarySchema.workers] ?? {};
+        final Map<String, dynamic> workers =
+            map[JobSummarySchema.workers] ?? {};
         List<WorkerModel> _allWorkerArray = [];
         workers.forEach((key, element) {
           final WorkerModel _worker = WorkerModel.fromMap(
@@ -74,7 +75,8 @@ class JobDataModel {
           }
         });
 
-        final Map<String, dynamic> locations = map[JobSummarySchema.locations] ?? {};
+        final Map<String, dynamic> locations =
+            map[JobSummarySchema.locations] ?? {};
         List<JobLocationDataModel> _allLocationArray = [];
         locations.forEach((key, element) {
           final JobLocationDataModel _location = JobLocationDataModel.fromMap(
@@ -129,7 +131,8 @@ class JobLocationDataModel {
   }) {
     if (map.isNotEmpty) {
       try {
-        final Map<String, dynamic> addressMap = map[JobSummarySchema.address] ?? {};
+        final Map<String, dynamic> addressMap =
+            map[JobSummarySchema.address] ?? {};
 
         final AddressModel _address = AddressModel.fromMap(
           map: addressMap,
@@ -175,8 +178,7 @@ class ShiftPatternDataModel {
       this.workerId,
       this.shiftActivitiesModel,
       this.workerModel,
-      this.isUnavailableForOrganisation = false
-      })
+      this.isUnavailableForOrganisation = false})
       : assert(
           docID != null &&
               organisation != null &&
@@ -188,11 +190,10 @@ class ShiftPatternDataModel {
               startTimeInt != null,
         );
 
-  factory ShiftPatternDataModel.fromMap({
-    @required Map<String, dynamic> map,
-    @required String docID,
-    bool isUnavailable = false
-  }) {
+  factory ShiftPatternDataModel.fromMap(
+      {@required Map<String, dynamic> map,
+      @required String docID,
+      bool isUnavailable = false}) {
     if (map.isNotEmpty) {
       try {
         final Timestamp _startTimeStamp = map['start_date'];
@@ -232,8 +233,9 @@ class ShiftPatternDataModel {
         final DocumentReference _shiftActivityRef = map['shift_activity_ref'];
 
         if (_workerRef != null && _shiftActivityRef != null) {
-          _shiftActivitiesModel =
-              ShiftActivitiesModel.fromMap(map: map['shift_activity_data'] ?? {}, docID: _shiftActivityRef.id);
+          _shiftActivitiesModel = ShiftActivitiesModel.fromMap(
+              map: map['shift_activity_data'] ?? {},
+              docID: _shiftActivityRef.id);
         }
         if (_jobRef != null) {
           return ShiftPatternDataModel(
@@ -252,7 +254,9 @@ class ShiftPatternDataModel {
               shiftActivitiesModel: _shiftActivitiesModel,
               workerId: _workerRef?.id,
               workerModel: map.containsKey(ShiftDataSchema.workerData)
-                  ? WorkerModel.fromMap(map: map[ShiftDataSchema.workerData], docID: map[ShiftDataSchema.workerRef]?.id)
+                  ? WorkerModel.fromMap(
+                      map: map[ShiftDataSchema.workerData],
+                      docID: map[ShiftDataSchema.workerRef]?.id)
                   : null);
         }
       } catch (e) {
@@ -287,7 +291,8 @@ class JobSummaryDataModel {
     if (map.isNotEmpty) {
       try {
         String _organisationID = '';
-        final DocumentReference _organisationRef = map[JobSummarySchema.organisationRef];
+        final DocumentReference _organisationRef =
+            map[JobSummarySchema.organisationRef];
         if (_organisationRef != null) {
           _organisationID = _organisationRef.id;
           String _jobID = '';
@@ -295,9 +300,10 @@ class JobSummaryDataModel {
           if (_jobRef != null) {
             _jobID = _jobRef.id;
 
-            final JobDataModel _jobDataModel =
-                JobDataModel.fromMap(map: map[JobSummarySchema.jobData] ?? {}, docID: _jobID);
-            final Map<String, dynamic> workers = map[JobSummarySchema.workers] ?? {};
+            final JobDataModel _jobDataModel = JobDataModel.fromMap(
+                map: map[JobSummarySchema.jobData] ?? {}, docID: _jobID);
+            final Map<String, dynamic> workers =
+                map[JobSummarySchema.workers] ?? {};
             List<WorkerModel> _allWorkerArray = [];
             workers.forEach((key, element) {
               final WorkerModel _worker = WorkerModel.fromMap(
@@ -364,7 +370,8 @@ class JobTemplateModel {
       final String name = map[JobTemplateSchema.name];
 
       //Additional Infos
-      final List<dynamic> additionalRequirments = map['additional_requirements'] ?? [];
+      final List<dynamic> additionalRequirments =
+          map['additional_requirements'] ?? [];
       List<AdditionalInfoModel> _infosArray = [];
       additionalRequirments.forEach((element) {
         final DocumentReference dr = element['additional_requirement_ref'];
@@ -372,7 +379,8 @@ class JobTemplateModel {
           'value': element['additional_requirement_value'],
         };
         if (dr != null) {
-          final AdditionalInfoModel _additionalInfo = AdditionalInfoModel.fromMap(
+          final AdditionalInfoModel _additionalInfo =
+              AdditionalInfoModel.fromMap(
             map: map,
             docID: dr.id,
           );
@@ -467,17 +475,23 @@ class JobSearchTemplate {
   final List<OrganisationJobTemplate> organisationJobTemplate;
   final List<FielderJobTemplate> fielderJobTemplate;
 
-  JobSearchTemplate({this.limit, this.organisationJobTemplate, this.fielderJobTemplate});
+  JobSearchTemplate(
+      {this.limit, this.organisationJobTemplate, this.fielderJobTemplate});
 
   factory JobSearchTemplate.fromMap(Map<String, dynamic> map) {
     JobSearchTemplate temp;
     try {
       temp = JobSearchTemplate(
-          limit: map["organisation_templates"] != null ? map["organisation_templates"]["limit"] : 10,
-          organisationJobTemplate:
-              map["organisation_templates"] != null ? _getOrganisationJobTemplate(map["organisation_templates"]["hits"]) : [],
-          fielderJobTemplate:
-              map["fielder_templates"] != null ? _getFielderJobTemplate(map["fielder_templates"]["hits"]) : []);
+          limit: map["organisation_templates"] != null
+              ? map["organisation_templates"]["limit"]
+              : 10,
+          organisationJobTemplate: map["organisation_templates"] != null
+              ? _getOrganisationJobTemplate(
+                  map["organisation_templates"]["hits"])
+              : [],
+          fielderJobTemplate: map["fielder_templates"] != null
+              ? _getFielderJobTemplate(map["fielder_templates"]["hits"])
+              : []);
       return temp;
     } catch (e) {
       print("template error: $e");
@@ -488,7 +502,9 @@ class JobSearchTemplate {
   static List<OrganisationJobTemplate> _getOrganisationJobTemplate(List hits) {
     List<OrganisationJobTemplate> list = [];
     hits.forEach((element) {
-      list = (hits).map((model) => OrganisationJobTemplate.fromMap(model)).toList();
+      list = (hits)
+          .map((model) => OrganisationJobTemplate.fromMap(model))
+          .toList();
     });
     return list;
   }

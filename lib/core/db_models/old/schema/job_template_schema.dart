@@ -3,7 +3,8 @@ class JobTemplateSchema {
   static const String additionalRequirements = 'additional_requirement_ids';
   static const String additionalRequirementsIds = 'additional_requirements_ids';
   static const String additionalRequirementRef = 'additional_requirement_ref';
-  static const String additionalRequirementValue = 'additional_requirement_value';
+  static const String additionalRequirementValue =
+      'additional_requirement_value';
   static const String defaultLocationRef = 'default_location_ref';
   static const String description = 'description';
   static const String organisationData = 'organisation_data';

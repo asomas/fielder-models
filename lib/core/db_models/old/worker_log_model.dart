@@ -10,21 +10,20 @@ class WorkerLogModel {
   String workerID;
   DocumentReference jobShiftRef;
 
-  WorkerLogModel({
-    this.clockInTime,
-    this.clockInLocation,
-    this.clockOutTime,
-    this.clockOutLocation,
-    this.docID,
-    this.workerID,
-    this.jobShiftRef
-  });
-      // : assert(
-      //     clockInTime != null &&
-      //         clockInLocation != null &&
-      //         docID != null &&
-      //         workerID != null,
-      //   );
+  WorkerLogModel(
+      {this.clockInTime,
+      this.clockInLocation,
+      this.clockOutTime,
+      this.clockOutLocation,
+      this.docID,
+      this.workerID,
+      this.jobShiftRef});
+  // : assert(
+  //     clockInTime != null &&
+  //         clockInLocation != null &&
+  //         docID != null &&
+  //         workerID != null,
+  //   );
 
   factory WorkerLogModel.fromMap({
     @required Map<String, dynamic> map,

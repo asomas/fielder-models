@@ -27,5 +27,4 @@ class JobSummarySchema {
   static const String rate = 'rate';
   static const String overtimeRate = 'overtime_rate';
   static const String payCalculation = 'pay_calculation';
-
 }

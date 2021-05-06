@@ -3,8 +3,10 @@ import 'package:fielder_models/core/db_models/old/additional_info_model.dart';
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/default_location_data_model.dart';
 import 'package:fielder_models/core/db_models/old/qualification_model.dart';
+import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
+import 'package:fielder_models/core/db_models/worker/occupation.dart';
 
 class JobTemplateModel {
   final String jobTitle;
@@ -19,6 +21,7 @@ class JobTemplateModel {
   final String name;
   final DocumentReference defaultLocation;
   final bool volunteer;
+  final OccupationModel occupationModel;
   final DefaultLocationDataModel defaultLocationData;
 
   JobTemplateModel({
@@ -34,6 +37,7 @@ class JobTemplateModel {
     this.defaultLocation,
     this.name,
     this.checks,
+    this.occupationModel,
     this.defaultLocationData,
   });
 
@@ -86,6 +90,7 @@ class JobTemplateModel {
 
       //Qualifications
       final List<dynamic> _qualifications = map['qualifications'] ?? [];
+      OccupationModel _occupationModel;
       List<QualificationModel> _allQualificationsArray = [];
       _qualifications.forEach((element) {
         final DocumentReference dr = element['qualification_ref'];
@@ -124,6 +129,10 @@ class JobTemplateModel {
           }
         }
       });
+      
+      if(map.containsKey('occupation')){
+        _occupationModel = OccupationModel.fromJson(map['occupation']);
+      }
 
       if (name != null) {
         return JobTemplateModel(
@@ -136,6 +145,7 @@ class JobTemplateModel {
           requiredSkill: _allSkillsArray,
           checks: _allChecksArray,
           volunteer: map[JobTemplateSchema.volunteer] ?? false,
+          occupationModel: _occupationModel,
           workLocationAddress: map[JobTemplateSchema.location],
         );
       }

@@ -29,7 +29,7 @@ class AddStaffModel {
       };
 
       print("addstaffmodel map -> $_map");
-    } catch(e) {
+    } catch (e) {
       print('AddStaffModel toJSON error: $e');
     }
     return _map;

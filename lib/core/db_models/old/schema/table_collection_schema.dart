@@ -27,7 +27,8 @@ class FbCollections {
   static const String checks = "checks";
   static const String occupations = "occupations";
   static const String workExperiences = "work_experiences";
-  static const String workerNotificationMessage = "worker_notification_messages";
+  static const String workerNotificationMessage =
+      "worker_notification_messages";
   static const String workerId = "worker_id";
   static const String organisationId = "organisation_id";
   static const String public = "public";

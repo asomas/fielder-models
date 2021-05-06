@@ -16,10 +16,9 @@ class SkillsModel {
   }) {
     if (map.isNotEmpty) {
       String _value;
-      if(map.containsKey("value")){
+      if (map.containsKey("value")) {
         _value = map['value'] ?? '';
-      }
-      else if(map.containsKey(JobTemplateSchema.skillValue)){
+      } else if (map.containsKey(JobTemplateSchema.skillValue)) {
         _value = map[JobTemplateSchema.skillValue] ?? '';
       }
       if (_value.isNotEmpty) {
@@ -32,8 +31,8 @@ class SkillsModel {
     return null;
   }
 
-  factory SkillsModel.fromString(String value){
-    if(value != null && value.isNotEmpty){
+  factory SkillsModel.fromString(String value) {
+    if (value != null && value.isNotEmpty) {
       return SkillsModel(
         value: value,
       );

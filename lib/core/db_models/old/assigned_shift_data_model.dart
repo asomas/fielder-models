@@ -29,7 +29,7 @@ class AssignedShiftDataModel {
     this.role,
     this.startDate,
     this.startTimeInt,
-   this.workerId,
+    this.workerId,
     this.worker,
   }) : assert(
           docID != null &&
@@ -84,9 +84,7 @@ class AssignedShiftDataModel {
 
         if (_workerRef != null) {
           _worker = WorkerModel.fromMap(
-              map: map["worker_data"] ?? {},
-              docID: _workerRef.id
-          );
+              map: map["worker_data"] ?? {}, docID: _workerRef.id);
         }
         if (_jobRef != null) {
           return AssignedShiftDataModel(
@@ -101,7 +99,7 @@ class AssignedShiftDataModel {
             role: _role,
             organisation: _organisation,
             worker: _worker,
-            workerId:_workerRef.id,
+            workerId: _workerRef.id,
           );
         }
       } catch (e) {

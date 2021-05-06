@@ -5,9 +5,7 @@ import 'package:fielder_models/core/enums/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 class EnumHelpers {
-
   static WorkerType workerTypeFromString(String type) {
     switch (type) {
       case UploadCsvSchema.myFielder:
@@ -49,7 +47,6 @@ class EnumHelpers {
         return 'Shift hours';
     }
   }
-
 
   static CalculatePay getPayTypeFromString(String calculatePay) {
     switch (calculatePay) {
@@ -152,10 +149,10 @@ class EnumHelpers {
         break;
       case SlotStatus.Normal:
         return AppColors.PinkSalmon;
-    // case SlotStatus.MILD:
-    //   return AppColors.Kournikova;
-    // case SlotStatus.VERY_BUSY:
-    //   return AppColors.Scooter;
+      // case SlotStatus.MILD:
+      //   return AppColors.Kournikova;
+      // case SlotStatus.VERY_BUSY:
+      //   return AppColors.Scooter;
       default:
         return AppColors.CaribbeanGreen;
     }

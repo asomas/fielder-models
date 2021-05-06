@@ -11,8 +11,9 @@ class LocationModelDetail {
   LocationModelDetail(
       {this.name, this.coordinates, this.formattedAddress, this.address,this.organisationRef});
 
-  factory LocationModelDetail.fromJson(Map<String, dynamic> json) =>
-      LocationModelDetail(
+  factory LocationModelDetail.fromJson(Map<String, dynamic> json) {
+    try{
+      return LocationModelDetail(
           name: json[LocationSchema.name] != null
               ? json[LocationSchema.name]
               : "",
@@ -23,7 +24,13 @@ class LocationModelDetail {
           address: json[LocationSchema.address] != null
               ? Address.fromJson(json[LocationSchema.address])
               : null,organisationRef: json[LocationSchema.organisationRef]);
+    }catch(e, stacktrace){
+      print("locationModel.dart_______Catch______${e}_____$stacktrace");
+      return null;
+    }
+  }
 }
+
 class Address {
   String building;
   String street;

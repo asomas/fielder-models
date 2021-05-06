@@ -50,7 +50,8 @@ class WorkerAssignmentModel {
             _endTimeStamp.millisecondsSinceEpoch,
           );
         }
-        final ShiftPatternDataModel _jobShiftData = ShiftPatternDataModel.fromMap(
+        final ShiftPatternDataModel _jobShiftData =
+            ShiftPatternDataModel.fromMap(
           docID: jobShiftID,
           map: map['shift_pattern_data'] ?? {},
         );
