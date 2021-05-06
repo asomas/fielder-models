@@ -30,4 +30,6 @@ class FbCollections {
   static const String workerNotificationMessage = "worker_notification_messages";
   static const String workerId = "worker_id";
   static const String organisationId = "organisation_id";
+  static const String public = "public";
+  static const String brandLogo = "brand_logo.jpg";
 }

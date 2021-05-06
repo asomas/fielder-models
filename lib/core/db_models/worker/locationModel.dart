@@ -6,9 +6,10 @@ class LocationModelDetail {
   String formattedAddress;
   GeoPoint coordinates;
   Address address;
+  DocumentReference organisationRef;
 
   LocationModelDetail(
-      {this.name, this.coordinates, this.formattedAddress, this.address});
+      {this.name, this.coordinates, this.formattedAddress, this.address,this.organisationRef});
 
   factory LocationModelDetail.fromJson(Map<String, dynamic> json) =>
       LocationModelDetail(
@@ -21,7 +22,7 @@ class LocationModelDetail {
           coordinates: json[LocationSchema.coords],
           address: json[LocationSchema.address] != null
               ? Address.fromJson(json[LocationSchema.address])
-              : null);
+              : null,organisationRef: json[LocationSchema.organisationRef]);
 }
 class Address {
   String building;
