@@ -61,9 +61,9 @@ class StaffProfessionalDetailModel {
                   .toList()
               : [],
         );
-      } catch (e) {
+      } catch (e, stacktrace) {
         print(
-            "staff_personal_detail_model.dart_____StaffPersonalDetailModel Catch $e");
+            "staff_personal_detail_model.dart_____StaffPersonalDetailModel Catch ${e}___$stacktrace");
         return null;
       }
     }

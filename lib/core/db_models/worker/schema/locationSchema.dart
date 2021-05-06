@@ -13,4 +13,5 @@ class LocationSchema {
   static const String country = "country";
   static const String postalCode = "postal_code";
   static const String address = "address";
+  static const String organisationRef = "organisation_ref";
 }
