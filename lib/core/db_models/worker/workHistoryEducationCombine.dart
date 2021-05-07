@@ -12,6 +12,7 @@ class WorkHistoryEducationCombine {
   Timestamp startDate;
   LocationModelDetail location;
   String organisationName;
+  String jobTitle;
   List<Skill> skills;
   List<KnowledgeArea> knowledgeAreaList;
   List<SicCode> sicCode;
@@ -31,6 +32,7 @@ class WorkHistoryEducationCombine {
       this.occupation,
       this.educationInstitution,
       this.course,
+      this.jobTitle,
       this.workerType});
 
   factory WorkHistoryEducationCombine.fromJson(Map<String, dynamic> json,
@@ -49,6 +51,7 @@ class WorkHistoryEducationCombine {
         organisationName: json[WorkerHistorySchema.organisationName] != null
             ? json[WorkerHistorySchema.organisationName]
             : "",
+        jobTitle: json[WorkerHistorySchema.jobTitle] ?? "",
         skills: json[WorkerHistorySchema.skills] != null
             ? List<Skill>.from(
                 json[WorkerHistorySchema.skills].map((x) => Skill.fromJson(x)))
