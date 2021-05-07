@@ -36,6 +36,7 @@ class WorkExperienceAPISerializer(serializers.Serializer):
         required=False, allow_null=True, child=SICCodeSerializer()
     )
 
+
 class FielderWorkExperienceRequestSerializer(serializers.Serializer):
     shift_activity_id = serializers.CharField()
 
@@ -69,7 +70,7 @@ class StaffDetailsProfessionalDetailsResponse(serializers.Serializer):
         required=False, allow_null=True, child=serializers.CharField()
     )
     work_experiences = serializers.ListField(
-        required=False, allow_null=True, child=WorkExperienceSerializer()
+        required=False, allow_null=True, child=FielderWorkExperienceSerializer()()
     )
     educations = serializers.ListField(
         required=False, allow_null=True, child=EducationSerializer()
@@ -136,6 +137,7 @@ class EducationAPISerializer(serializers.Serializer):
     knowledge_areas = serializers.ListField(
         required=False, allow_null=True, child=KnowledgeAreaSerializer()
     )
+
 
 class NewsFeedDismissAPIRequestSerializer(serializers.Serializer):
     dismissed = serializers.BooleanField()
