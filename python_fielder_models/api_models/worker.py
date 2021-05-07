@@ -70,7 +70,7 @@ class StaffDetailsProfessionalDetailsResponse(serializers.Serializer):
         required=False, allow_null=True, child=serializers.CharField()
     )
     work_experiences = serializers.ListField(
-        required=False, allow_null=True, child=FielderWorkExperienceSerializer()()
+        required=False, allow_null=True, child=FielderWorkExperienceSerializer()
     )
     educations = serializers.ListField(
         required=False, allow_null=True, child=EducationSerializer()
