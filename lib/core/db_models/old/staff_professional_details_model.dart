@@ -53,10 +53,10 @@ class StaffProfessionalDetailModel {
                       .map((e) => WorkHistory.fromJson(e))
                       .toList()
                   : [],
-          educationList: (map[StaffProfessionalDetailSchema.education] as List)
+          educationList: (map[StaffProfessionalDetailSchema.educations] as List)
                       ?.isNotEmpty ==
                   true
-              ? (map[StaffProfessionalDetailSchema.education] as List)
+              ? (map[StaffProfessionalDetailSchema.educations] as List)
                   .map((e) => Education.fromJson(e))
                   .toList()
               : [],
