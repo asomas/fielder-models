@@ -9,10 +9,23 @@ class LocationModelDetail {
   DocumentReference organisationRef;
 
   LocationModelDetail(
-      {this.name, this.coordinates, this.formattedAddress, this.address,this.organisationRef});
+      {this.name,
+      this.coordinates,
+      this.formattedAddress,
+      this.address,
+      this.organisationRef});
 
   factory LocationModelDetail.fromJson(Map<String, dynamic> json) {
-    try{
+    var _coordinates;
+    if (_coordinates != null && _coordinates is GeoPoint) {
+      _coordinates = json[LocationSchema.coords];
+    } else if (_coordinates != null) {
+      double lat = json[LocationSchema.coords][LocationSchema.lat];
+      double lng = json[LocationSchema.coords][LocationSchema.lng];
+      GeoPoint geoPoint = GeoPoint(lat, lng);
+      _coordinates = geoPoint;
+    }
+    try {
       return LocationModelDetail(
           name: json[LocationSchema.name] != null
               ? json[LocationSchema.name]
@@ -20,11 +33,12 @@ class LocationModelDetail {
           formattedAddress: json[LocationSchema.formattedAddress] != null
               ? json[LocationSchema.formattedAddress]
               : "",
-          coordinates: json[LocationSchema.coords],
+          coordinates: _coordinates,
           address: json[LocationSchema.address] != null
               ? Address.fromJson(json[LocationSchema.address])
-              : null,organisationRef: json[LocationSchema.organisationRef]);
-    }catch(e, stacktrace){
+              : null,
+          organisationRef: json[LocationSchema.organisationRef]);
+    } catch (e, stacktrace) {
       print("locationModel.dart_______Catch______${e}_____$stacktrace");
       return null;
     }

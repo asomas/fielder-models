@@ -68,6 +68,7 @@ class WorkHistory {
   }
 
   factory WorkHistory.fromJson(Map<String, dynamic> json, {String docId}) {
+
     var _endDate, _startDate;
     _endDate = json[WorkerHistorySchema.endDate];
     _startDate = json[WorkerHistorySchema.startDate];
