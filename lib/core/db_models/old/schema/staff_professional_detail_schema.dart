@@ -3,5 +3,6 @@ class StaffProfessionalDetailSchema {
   static const String checks = "checks";
   static const String qualifications = "qualifications";
   static const String workHistories = "work_experiences";
-  static const String education = "educations";
+  static const String education = "education";
+  static const String educations = "educations";
 }
