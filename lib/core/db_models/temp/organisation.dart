@@ -408,7 +408,7 @@ class UserDetail {
           .collection(collection)
           .doc(ref.id)
           .get();
-      if (ds.exists && ds.data().length > 0) {
+      if (ds.exists && ds.data().toString().length > 0) {
         Map json = ds.data();
         return UserDetail(
           id: ds.id,
