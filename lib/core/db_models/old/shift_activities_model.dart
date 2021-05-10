@@ -11,18 +11,22 @@ class ShiftActivitiesModel {
   DateTime shiftDate;
   GeoPoint clockOutLocation;
   DocumentReference shiftPatternRef;
+  bool approved;
+  DocumentReference approvedBy;
+  DateTime approvedTime;
 
-  ShiftActivitiesModel(
-      {this.clockInTime,
-      this.clockInLocation,
-      this.clockOutTime,
-      this.clockOutLocation,
-      this.shiftDate,
-      this.docID,
-      this.shiftPatternRef})
-      : assert(
-          clockInTime != null && clockInLocation != null && docID != null,
-        );
+  ShiftActivitiesModel({
+    this.clockInTime,
+    this.clockInLocation,
+    this.clockOutTime,
+    this.clockOutLocation,
+    this.shiftDate,
+    this.docID,
+    this.shiftPatternRef,
+    this.approved = false,
+    this.approvedBy,
+    this.approvedTime
+  });
 
   factory ShiftActivitiesModel.fromMap({
     @required Map<String, dynamic> map,
@@ -30,18 +34,16 @@ class ShiftActivitiesModel {
   }) {
     if (map.isNotEmpty) {
       try {
-        final DocumentReference _shiftPatternRef =
-            map[ShiftActivitiesSchema.shiftPatternRef];
-        final GeoPoint _clockInLocation =
-            map[ShiftActivitiesSchema.clockInLocation];
-        final GeoPoint _clockOutLocation =
-            map[ShiftActivitiesSchema.clockOutLocation];
-        final Timestamp _clockInTimeStamp =
-            map[ShiftActivitiesSchema.clockInTime];
-        final Timestamp _clockOutTimeStamp =
-            map[ShiftActivitiesSchema.clockOutTime];
-        final Timestamp _shiftPatternDateTimeStamp =
-            map[ShiftActivitiesSchema.shiftDate];
+        final DocumentReference _shiftPatternRef = map[ShiftActivitiesSchema.shiftPatternRef];
+        final DocumentReference _approvedBy = map[ShiftActivitiesSchema.approvedBy];
+        final GeoPoint _clockInLocation = map[ShiftActivitiesSchema.clockInLocation];
+        final GeoPoint _clockOutLocation = map[ShiftActivitiesSchema.clockOutLocation];
+        final Timestamp _clockInTimeStamp = map[ShiftActivitiesSchema.clockInTime];
+        final Timestamp _clockOutTimeStamp = map[ShiftActivitiesSchema.clockOutTime];
+        final Timestamp _shiftPatternDateTimeStamp = map[ShiftActivitiesSchema.shiftDate];
+        final Timestamp _approvedTimeTimeStamp= map[ShiftActivitiesSchema.approveTime];
+        final bool _approved = map[ShiftActivitiesSchema.approved];
+
         DateTime _clockInDateTime;
         if (_clockInTimeStamp != null) {
           _clockInDateTime = DateTime.fromMillisecondsSinceEpoch(
@@ -61,15 +63,25 @@ class ShiftActivitiesModel {
             _shiftPatternDateTimeStamp.millisecondsSinceEpoch,
           );
         }
+        DateTime _approvedTimeDateTime;
+        if (_approvedTimeTimeStamp != null) {
+          _approvedTimeDateTime = DateTime.fromMillisecondsSinceEpoch(
+            _approvedTimeTimeStamp.millisecondsSinceEpoch,
+          );
+        }
 
         return ShiftActivitiesModel(
-            docID: docID,
-            clockInTime: _clockInDateTime,
-            clockInLocation: _clockInLocation,
-            clockOutTime: _clockOutDateTime,
-            shiftDate: _shiftPatternDateTime,
-            clockOutLocation: _clockOutLocation,
-            shiftPatternRef: _shiftPatternRef);
+          docID: docID,
+          clockInTime: _clockInDateTime,
+          clockInLocation: _clockInLocation,
+          clockOutTime: _clockOutDateTime,
+          shiftDate: _shiftPatternDateTime,
+          clockOutLocation: _clockOutLocation,
+          shiftPatternRef: _shiftPatternRef,
+          approvedTime: _approvedTimeDateTime,
+          approvedBy: _approvedBy,
+          approved: _approved
+        );
       } on Exception catch (e) {
         print("ShiftActivitiesModel.fromMap error $e");
       }
