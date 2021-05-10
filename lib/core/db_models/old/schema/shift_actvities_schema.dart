@@ -6,4 +6,9 @@ class ShiftActivitiesSchema {
   static const String clockOutLocation = "clock_out_location";
   static const String shiftDate = "shift_date";
   static const String shiftPatternData = "shift_pattern_data";
+  static const String approved = "approved";
+  static const String approvedBy = "approved_by";
+  static const String approveTime = "approve_time";
+
 }
+

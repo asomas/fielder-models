@@ -8,7 +8,6 @@ class WorkExperienceSerializer(serializers.Serializer):
     class ReferenceSerializer(serializers.Serializer):
         value = serializers.CharField(allow_null=True)
 
-
     class OccupationSerializer(ReferenceSerializer):
         occupation_ref = DocumentReferenceField()
 
@@ -42,7 +41,7 @@ class WorkExperienceSerializer(serializers.Serializer):
 
 class FielderWorkExperienceSerializer(WorkExperienceSerializer):
     job_ref = DocumentReferenceField(required=False, allow_null=True)
-    total_hours = serializers.IntegerField(required=False, allow_null=True)
+    total_hours = serializers.FloatField(required=False, allow_null=True)
     total_shifts = serializers.IntegerField(required=False, allow_null=True)
 
 
