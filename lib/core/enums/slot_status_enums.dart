@@ -10,6 +10,7 @@ enum SlotStatusIcon {
   ClockedIn,
   ClockedInLate,
   ClockedOut,
+  ClockedOutEarly,
   ClockedOutLate,
   NotClockedOut,
   Approved
