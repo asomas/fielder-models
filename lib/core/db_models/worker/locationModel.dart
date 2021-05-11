@@ -18,10 +18,8 @@ class LocationModelDetail {
       this.organisationRef});
 
   factory LocationModelDetail.fromJson(Map<String, dynamic> json) {
-    var _coordinates;
-    if (_coordinates != null && _coordinates is GeoPoint) {
-      _coordinates = json[LocationSchema.coords];
-    } else if (_coordinates != null) {
+    var _coordinates = json[LocationSchema.coords];
+    if (_coordinates != null && _coordinates.runtimeType != GeoPoint) {
       double lat = json[LocationSchema.coords][LocationSchema.lat];
       double lng = json[LocationSchema.coords][LocationSchema.lng];
       GeoPoint geoPoint = GeoPoint(lat, lng);
