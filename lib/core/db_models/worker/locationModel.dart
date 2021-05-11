@@ -3,6 +3,7 @@ import 'package:fielder_models/core/db_models/worker/schema/locationSchema.dart'
 
 class LocationModelDetail {
   String name;
+  String shortName;
   String formattedAddress;
   GeoPoint coordinates;
   Address address;
@@ -10,6 +11,7 @@ class LocationModelDetail {
 
   LocationModelDetail(
       {this.name,
+       this.shortName,
       this.coordinates,
       this.formattedAddress,
       this.address,
@@ -30,6 +32,7 @@ class LocationModelDetail {
           name: json[LocationSchema.name] != null
               ? json[LocationSchema.name]
               : "",
+          shortName: json[LocationSchema.shortName] ?? "",
           formattedAddress: json[LocationSchema.formattedAddress] != null
               ? json[LocationSchema.formattedAddress]
               : "",

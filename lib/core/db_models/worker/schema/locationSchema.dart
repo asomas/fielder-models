@@ -3,6 +3,7 @@ class LocationSchema {
   static const String lat = "lat";
   static const String lng = "lng";
   static const String name = "name";
+  static const String shortName = "short_name";
   static const String placeId = "place_id";
   static const String google = "google";
   static const String coords = "coords";
