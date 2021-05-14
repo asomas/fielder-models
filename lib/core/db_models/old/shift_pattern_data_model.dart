@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/temp/organisation.dart';
+import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/occupation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fielder_models/core/db_models/old/organisation_model.dart';
@@ -27,7 +28,7 @@ class ShiftPatternDataModel {
   String workerId;
   ShiftActivitiesModel shiftActivitiesModel;
   WorkerModel workerModel;
-  ShiftLocationDataModel shiftLocationDataModel;
+  LocationModelDetail shiftLocationDataModel;
   OccupationModel occupationModel;
   bool isUnavailableForOrganisation;
   bool isRecurring;
@@ -59,6 +60,7 @@ class ShiftPatternDataModel {
       {@required Map<String, dynamic> map,
       @required String docID,
       bool isUnavailable = false}) {
+    print("map is ${map}");
     if (map.isNotEmpty) {
       try {
         final _startTimeStamp = map['start_date'];
@@ -99,7 +101,7 @@ class ShiftPatternDataModel {
         final String _shiftPatternRef = map['shift_pattern_reference_id'];
         final String _role = map['role'] ?? '';
         OrganisationModel _organisation;
-        ShiftLocationDataModel _shiftLocationDataModel;
+        LocationModelDetail _shiftLocationDataModel;
         OccupationModel _occupationModel;
         final DocumentReference _organisationRef = map['organisation_ref'];
         final DocumentReference _locationRef = map['location_ref'];
@@ -114,7 +116,7 @@ class ShiftPatternDataModel {
         }
         if (_locationRef != null) {
           _shiftLocationDataModel =
-              ShiftLocationDataModel.fromMap(map["location_data"]);
+              LocationModelDetail.fromJson(map["location_data"]);
         }
         if (_occupationRef != null) {
           _occupationModel = OccupationModel.fromJson(map["occupation"]);
