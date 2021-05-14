@@ -9,6 +9,8 @@ class ShiftActivitiesSchema {
   static const String approved = "approved";
   static const String approvedBy = "approved_by";
   static const String approveTime = "approve_time";
+  static const String awaitingApproval = "awaiting_approval";
+  static const String shiftPatternRreferenceId = "shift_pattern_reference_id";
 
 }
 

@@ -30,7 +30,7 @@ class LocationModelDetail {
           name: json[LocationSchema.name] != null
               ? json[LocationSchema.name]
               : "",
-          shortName: json[LocationSchema.shortName] ?? "",
+          shortName: json[LocationSchema.shortName] ?? json[LocationSchema.name], // here name is added just to unblock the process
           formattedAddress: json[LocationSchema.formattedAddress] != null
               ? json[LocationSchema.formattedAddress]
               : "",

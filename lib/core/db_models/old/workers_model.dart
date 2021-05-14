@@ -24,12 +24,13 @@ class WorkerModel {
       final String _lastName = map['last_name'] ?? '';
       final String _pictureURL = map['picture_url'] ?? '';
       final bool _isStaff = map['is_staff'] ?? false;
-      return WorkerModel(
+      var workerModel=WorkerModel(
           docID: docID,
           firstName: _firstName,
           lastName: _lastName,
           pictureUrl: _pictureURL,
           isStaff: _isStaff);
+      return workerModel ;
     }
     return null;
   }
