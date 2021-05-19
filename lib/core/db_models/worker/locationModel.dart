@@ -11,7 +11,7 @@ class LocationModelDetail {
 
   LocationModelDetail(
       {this.name,
-       this.shortName,
+      this.shortName,
       this.coordinates,
       this.formattedAddress,
       this.address,
@@ -30,7 +30,9 @@ class LocationModelDetail {
           name: json[LocationSchema.name] != null
               ? json[LocationSchema.name]
               : "",
-          shortName: json[LocationSchema.shortName] ?? json[LocationSchema.name], // here name is added just to unblock the process
+          shortName: json[LocationSchema.shortName] ??
+              json[LocationSchema
+                  .name], // here name is added just to unblock the process
           formattedAddress: json[LocationSchema.formattedAddress] != null
               ? json[LocationSchema.formattedAddress]
               : "",

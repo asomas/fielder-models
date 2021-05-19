@@ -129,8 +129,8 @@ class JobTemplateModel {
           }
         }
       });
-      
-      if(map.containsKey('occupation')){
+
+      if (map.containsKey('occupation')) {
         _occupationModel = OccupationModel.fromJson(map['occupation']);
       }
 

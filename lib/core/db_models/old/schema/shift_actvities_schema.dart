@@ -11,6 +11,4 @@ class ShiftActivitiesSchema {
   static const String approveTime = "approve_time";
   static const String awaitingApproval = "awaiting_approval";
   static const String shiftPatternRreferenceId = "shift_pattern_reference_id";
-
 }
-
