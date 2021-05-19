@@ -1,0 +1,2 @@
+echo "Checking if formatting would result in a change..."
+git ls-tree -r head --name-only | grep -E '\.dart$' | xargs flutter format --dry-run --set-exit-if-changed
