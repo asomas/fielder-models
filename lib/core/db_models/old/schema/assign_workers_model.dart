@@ -1,77 +1,40 @@
-class AssignWorkerModel {
-  final List<StaffModel> staffList;
-  final List<FielderModel> fielderList;
+class CandidatesModel {
+  String workerId;
+  String firstName;
+  String lastName;
+  String pictureUrl;
+  bool isStaff;
+  double skillScore;
+  double qualificationScore;
+  double checkScore;
+  double availabilityScore;
+  double totalScore;
 
-  AssignWorkerModel({this.staffList, this.fielderList});
+  CandidatesModel(
+      {this.workerId,
+      this.isStaff,
+      this.firstName,
+      this.lastName,
+      this.pictureUrl,
+      this.skillScore = 0,
+      this.qualificationScore = 0,
+      this.checkScore = 0,
+      this.availabilityScore = 0 ,
+      this.totalScore = 0,
+      });
 
-  factory AssignWorkerModel.fromMap(Map<String, dynamic> map) {
-    return AssignWorkerModel(
-      staffList: _getStaffList(map["staff"]["hits"]),
-      fielderList: _getFieldersList(map["fielders"]["hits"]),
+  factory CandidatesModel.fromMap(Map<String, dynamic> map) {
+    return CandidatesModel(
+        workerId: map["worker_id"],
+        isStaff: map["is_staff"],
+        firstName: map["first_name"],
+        lastName: map["last_name"],
+        pictureUrl: map["picture_url"],
+        skillScore: map["skills_score"]?.toDouble(),
+        qualificationScore: map["qualifications_score"]?.toDouble(),
+        checkScore: map["checks_score"]?.toDouble(),
+        availabilityScore: map["availability_score"]?.toDouble() ,
+        totalScore: map["overall_match_score"]?.toDouble(),
     );
-  }
-
-  static List<StaffModel> _getStaffList(List hits) {
-    List<StaffModel> list = [];
-    hits.forEach((element) {
-      list = (hits).map((model) => StaffModel.fromMap(model)).toList();
-    });
-    return list;
-  }
-
-  static List<FielderModel> _getFieldersList(List hits) {
-    List<FielderModel> list = [];
-    hits.forEach((element) {
-      list = (hits).map((model) => FielderModel.fromMap(model)).toList();
-    });
-    return list;
-  }
-}
-
-class StaffModel {
-  String workerId;
-  String firstName;
-  String lastName;
-  String pictureUrl;
-  bool isStaff;
-
-  StaffModel(
-      {this.workerId,
-      this.isStaff,
-      this.firstName,
-      this.lastName,
-      this.pictureUrl});
-
-  factory StaffModel.fromMap(Map<String, dynamic> map) {
-    return StaffModel(
-        workerId: map["worker_id"],
-        isStaff: map["is_staff"],
-        firstName: map["first_name"],
-        lastName: map["last_name"],
-        pictureUrl: map["picture_url"]);
-  }
-}
-
-class FielderModel {
-  String workerId;
-  bool isStaff;
-  String firstName;
-  String lastName;
-  String pictureUrl;
-
-  FielderModel(
-      {this.workerId,
-      this.isStaff,
-      this.firstName,
-      this.lastName,
-      this.pictureUrl});
-
-  factory FielderModel.fromMap(Map<String, dynamic> map) {
-    return FielderModel(
-        workerId: map["worker_id"],
-        isStaff: map["is_staff"],
-        firstName: map["first_name"],
-        lastName: map["last_name"],
-        pictureUrl: map["picture_url"]);
   }
 }
