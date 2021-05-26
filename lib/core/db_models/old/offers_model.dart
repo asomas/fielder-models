@@ -1,7 +1,4 @@
-import 'package:fielder_models/core/db_models/old/job_data_model.dart';
-import 'package:fielder_models/core/db_models/old/job_summary_data_model.dart';
-import 'package:fielder_models/core/db_models/old/network_models/responses/worker_search_response.dart';
-import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
+import 'package:fielder_models/core/db_models/old/schema/assign_workers_model.dart';
 import 'package:fielder_models/core/db_models/old/shift_pattern_data_model.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
 
@@ -10,10 +7,13 @@ class Offers {
   WorkerModel workerData;
   String status;
   String offerID;
+  CandidatesModel candidatesModel;
 
-  Offers({this.shiftPatternData, this.workerData, this.status, this.offerID});
+  Offers({this.shiftPatternData, this.workerData,
+    this.status, this.offerID, this.candidatesModel});
 
-  factory Offers.fromMap(String id, Map<String, dynamic> map) => Offers(
+  factory Offers.fromMap(String id, Map<String, dynamic> map,
+      {CandidatesModel candidatesModel}) => Offers(
         shiftPatternData: ShiftPatternDataModel.fromMap(
             map: map["shift_pattern_data"],
             docID: map["shift_pattern_ref"]?.id),
@@ -21,5 +21,6 @@ class Offers {
             map: map["worker_data"], docID: map["worker_ref"]?.id),
         status: map["status"],
         offerID: id,
+        candidatesModel: candidatesModel
       );
 }
