@@ -60,7 +60,6 @@ class ShiftPatternDataModel {
       {@required Map<String, dynamic> map,
       @required String docID,
       bool isUnavailable = false}) {
-    print("map is ${map}");
     if (map.isNotEmpty) {
       try {
         final _startTimeStamp = map['start_date'];
