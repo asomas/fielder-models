@@ -25,11 +25,11 @@ class MatchingRequestSerializer(serializers.Serializer):
 
 class MatchingWorker(serializers.Serializer):
     id = serializers.CharField()
-    skills_score = serializers.IntegerField(min_value=0, max_value=10)
+    skills_score = serializers.IntegerField(min_value=0, max_value=100)
     qualifications_score = serializers.IntegerField(min_value=0, max_value=100)
     checks_score = serializers.IntegerField(min_value=0, max_value=100)
     availability_score = serializers.IntegerField(min_value=0, max_value=100)
-    overall_match_score = serializers.IntegerField(min_value=0, max_value=100)
+    overall_score = serializers.IntegerField(min_value=0, max_value=100)
 
 
 class MatchingResponseSerializer(serializers.Serializer):
