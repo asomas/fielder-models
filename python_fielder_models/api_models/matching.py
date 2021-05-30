@@ -15,7 +15,7 @@ class MatchingRequestSerializer(serializers.Serializer):
     )
     end_date = serializers.DateTimeField()
     end_time = serializers.IntegerField(min_value=0, max_value=86400)
-    recurrence = RecurrenceSerializer
+    recurrence = RecurrenceSerializer()
     start_date = serializers.DateTimeField()
     start_time = serializers.IntegerField(min_value=0, max_value=86400)
     skip = serializers.IntegerField(min_value=0, max_value=10, default=0)
