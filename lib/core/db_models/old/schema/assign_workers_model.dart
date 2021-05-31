@@ -1,3 +1,5 @@
+import 'package:fielder_models/core/db_models/old/schema/candidates_matching_schema.dart';
+
 class CandidatesModel {
   String workerId;
   String firstName;
@@ -27,29 +29,30 @@ class CandidatesModel {
 
   factory CandidatesModel.fromMap(Map<String, dynamic> map) {
     return CandidatesModel(
-        workerId: map["worker_id"],
-        isStaff: map["is_staff"],
-        firstName: map["first_name"],
-        lastName: map["last_name"],
-        fullName: "${map["first_name"] ?? ""} ${map["last_name"] ?? ""}",
-        pictureUrl: map["picture_url"],
-        skillScore: map["skills_score"]?.toDouble(),
-        qualificationScore: map["qualifications_score"]?.toDouble(),
-        checkScore: map["checks_score"]?.toDouble(),
-        availabilityScore: map["availability_score"]?.toDouble() ,
-        totalScore: map["overall_match_score"]?.toDouble(),
+      workerId: map[CandidatesMatchingSchema.workerId],
+      isStaff: map[CandidatesMatchingSchema.isStaff],
+      firstName: map[CandidatesMatchingSchema.firstName],
+      lastName: map[CandidatesMatchingSchema.lastName],
+      fullName: "${map[CandidatesMatchingSchema.firstName] ?? ""}"
+          " ${map[CandidatesMatchingSchema.lastName] ?? ""}",
+      pictureUrl: map[CandidatesMatchingSchema.pictureUrl],
+      skillScore: double.parse(map[CandidatesMatchingSchema.skillsScore]??0),
+      qualificationScore: double.parse(map[CandidatesMatchingSchema.qualificationsScore]??0),
+      checkScore: double.parse(map[CandidatesMatchingSchema.checksScore]??0),
+      availabilityScore: double.parse(map[CandidatesMatchingSchema.availabilityScore]??0),
+      totalScore: double.parse(map[CandidatesMatchingSchema.overallScore]??0),
     );
   }
 
   factory CandidatesModel.fromMatching(Map<String, dynamic> map,
       bool isStaff, String firstName, String lastName, String avatarUrl) {
     return CandidatesModel(
-      workerId: map["id"],
-      skillScore: double.parse(map["skills_score"]??0),
-      qualificationScore: double.parse(map["qualifications_score"]??0),
-      checkScore: double.parse(map["checks_score"]??0),
-      availabilityScore: double.parse(map["availability_score"]??0),
-      totalScore: double.parse(map["overall_score"]??0),
+      workerId: map[CandidatesMatchingSchema.id],
+      skillScore: double.parse(map[CandidatesMatchingSchema.skillsScore]??0),
+      qualificationScore: double.parse(map[CandidatesMatchingSchema.qualificationsScore]??0),
+      checkScore: double.parse(map[CandidatesMatchingSchema.checksScore]??0),
+      availabilityScore: double.parse(map[CandidatesMatchingSchema.availabilityScore]??0),
+      totalScore: double.parse(map[CandidatesMatchingSchema.overallScore]??0),
       isStaff: isStaff,
       firstName: firstName,
       lastName: lastName,
