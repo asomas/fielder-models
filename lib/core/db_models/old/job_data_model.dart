@@ -1,4 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/old/checks_model.dart';
+import 'package:fielder_models/core/db_models/old/qualification_model.dart';
+import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
@@ -15,6 +18,9 @@ class JobDataModel {
   int rate;
   int overtimeRate;
   String payCalculation;
+  List<SkillsModel> skills;
+  List<QualificationModel> qualifications;
+  List<CheckModel> checks;
   List<String> issuesArray;
   List<WorkerModel> workersArray;
   List<JobLocationDataModel> locationsArray;
@@ -32,6 +38,9 @@ class JobDataModel {
     this.rate,
     this.payCalculation,
     this.overtimeRate,
+    this.skills,
+    this.qualifications,
+    this.checks,
     this.totalShiftsCount = 0,
   }) : assert(docID != null);
 
@@ -98,6 +107,27 @@ class JobDataModel {
           }
         });
 
+        final List<SkillsModel> _skills = (map[JobSummarySchema.skills] as List)?.isNotEmpty == true
+            ? (map[JobSummarySchema.skills] as List)
+            .map((e) => SkillsModel.fromMap(
+            map: e, docID: e[JobSummarySchema.skillRef]?.id))
+            .toList()
+            : [];
+
+        final List<QualificationModel> _qualifications = (map[JobSummarySchema.qualification] as List)?.isNotEmpty == true
+            ? (map[JobSummarySchema.qualification] as List)
+            .map((e) => QualificationModel.fromMap(
+            map: e, docID: e[JobSummarySchema.qualificationRef]?.id))
+            .toList()
+            : [];
+
+        final List<CheckModel> _checks = (map[JobSummarySchema.checks] as List)?.isNotEmpty == true
+            ? (map[JobSummarySchema.checks] as List)
+            .map((e) => CheckModel.fromMap(
+            map: e, checkID: e[JobSummarySchema.checkRef]?.id))
+            .toList()
+            : [];
+
         return JobDataModel(
             docID: docID,
             startDate: _startDate,
@@ -108,6 +138,9 @@ class JobDataModel {
             workersArray: _allWorkerArray,
             locationsArray: _allLocationArray,
             issuesArray: _allIssuesArray,
+            checks: _checks,
+            skills: _skills,
+            qualifications: _qualifications,
             rate: _rate,
             overtimeRate: _overtimeRate,
             payCalculation: _payCalculation,
