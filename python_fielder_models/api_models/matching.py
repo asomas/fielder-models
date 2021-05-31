@@ -13,10 +13,10 @@ class MatchingRequestSerializer(serializers.Serializer):
     checks = serializers.ListField(
         required=False, allow_null=True, child=serializers.CharField()
     )
-    end_date = serializers.DateTimeField()
+    end_date = serializers.DateField()
     end_time = serializers.IntegerField(min_value=0, max_value=86400)
     recurrence = RecurrenceSerializer()
-    start_date = serializers.DateTimeField()
+    start_date = serializers.DateField()
     start_time = serializers.IntegerField(min_value=0, max_value=86400)
     skip = serializers.IntegerField(min_value=0, max_value=10, default=0)
     limit = serializers.IntegerField(min_value=0, max_value=10, default=5)
