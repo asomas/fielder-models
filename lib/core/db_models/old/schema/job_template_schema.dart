@@ -44,4 +44,6 @@ class JobTemplateSchema {
   static const String fielderTemplateId = "fielder_template_id";
   static const String fielderTemplateName = "name";
   static const String fielderTemplateLimit = "limit";
+  static const String faceted = "faceted";
+  static const String general = "general";
 }
