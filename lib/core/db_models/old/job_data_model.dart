@@ -24,6 +24,9 @@ class JobDataModel {
   List<String> issuesArray;
   List<WorkerModel> workersArray;
   List<JobLocationDataModel> locationsArray;
+  DocumentReference organisationRef;
+  DocumentReference supervisorRef;
+  DocumentReference managerRef;
 
   JobDataModel({
     this.docID,
@@ -41,6 +44,9 @@ class JobDataModel {
     this.skills,
     this.qualifications,
     this.checks,
+    this.organisationRef,
+    this.supervisorRef,
+    this.managerRef,
     this.totalShiftsCount = 0,
   }) : assert(docID != null);
 
@@ -50,6 +56,9 @@ class JobDataModel {
   }) {
     if (map.isNotEmpty) {
       try {
+        DocumentReference _organisationRef = map[JobSummarySchema.organisationRef];
+        DocumentReference _supervisorRef = map[JobSummarySchema.supervisorRef];
+        DocumentReference _managerRef = map[JobSummarySchema.managerRef];
         final Timestamp _startTimeStamp = map[JobSummarySchema.startDate];
         DateTime _startDate;
         if (_startTimeStamp != null) {
@@ -144,7 +153,11 @@ class JobDataModel {
             rate: _rate,
             overtimeRate: _overtimeRate,
             payCalculation: _payCalculation,
-            totalShiftsCount: map[JobSummarySchema.totalShiftsCount]);
+            totalShiftsCount: map[JobSummarySchema.totalShiftsCount],
+            organisationRef: _organisationRef,
+            supervisorRef: _supervisorRef,
+            managerRef: _managerRef,
+        );
       } catch (e) {
         print('JobDataModel fromMap error: $e');
       }
