@@ -36,11 +36,6 @@ class CandidatesModel {
       fullName: "${map[CandidatesMatchingSchema.firstName] ?? ""}"
           " ${map[CandidatesMatchingSchema.lastName] ?? ""}",
       pictureUrl: map[CandidatesMatchingSchema.pictureUrl],
-      skillScore: double.parse(map[CandidatesMatchingSchema.skillsScore]??0),
-      qualificationScore: double.parse(map[CandidatesMatchingSchema.qualificationsScore]??0),
-      checkScore: double.parse(map[CandidatesMatchingSchema.checksScore]??0),
-      availabilityScore: double.parse(map[CandidatesMatchingSchema.availabilityScore]??0),
-      totalScore: double.parse(map[CandidatesMatchingSchema.overallScore]??0),
     );
   }
 
