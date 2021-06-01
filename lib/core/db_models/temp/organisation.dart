@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/temp/common.dart';
-import 'package:json_schema/json_schema.dart';
 
 // collection name: organisation_user
 class OrganisationUser {
@@ -409,7 +408,7 @@ class UserDetail {
           .collection(collection)
           .doc(ref.id)
           .get();
-      if (ds.exists && ds.data().length > 0) {
+      if (ds.exists && ds.data().toString().length > 0) {
         Map json = ds.data();
         return UserDetail(
           id: ds.id,
