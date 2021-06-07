@@ -17,6 +17,7 @@ class InviteStatusModel {
   String workerLastName;
   String workerPhone;
   DateTime createdAt;
+  String invitationId;
 
   InviteStatusModel({
     this.isStaff = null,
@@ -25,6 +26,7 @@ class InviteStatusModel {
     this.workerLastName = '',
     this.workerPhone = '',
     this.createdAt,
+    this.invitationId
   });
 
   Map<String, dynamic> toJSON() {
@@ -47,8 +49,9 @@ class InviteStatusModel {
     return _map;
   }
 
-  factory InviteStatusModel.fromMap(Map data) {
+  factory InviteStatusModel.fromMap(Map data,{String invitationId}) {
     return InviteStatusModel(
+        invitationId:invitationId??"",
         isStaff: data[StaffStatusSchema.isStaff],
         status: data[StaffStatusSchema.status],
         workerFirstName: data[StaffStatusSchema.workerFirstName],
