@@ -81,3 +81,13 @@ class EducationSerializer(serializers.Serializer):
         (("Education"),),
         required=True,
     )
+
+
+class WorkerSkillRelationSerializer(serializers.Serializer):
+    worker_ref = DocumentReferenceField()
+    skill_ref = DocumentReferenceField()
+    skill_value = serializers.CharField()
+    external_work_experience_sources = serializers.DictField(
+        child=serializers.BooleanField(), default={}
+    )
+    sourced_from_fielder_work_experience = serializers.BooleanField(default=False)

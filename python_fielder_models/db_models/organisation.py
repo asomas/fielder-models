@@ -4,6 +4,9 @@ from .common import *
 # new
 class OrganisationSubscriptionSerializer(serializers.Serializer):
     company_name = serializers.CharField(max_length=COMPANY_NAME_MAX_LENGTH)
+    signup_status = serializers.ChoiceField(
+        choices=("contract_not_signed", "contract_in_review", "contract_signed")
+    )
     status = serializers.ChoiceField(
         required=True, choices=["accepted", "declined", "pending"]
     )
@@ -38,6 +41,9 @@ class OrganisationSerializer(serializers.Serializer):
 
     company_name = serializers.CharField(max_length=COMPANY_NAME_MAX_LENGTH)
     brand_color = serializers.RegexField(HEX_COLOR_REGEX)
+    signup_status = serializers.ChoiceField(
+        choices=("contract_not_signed", "contract_in_review", "contract_signed")
+    )
 
 
 class BillingContact(ContactSerializer):

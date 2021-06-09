@@ -10,11 +10,13 @@ class StaffPersonalDetailModel {
   String phoneNumber;
   String personalStatement;
   String email;
+  String workerReferenceId;
   List<SkillsModel> skillsModelList;
   List<CheckModel> checkModelList;
 
   StaffPersonalDetailModel(
       {this.fullName,
+        this.workerReferenceId,
       this.preferredName,
       this.addressModel,
       this.phoneNumber,
@@ -28,6 +30,7 @@ class StaffPersonalDetailModel {
       try {
         return StaffPersonalDetailModel(
           fullName: map[StaffPersonalDetailSchema.fullName] ?? "",
+          workerReferenceId: map[StaffPersonalDetailSchema.workerReferenceId] ?? "",
           preferredName: map[StaffPersonalDetailSchema.preferredName] ?? "",
           phoneNumber: map[StaffPersonalDetailSchema.phoneNumber] ?? "",
           personalStatement:
