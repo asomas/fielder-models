@@ -16,7 +16,6 @@ class JobDataModel {
   double totalHours;
   int totalShiftsCount;
   int rate;
-  int overtimeRate;
   String payCalculation;
   List<SkillsModel> skills;
   List<QualificationModel> qualifications;
@@ -27,6 +26,10 @@ class JobDataModel {
   DocumentReference organisationRef;
   DocumentReference supervisorRef;
   DocumentReference managerRef;
+  int earlyLeaver;
+  bool isPayDeductionEnabled;
+  int lateArrival;
+  double overTimeRate;
 
   JobDataModel({
     this.docID,
@@ -40,7 +43,6 @@ class JobDataModel {
     this.locationsArray,
     this.rate,
     this.payCalculation,
-    this.overtimeRate,
     this.skills,
     this.qualifications,
     this.checks,
@@ -48,6 +50,10 @@ class JobDataModel {
     this.supervisorRef,
     this.managerRef,
     this.totalShiftsCount = 0,
+    this.earlyLeaver,
+    this.isPayDeductionEnabled,
+    this.lateArrival,
+    this.overTimeRate
   }) : assert(docID != null);
 
   factory JobDataModel.fromMap({
@@ -59,6 +65,14 @@ class JobDataModel {
         DocumentReference _organisationRef = map[JobSummarySchema.organisationRef];
         DocumentReference _supervisorRef = map[JobSummarySchema.supervisorRef];
         DocumentReference _managerRef = map[JobSummarySchema.managerRef];
+        final double _overTimeRate = map[JobSummarySchema.overTimeRate] != null
+              ? (map[JobSummarySchema.overTimeRate] / 100) : 0;
+        final int _earlyLeaver = map[JobSummarySchema.earlyLeaver] != null ?
+            map[JobSummarySchema.earlyLeaver] : 0;
+        final int _lateArrival = map[JobSummarySchema.lateArrival] != null?
+        map[JobSummarySchema.lateArrival] : 0;
+        final bool _isPayDeductionEnabled =
+            map[JobSummarySchema.enablePayDeduction] ?? false;
         final Timestamp _startTimeStamp = map[JobSummarySchema.startDate];
         DateTime _startDate;
         if (_startTimeStamp != null) {
@@ -77,7 +91,6 @@ class JobDataModel {
         final String _jobTitle = map[JobSummarySchema.jobTitle] ?? '';
         final double _totalHours = map[JobSummarySchema.totalHours] ?? 0;
         final int _rate = map[JobSummarySchema.rate] ?? 0;
-        final int _overtimeRate = map[JobSummarySchema.overtimeRate] ?? 0;
         final String _payCalculation =
             map[JobSummarySchema.payCalculation] ?? "";
         final Map<String, dynamic> workers =
@@ -151,12 +164,15 @@ class JobDataModel {
             skills: _skills,
             qualifications: _qualifications,
             rate: _rate,
-            overtimeRate: _overtimeRate,
             payCalculation: _payCalculation,
             totalShiftsCount: map[JobSummarySchema.totalShiftsCount],
             organisationRef: _organisationRef,
             supervisorRef: _supervisorRef,
             managerRef: _managerRef,
+            overTimeRate: _overTimeRate,
+            earlyLeaver: _earlyLeaver,
+            lateArrival: _lateArrival,
+            isPayDeductionEnabled: _isPayDeductionEnabled
         );
       } catch (e) {
         print('JobDataModel fromMap error: $e');
