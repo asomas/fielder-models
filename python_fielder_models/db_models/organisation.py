@@ -40,6 +40,7 @@ class OrganisationSerializer(serializers.Serializer):
     """collection with name organisations"""
 
     company_name = serializers.CharField(max_length=COMPANY_NAME_MAX_LENGTH)
+    organisation_reference_id = serializers.CharField(max_length=6)
     brand_color = serializers.RegexField(HEX_COLOR_REGEX)
     signup_status = serializers.ChoiceField(
         choices=("contract_not_signed", "contract_in_review", "contract_signed")
