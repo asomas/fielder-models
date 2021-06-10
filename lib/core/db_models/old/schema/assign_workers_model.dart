@@ -41,18 +41,23 @@ class CandidatesModel {
 
   factory CandidatesModel.fromMatching(Map<String, dynamic> map,
       bool isStaff, String firstName, String lastName, String avatarUrl) {
-    return CandidatesModel(
-      workerId: map[CandidatesMatchingSchema.id],
-      skillScore: double.parse(map[CandidatesMatchingSchema.skillsScore]??0),
-      qualificationScore: double.parse(map[CandidatesMatchingSchema.qualificationsScore]??0),
-      checkScore: double.parse(map[CandidatesMatchingSchema.checksScore]??0),
-      availabilityScore: double.parse(map[CandidatesMatchingSchema.availabilityScore]??0),
-      totalScore: double.parse(map[CandidatesMatchingSchema.overallScore]??0),
-      isStaff: isStaff,
-      firstName: firstName,
-      lastName: lastName,
-      fullName: "${firstName ?? ""} ${lastName ?? ""}",
-      pictureUrl: avatarUrl,
-    );
+    try{
+      return CandidatesModel(
+        workerId: map[CandidatesMatchingSchema.id],
+        skillScore: map[CandidatesMatchingSchema.skillsScore],
+        qualificationScore: map[CandidatesMatchingSchema.qualificationsScore],
+        checkScore: map[CandidatesMatchingSchema.checksScore],
+        availabilityScore: map[CandidatesMatchingSchema.availabilityScore],
+        totalScore: map[CandidatesMatchingSchema.overallScore],
+        isStaff: isStaff,
+        firstName: firstName,
+        lastName: lastName,
+        fullName: "${firstName ?? ""} ${lastName ?? ""}",
+        pictureUrl: avatarUrl,
+      );
+    }catch(e,s){
+      print("candidates matching model catch_______$e");
+      return null;
+    }
   }
 }
