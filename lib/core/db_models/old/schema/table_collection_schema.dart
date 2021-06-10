@@ -33,4 +33,5 @@ class FbCollections {
   static const String organisationId = "organisation_id";
   static const String public = "public";
   static const String brandLogo = "brand_logo.jpg";
+  static const String supportVideoOrganisation = "support_videos_organisation";
 }
