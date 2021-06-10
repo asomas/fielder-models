@@ -45,6 +45,9 @@ class StaffDetailsPersnoalDetailsResponse(serializers.Serializer):
     full_name = serializers.CharField(
         required=False, allow_null=True, max_length=FULL_NAME_MAX_LENGTH
     )
+    worker_reference_id = serializers.CharField(
+        required=False, allow_null=True, max_length=6
+    )
     preferred_name = serializers.CharField(
         required=False, allow_null=True, max_length=FULL_NAME_MAX_LENGTH
     )
