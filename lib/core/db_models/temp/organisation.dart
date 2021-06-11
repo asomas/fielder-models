@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/temp/common.dart';
+import 'package:fielder_models/core/enums/enums.dart';
 import 'package:json_schema/json_schema.dart';
 
 // collection name: organisation_user
@@ -263,6 +264,7 @@ class Company {
   String registrationNumber; //min & max length 8
   List<SICCode> sicCodes;
   List<Director> directors;
+  OrganisationContractStatus contractStatus;
 
   AddressBasic address;
   Timestamp lastUpdated;

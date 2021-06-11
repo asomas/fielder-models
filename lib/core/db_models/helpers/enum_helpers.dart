@@ -1,11 +1,35 @@
 import 'package:fielder_models/core/constants/app_colors.dart';
 import 'package:fielder_models/core/constants/app_strings.dart';
+import 'package:fielder_models/core/db_models/old/schema/company_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EnumHelpers {
+
+  static OrganisationContractStatus contractStatusTypeFromString(String type) {
+    switch (type) {
+      case CompanySchema.contractInReview:
+        return OrganisationContractStatus.InReview;
+      case CompanySchema.contractSigned:
+        return OrganisationContractStatus.Signed;
+      default:
+        return OrganisationContractStatus.NotSigned;
+    }
+  }
+
+  static String stringFromContractSignStatus(OrganisationContractStatus type) {
+    switch (type) {
+      case OrganisationContractStatus.InReview:
+        return CompanySchema.contractInReview;
+      case OrganisationContractStatus.Signed:
+        return CompanySchema.contractSigned;
+      default:
+        return CompanySchema.contractNotSigned;
+    }
+  }
+
   static WorkerType workerTypeFromString(String type) {
     switch (type) {
       case UploadCsvSchema.myFielder:

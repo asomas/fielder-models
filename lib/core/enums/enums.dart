@@ -90,3 +90,5 @@ enum WorkerType {
 }
 
 enum ShiftAssignStatus { Assign, Unassign, Pending }
+
+enum OrganisationContractStatus { NotSigned, InReview, Signed }
