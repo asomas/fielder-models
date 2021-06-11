@@ -14,6 +14,8 @@ class EnumHelpers {
         return OrganisationContractStatus.InReview;
       case CompanySchema.contractSigned:
         return OrganisationContractStatus.Signed;
+      case CompanySchema.contractNotSigned:
+        return OrganisationContractStatus.NotSigned;
       default:
         return OrganisationContractStatus.NotSigned;
     }
@@ -25,6 +27,8 @@ class EnumHelpers {
         return CompanySchema.contractInReview;
       case OrganisationContractStatus.Signed:
         return CompanySchema.contractSigned;
+      case OrganisationContractStatus.NotSigned:
+        return CompanySchema.contractNotSigned;
       default:
         return CompanySchema.contractNotSigned;
     }
