@@ -63,6 +63,8 @@ class Hit {
   String country;
   String postalCode;
   String formattedAddress;
+  String shortName;
+  String name;
   final double lat;
   final double lng;
 
@@ -72,6 +74,8 @@ class Hit {
     this.country,
     this.postalCode,
     this.formattedAddress,
+    this.shortName,
+    this.name,
     this.lat,
     this.lng,
   });
@@ -81,6 +85,8 @@ class Hit {
       String _locationId = json["location_id"] ?? '';
       String _city = json["city"] ?? '';
       String _formattedAddress = json["formatted_address"] ?? '';
+      String _shortName = json["short_name"] ?? '';
+      String _name = json["name"] ?? '';
       String _country = json["country"] ?? '';
       String _postalCode = json["postal_code"] ?? '';
       double _lat = json["lat"];
@@ -92,6 +98,8 @@ class Hit {
           country: _country,
           postalCode: _postalCode,
           formattedAddress: _formattedAddress,
+          name: _name,
+          shortName: _shortName,
           lat: _lat,
           lng: _lng,
         );
