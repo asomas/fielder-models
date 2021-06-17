@@ -33,6 +33,7 @@ class WorkerHistorySchema {
   static const String description = "description";
   static const String code = "code";
   static const String jobTitle = "job_title";
+  static const String expanded = "expanded";
 
   static const String institution = "institution";
   static const String institutions = "institutions";
