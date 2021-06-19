@@ -2,9 +2,9 @@ import 'package:fielder_models/core/db_models/old/schema/signupReferralsSchema.d
 
 class SignupReferralsModel{
 
- String queuePosition;
+ num queuePosition;
  num successfulReferrals;
- num workerReferralLink;
+ String workerReferralLink;
 
  SignupReferralsModel(
       {this.queuePosition, this.successfulReferrals, this.workerReferralLink});
