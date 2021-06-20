@@ -16,6 +16,7 @@ class NewsNotification {
   String title;
   String type;
   bool withNotification;
+  bool expanded;
 
   NewsNotification(
       {this.id,
@@ -31,7 +32,8 @@ class NewsNotification {
       this.subtitle,
       this.title,
       this.type,
-      this.withNotification});
+      this.withNotification,
+      this.expanded});
 
   factory NewsNotification.fromJson(Map<String, dynamic> json, String docId) =>
       NewsNotification(
@@ -72,6 +74,7 @@ class NewsNotification {
         type: json[NewsNotificationSchema.type] != null
             ? json[NewsNotificationSchema.type]
             : "",
+        expanded: json[NewsNotificationSchema.expanded] ?? false,
         withNotification: json[NewsNotificationSchema.withNotification] != null
             ? json[NewsNotificationSchema.withNotification]
             : false,

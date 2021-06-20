@@ -19,6 +19,7 @@ class WorkHistoryEducationCombine {
   Occupation occupation;
   EducationInstitution educationInstitution;
   Course course;
+  bool expanded;
 
   WorkHistoryEducationCombine(
       {this.docId,
@@ -33,7 +34,8 @@ class WorkHistoryEducationCombine {
       this.educationInstitution,
       this.course,
       this.jobTitle,
-      this.workerType});
+      this.workerType,
+      this.expanded});
 
   factory WorkHistoryEducationCombine.fromJson(Map<String, dynamic> json,
           {String docId}) =>
@@ -52,6 +54,7 @@ class WorkHistoryEducationCombine {
             ? json[WorkerHistorySchema.organisationName]
             : "",
         jobTitle: json[WorkerHistorySchema.jobTitle] ?? "",
+        expanded: json[WorkerHistorySchema.expanded] ?? false,
         skills: json[WorkerHistorySchema.skills] != null
             ? List<Skill>.from(
                 json[WorkerHistorySchema.skills].map((x) => Skill.fromJson(x)))
