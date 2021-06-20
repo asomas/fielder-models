@@ -148,4 +148,4 @@ class NewsFeedDismissAPIRequestSerializer(serializers.Serializer):
 
 class IntercomIdentityVerifyAPIRequestSerializer(serializers.Serializer):
     user_id = serializers.CharField()
-    paltform = serializers.ChoiceField(choices=["ios", "android", "web"])
+    platform = serializers.ChoiceField(choices=["ios", "android", "web"])
