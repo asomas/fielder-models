@@ -144,3 +144,8 @@ class EducationAPISerializer(serializers.Serializer):
 
 class NewsFeedDismissAPIRequestSerializer(serializers.Serializer):
     dismissed = serializers.BooleanField()
+
+
+class IntercomIdentityVerifyAPIRequestSerializer(serializers.Serializer):
+    user_id = serializers.CharField()
+    platform = serializers.ChoiceField(choices=["ios", "android", "web"])
