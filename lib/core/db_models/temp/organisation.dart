@@ -272,6 +272,8 @@ class Company {
   String vatNumber;
   Timestamp vatRegistrationDate;
 
+  CompanyContract companyContract;
+
   static Company fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
     Company company = Company();
@@ -289,6 +291,30 @@ class Company {
     company.vatNumber = map['vat_number'];
     company.vatRegistrationDate = map['vat_registration_date'];
     return company;
+  }
+}
+
+class CompanyContract{
+
+  String signedBy;
+  DateTime signedAt;
+
+  CompanyContract({this.signedBy, this.signedAt});
+
+  factory CompanyContract.formMap(Map map){
+    if(map != null){
+      try{
+        return CompanyContract(
+          signedBy: map["signed_by"],
+          signedAt: map["signed_at"] != null && map["signed_at"] is Timestamp?
+            map["signed_at"].toDate() : null
+        );
+      }catch(e,s){
+        print("company contract catch______$e");
+        return null;
+      }
+    }
+    return null;
   }
 }
 
