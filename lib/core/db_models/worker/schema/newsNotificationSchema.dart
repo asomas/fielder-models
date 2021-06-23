@@ -14,4 +14,5 @@ class NewsNotificationSchema {
   static const String withNotification = "with_notification";
   static const String workerRef = "worker_ref";
   static const String expanded = "expanded";
+  static const String nonDismissible = "non_dismissible";
 }

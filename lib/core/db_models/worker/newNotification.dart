@@ -17,6 +17,7 @@ class NewsNotification {
   String type;
   bool withNotification;
   bool expanded;
+  bool nonDismissible;
 
   NewsNotification(
       {this.id,
@@ -33,6 +34,7 @@ class NewsNotification {
       this.title,
       this.type,
       this.withNotification,
+      this.nonDismissible,
       this.expanded});
 
   factory NewsNotification.fromJson(Map<String, dynamic> json, String docId) =>
@@ -75,6 +77,7 @@ class NewsNotification {
             ? json[NewsNotificationSchema.type]
             : "",
         expanded: json[NewsNotificationSchema.expanded] ?? false,
+        nonDismissible: json[NewsNotificationSchema.nonDismissible] ?? false,
         withNotification: json[NewsNotificationSchema.withNotification] != null
             ? json[NewsNotificationSchema.withNotification]
             : false,
