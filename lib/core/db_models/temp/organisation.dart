@@ -264,15 +264,12 @@ class Company {
   String registrationNumber; //min & max length 8
   List<SICCode> sicCodes;
   List<Director> directors;
-  OrganisationContractStatus contractStatus;
 
   AddressBasic address;
   Timestamp lastUpdated;
   Timestamp lastFilingDate;
   String vatNumber;
   Timestamp vatRegistrationDate;
-
-  CompanyContract companyContract;
 
   static Company fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
