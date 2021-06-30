@@ -20,7 +20,7 @@ class WorkExperienceSerializer(serializers.Serializer):
     job_title = serializers.CharField(required=False, allow_null=True)
     start_date = serializers.DateTimeField(required=False, allow_null=True)
     end_date = serializers.DateTimeField(required=False, allow_null=True)
-    summary = serializers.CharField(required=False, allow_null=True)
+    summary = serializers.CharField(required=False, allow_null=True, allow_blank=True)
     skills = serializers.ListField(
         required=False, allow_null=True, child=SkillSerializer()
     )
@@ -72,7 +72,7 @@ class EducationSerializer(serializers.Serializer):
     award = serializers.BooleanField(required=False, allow_null=True)
     start_date = serializers.DateTimeField(required=False, allow_null=True)
     end_date = serializers.DateTimeField(required=False, allow_null=True)
-    summary = serializers.CharField(required=False, allow_null=True)
+    summary = serializers.CharField(required=False, allow_null=True, allow_blank=True)
     knowledge_areas = serializers.ListField(
         required=False, allow_null=True, child=KnowledgeAreaSerializer()
     )

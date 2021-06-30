@@ -28,7 +28,7 @@ class WorkExperienceAPISerializer(serializers.Serializer):
         DATE_FIELD_REGEX, required=False, allow_null=True
     )
     end_date = serializers.RegexField(DATE_FIELD_REGEX, required=False, allow_null=True)
-    summary = serializers.CharField(required=False, allow_null=True)
+    summary = serializers.CharField(required=False, allow_null=True, allow_blank=True)
     skills = serializers.ListField(
         required=False, allow_null=True, child=SkillSerializer()
     )
@@ -136,7 +136,7 @@ class EducationAPISerializer(serializers.Serializer):
         DATE_FIELD_REGEX, required=False, allow_null=True
     )
     end_date = serializers.RegexField(DATE_FIELD_REGEX, required=False, allow_null=True)
-    summary = serializers.CharField(required=False, allow_null=True)
+    summary = serializers.CharField(required=False, allow_null=True, allow_blank=True)
     knowledge_areas = serializers.ListField(
         required=False, allow_null=True, child=KnowledgeAreaSerializer()
     )
