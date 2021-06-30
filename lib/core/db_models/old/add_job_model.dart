@@ -5,6 +5,7 @@ import 'package:fielder_models/core/db_models/old/job_template_model.dart';
 import 'package:fielder_models/core/db_models/old/qualification_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
+import 'package:fielder_models/core/db_models/old/schema/payment_model_schema.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'package:fielder_models/core/db_models/worker/occupation.dart';
 import 'default_location_data_model.dart';
@@ -23,7 +24,6 @@ class AddJobModel {
   bool isDBSRequired;
   bool isEnhancedDBSRequired;
   String workLocationAddress;
-  int rate;
   String payCalculation;
   int lateArrival;
   int earlyLeaver;
@@ -33,6 +33,7 @@ class AddJobModel {
   bool volunteer;
   bool payDetectionEnabled;
   OccupationModel occupationModel;
+  PaymentModel paymentModel;
 
   AddJobModel(
       {this.description = '',
@@ -42,7 +43,6 @@ class AddJobModel {
       this.selTemplate,
       this.additionalReqsArray,
       this.workLocationAddress,
-      this.rate = 0,
       this.payCalculation = "Actual hours",
       this.lateArrival = 0,
       this.earlyLeaver = 0,
@@ -57,7 +57,9 @@ class AddJobModel {
       this.payDetectionEnabled = true,
       this.checksArray,
       this.checks,
-      this.occupationModel});
+      this.occupationModel,
+      this.paymentModel
+      });
 
   Map<String, dynamic> toJSON() {
     print('AddJobModel toJSON invoked');
@@ -75,7 +77,7 @@ class AddJobModel {
         JobTemplateSchema.description: description,
         JobTemplateSchema.jobTitle: title,
         JobTemplateSchema.volunteer: volunteer ?? false,
-        JobTemplateSchema.rate: rate,
+        JobTemplateSchema.payment: PaymentModel(workerRate: paymentModel.workerRate),
         JobTemplateSchema.payCalculation: payCalculation,
         JobTemplateSchema.lateArrival: lateArrival,
         JobTemplateSchema.earlyLeaver: earlyLeaver,
@@ -120,7 +122,6 @@ class AddJobModel {
         description: data[JobTemplateSchema.description] ?? "",
         templateName: data[JobTemplateSchema.name] ?? "",
         volunteer: data[JobTemplateSchema.volunteer] ?? false,
-        rate: data[JobTemplateSchema.rate] ?? 0,
         payCalculation: data[JobTemplateSchema.payCalculation] ?? "",
         lateArrival: data[JobTemplateSchema.lateArrival] ?? 0,
         earlyLeaver: data[JobTemplateSchema.earlyLeaver] ?? 0,
@@ -129,6 +130,9 @@ class AddJobModel {
             data[JobTemplateSchema.enablePayDetection] ?? false,
         occupationModel: data[JobTemplateSchema.occupation] != null
             ? OccupationModel.fromJson(data[JobTemplateSchema.occupation])
+            : null,
+        paymentModel: data[JobTemplateSchema.payment] != null
+            ? PaymentModel.fromMap(data[JobTemplateSchema.payment])
             : null,
         checksArray:
             (data[JobTemplateSchema.checks] as List)?.isNotEmpty == true
@@ -178,7 +182,6 @@ class AddJobModel {
     selTemplate = null;
     additionalReqsArray = [];
     workLocationAddress = '';
-    rate = 0;
     isDBSRequired = false;
     isEnhancedDBSRequired = false;
     requiredQualification = [];
@@ -187,6 +190,7 @@ class AddJobModel {
     shiftPatternsArray = [];
     checksArray = [];
     occupationModel = null;
+    paymentModel = null;
   }
 
 // sprint 8 work
@@ -257,4 +261,55 @@ class AddJobModel {
 //        :
 //    );
 //  }
+}
+
+class PaymentModel{
+
+double fielderMargin;
+double fielderDiscount;
+double totalCost;
+double discountCost;
+double workerRate;
+double statuaryCost;
+double holidayPay;
+
+static const double onePence = 100.0;
+
+PaymentModel({this.fielderMargin, this.fielderDiscount, this.totalCost,
+      this.discountCost, this.workerRate, this.statuaryCost, this.holidayPay});
+
+  factory PaymentModel.fromMap(Map map){
+    try{
+      double _fielderMargin =
+      (map[PaymentModelSchema.umbrellaFee] + map[PaymentModelSchema.findersFee]) / onePence;
+      double _fielderDiscount = map[PaymentModelSchema.findersFee] / onePence;
+      double _totalCost = map[PaymentModelSchema.totalStaffingServiceCost] / onePence;
+      double _discountCost = map[PaymentModelSchema.totalUmbrellaServiceCost] / onePence;
+      double _workerRate = map[PaymentModelSchema.workerRate] / onePence;
+      double _holidayPay = map[PaymentModelSchema.holidayPay] / onePence;
+      double _statuaryCost = 0;
+      if(map[PaymentModelSchema.statutaryCosts] != null){
+        _statuaryCost = map[PaymentModelSchema.statutaryCosts][PaymentModelSchema.total] / onePence;
+      }
+      return PaymentModel(
+        workerRate: _workerRate,
+        fielderDiscount: _fielderDiscount,
+        fielderMargin: _fielderMargin,
+        totalCost: _totalCost,
+        discountCost: _discountCost,
+        holidayPay: _holidayPay,
+        statuaryCost: _statuaryCost
+      );
+    }catch(e,s){
+      print("payment model catch_____${e}_____$s");
+      return null;
+    }
+  }
+
+  Map paymentMapForCreateJob(){
+    return {
+       PaymentModelSchema.workerRate : (workerRate * onePence).toInt()
+    };
+  }
+
 }
