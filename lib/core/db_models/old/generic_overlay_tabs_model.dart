@@ -9,7 +9,8 @@ class OverlayTabsModel {
   bool isBackDisabled; // To disable going back from the current tab
 
   OverlayTabsModel(
-      {@required this.label,
+      {Key key,
+      @required this.label,
       this.icon,
       this.isDisabled = false,
       this.isNextDisabled = false,
