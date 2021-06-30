@@ -7,9 +7,10 @@ class OverlayTabsModel {
   bool isDisabled; // To disable click action on tab
   bool isNextDisabled; // To disable going forward from the current tab
   bool isBackDisabled; // To disable going back from the current tab
+  Key key;
 
   OverlayTabsModel(
-      {Key key,
+      {this.key,
       @required this.label,
       this.icon,
       this.isDisabled = false,
