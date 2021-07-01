@@ -287,7 +287,7 @@ PaymentModel({this.fielderMargin, this.fielderDiscount, this.totalCost,
       double _fielderDiscount = map[PaymentModelSchema.findersFee] / onePence;
       double _totalCost = map[PaymentModelSchema.totalStaffingServiceCost] / onePence;
       double _discountCost = map[PaymentModelSchema.totalUmbrellaServiceCost] / onePence;
-      double _workerRate = map[PaymentModelSchema.workerRate];
+      double _workerRate = map[PaymentModelSchema.workerRate] / onePence;
       double _holidayPay = map[PaymentModelSchema.holidayPay] / onePence;
       double _statuaryCost = 0;
       if(map[PaymentModelSchema.statutaryCosts] != null){
@@ -311,7 +311,7 @@ PaymentModel({this.fielderMargin, this.fielderDiscount, this.totalCost,
   Map paymentMapForCreateJob(){
     if(workerRate != null ){
       return {
-        PaymentModelSchema.workerRate : (workerRate ~/ onePence).toInt()
+        PaymentModelSchema.workerRate : (workerRate * onePence).toInt()
       };
     }
     return {};
