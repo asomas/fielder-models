@@ -77,7 +77,7 @@ class AddJobModel {
         JobTemplateSchema.description: description,
         JobTemplateSchema.jobTitle: title,
         JobTemplateSchema.volunteer: volunteer ?? false,
-        JobTemplateSchema.payment: PaymentModel(workerRate: paymentModel.workerRate),
+        JobTemplateSchema.payment: PaymentModel(workerRate: paymentModel?.workerRate).paymentMapForCreateJob(),
         JobTemplateSchema.payCalculation: payCalculation,
         JobTemplateSchema.lateArrival: lateArrival,
         JobTemplateSchema.earlyLeaver: earlyLeaver,
@@ -102,7 +102,9 @@ class AddJobModel {
             ? checksArray.map((e) => e.checkID).toList() ?? []
             : [],
       };
-
+       if(volunteer){
+         _map.remove(JobTemplateSchema.payment);
+       }
       print("AddJobModel map -> $_map");
     } catch (e) {
       print('AddJobModel toJSON error: $e');
@@ -307,9 +309,12 @@ PaymentModel({this.fielderMargin, this.fielderDiscount, this.totalCost,
   }
 
   Map paymentMapForCreateJob(){
-    return {
-       PaymentModelSchema.workerRate : (workerRate * onePence).toInt()
-    };
+    if(workerRate != null ){
+      return {
+        PaymentModelSchema.workerRate : (workerRate * onePence).toInt()
+      };
+    }
+    return {};
   }
 
 }
