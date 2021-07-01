@@ -40,6 +40,7 @@ class JobTemplateSchema {
   static const String organisationTemplateName = "name";
   static const String organisationId = "organisation_id";
   static const String organisationTemplateLimit = "limit";
+  static const String payment = "payment";
 
   static const String fielderTemplateId = "fielder_template_id";
   static const String fielderTemplateName = "name";
