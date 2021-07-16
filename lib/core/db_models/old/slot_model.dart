@@ -1,3 +1,4 @@
+import 'package:fielder_models/core/db_models/old/shift_activities_model.dart';
 import 'package:fielder_models/core/db_models/old/shift_pattern_data_model.dart';
 import 'package:fielder_models/core/enums/slot_status_enums.dart';
 
@@ -12,6 +13,7 @@ class SlotModel {
   final DateTime weekDay;
   final SlotStatusIcon slotStatusIcon;
   final ShiftPatternDataModel shiftPatternDataModel;
+  final ShiftActivitiesModel shiftActivitiesModel;
   final bool isUnavailable;
 
   SlotModel({
@@ -24,6 +26,7 @@ class SlotModel {
     this.workerName = '',
     this.weekDay,
     this.shiftPatternDataModel,
+    this.shiftActivitiesModel,
     this.slotStatusIcon = SlotStatusIcon.Inactive,
     this.isUnavailable = false,
   });

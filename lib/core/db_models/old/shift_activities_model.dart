@@ -18,6 +18,9 @@ class ShiftActivitiesModel {
   DocumentReference approvedBy;
   ShiftPatternDataModel shiftPatternDataModel;
   DateTime approvedTime;
+  DocumentReference workerRef;
+  bool clocked;
+  bool awaitingApproval;
 
   ShiftActivitiesModel(
       {this.clockInTime,
@@ -30,7 +33,11 @@ class ShiftActivitiesModel {
       this.approved = false,
       this.approvedBy,
       this.approvedTime,
-      this.shiftPatternDataModel});
+      this.shiftPatternDataModel,
+      this.workerRef,
+      this.clocked = false,
+      this.awaitingApproval = false
+      });
 
   factory ShiftActivitiesModel.fromMap({
     @required Map<String, dynamic> map,
@@ -40,6 +47,8 @@ class ShiftActivitiesModel {
       try {
         final DocumentReference _shiftPatternRef =
             map[ShiftActivitiesSchema.shiftPatternRef];
+        final DocumentReference _workerRef =
+        map[ShiftActivitiesSchema.workerRef];
         final DocumentReference _approvedBy =
             map[ShiftActivitiesSchema.approvedBy];
         final GeoPoint _clockInLocation =
@@ -55,6 +64,8 @@ class ShiftActivitiesModel {
         final Timestamp _approvedTimeTimeStamp =
             map[ShiftActivitiesSchema.approveTime];
         final bool _approved = map[ShiftActivitiesSchema.approved];
+        final bool _clocked = map[ShiftActivitiesSchema.clocked];
+        final bool _awaitingApproval = map[ShiftActivitiesSchema.awaitingApproval];
 
         final ShiftPatternDataModel shiftPatternDataModel =
             map[ShiftActivitiesSchema.shiftPatternData] != null
@@ -101,6 +112,9 @@ class ShiftActivitiesModel {
           approvedBy: _approvedBy,
           approved: _approved,
           shiftPatternDataModel: shiftPatternDataModel,
+          workerRef: _workerRef,
+          clocked: _clocked,
+          awaitingApproval: _awaitingApproval
         );
       } on Exception catch (e) {
         print("ShiftActivitiesModel.fromMap error $e");
