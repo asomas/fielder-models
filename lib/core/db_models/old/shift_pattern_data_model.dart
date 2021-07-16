@@ -32,6 +32,7 @@ class ShiftPatternDataModel {
   OccupationModel occupationModel;
   bool isUnavailableForOrganisation;
   bool isRecurring;
+  bool assigned;
 
   ShiftPatternDataModel(
       {this.docID,
@@ -54,7 +55,9 @@ class ShiftPatternDataModel {
       this.managerRef,
       this.occupationModel,
       this.isUnavailableForOrganisation = false,
-      this.isRecurring});
+      this.isRecurring,
+      this.assigned = false
+      });
 
   factory ShiftPatternDataModel.fromMap(
       {@required Map<String, dynamic> map,
@@ -89,6 +92,9 @@ class ShiftPatternDataModel {
         final int _endTimeInt = map['end_time'];
         final bool _isRecurring = map[ShiftDataSchema.isRecurring] != null
             ? map[ShiftDataSchema.isRecurring]
+            : false;
+        final bool _assigned = map[ShiftDataSchema.assigned] != null
+            ? map[ShiftDataSchema.assigned]
             : false;
         final RecurrenceModel _recurrence = RecurrenceModel.fromMap(
           map: map['recurrence'] ?? {},
@@ -149,6 +155,7 @@ class ShiftPatternDataModel {
             shiftLocationDataModel: _shiftLocationDataModel,
             shiftActivitiesModel: null,
             isRecurring: _isRecurring,
+            assigned: _assigned,
             //_shiftActivitiesModel,
             workerId: _workerRef?.id,
             workerModel: map.containsKey(ShiftDataSchema.workerData)
@@ -175,6 +182,7 @@ class ShiftPatternDataModel {
         jobTitle: shiftPatternDataModel.jobTitle,
         jobID: shiftPatternDataModel.jobID,
         jobRefId: shiftPatternDataModel.jobRefId,
+        assigned: shiftPatternDataModel.assigned,
         role: shiftPatternDataModel.role,
         organisation: shiftPatternDataModel.organisation,
         supervisorRef: shiftPatternDataModel.supervisorRef,
