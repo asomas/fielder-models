@@ -1,4 +1,5 @@
 class ShiftDataSchema {
+  static const String jobRef = "job_ref";
   static const String title = "job_title";
   static const String startDate = "start_date";
   static const String endDate = "end_date";
@@ -23,4 +24,5 @@ class ShiftDataSchema {
   static const String coords = "coords";
   static const String workerUnavailabilities = "worker_unavailabilities";
   static const String isRecurring = "is_recurring";
+  static const String assigned = "assigned";
 }
