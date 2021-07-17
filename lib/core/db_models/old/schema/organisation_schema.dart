@@ -3,6 +3,7 @@ class OrganisationSchema {
   static const String alternativeContact = "alternative_contact";
   static const String email = "email";
   static const String companyName = "company_name";
+  static const String brandColor = "brand_color";
   static const String logo_url = "brand_logo";
   static const String primary_color = "brand_color";
   static const String brand_banner = "brand_banner";

@@ -13,6 +13,7 @@ class OrganisationModel {
   String email;
   String logoUrl;
   String brandBanner;
+  Color brandColor;
   String primaryColor;
 
   OrganisationModel(
@@ -24,7 +25,17 @@ class OrganisationModel {
       this.email,
       this.brandBanner,
       this.logoUrl,
+      this.brandColor,
       this.primaryColor});
+
+
+  static Color hexToColor(String code) {
+    if (code?.isNotEmpty == true) {
+      return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+    }
+    return Color(0xFF0288D1);
+  }
+
   factory OrganisationModel.fromMap({
     @required Map<String, dynamic> map,
     @required String docID,
@@ -66,6 +77,8 @@ class OrganisationModel {
           );
         }
 
+        Color _brandColor = hexToColor(map[OrganisationSchema.brandColor]);
+
         return OrganisationModel(
             accountsContactModel: _accountsContactModel,
             alternativeContactModel: _alternativeContactModel,
@@ -79,6 +92,7 @@ class OrganisationModel {
             logoUrl: _logoUrl,
             primaryColor: _primaryColor,
             brandBanner: _brandBanner,
+            brandColor: _brandColor,
             primaryContactModel: _primaryContactModel);
       } catch (e) {
         print('OrganisationModel.fromMap error: $e');
