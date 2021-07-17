@@ -33,6 +33,8 @@ class ShiftPatternDataModel {
   bool isUnavailableForOrganisation;
   bool isRecurring;
   bool assigned;
+  String startTimeString;
+  String endTimeString;
 
   ShiftPatternDataModel(
       {this.docID,
@@ -56,8 +58,20 @@ class ShiftPatternDataModel {
       this.occupationModel,
       this.isUnavailableForOrganisation = false,
       this.isRecurring,
-      this.assigned = false
+      this.assigned = false,
+      this.startTimeString,
+      this.endTimeString,
       });
+
+
+  static String timeStringFromDuration(int secondsFromMidnight) {
+    Duration duration = Duration(seconds: secondsFromMidnight?.round());
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    // String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    return "${twoDigits(duration.inHours)}:$twoDigitMinutes";
+    // return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+  }
 
   factory ShiftPatternDataModel.fromMap(
       {@required Map<String, dynamic> map,
@@ -90,6 +104,10 @@ class ShiftPatternDataModel {
         }
         final int _startTimeInt = map['start_time'];
         final int _endTimeInt = map['end_time'];
+
+        final String _startTimeStr = timeStringFromDuration(map['start_time']);
+        final String _endTimeStr = timeStringFromDuration(map['end_time']);
+
         final bool _isRecurring = map[ShiftDataSchema.isRecurring] != null
             ? map[ShiftDataSchema.isRecurring]
             : false;
@@ -136,6 +154,7 @@ class ShiftPatternDataModel {
               docID: _shiftActivityRef.id);
         }
 
+
         return ShiftPatternDataModel(
             docID: docID,
             shiftPatternRefId: _shiftPatternRef,
@@ -143,6 +162,8 @@ class ShiftPatternDataModel {
             endDate: _endDate,
             startTimeInt: _startTimeInt,
             endTimeInt: _endTimeInt,
+            startTimeString: _startTimeStr,
+            endTimeString: _endTimeStr,
             recurrence: _recurrence,
             jobTitle: _jobTitle,
             jobID: _jobRef?.id,
