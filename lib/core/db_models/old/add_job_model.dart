@@ -311,7 +311,7 @@ PaymentModel({this.fielderMargin, this.fielderDiscount, this.totalCost,
   Map paymentMapForCreateJob(){
     if(workerRate != null ){
       return {
-        PaymentModelSchema.workerRate : (workerRate * onePence).toInt()
+        PaymentModelSchema.workerRate : (workerRate * onePence).round()
       };
     }
     return {};
