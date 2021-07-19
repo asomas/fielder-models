@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/worker/schema/newsNotificationSchema.dart';
 
+class NewsScreenRedirects{
+  static const String profile = "Profile";
+}
+
 class NewsNotification {
   String id;
   String articleUrl;
@@ -18,7 +22,7 @@ class NewsNotification {
   bool withNotification;
   bool expanded;
   bool nonDismissible;
-  String actionUrl;
+  String screen;
 
   NewsNotification(
       {this.id,
@@ -37,12 +41,12 @@ class NewsNotification {
       this.withNotification,
       this.nonDismissible,
       this.expanded,
-      this.actionUrl});
+      this.screen});
 
   factory NewsNotification.fromJson(Map<String, dynamic> json, String docId) =>
       NewsNotification(
         id: docId,
-        actionUrl: json[NewsNotificationSchema.actionUrl],
+        screen: json[NewsNotificationSchema.screen],
         articleUrl: json[NewsNotificationSchema.articleUrl] != null
             ? json[NewsNotificationSchema.articleUrl]
             : "",
