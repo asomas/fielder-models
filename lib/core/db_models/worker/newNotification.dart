@@ -18,6 +18,7 @@ class NewsNotification {
   bool withNotification;
   bool expanded;
   bool nonDismissible;
+  String actionUrl;
 
   NewsNotification(
       {this.id,
@@ -35,11 +36,13 @@ class NewsNotification {
       this.type,
       this.withNotification,
       this.nonDismissible,
-      this.expanded});
+      this.expanded,
+      this.actionUrl});
 
   factory NewsNotification.fromJson(Map<String, dynamic> json, String docId) =>
       NewsNotification(
         id: docId,
+        actionUrl: json[NewsNotificationSchema.actionUrl],
         articleUrl: json[NewsNotificationSchema.articleUrl] != null
             ? json[NewsNotificationSchema.articleUrl]
             : "",
