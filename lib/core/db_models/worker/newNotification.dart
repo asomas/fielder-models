@@ -23,6 +23,7 @@ class NewsNotification {
   bool expanded;
   bool nonDismissible;
   String screen;
+  String actionButtonText;
 
   NewsNotification(
       {this.id,
@@ -41,12 +42,15 @@ class NewsNotification {
       this.withNotification,
       this.nonDismissible,
       this.expanded,
-      this.screen});
+      this.screen,
+      this.actionButtonText,
+      });
 
   factory NewsNotification.fromJson(Map<String, dynamic> json, String docId) =>
       NewsNotification(
         id: docId,
         screen: json[NewsNotificationSchema.screen],
+        actionButtonText: json[NewsNotificationSchema.actionButtonText] ?? "Let's Go!",
         articleUrl: json[NewsNotificationSchema.articleUrl] != null
             ? json[NewsNotificationSchema.articleUrl]
             : "",

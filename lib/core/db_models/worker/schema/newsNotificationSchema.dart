@@ -16,4 +16,5 @@ class NewsNotificationSchema {
   static const String expanded = "expanded";
   static const String nonDismissible = "non_dismissible";
   static const String screen = "screen";
+  static const String actionButtonText = "action_button_text";
 }
