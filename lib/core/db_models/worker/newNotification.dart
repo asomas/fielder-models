@@ -50,7 +50,9 @@ class NewsNotification {
       NewsNotification(
         id: docId,
         screen: json[NewsNotificationSchema.screen],
-        actionButtonText: json[NewsNotificationSchema.actionButtonText] ?? "Let's Go!",
+        actionButtonText: json[NewsNotificationSchema.actionButtonText] == null
+        || json[NewsNotificationSchema.actionButtonText].isEmpty ? "Let's Go!"
+        : json[NewsNotificationSchema.actionButtonText],
         articleUrl: json[NewsNotificationSchema.articleUrl] != null
             ? json[NewsNotificationSchema.articleUrl]
             : "",
