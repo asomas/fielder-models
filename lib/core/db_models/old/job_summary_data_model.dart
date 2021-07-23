@@ -31,8 +31,6 @@ class JobSummaryDataModel {
         if (_organisationRef != null) {
           _organisationId = _organisationRef.id;
           String _jobId = '';
-          final DocumentReference _jobRef = map[JobSummarySchema.jobRef];
-
           _jobId = docId;
 
           final JobDataModel _jobDataModel =

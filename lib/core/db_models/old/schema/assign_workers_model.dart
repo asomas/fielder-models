@@ -13,19 +13,19 @@ class CandidatesModel {
   double availabilityScore;
   double totalScore;
 
-  CandidatesModel(
-      {this.workerId,
-      this.isStaff,
-      this.firstName,
-      this.lastName,
-      this.fullName,
-      this.pictureUrl,
-      this.skillScore = 0,
-      this.qualificationScore = 0,
-      this.checkScore = 0,
-      this.availabilityScore = 0 ,
-      this.totalScore = 0,
-      });
+  CandidatesModel({
+    this.workerId,
+    this.isStaff,
+    this.firstName,
+    this.lastName,
+    this.fullName,
+    this.pictureUrl,
+    this.skillScore = 0,
+    this.qualificationScore = 0,
+    this.checkScore = 0,
+    this.availabilityScore = 0,
+    this.totalScore = 0,
+  });
 
   factory CandidatesModel.fromMap(Map<String, dynamic> map) {
     return CandidatesModel(
@@ -39,9 +39,9 @@ class CandidatesModel {
     );
   }
 
-  factory CandidatesModel.fromMatching(Map<String, dynamic> map,
-      bool isStaff, String firstName, String lastName, String avatarUrl) {
-    try{
+  factory CandidatesModel.fromMatching(Map<String, dynamic> map, bool isStaff,
+      String firstName, String lastName, String avatarUrl) {
+    try {
       return CandidatesModel(
         workerId: map[CandidatesMatchingSchema.id],
         skillScore: map[CandidatesMatchingSchema.skillsScore],
@@ -55,7 +55,7 @@ class CandidatesModel {
         fullName: "${firstName ?? ""} ${lastName ?? ""}",
         pictureUrl: avatarUrl,
       );
-    }catch(e,s){
+    } catch (e) {
       print("candidates matching model catch_______$e");
       return null;
     }

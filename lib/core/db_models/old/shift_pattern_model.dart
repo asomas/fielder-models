@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/old/google_place_model.dart';
+import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-import 'package:fielder_models/core/db_models/old/google_place_model.dart';
-import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
 
 import 'schema/shift_pattern_data_schema.dart';
 
@@ -21,7 +20,7 @@ class ShiftModel {
   String existingLocationId;
   GooglePlaceModel googlePlaceModel;
   String title;
-  String shift_patternDate;
+  String shiftPatternDate;
   DocumentReference workerRef;
 
   ShiftModel(
@@ -36,17 +35,17 @@ class ShiftModel {
       this.title,
       this.existingLocationId,
       this.workerRef,
-      this.shift_patternDate,
+      this.shiftPatternDate,
       this.googlePlaceModel})
       : assert(
           startDate != null && startTimeInt != null && endTimeInt != null,
         );
 
   factory ShiftModel.fromMap(String docID, Map<String, dynamic> map) {
-    ShiftModel shift_patternDataModel;
+    ShiftModel shiftPatternDataModel;
     try {
       if (map?.isNotEmpty == true) {
-        shift_patternDataModel = ShiftModel(
+        shiftPatternDataModel = ShiftModel(
           docID: docID,
           title: map[ShiftDataSchema.title] ?? "",
           startDate: map[ShiftDataSchema.startDate]?.toDate(),
@@ -58,12 +57,12 @@ class ShiftModel {
           recurrence:
               RecurrenceModel.fromMap(map: map[ShiftDataSchema.recurrence]),
           workerRef: map[ShiftDataSchema.workerRef],
-          shift_patternDate: map[ShiftDataSchema.shiftPatternDate],
+          shiftPatternDate: map[ShiftDataSchema.shiftPatternDate],
           googlePlaceModel:
               GooglePlaceModel.fromMap(map[ShiftDataSchema.googlePlaceData]),
         );
       }
-      return shift_patternDataModel;
+      return shiftPatternDataModel;
     } catch (e) {
       print('ShiftDataModel toJSON error: $e');
       return null;

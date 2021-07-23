@@ -17,10 +17,10 @@ class OrganisationUser {
 
   static OrganisationUser fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-    print("inside map ${map}");
+    print("inside map $map");
     //print("organisation ${map['organisations']}");
     var name = map['name'];
-    print("name is ${name}");
+    print("name is $name");
 
     OrganisationUser organisationUser = OrganisationUser();
     organisationUser.name = map['name'];
@@ -36,7 +36,7 @@ class OrganisationUser {
       });
     }
     organisationUser.dateCreated = map['date_created'];
-    print("organisation is ${organisationUser}");
+    print("organisation is $organisationUser");
     return organisationUser;
   }
 
@@ -301,7 +301,7 @@ class CompanyContract {
             signedAt: map["signed_at"] != null && map["signed_at"] is Timestamp
                 ? map["signed_at"].toDate()
                 : null);
-      } catch (e, s) {
+      } catch (e) {
         print("company contract catch______$e");
         return null;
       }

@@ -141,15 +141,8 @@ class ShiftPatternDataModel {
         if (_occupationRef != null) {
           _occupationModel = OccupationModel.fromJson(map["occupation"]);
         }
-        ShiftActivitiesModel _shiftActivitiesModel;
-        final DocumentReference _workerRef = map['worker_ref'];
-        final DocumentReference _shiftActivityRef = map['shift_activity_ref'];
 
-        if (_workerRef != null && _shiftActivityRef != null) {
-          _shiftActivitiesModel = ShiftActivitiesModel.fromMap(
-              map: map['shift_activity_data'] ?? {},
-              docID: _shiftActivityRef.id);
-        }
+        final DocumentReference _workerRef = map['worker_ref'];
 
         return ShiftPatternDataModel(
             docID: docID,
