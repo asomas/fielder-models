@@ -1,14 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
-import 'package:fielder_models/core/db_models/old/additional_info_model.dart';
-import 'package:fielder_models/core/db_models/old/job_template_model.dart';
-import 'package:fielder_models/core/db_models/old/qualification_model.dart';
-import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
-import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
-import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'package:fielder_models/core/enums/enums.dart';
-import 'default_location_data_model.dart';
 
 class InviteStatusModel {
   bool isStaff;
@@ -19,15 +11,14 @@ class InviteStatusModel {
   DateTime createdAt;
   String invitationId;
 
-  InviteStatusModel({
-    this.isStaff = null,
-    this.status = '',
-    this.workerFirstName = '',
-    this.workerLastName = '',
-    this.workerPhone = '',
-    this.createdAt,
-    this.invitationId
-  });
+  InviteStatusModel(
+      {this.isStaff = null,
+      this.status = '',
+      this.workerFirstName = '',
+      this.workerLastName = '',
+      this.workerPhone = '',
+      this.createdAt,
+      this.invitationId});
 
   Map<String, dynamic> toJSON() {
     //print('AddJobModel toJSON invoked');
@@ -49,9 +40,9 @@ class InviteStatusModel {
     return _map;
   }
 
-  factory InviteStatusModel.fromMap(Map data,{String invitationId}) {
+  factory InviteStatusModel.fromMap(Map data, {String invitationId}) {
     return InviteStatusModel(
-        invitationId:invitationId??"",
+        invitationId: invitationId ?? "",
         isStaff: data[StaffStatusSchema.isStaff],
         status: data[StaffStatusSchema.status],
         workerFirstName: data[StaffStatusSchema.workerFirstName],

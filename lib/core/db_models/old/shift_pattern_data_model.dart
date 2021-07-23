@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fielder_models/core/db_models/temp/organisation.dart';
+import 'package:fielder_models/core/db_models/old/organisation_model.dart';
+import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
+import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
+import 'package:fielder_models/core/db_models/old/shift_activities_model.dart';
+import 'package:fielder_models/core/db_models/old/workers_model.dart';
 import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/occupation.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:fielder_models/core/db_models/old/organisation_model.dart';
-import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
-import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
-import 'package:fielder_models/core/db_models/old/shift_location_data_model.dart';
-import 'package:fielder_models/core/db_models/old/shift_activities_model.dart';
-import 'package:fielder_models/core/db_models/old/workers_model.dart';
 
 class ShiftPatternDataModel {
   String docID;
@@ -36,33 +34,32 @@ class ShiftPatternDataModel {
   String startTimeString;
   String endTimeString;
 
-  ShiftPatternDataModel(
-      {this.docID,
-      this.shiftPatternRefId,
-      this.organisation,
-      this.endDate,
-      this.endTimeInt,
-      this.jobTitle,
-      this.jobID,
-      this.recurrence,
-      this.role,
-      this.startDate,
-      this.startTimeInt,
-      this.workerId,
-      this.shiftActivitiesModel,
-      this.shiftLocationDataModel,
-      this.workerModel,
-      this.supervisorRef,
-      this.jobRefId,
-      this.managerRef,
-      this.occupationModel,
-      this.isUnavailableForOrganisation = false,
-      this.isRecurring,
-      this.assigned = false,
-      this.startTimeString,
-      this.endTimeString,
-      });
-
+  ShiftPatternDataModel({
+    this.docID,
+    this.shiftPatternRefId,
+    this.organisation,
+    this.endDate,
+    this.endTimeInt,
+    this.jobTitle,
+    this.jobID,
+    this.recurrence,
+    this.role,
+    this.startDate,
+    this.startTimeInt,
+    this.workerId,
+    this.shiftActivitiesModel,
+    this.shiftLocationDataModel,
+    this.workerModel,
+    this.supervisorRef,
+    this.jobRefId,
+    this.managerRef,
+    this.occupationModel,
+    this.isUnavailableForOrganisation = false,
+    this.isRecurring,
+    this.assigned = false,
+    this.startTimeString,
+    this.endTimeString,
+  });
 
   static String timeStringFromDuration(int secondsFromMidnight) {
     Duration duration = Duration(seconds: secondsFromMidnight?.round());
@@ -153,7 +150,6 @@ class ShiftPatternDataModel {
               map: map['shift_activity_data'] ?? {},
               docID: _shiftActivityRef.id);
         }
-
 
         return ShiftPatternDataModel(
             docID: docID,

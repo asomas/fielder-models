@@ -1,7 +1,6 @@
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_personal_detail_schema.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
-import 'package:fielder_models/core/db_models/worker/workHistory/workHistory.dart';
 
 class StaffPersonalDetailModel {
   String fullName;
@@ -16,7 +15,7 @@ class StaffPersonalDetailModel {
 
   StaffPersonalDetailModel(
       {this.fullName,
-        this.workerReferenceId,
+      this.workerReferenceId,
       this.preferredName,
       this.addressModel,
       this.phoneNumber,
@@ -30,7 +29,8 @@ class StaffPersonalDetailModel {
       try {
         return StaffPersonalDetailModel(
           fullName: map[StaffPersonalDetailSchema.fullName] ?? "",
-          workerReferenceId: map[StaffPersonalDetailSchema.workerReferenceId] ?? "",
+          workerReferenceId:
+              map[StaffPersonalDetailSchema.workerReferenceId] ?? "",
           preferredName: map[StaffPersonalDetailSchema.preferredName] ?? "",
           phoneNumber: map[StaffPersonalDetailSchema.phoneNumber] ?? "",
           personalStatement:

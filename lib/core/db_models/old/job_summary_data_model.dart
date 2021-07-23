@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:fielder_models/core/db_models/old/job_data_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
+import 'package:flutter/cupertino.dart';
 
 class JobSummaryDataModel {
   String organisationId;
