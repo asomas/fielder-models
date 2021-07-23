@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/temp/common.dart';
 import 'package:fielder_models/core/enums/enums.dart';
-import 'package:json_schema/json_schema.dart';
 
 // collection name: organisation_user
 class OrganisationUser {
@@ -291,22 +290,21 @@ class Company {
   }
 }
 
-class CompanyContract{
-
+class CompanyContract {
   String signedBy;
   DateTime signedAt;
 
   CompanyContract({this.signedBy, this.signedAt});
 
-  factory CompanyContract.formMap(Map map){
-    if(map != null){
-      try{
+  factory CompanyContract.formMap(Map map) {
+    if (map != null) {
+      try {
         return CompanyContract(
-          signedBy: map["signed_by"],
-          signedAt: map["signed_at"] != null && map["signed_at"] is Timestamp?
-            map["signed_at"].toDate() : null
-        );
-      }catch(e,s){
+            signedBy: map["signed_by"],
+            signedAt: map["signed_at"] != null && map["signed_at"] is Timestamp
+                ? map["signed_at"].toDate()
+                : null);
+      } catch (e, s) {
         print("company contract catch______$e");
         return null;
       }
@@ -434,7 +432,7 @@ class UserDetail {
           .collection(collection)
           .doc(ref.id)
           .get();
-      if (ds.exists && ds.data().length > 0) {
+      if (ds.exists && ds.data() != null) {
         Map json = ds.data();
         return UserDetail(
           id: ds.id,

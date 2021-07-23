@@ -1,7 +1,7 @@
 name: fielder_models
 description: A new Flutter module for fielder models
 
-version: 0.0.5-no-outed-packages
+version: 0.0.6-no-outed-packages
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
