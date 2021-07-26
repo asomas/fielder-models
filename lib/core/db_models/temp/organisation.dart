@@ -144,9 +144,9 @@ class Organisation {
 }
 
 class Contact {
-  String name = null; //max length
-  String phone = null; //validate
-  String email = null; //validate
+  String name; //max length
+  String phone; //validate
+  String email; //validate
 }
 
 class BillingContact extends Contact {
@@ -176,7 +176,7 @@ class GeneralContact extends Contact {
 // Document has fixed ID, general_contact, inside Subcollection called company_info.  So the complete path to this
 // document is  organisations/organisation_id/company_info/general_contact
 // note, inherits fields e.g. email from contacts Serialiser
-  String website = null; // Validate URL
+  String website; // Validate URL
 
   static GeneralContact fromMap(Map<String, dynamic> map) {
     if (map == null) return null;

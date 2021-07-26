@@ -12,7 +12,7 @@ class InviteStatusModel {
   String invitationId;
 
   InviteStatusModel(
-      {this.isStaff = null,
+      {this.isStaff = false,
       this.status = '',
       this.workerFirstName = '',
       this.workerLastName = '',

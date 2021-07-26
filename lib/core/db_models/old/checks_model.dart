@@ -12,7 +12,7 @@ class CheckModel {
 
   factory CheckModel.fromMap({
     @required Map<String, dynamic> map,
-    @required String checkID = "",
+    @required String checkID,
   }) {
     if (map.isNotEmpty) {
       String _value;

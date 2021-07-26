@@ -75,6 +75,8 @@ class EnumHelpers {
         return 'Actual hours';
       case CalculatePay.ShiftHours:
         return 'Shift hours';
+      default:
+        return '';  
     }
   }
 
