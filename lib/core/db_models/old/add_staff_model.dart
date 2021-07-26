@@ -1,18 +1,18 @@
 import 'package:fielder_models/core/db_models/old/schema/invite_staff_schema.dart';
 
 class AddStaffModel {
-  String worker_first_name;
-  String worker_last_name;
-  String worker_phone;
-  String is_staff;
+  String workerFirstName;
+  String workerLastName;
+  String workerPhone;
+  String isStaff;
   String workerRef;
   String status;
 
   AddStaffModel({
-    this.worker_first_name = "",
-    this.worker_last_name = "",
-    this.worker_phone = "",
-    this.is_staff = "",
+    this.workerFirstName = "",
+    this.workerLastName = "",
+    this.workerPhone = "",
+    this.isStaff = "",
   });
 
   Map<String, dynamic> toJSON() {
@@ -22,10 +22,10 @@ class AddStaffModel {
       print("staff created invoked");
 
       _map = {
-        InviteStaffSchema.workerFirstName: worker_first_name,
-        InviteStaffSchema.workerLastName: worker_last_name,
-        InviteStaffSchema.workerPhone: worker_phone,
-        InviteStaffSchema.isStaff: is_staff,
+        InviteStaffSchema.workerFirstName: workerFirstName,
+        InviteStaffSchema.workerLastName: workerLastName,
+        InviteStaffSchema.workerPhone: workerPhone,
+        InviteStaffSchema.isStaff: isStaff,
       };
 
       print("addstaffmodel map -> $_map");
@@ -36,9 +36,9 @@ class AddStaffModel {
   }
 
   clear() {
-    worker_first_name = '';
-    worker_last_name = '';
-    worker_phone = '';
-    is_staff = '';
+    workerFirstName = '';
+    workerLastName = '';
+    workerPhone = '';
+    isStaff = '';
   }
 }

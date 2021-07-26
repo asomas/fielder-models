@@ -1,9 +1,5 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/temp/common.dart';
-import 'package:fielder_models/core/enums/enums.dart';
-import 'package:json_schema/json_schema.dart';
 
 // collection name: organisation_user
 class OrganisationUser {
@@ -21,10 +17,10 @@ class OrganisationUser {
 
   static OrganisationUser fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-    print("inside map ${map}");
+    print("inside map $map");
     //print("organisation ${map['organisations']}");
     var name = map['name'];
-    print("name is ${name}");
+    print("name is $name");
 
     OrganisationUser organisationUser = OrganisationUser();
     organisationUser.name = map['name'];
@@ -40,7 +36,7 @@ class OrganisationUser {
       });
     }
     organisationUser.dateCreated = map['date_created'];
-    print("organisation is ${organisationUser}");
+    print("organisation is $organisationUser");
     return organisationUser;
   }
 
@@ -148,9 +144,9 @@ class Organisation {
 }
 
 class Contact {
-  String name = null; //max length
-  String phone = null; //validate
-  String email = null; //validate
+  String name; //max length
+  String phone; //validate
+  String email; //validate
 }
 
 class BillingContact extends Contact {
@@ -180,7 +176,7 @@ class GeneralContact extends Contact {
 // Document has fixed ID, general_contact, inside Subcollection called company_info.  So the complete path to this
 // document is  organisations/organisation_id/company_info/general_contact
 // note, inherits fields e.g. email from contacts Serialiser
-  String website = null; // Validate URL
+  String website; // Validate URL
 
   static GeneralContact fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
@@ -291,22 +287,21 @@ class Company {
   }
 }
 
-class CompanyContract{
-
+class CompanyContract {
   String signedBy;
   DateTime signedAt;
 
   CompanyContract({this.signedBy, this.signedAt});
 
-  factory CompanyContract.formMap(Map map){
-    if(map != null){
-      try{
+  factory CompanyContract.formMap(Map map) {
+    if (map != null) {
+      try {
         return CompanyContract(
-          signedBy: map["signed_by"],
-          signedAt: map["signed_at"] != null && map["signed_at"] is Timestamp?
-            map["signed_at"].toDate() : null
-        );
-      }catch(e,s){
+            signedBy: map["signed_by"],
+            signedAt: map["signed_at"] != null && map["signed_at"] is Timestamp
+                ? map["signed_at"].toDate()
+                : null);
+      } catch (e) {
         print("company contract catch______$e");
         return null;
       }
@@ -434,7 +429,7 @@ class UserDetail {
           .collection(collection)
           .doc(ref.id)
           .get();
-      if (ds.exists && ds.data().length > 0) {
+      if (ds.exists && ds.data() != null) {
         Map json = ds.data();
         return UserDetail(
           id: ds.id,

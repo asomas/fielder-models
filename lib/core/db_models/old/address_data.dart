@@ -1,6 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
-
 class AddressData {
   String _addressText;
   String _addressID;

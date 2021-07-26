@@ -3,7 +3,6 @@ import 'package:fielder_models/core/db_models/old/additional_info_model.dart';
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/default_location_data_model.dart';
 import 'package:fielder_models/core/db_models/old/qualification_model.dart';
-import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'package:fielder_models/core/db_models/worker/occupation.dart';
@@ -113,7 +112,7 @@ class JobTemplateModel {
       final List<dynamic> _checks = map['checks'] ?? [];
       List<CheckModel> _allChecksArray = [];
       _checks.forEach((element) {
-        print("Element is ${element}");
+        print("Element is $element");
         final DocumentReference dr = element['check_ref'];
         final Map<String, dynamic> map = {
           'value': element['check_value'],

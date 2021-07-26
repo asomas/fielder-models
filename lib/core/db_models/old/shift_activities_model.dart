@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_actvities_schema.dart';
-import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
 import 'package:fielder_models/core/db_models/old/shift_pattern_data_model.dart';
-import 'package:fielder_models/core/db_models/old/workers_model.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:tuple/tuple.dart';
 
 class ShiftActivitiesModel {
   String docID;
@@ -36,8 +33,7 @@ class ShiftActivitiesModel {
       this.shiftPatternDataModel,
       this.workerRef,
       this.clocked = false,
-      this.awaitingApproval = false
-      });
+      this.awaitingApproval = false});
 
   factory ShiftActivitiesModel.fromMap({
     @required Map<String, dynamic> map,
@@ -48,7 +44,7 @@ class ShiftActivitiesModel {
         final DocumentReference _shiftPatternRef =
             map[ShiftActivitiesSchema.shiftPatternRef];
         final DocumentReference _workerRef =
-        map[ShiftActivitiesSchema.workerRef];
+            map[ShiftActivitiesSchema.workerRef];
         final DocumentReference _approvedBy =
             map[ShiftActivitiesSchema.approvedBy];
         final GeoPoint _clockInLocation =
@@ -65,7 +61,8 @@ class ShiftActivitiesModel {
             map[ShiftActivitiesSchema.approveTime];
         final bool _approved = map[ShiftActivitiesSchema.approved];
         final bool _clocked = map[ShiftActivitiesSchema.clocked];
-        final bool _awaitingApproval = map[ShiftActivitiesSchema.awaitingApproval];
+        final bool _awaitingApproval =
+            map[ShiftActivitiesSchema.awaitingApproval];
 
         final ShiftPatternDataModel shiftPatternDataModel =
             map[ShiftActivitiesSchema.shiftPatternData] != null
@@ -101,21 +98,20 @@ class ShiftActivitiesModel {
         }
 
         return ShiftActivitiesModel(
-          docID: docID,
-          clockInTime: _clockInDateTime,
-          clockInLocation: _clockInLocation,
-          clockOutTime: _clockOutDateTime,
-          shiftDate: _shiftPatternDateTime,
-          clockOutLocation: _clockOutLocation,
-          shiftPatternRef: _shiftPatternRef,
-          approvedTime: _approvedTimeDateTime,
-          approvedBy: _approvedBy,
-          approved: _approved,
-          shiftPatternDataModel: shiftPatternDataModel,
-          workerRef: _workerRef,
-          clocked: _clocked,
-          awaitingApproval: _awaitingApproval
-        );
+            docID: docID,
+            clockInTime: _clockInDateTime,
+            clockInLocation: _clockInLocation,
+            clockOutTime: _clockOutDateTime,
+            shiftDate: _shiftPatternDateTime,
+            clockOutLocation: _clockOutLocation,
+            shiftPatternRef: _shiftPatternRef,
+            approvedTime: _approvedTimeDateTime,
+            approvedBy: _approvedBy,
+            approved: _approved,
+            shiftPatternDataModel: shiftPatternDataModel,
+            workerRef: _workerRef,
+            clocked: _clocked,
+            awaitingApproval: _awaitingApproval);
       } on Exception catch (e) {
         print("ShiftActivitiesModel.fromMap error $e");
       }

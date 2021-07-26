@@ -1,7 +1,7 @@
 name: fielder_models
 description: A new Flutter module for fielder models
 
-version: 0.0.4
+version: 3.2.2-no-outed-packages
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -10,18 +10,13 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
-  cloud_firestore: "^0.14.3"
-  google_maps_flutter: ^2.0.0
-  intl:
-  json_schema: ^2.2.1
-  tuple: ^1.0.3
 
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  cloud_firestore: ^2.4.0
+  google_maps_flutter: ^2.0.3
+  intl: ^0.16.1
+  tuple: ^2.0.0 
 
-flutter:
+flutter: 
 
   uses-material-design: true
 
