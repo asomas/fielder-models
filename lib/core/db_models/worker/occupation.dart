@@ -13,9 +13,12 @@ class OccupationModel {
 
   factory OccupationModel.fromJson(Map<String, dynamic> json) {
     if (json != null && json.isNotEmpty) {
+      DocumentReference _occupationRef =
+          json[OccupationSchema.occupationRef] as DocumentReference;
+
       return OccupationModel(
-        occupationId: json[OccupationSchema.occupationId],
-        occupationRef: json[OccupationSchema.occupationRef],
+        occupationId: json[OccupationSchema.occupationId] ?? _occupationRef?.id,
+        occupationRef: _occupationRef,
         value: json[OccupationSchema.value],
         description: json[OccupationSchema.description],
       );
