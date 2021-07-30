@@ -28,7 +28,7 @@ class OccupationModel {
 
   Map<String, dynamic> toJson() => {
         OccupationSchema.occupationId: occupationId,
-        OccupationSchema.occupationRef: occupationRef?.toString() ??
+        OccupationSchema.occupationRef: occupationRef?.path ??
             "${FbCollections.occupations}/$occupationId",
         OccupationSchema.value: value,
         OccupationSchema.description: description
