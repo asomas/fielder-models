@@ -27,7 +27,7 @@ class WorkExperienceAPISerializer(serializers.Serializer):
     start_date = serializers.RegexField(
         DATE_FIELD_REGEX, required=False, allow_null=True
     )
-    from_companies_house = serializers.BooleanField(required=False, allow_null=True, allow_blank=True)
+    from_companies_house = serializers.BooleanField(required=False, allow_null=True)
     end_date = serializers.RegexField(DATE_FIELD_REGEX, required=False, allow_null=True)
     summary = serializers.CharField(required=False, allow_null=True, allow_blank=True)
     skills = serializers.ListField(
