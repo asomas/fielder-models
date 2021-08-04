@@ -149,3 +149,7 @@ class NewsFeedDismissAPIRequestSerializer(serializers.Serializer):
 class IntercomIdentityVerifyAPIRequestSerializer(serializers.Serializer):
     user_id = serializers.CharField()
     platform = serializers.ChoiceField(choices=["ios", "android", "web"])
+
+
+class OrganizationNameManualUpdate(serializers.Serializer):
+    organisation_name = serializers.CharField()
