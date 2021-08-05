@@ -16,12 +16,19 @@ class MiniCardSerializer(serializers.Serializer):
     icon = serializers.CharField(allow_null=True, default=None)
     message_id = serializers.CharField()
     screen = serializers.CharField(required=False)
-    type = serializers.ChoiceField(choices=["medium_card", "mini_card"])
+    type = serializers.ChoiceField(
+        choices=["medium_card", "mini_card"], default="mini_card"
+    )
 
 
 class MediumCardSerializer(MiniCardSerializer):
     action_button_text = serializers.CharField(required=False)
-    article_url = serializers.URLField(allow_null=True, allow_blank=True)
+    article_url = serializers.URLField(required=False)
     image = serializers.URLField()
     body = serializers.CharField()
-    expanded = serializers.CharField(default=True)
+    expanded = serializers.BooleanField(default=True)
+
+    def to_internal_value(self, data):
+        if "type" not in data:
+            data["type"] = "medium_card"
+        return super().to_internal_value(data)
