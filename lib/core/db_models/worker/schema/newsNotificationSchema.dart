@@ -10,6 +10,7 @@ class NewsNotificationSchema {
   static const String subTitle = "subTitle";
   static const String title = "title";
   static const String type = "type";
+  static const String icon = "icon";
   static const String readAt = "read_at";
   static const String withNotification = "with_notification";
   static const String workerRef = "worker_ref";

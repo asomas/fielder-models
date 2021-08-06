@@ -26,6 +26,7 @@ class NewsNotification {
   bool nonDismissible;
   String screen;
   String actionButtonText;
+  String icon;
   NewsCardType cardType;
 
   NewsNotification({
@@ -47,6 +48,7 @@ class NewsNotification {
     this.expanded,
     this.screen,
     this.actionButtonText,
+    this.icon,
     this.cardType,
   });
 
@@ -95,6 +97,7 @@ class NewsNotification {
           type: json[NewsNotificationSchema.type] != null
               ? json[NewsNotificationSchema.type]
               : "",
+          icon: json[NewsNotificationSchema.icon],
           expanded: json[NewsNotificationSchema.expanded] ?? false,
           nonDismissible: json[NewsNotificationSchema.nonDismissible] ?? false,
           withNotification: json[NewsNotificationSchema.withNotification] != null
