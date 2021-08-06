@@ -17,4 +17,6 @@ class NewsNotificationSchema {
   static const String nonDismissible = "non_dismissible";
   static const String screen = "screen";
   static const String actionButtonText = "action_button_text";
+  static const String mediumCard = "medium_card";
+  static const String miniCard = "mini_card";
 }

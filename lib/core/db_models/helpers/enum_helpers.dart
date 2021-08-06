@@ -2,12 +2,12 @@ import 'package:fielder_models/core/constants/app_colors.dart';
 import 'package:fielder_models/core/constants/app_strings.dart';
 import 'package:fielder_models/core/db_models/old/schema/company_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
+import 'package:fielder_models/core/db_models/worker/schema/newsNotificationSchema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EnumHelpers {
-
   static OrganisationContractStatus contractStatusTypeFromString(String type) {
     switch (type) {
       case CompanySchema.contractInReview:
@@ -76,7 +76,7 @@ class EnumHelpers {
       case CalculatePay.ShiftHours:
         return 'Shift hours';
       default:
-        return '';  
+        return '';
     }
   }
 
@@ -187,6 +187,28 @@ class EnumHelpers {
       //   return AppColors.Scooter;
       default:
         return AppColors.CaribbeanGreen;
+    }
+  }
+
+  static NewsCardType newsCardTypeFomString(String type) {
+    switch (type) {
+      case NewsNotificationSchema.mediumCard:
+        return NewsCardType.Medium;
+      case NewsNotificationSchema.miniCard:
+        return NewsCardType.Mini;
+      default:
+        return NewsCardType.Medium;
+    }
+  }
+
+  static String stringFromNewsCardType(NewsCardType type) {
+    switch (type) {
+      case NewsCardType.Mini:
+        return NewsNotificationSchema.miniCard;
+      case NewsCardType.Medium:
+        return NewsNotificationSchema.mediumCard;
+      default:
+        return NewsNotificationSchema.mediumCard;
     }
   }
 }
