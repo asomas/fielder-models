@@ -133,7 +133,7 @@ class RecurrenceModel {
       //Backend doesnot support NONE for now
       if (repeatIntervalType == ShiftFrequencies.None) {
         _intervalAmount = 1;
-        _repeatIntervalType = 'None';
+        _repeatIntervalType = null;
       }
       recurrenceMap = {
         ShiftDataSchema.intervalAmount: _intervalAmount,
