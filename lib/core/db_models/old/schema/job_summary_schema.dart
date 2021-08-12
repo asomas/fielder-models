@@ -43,4 +43,5 @@ class JobSummarySchema {
   static const String lateArrival = "late_arrival";
   static const String overTimeRate = "overtime_rate";
   static const String occupation = "occupation";
+  static const String jobReferenceId = "job_reference_id";
 }

@@ -7,4 +7,5 @@ class WorkerSchema {
   static const String phone = "phone";
   static const String uid = "uid";
   static const String updatedAt = "updated_at";
+  static const String isStaff = "is_staff";
 }
