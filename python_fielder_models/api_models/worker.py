@@ -50,10 +50,7 @@ class StaffDetailsPersnoalDetailsResponse(serializers.Serializer):
         required=False, allow_null=True, max_length=6
     )
     preferred_name = serializers.CharField(
-        required=False,
-        allow_null=True,
-        allow_blank=True,
-        max_length=FULL_NAME_MAX_LENGTH,
+        required=False, allow_null=True, max_length=FULL_NAME_MAX_LENGTH
     )
     address = SumsubAddressSerializer(required=False, allow_null=True)
     phone_number = serializers.CharField(required=False, allow_null=True)
