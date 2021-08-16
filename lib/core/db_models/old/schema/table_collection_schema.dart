@@ -35,4 +35,5 @@ class FbCollections {
   static const String brandLogo = "brand_logo.jpg";
   static const String supportVideoOrganisation = "support_videos_organisation";
   static const String signupReferrals = "signup_referrals";
+  static const String private = "private";
 }
