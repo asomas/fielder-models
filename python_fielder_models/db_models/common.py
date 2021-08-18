@@ -1,3 +1,5 @@
+from typing import OrderedDict
+
 from fielder_backend_utils.rest_utils import GeoPointField
 from rest_framework import serializers
 
@@ -62,6 +64,27 @@ class LocationDBSerializer(LocationSerializer):
     )
     manual_entry = serializers.BooleanField(default=False)
     coords = GeoPointField(allow_null=True, default=None)
+
+    def to_internal_value(self, data):
+        # generate formatted_address when not provided
+        if "formatted_address" not in data or data["formatted_address"] is None:
+            # shared logic with generate_location function in backend utils
+            # TODO merge both
+            order_of_keys = [
+                "building",
+                "street",
+                "city",
+                "county",
+                "postal_code",
+                "country",
+            ]
+            data["address"] = OrderedDict(
+                [(key, data["address"][key]) for key in order_of_keys]
+            )
+            data["formatted_address"] = ", ".join(
+                [v for k, v in data["address"].items() if v]
+            )
+        return super().to_internal_value(data)
 
 
 class SICCodeSerializer(serializers.Serializer):
