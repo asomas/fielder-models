@@ -6,12 +6,12 @@ class AcceptedResponse(serializers.Serializer):
 
 
 class AddressSerializer(serializers.Serializer):
-    building = serializers.CharField(required=False, allow_null=True, default=None)
-    street = serializers.CharField(required=False, allow_null=True, default=None)
-    county = serializers.CharField(required=False, allow_null=True, default=None)
-    city = serializers.CharField(required=False, allow_null=True, default=None)
-    country = serializers.CharField(required=False, allow_null=True, default=None)
-    postal_code = serializers.CharField(required=False, allow_null=True, default=None)
+    building = serializers.CharField(allow_null=True, allow_blank=True, default=None)
+    street = serializers.CharField(allow_null=True, allow_blank=True, default=None)
+    county = serializers.CharField(allow_null=True, allow_blank=True, default=None)
+    city = serializers.CharField(allow_null=True, allow_blank=True, default=None)
+    country = serializers.CharField(allow_null=True, allow_blank=True, default=None)
+    postal_code = serializers.CharField(allow_null=True, allow_blank=True, default=None)
 
 
 class SumsubAddressSerializer(serializers.Serializer):
@@ -35,5 +35,4 @@ class GooglePlaceDataSerializer(serializers.Serializer):
 
 class LocationSerializer(serializers.Serializer):
     address = AddressSerializer()
-    # coords = GeolocationSerializer()
-    name = serializers.CharField()
+    name = serializers.CharField(allow_blank=True, allow_null=True, default=None)

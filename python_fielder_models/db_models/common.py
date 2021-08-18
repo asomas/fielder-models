@@ -1,4 +1,6 @@
+from fielder_backend_utils.rest_utils import GeoPointField
 from rest_framework import serializers
+
 from ..api_models.common import LocationSerializer
 
 DATE_FIELD_REGEX = "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
@@ -55,10 +57,13 @@ class RecurrenceSerializer(serializers.Serializer):
 
 
 class LocationDBSerializer(LocationSerializer):
-    formatted_address = serializers.CharField(required=False, allow_blank=True)
+    formatted_address = serializers.CharField(
+        allow_blank=True, allow_null=True, default=None
+    )
+    manual_entry = serializers.BooleanField(default=False)
+    coords = GeoPointField(allow_null=True, default=None)
 
 
 class SICCodeSerializer(serializers.Serializer):
     code = serializers.CharField()
     description = serializers.CharField(max_length=200, allow_null=True)
-
