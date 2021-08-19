@@ -66,11 +66,14 @@ class LocationDBSerializer(LocationSerializer):
     coords = GeoPointField(allow_null=True, default=None)
 
     def to_internal_value(self, data):
+        # call super to generate schema before accessing the fields
+        data = super().to_internal_value(data)
         # generate formatted_address when not provided
         if "formatted_address" not in data or data["formatted_address"] is None:
             # shared logic with generate_location function in backend utils
             # TODO merge both
             order_of_keys = [
+                "flat",
                 "building",
                 "street",
                 "city",

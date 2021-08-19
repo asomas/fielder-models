@@ -6,6 +6,7 @@ class AcceptedResponse(serializers.Serializer):
 
 
 class AddressSerializer(serializers.Serializer):
+    flat = serializers.CharField(allow_null=True, allow_blank=True, default=None)
     building = serializers.CharField(allow_null=True, allow_blank=True, default=None)
     street = serializers.CharField(allow_null=True, allow_blank=True, default=None)
     county = serializers.CharField(allow_null=True, allow_blank=True, default=None)
