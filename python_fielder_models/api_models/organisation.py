@@ -1,9 +1,14 @@
+from python_fielder_models.api_models.common import (
+    GooglePlaceDataSerializer,
+    LocationAPISerializer,
+)
 from rest_framework import serializers
 
 from ..db_models.common import (
     COMPANY_NAME_MAX_LENGTH,
     HEX_COLOR_REGEX,
     PHONE_FIELD_REGEX,
+    OrganisationLocationDBSerializer,
 )
 from ..db_models.organisation import BillingContact, GeneralContact
 
@@ -73,3 +78,26 @@ class UserResponse(serializers.Serializer):
 
 class UsersListResponse(serializers.Serializer):
     users = serializers.ListField(child=UserResponse())
+
+
+class OrganisationLocationAPISerializer(LocationAPISerializer):
+    archived = serializers.BooleanField(default=False)
+    is_live = serializers.BooleanField(default=True)
+    short_name = serializers.CharField(
+        allow_null=True, allow_blank=True, required=False
+    )
+    icon_url = serializers.URLField(allow_null=True, required=False)
+
+
+class CreateLocationRequestSerializer(serializers.Serializer):
+    google_place_data = GooglePlaceDataSerializer(required=False)
+    location_data = OrganisationLocationAPISerializer(required=False)
+
+    def validate(self, data):
+        if ("location_data" in data and "google_place_data" in data) or not (
+            "location_data" in data or "google_place_data" in data
+        ):
+            raise serializers.ValidationError(
+                "Either location_data or google_place_data must be provided"
+            )
+        return super().validate(data)

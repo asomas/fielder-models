@@ -6,7 +6,7 @@ from ..db_models.worker import *
 
 
 class BaseExperienceAPISerializer(serializers.Serializer):
-    location_data = LocationDBSerializer(required=False)
+    location_data = LocationAPISerializer(required=False)
     google_place_data = GooglePlaceDataSerializer(required=False)
     start_date = serializers.RegexField(DATE_FIELD_REGEX)
     end_date = serializers.RegexField(DATE_FIELD_REGEX)
@@ -15,7 +15,7 @@ class BaseExperienceAPISerializer(serializers.Serializer):
     def validate(self, data):
         if "location_data" in data and "google_place_data" in data:
             raise serializers.ValidationError(
-                "Either location_data or google_place_data should be provided"
+                "Either location_data or google_place_data can be provided"
             )
         return super().validate(data)
 
