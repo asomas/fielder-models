@@ -55,6 +55,7 @@ class Address {
   String city;
   String country;
   String postalCode;
+  String flat;
 
   Address(
       {this.building,
@@ -62,7 +63,8 @@ class Address {
       this.county,
       this.city,
       this.country,
-      this.postalCode});
+      this.postalCode,
+      this.flat});
 
   factory Address.fromJson(Map<String, dynamic> json) => Address(
         building: json[LocationSchema.building] != null
@@ -82,5 +84,7 @@ class Address {
         postalCode: json[LocationSchema.postalCode] != null
             ? json[LocationSchema.postalCode]
             : "",
+        flat:
+            json[LocationSchema.flat] != null ? json[LocationSchema.flat] : "",
       );
 }
