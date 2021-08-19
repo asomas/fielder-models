@@ -5,7 +5,22 @@ from ..api_models.common import *
 from ..db_models.worker import *
 
 
-class WorkExperienceAPISerializer(serializers.Serializer):
+class BaseExperienceAPISerializer(serializers.Serializer):
+    location_data = LocationDBSerializer(required=False)
+    google_place_data = GooglePlaceDataSerializer(required=False)
+    start_date = serializers.RegexField(DATE_FIELD_REGEX)
+    end_date = serializers.RegexField(DATE_FIELD_REGEX)
+    summary = serializers.CharField(allow_blank=True)
+
+    def validate(self, data):
+        if "location_data" in data and "google_place_data" in data:
+            raise serializers.ValidationError(
+                "Either location_data or google_place_data should be provided"
+            )
+        return super().validate(data)
+
+
+class WorkExperienceAPISerializer(BaseExperienceAPISerializer):
     class ReferenceSerializer(serializers.Serializer):
         value = serializers.CharField(allow_null=True)
 
@@ -21,15 +36,9 @@ class WorkExperienceAPISerializer(serializers.Serializer):
     company_number = serializers.CharField(
         required=False, allow_null=True, min_length=8, max_length=8
     )
-    google_place_data = GooglePlaceDataSerializer(required=False, allow_null=True)
     occupation = OccupationSerializer(required=False, allow_null=True)
     job_title = serializers.CharField(required=False, allow_null=True)
-    start_date = serializers.RegexField(
-        DATE_FIELD_REGEX, required=False, allow_null=True
-    )
     from_companies_house = serializers.BooleanField(required=False, allow_null=True)
-    end_date = serializers.RegexField(DATE_FIELD_REGEX, required=False, allow_null=True)
-    summary = serializers.CharField(required=False, allow_null=True, allow_blank=True)
     skills = serializers.ListField(
         required=False, allow_null=True, child=SkillSerializer()
     )
@@ -106,7 +115,7 @@ class UnavailabilitiesRequest(WorkerDetailRequest):
     end_date = serializers.RegexField(DATE_FIELD_REGEX)
 
 
-class EducationAPISerializer(serializers.Serializer):
+class EducationAPISerializer(BaseExperienceAPISerializer):
     class ValueSerializer(serializers.Serializer):
         value = serializers.CharField(allow_null=True)
 
@@ -128,16 +137,10 @@ class EducationAPISerializer(serializers.Serializer):
     education_institution = EducationInstitutionSerializer(
         required=False, allow_null=True
     )
-    google_place_data = GooglePlaceDataSerializer(required=False, allow_null=True)
     course = CourseSerializer(required=False, allow_null=True)
     level = LevelSerializer(required=False, allow_null=True)
     grade = GradeSerializer(required=False, allow_null=True)
     award = serializers.BooleanField(required=False, allow_null=True)
-    start_date = serializers.RegexField(
-        DATE_FIELD_REGEX, required=False, allow_null=True
-    )
-    end_date = serializers.RegexField(DATE_FIELD_REGEX, required=False, allow_null=True)
-    summary = serializers.CharField(required=False, allow_null=True, allow_blank=True)
     knowledge_areas = serializers.ListField(
         required=False, allow_null=True, child=KnowledgeAreaSerializer()
     )
