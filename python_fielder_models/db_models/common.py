@@ -80,7 +80,11 @@ class LocationDBSerializer(serializers.Serializer):
             "country",
         ]
         data["address"] = OrderedDict(
-            [(key, data["address"][key]) for key in order_of_keys]
+            [
+                (key, data["address"][key])
+                for key in order_of_keys
+                if key in data["address"]
+            ]
         )
         data["formatted_address"] = ", ".join(
             [v for _, v in data["address"].items() if v]
