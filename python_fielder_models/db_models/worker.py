@@ -107,3 +107,10 @@ class WorkerSkillRelationSerializer(serializers.Serializer):
         child=serializers.BooleanField(), default={}
     )
     sourced_from_fielder_work_experience = serializers.BooleanField(default=False)
+
+
+class RegisteredAddressDBSerializer(LocationDBSerializer):
+    dov = serializers.DateTimeField(allow_null=True, default=None)
+    is_valid = serializers.BooleanField(default=False)
+    worker_document_ref = DocumentReferenceField(allow_null=True, default=None)
+    source = serializers.CharField(allow_null=True, default=None)
