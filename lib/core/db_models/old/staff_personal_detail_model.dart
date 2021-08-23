@@ -61,7 +61,7 @@ class AddressModel {
   String building;
   String street;
   String houseNumber;
-  String locality;
+  String county;
   String town;
   String postCode;
   String fullAddress;
@@ -70,7 +70,7 @@ class AddressModel {
       {this.building,
       this.street,
       this.houseNumber,
-      this.locality,
+      this.county,
       this.town,
       this.postCode,
       this.fullAddress});
@@ -82,7 +82,7 @@ class AddressModel {
           map[StaffPersonalDetailSchema.building],
           map[StaffPersonalDetailSchema.street],
           map[StaffPersonalDetailSchema.houseNumber],
-          map[StaffPersonalDetailSchema.locality],
+          map[StaffPersonalDetailSchema.county],
           map[StaffPersonalDetailSchema.town],
           map[StaffPersonalDetailSchema.postcode]
         ];
@@ -97,7 +97,7 @@ class AddressModel {
             building: map[StaffPersonalDetailSchema.building] ?? "",
             street: map[StaffPersonalDetailSchema.street] ?? "",
             houseNumber: map[StaffPersonalDetailSchema.houseNumber] ?? "",
-            locality: map[StaffPersonalDetailSchema.locality] ?? "",
+            county: map[StaffPersonalDetailSchema.county] ?? "",
             town: map[StaffPersonalDetailSchema.town] ?? "",
             postCode: map[StaffPersonalDetailSchema.postcode] ?? "",
             fullAddress: _fullAddress ?? "");
