@@ -64,6 +64,7 @@ class AddressModel {
   String county;
   String town;
   String postCode;
+  String country;
   String fullAddress;
 
   AddressModel(
@@ -73,6 +74,7 @@ class AddressModel {
       this.county,
       this.town,
       this.postCode,
+      this.country,
       this.fullAddress});
 
   factory AddressModel.fromMap(Map<String, dynamic> map) {
@@ -83,8 +85,9 @@ class AddressModel {
           map[StaffPersonalDetailSchema.building],
           map[StaffPersonalDetailSchema.street],
           map[StaffPersonalDetailSchema.county],
-          map[StaffPersonalDetailSchema.town],
-          map[StaffPersonalDetailSchema.postcode]
+          map[StaffPersonalDetailSchema.city],
+          map[StaffPersonalDetailSchema.postcode],
+          map[StaffPersonalDetailSchema.country],
         ];
         List _addressList = [];
         _orderedKeys.forEach((element) {
@@ -98,8 +101,9 @@ class AddressModel {
             street: map[StaffPersonalDetailSchema.street] ?? "",
             flat: map[StaffPersonalDetailSchema.flat] ?? "",
             county: map[StaffPersonalDetailSchema.county] ?? "",
-            town: map[StaffPersonalDetailSchema.town] ?? "",
+            town: map[StaffPersonalDetailSchema.city] ?? "",
             postCode: map[StaffPersonalDetailSchema.postcode] ?? "",
+            country: map[StaffPersonalDetailSchema.country],
             fullAddress: _fullAddress ?? "");
       } catch (e) {
         print("staff_personal_detail_model.dart_____Address Model Catch $e");
