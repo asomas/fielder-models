@@ -60,7 +60,7 @@ class StaffPersonalDetailModel {
 class AddressModel {
   String building;
   String street;
-  String houseNumber;
+  String flat;
   String county;
   String town;
   String postCode;
@@ -69,7 +69,7 @@ class AddressModel {
   AddressModel(
       {this.building,
       this.street,
-      this.houseNumber,
+      this.flat,
       this.county,
       this.town,
       this.postCode,
@@ -81,7 +81,7 @@ class AddressModel {
         List _orderedKeys = [
           map[StaffPersonalDetailSchema.building],
           map[StaffPersonalDetailSchema.street],
-          map[StaffPersonalDetailSchema.houseNumber],
+          map[StaffPersonalDetailSchema.flat],
           map[StaffPersonalDetailSchema.county],
           map[StaffPersonalDetailSchema.town],
           map[StaffPersonalDetailSchema.postcode]
@@ -96,7 +96,7 @@ class AddressModel {
         return AddressModel(
             building: map[StaffPersonalDetailSchema.building] ?? "",
             street: map[StaffPersonalDetailSchema.street] ?? "",
-            houseNumber: map[StaffPersonalDetailSchema.houseNumber] ?? "",
+            flat: map[StaffPersonalDetailSchema.flat] ?? "",
             county: map[StaffPersonalDetailSchema.county] ?? "",
             town: map[StaffPersonalDetailSchema.town] ?? "",
             postCode: map[StaffPersonalDetailSchema.postcode] ?? "",
