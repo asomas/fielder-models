@@ -12,6 +12,6 @@ class StaffPersonalDetailSchema {
   static const String houseNumber = "house_number";
   static const String county = "county";
   static const String town = "town";
-  static const String postcode = "postcode";
+  static const String postcode = "postal_code";
   static const String workerReferenceId = "worker_reference_id";
 }
