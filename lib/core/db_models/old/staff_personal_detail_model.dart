@@ -79,9 +79,9 @@ class AddressModel {
     if (map != null && map.isNotEmpty) {
       try {
         List _orderedKeys = [
+          map[StaffPersonalDetailSchema.flat],
           map[StaffPersonalDetailSchema.building],
           map[StaffPersonalDetailSchema.street],
-          map[StaffPersonalDetailSchema.flat],
           map[StaffPersonalDetailSchema.county],
           map[StaffPersonalDetailSchema.town],
           map[StaffPersonalDetailSchema.postcode]
