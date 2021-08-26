@@ -36,3 +36,4 @@ class AddressAPISerializer(serializers.Serializer):
 
 class LocationAPISerializer(serializers.Serializer):
     address = AddressAPISerializer()
+    coords = GeolocationSerializer(required=False)

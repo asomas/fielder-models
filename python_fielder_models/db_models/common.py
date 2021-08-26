@@ -1,6 +1,6 @@
 from typing import OrderedDict
 
-from fielder_backend_utils.rest_utils import DocumentReferenceField, GeoPointField
+from fielder_backend_utils.rest_utils import GeoPointField
 from rest_framework import serializers
 
 DATE_FIELD_REGEX = "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
@@ -91,26 +91,8 @@ class LocationDBSerializer(serializers.Serializer):
         )
 
         # generate name if empty
-        if data["name"] is None:
+        if data["name"] is None or data["manual_entry"]:
             data["name"] = " ".join([v for _, v in data["address"].items() if v][:2])
-
-        return super().to_internal_value(data)
-
-
-class OrganisationLocationDBSerializer(LocationDBSerializer):
-    archived = serializers.BooleanField(default=False)
-    is_live = serializers.BooleanField(default=True)
-    short_name = serializers.CharField(allow_null=True, allow_blank=True, default=None)
-    icon_url = serializers.URLField(allow_null=True, default=None)
-    organisation_ref = DocumentReferenceField()
-
-    def to_internal_value(self, data):
-        # call super to generate schema before accessing the fields
-        data = super().to_internal_value(data)
-
-        # generate short_name if empty
-        if data["short_name"] is None:
-            data["short_name"] = data["name"]
 
         return super().to_internal_value(data)
 

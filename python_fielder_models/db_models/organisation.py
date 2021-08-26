@@ -1,3 +1,4 @@
+from fielder_backend_utils.rest_utils import DocumentReferenceField
 from rest_framework import serializers
 
 from .common import *
@@ -61,3 +62,21 @@ class GeneralContact(ContactSerializer):
 
     # note, inherits fields e.g. email from contacts Serializer
     website = serializers.RegexField(WEBSITE_REGEX, required=False, allow_null=True)
+
+
+class OrganisationLocationDBSerializer(LocationDBSerializer):
+    archived = serializers.BooleanField(default=False)
+    is_live = serializers.BooleanField(default=True)
+    short_name = serializers.CharField(allow_null=True, allow_blank=True, default=None)
+    icon_url = serializers.URLField(allow_null=True, default=None)
+    organisation_ref = DocumentReferenceField()
+
+    def to_internal_value(self, data):
+        # call super to generate schema before accessing the fields
+        data = super().to_internal_value(data)
+
+        # generate short_name if empty
+        if data["short_name"] is None:
+            data["short_name"] = data["name"]
+
+        return super().to_internal_value(data)
