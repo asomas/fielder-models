@@ -4,12 +4,7 @@ from python_fielder_models.api_models.common import (
 )
 from rest_framework import serializers
 
-from ..db_models.common import (
-    COMPANY_NAME_MAX_LENGTH,
-    HEX_COLOR_REGEX,
-    PHONE_FIELD_REGEX,
-    OrganisationLocationDBSerializer,
-)
+from ..db_models.common import COMPANY_NAME_MAX_LENGTH, HEX_COLOR_REGEX
 from ..db_models.organisation import BillingContact, GeneralContact
 
 

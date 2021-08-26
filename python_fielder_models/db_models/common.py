@@ -33,17 +33,35 @@ class VerifiedDateTimeSerializer(VerifiedBaseSerializer):
 
 
 class RecurrenceSerializer(serializers.Serializer):
+    interval_amount = serializers.IntegerField(
+        required=False, allow_null=True, default=1, min_value=0
+    )
+    repeat_interval_type = serializers.ChoiceField(
+        required=True, choices=["Weekly", "Daily", "None", None], allow_null=True
+    )
     friday = serializers.BooleanField(default=False)
-    interval_amount = serializers.IntegerField(min_value=0)
     monday = serializers.BooleanField(default=False)
     tuesday = serializers.BooleanField(default=False)
-    repeat_interval_type = serializers.ChoiceField(
-        choices=[None, "Daily", "Weekly"], allow_null=True
-    )
     saturday = serializers.BooleanField(default=False)
     sunday = serializers.BooleanField(default=False)
     thursday = serializers.BooleanField(default=False)
     wednesday = serializers.BooleanField(default=False)
+
+    def validate(self, data):
+        if data["repeat_interval_type"] in ["Weekly", "Daily"] and (
+            "interval_amount" not in data or data["interval_amount"] <= 0
+        ):
+            raise serializers.ValidationError(
+                "Weekly/Daily repeat_interval_type needs interval_amount > 0"
+            )
+        if data["repeat_interval_type"] in ["None", None]:
+            if "interval_amount" not in data or data["interval_amount"] != 1:
+                raise serializers.ValidationError(
+                    "None recurring repeat_interval_type needs interval_amount == 1"
+                )
+            # replace "None" with None
+            data["repeat_interval_type"] = None
+        return data
 
 
 class AddressDBSerializer(serializers.Serializer):
