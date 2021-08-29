@@ -18,4 +18,5 @@ class DefaultLocationDataSchema {
   static const String archived = 'archived';
   static const String isLive = 'is_live';
   static const String organisationRef = 'organisation_ref';
+  static const String flat = 'flat';
 }
