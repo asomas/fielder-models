@@ -25,4 +25,7 @@ class ShiftDataSchema {
   static const String workerUnavailabilities = "worker_unavailabilities";
   static const String isRecurring = "is_recurring";
   static const String assigned = "assigned";
+  static const String locationData = "location_data";
+  static const String address = "address";
+  static const String newLocationData = "new_location_data";
 }
