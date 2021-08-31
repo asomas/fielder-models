@@ -20,6 +20,7 @@ class WorkHistoryEducationCombine {
   EducationInstitution educationInstitution;
   Course course;
   bool expanded;
+  VerificationStatus verificationStatus;
 
   WorkHistoryEducationCombine(
       {this.docId,
@@ -35,7 +36,8 @@ class WorkHistoryEducationCombine {
       this.course,
       this.jobTitle,
       this.workerType,
-      this.expanded});
+      this.expanded,
+      this.verificationStatus});
 
   factory WorkHistoryEducationCombine.fromJson(Map<String, dynamic> json,
           {String docId}) =>
@@ -77,5 +79,7 @@ class WorkHistoryEducationCombine {
             ? Course.fromJson(json[EducationSchema.course])
             : null,
         workerType: WorkHistory.getWorkerType(json[WorkerHistorySchema.type]),
+        verificationStatus: WorkHistory.verificationStatusFromString(
+            json[WorkerHistorySchema.status]),
       );
 }

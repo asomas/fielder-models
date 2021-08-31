@@ -4,6 +4,8 @@ import 'package:fielder_models/core/db_models/worker/schema/workerHistorySchema.
 
 enum WorkerType { EXTERNAL, FIELDER, EDUCATION }
 
+enum VerificationStatus {Unchecked , Checked, AwaitingVerification, Verified, Unverified}
+
 class WorkHistory {
   List<Check> checks;
   Timestamp endDate;
@@ -139,6 +141,22 @@ class WorkHistory {
       workerType = WorkerType.EDUCATION;
     }
     return workerType;
+  }
+
+  static VerificationStatus verificationStatusFromString(String type) {
+    VerificationStatus verificationStatus = VerificationStatus.Unchecked;
+    if (type == WorkerHistorySchema.unchecked) {
+      verificationStatus = VerificationStatus.Unchecked;
+    } else if (type == WorkerHistorySchema.checked) {
+      verificationStatus = VerificationStatus.Checked;
+    } else if (type == WorkerHistorySchema.awaitingVerification) {
+      verificationStatus = VerificationStatus.AwaitingVerification;
+    }else if (type == WorkerHistorySchema.verified) {
+      verificationStatus = VerificationStatus.Verified;
+    }else if (type == WorkerHistorySchema.unverified) {
+      verificationStatus = VerificationStatus.Unverified;
+    }
+    return verificationStatus;
   }
 }
 
