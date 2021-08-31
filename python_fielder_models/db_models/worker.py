@@ -3,6 +3,14 @@ from rest_framework import serializers
 
 from .common import *
 
+STATUS_CHOICES = [
+    "UNCHECKED",
+    "CHECKED",
+    "AWAITING_VERIFICATION",
+    "VERIFIED",
+    "UNVERIFIED",
+]
+
 
 class BaseExperienceSerializer(serializers.Serializer):
     location_data = LocationDBSerializer(allow_null=True, default=None)
@@ -46,6 +54,7 @@ class WorkExperienceSerializer(BaseExperienceSerializer):
     sic_codes = serializers.ListField(
         allow_null=True, default=None, child=SICCodeSerializer()
     )
+    status = serializers.ChoiceField(choices=STATUS_CHOICES)
 
     def to_internal_value(self, data):
         if "type" not in data:
@@ -92,6 +101,7 @@ class EducationSerializer(BaseExperienceSerializer):
     knowledge_areas = serializers.ListField(
         allow_null=True, default=None, child=KnowledgeAreaSerializer()
     )
+    status = serializers.ChoiceField(choices=STATUS_CHOICES)
 
     def to_internal_value(self, data):
         if "type" not in data:
