@@ -211,4 +211,19 @@ class EnumHelpers {
         return NewsNotificationSchema.mediumCard;
     }
   }
+
+  static String stringFromSalary(SalaryType type) {
+    switch (type) {
+      case SalaryType.Yearly:
+        return 'YEARLY';
+      case SalaryType.Monthly:
+        return 'MONTHLY';
+      case SalaryType.Weekly:
+        return 'WEEKLY';
+      case SalaryType.Daily:
+        return 'DAILY';
+      default:
+        return 'HOURLY';
+    }
+  }
 }
