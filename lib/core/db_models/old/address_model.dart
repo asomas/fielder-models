@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/old/schema/default_location_data_schema.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -9,6 +10,8 @@ class AddressModel {
   String city;
   String postalCode;
   String flat;
+  String fullAddress;
+  GeoPoint coordinates;
 
   AddressModel(
       {this.country,
@@ -17,52 +20,19 @@ class AddressModel {
       this.county,
       this.postalCode,
       this.street,
-      this.flat});
+      this.flat,
+      this.coordinates,
+      this.fullAddress});
 
   Map<String, dynamic> toJSON() {
     Map<String, dynamic> tempMap = Map();
-    if (country != null) {
-      if (country.isNotEmpty) {
-        tempMap[DefaultLocationDataSchema.country] = country;
-      }
-    }
-
-    if (city != null) {
-      if (city.isNotEmpty) {
-        tempMap[DefaultLocationDataSchema.city] = city;
-      }
-    }
-
-    if (building != null) {
-      if (building.isNotEmpty) {
-        tempMap[DefaultLocationDataSchema.building] = building;
-      }
-    }
-
-    if (county != null) {
-      if (county.isNotEmpty) {
-        tempMap[DefaultLocationDataSchema.county] = county;
-      }
-    }
-
-    if (postalCode != null) {
-      if (postalCode.isNotEmpty) {
-        tempMap[DefaultLocationDataSchema.postalCode] = postalCode;
-      }
-    }
-
-    if (street != null) {
-      if (street.isNotEmpty) {
-        tempMap[DefaultLocationDataSchema.street] = street;
-      }
-    }
-
-    if (flat != null) {
-      if (flat.isNotEmpty) {
-        tempMap[DefaultLocationDataSchema.flat] = flat;
-      }
-    }
-
+    tempMap[DefaultLocationDataSchema.country] = country ?? '';
+    tempMap[DefaultLocationDataSchema.city] = city ?? '';
+    tempMap[DefaultLocationDataSchema.building] = building ?? '';
+    tempMap[DefaultLocationDataSchema.county] = county ?? '';
+    tempMap[DefaultLocationDataSchema.street] = street ?? '';
+    tempMap[DefaultLocationDataSchema.postalCode] = postalCode ?? '';
+    tempMap[DefaultLocationDataSchema.flat] = flat ?? '';
     return tempMap;
   }
 

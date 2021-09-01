@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
+import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/google_place_model.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
+import 'package:fielder_models/core/db_models/worker/schema/locationSchema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
@@ -19,6 +21,7 @@ class PatternDataModel {
   RecurrenceModel recurrence;
   String existingLocationId;
   GooglePlaceModel googlePlaceModel;
+  AddressModel addressModel;
   String title;
   String shiftPatternDate;
   DocumentReference workerRef;
@@ -38,7 +41,8 @@ class PatternDataModel {
       this.workerRef,
       this.shiftPatternDate,
       this.googlePlaceModel,
-      this.workerModel});
+      this.workerModel,
+      this.addressModel});
 
   factory PatternDataModel.fromMap(String docID, Map<String, dynamic> map) {
     PatternDataModel shiftPatternDataModel;
@@ -63,6 +67,11 @@ class PatternDataModel {
               ? WorkerModel.fromMap(
                   map: map[ShiftDataSchema.workerData],
                   docID: map[ShiftDataSchema.workerRef]?.id)
+              : null,
+          addressModel: map[ShiftDataSchema.locationData] != null
+              ? AddressModel.fromMap(
+                  map: map[ShiftDataSchema.locationData]
+                      [ShiftDataSchema.address])
               : null);
     }
     return shiftPatternDataModel;
@@ -83,6 +92,14 @@ class PatternDataModel {
         jsonMap[ShiftDataSchema.existingLocationId] = existingLocationId;
       } else if (googlePlaceModel != null) {
         jsonMap[ShiftDataSchema.googlePlaceData] = googlePlaceModel.toJson();
+      } else if (addressModel != null) {
+        jsonMap[ShiftDataSchema.newLocationData] = {
+          ShiftDataSchema.address: addressModel.toJSON(),
+          ShiftDataSchema.coords: {
+            LocationSchema.lat: addressModel?.coordinates?.latitude,
+            LocationSchema.lng: addressModel?.coordinates?.longitude
+          }
+        };
       }
       if (endDate != null) {
         final String _endDateString = DateFormat('yyyy-MM-dd').format(endDate);
