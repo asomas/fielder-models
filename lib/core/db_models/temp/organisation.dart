@@ -260,30 +260,50 @@ class Company {
   String registrationNumber; //min & max length 8
   List<SICCode> sicCodes;
   List<Director> directors;
-
   AddressBasic address;
   Timestamp lastUpdated;
   Timestamp lastFilingDate;
   String vatNumber;
   Timestamp vatRegistrationDate;
 
-  static Company fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-    Company company = Company();
-    company.companyName = map['company_name'];
-    company.incorporationDate = map['incorporation_date'];
-    company.registrationNumber = map['registration_number'];
-    company.sicCodes =
-        List<SICCode>.from(map["sic_codes"].map((x) => SICCode.fromMap(x)));
-    company.directors =
-        List<Director>.from(map["directors"].map((x) => Director.fromMap(x)));
+  Company(
+      {this.companyName,
+      this.incorporationDate,
+      this.registrationNumber,
+      this.sicCodes,
+      this.directors,
+      this.address,
+      this.lastUpdated,
+      this.lastFilingDate,
+      this.vatNumber,
+      this.vatRegistrationDate});
 
-    company.address = AddressBasic.fromMap(map['address']);
-    company.lastUpdated = map['last_updated'];
-    company.lastFilingDate = map['last_filing_date'];
-    company.vatNumber = map['vat_number'];
-    company.vatRegistrationDate = map['vat_registration_date'];
-    return company;
+  factory Company.fromMap(Map map) {
+    try {
+      return Company(
+        companyName: map['company_name'],
+        incorporationDate: map['incorporation_date'],
+        registrationNumber: map['registration_number'],
+        sicCodes: map.containsKey("sic_codes") && map["sic_codes"] != null
+            ? List<SICCode>.from(
+                map["sic_codes"].map((x) => SICCode.fromMap(x)))
+            : [],
+        directors: map.containsKey("directors") && map["directors"] != null
+            ? List<Director>.from(
+                map["directors"].map((x) => Director.fromMap(x)))
+            : [],
+        address: map.containsKey("address") && map["address"] != null
+            ? AddressBasic.fromMap(map['address'])
+            : null,
+        lastUpdated: map['last_updated'],
+        lastFilingDate: map['last_filing_date'],
+        vatNumber: map['vat_number'],
+        vatRegistrationDate: map['vat_registration_date'],
+      );
+    } catch (e, s) {
+      print('company catch error ${e},$s');
+      return null;
+    }
   }
 }
 
