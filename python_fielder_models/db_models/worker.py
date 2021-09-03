@@ -1,15 +1,17 @@
+from enum import Enum
+
 from fielder_backend_utils.rest_utils import DocumentReferenceField
 from rest_framework import serializers
 
 from .common import *
 
-STATUS_CHOICES = [
-    "UNCHECKED",
-    "CHECKED",
-    "AWAITING_VERIFICATION",
-    "VERIFIED",
-    "UNVERIFIED",
-]
+
+class STATUS(Enum):
+    UNCHECKED = 0
+    CHECKED = 1
+    AWAITING_VERIFICATION = 2
+    VERIFIED = 3
+    REJECTED = 4
 
 
 class BaseExperienceSerializer(serializers.Serializer):
@@ -28,6 +30,9 @@ class BaseExperienceSerializer(serializers.Serializer):
             ("Fielder"),
             ("Education"),
         ),
+    )
+    status = serializers.ChoiceField(
+        choices=STATUS._member_names_, default=STATUS.UNCHECKED.name, required=False
     )
 
 
@@ -54,7 +59,6 @@ class WorkExperienceSerializer(BaseExperienceSerializer):
     sic_codes = serializers.ListField(
         allow_null=True, default=None, child=SICCodeSerializer()
     )
-    status = serializers.ChoiceField(choices=STATUS_CHOICES)
 
     def to_internal_value(self, data):
         if "type" not in data:
@@ -70,6 +74,8 @@ class FielderWorkExperienceSerializer(WorkExperienceSerializer):
     def to_internal_value(self, data):
         if "type" not in data:
             data["type"] = "Fielder"
+
+        data["status"] = STATUS.VERIFIED.name
         return super().to_internal_value(data)
 
 
@@ -101,7 +107,6 @@ class EducationSerializer(BaseExperienceSerializer):
     knowledge_areas = serializers.ListField(
         allow_null=True, default=None, child=KnowledgeAreaSerializer()
     )
-    status = serializers.ChoiceField(choices=STATUS_CHOICES)
 
     def to_internal_value(self, data):
         if "type" not in data:

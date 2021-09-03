@@ -11,6 +11,7 @@ class BaseExperienceAPISerializer(serializers.Serializer):
     start_date = serializers.RegexField(DATE_FIELD_REGEX)
     end_date = serializers.RegexField(DATE_FIELD_REGEX)
     summary = serializers.CharField(allow_blank=True)
+    status = serializers.ChoiceField(choices=STATUS._member_names_, required=False)
 
     def validate(self, data):
         if "location_data" in data and "google_place_data" in data:
