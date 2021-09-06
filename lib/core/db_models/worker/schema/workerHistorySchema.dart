@@ -59,5 +59,5 @@ class WorkerHistorySchema {
   static const String checked = "CHECKED";
   static const String awaitingVerification = "AWAITING_VERIFICATION";
   static const String verified = "VERIFIED";
-  static const String unverified = "UNVERIFIED";
+  static const String rejected = "REJECTED";
 }
