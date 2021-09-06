@@ -34,6 +34,7 @@ class WorkerHistorySchema {
   static const String code = "code";
   static const String jobTitle = "job_title";
   static const String expanded = "expanded";
+  static const String status = "status";
 
   static const String institution = "institution";
   static const String institutions = "institutions";
@@ -53,4 +54,10 @@ class WorkerHistorySchema {
   static const String award = "award";
   static const String knowledgeAreaRef = "knowledge_area_ref";
   static const String knowledgeAreas = "knowledge_areas";
+
+  static const String unchecked = "UNCHECKED";
+  static const String checked = "CHECKED";
+  static const String awaitingVerification = "AWAITING_VERIFICATION";
+  static const String verified = "VERIFIED";
+  static const String rejected = "REJECTED";
 }

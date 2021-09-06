@@ -4,6 +4,8 @@ import 'package:fielder_models/core/db_models/worker/schema/workerHistorySchema.
 
 enum WorkerType { EXTERNAL, FIELDER, EDUCATION }
 
+enum VerificationStatus {Unchecked , Checked, AwaitingVerification, Verified, Rejected}
+
 class WorkHistory {
   List<Check> checks;
   Timestamp endDate;
@@ -140,6 +142,39 @@ class WorkHistory {
     }
     return workerType;
   }
+
+  static VerificationStatus verificationStatusFromString(String type) {
+    VerificationStatus verificationStatus = VerificationStatus.Unchecked;
+    if (type == WorkerHistorySchema.unchecked) {
+      verificationStatus = VerificationStatus.Unchecked;
+    } else if (type == WorkerHistorySchema.checked) {
+      verificationStatus = VerificationStatus.Checked;
+    } else if (type == WorkerHistorySchema.awaitingVerification) {
+      verificationStatus = VerificationStatus.AwaitingVerification;
+    }else if (type == WorkerHistorySchema.verified) {
+      verificationStatus = VerificationStatus.Verified;
+    }else if (type == WorkerHistorySchema.rejected) {
+      verificationStatus = VerificationStatus.Rejected;
+    }
+    return verificationStatus;
+  }
+
+  static String stringFromVerificationStatus(VerificationStatus verificationStatus) {
+    String status = WorkerHistorySchema.unchecked;
+    if (verificationStatus == VerificationStatus.Unchecked) {
+      status = WorkerHistorySchema.unchecked;
+    } else if (verificationStatus == VerificationStatus.Checked) {
+      status = WorkerHistorySchema.checked;
+    } else if (verificationStatus == VerificationStatus.AwaitingVerification) {
+      status = WorkerHistorySchema.awaitingVerification;
+    } else if (verificationStatus == VerificationStatus.Verified) {
+      status = WorkerHistorySchema.verified;
+    } else if (verificationStatus == VerificationStatus.Rejected) {
+      status = WorkerHistorySchema.rejected;
+    }
+    return status;
+  }
+
 }
 
 class Occupation {
