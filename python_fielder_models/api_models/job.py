@@ -1,6 +1,7 @@
 from python_fielder_models.api_models.common import GooglePlaceDataSerializer
-from python_fielder_models.api_models.organisation import \
-    OrganisationLocationAPISerializer
+from python_fielder_models.api_models.organisation import (
+    OrganisationLocationAPISerializer,
+)
 from python_fielder_models.db_models.common import RecurrenceSerializer
 from rest_framework import serializers
 
@@ -89,3 +90,7 @@ class ShiftPatternAPISerializer(serializers.Serializer):
 class AddShiftPatternRequestSerializer(serializers.Serializer):
     job_id = serializers.CharField()
     shift_pattern_data = ShiftPatternAPISerializer()
+
+
+class ShiftActivityRequestSerializer(serializers.Serializer):
+    needs_attention = serializers.BooleanField()
