@@ -29,12 +29,21 @@ class ShiftPatternAPISerializer(serializers.Serializer):
     start_time = serializers.IntegerField()
     end_time = serializers.IntegerField()
     recurrence = RecurrenceSerializer()
+    geo_fence_enabled = serializers.BooleanField()
+    geo_fence_distance = serializers.IntegerField(
+        required=False, max_value=15, min_value=3000
+    )
     existing_location_id = serializers.CharField(required=False)
     new_location_data = OrganisationLocationAPISerializer(required=False)
     google_place_data = GooglePlaceDataSerializer(required=False)
 
     def validate(self, data):
         # this validation will run after RecurrenceSerializer's validation
+        if data["geo_fence_enabled"] == True and "geo_fence_distance" not in data:
+            raise serializers.ValidationError(
+                detail="geo_fence_distance field is required when geo_fence_enabled is set to true."
+            )
+
         # so in case of non-recurring, the repeat_interval_type = "None" should have been converted
         # to repeat_interval_type = None
         if (
