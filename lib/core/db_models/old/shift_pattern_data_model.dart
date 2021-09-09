@@ -33,33 +33,36 @@ class ShiftPatternDataModel {
   bool assigned;
   String startTimeString;
   String endTimeString;
+  bool isGeoFencingEnabled;
+  double geoFenceRadius;
 
-  ShiftPatternDataModel({
-    this.docID,
-    this.shiftPatternRefId,
-    this.organisation,
-    this.endDate,
-    this.endTimeInt,
-    this.jobTitle,
-    this.jobID,
-    this.recurrence,
-    this.role,
-    this.startDate,
-    this.startTimeInt,
-    this.workerId,
-    this.shiftActivitiesModel,
-    this.shiftLocationDataModel,
-    this.workerModel,
-    this.supervisorRef,
-    this.jobRefId,
-    this.managerRef,
-    this.occupationModel,
-    this.isUnavailableForOrganisation = false,
-    this.isRecurring,
-    this.assigned = false,
-    this.startTimeString,
-    this.endTimeString,
-  });
+  ShiftPatternDataModel(
+      {this.docID,
+      this.shiftPatternRefId,
+      this.organisation,
+      this.endDate,
+      this.endTimeInt,
+      this.jobTitle,
+      this.jobID,
+      this.recurrence,
+      this.role,
+      this.startDate,
+      this.startTimeInt,
+      this.workerId,
+      this.shiftActivitiesModel,
+      this.shiftLocationDataModel,
+      this.workerModel,
+      this.supervisorRef,
+      this.jobRefId,
+      this.managerRef,
+      this.occupationModel,
+      this.isUnavailableForOrganisation = false,
+      this.isRecurring,
+      this.assigned = false,
+      this.startTimeString,
+      this.endTimeString,
+      this.isGeoFencingEnabled = false,
+      this.geoFenceRadius = 0});
 
   static String timeStringFromDuration(int secondsFromMidnight) {
     Duration duration = Duration(seconds: secondsFromMidnight?.round());
@@ -127,6 +130,18 @@ class ShiftPatternDataModel {
         final DocumentReference _locationRef = map['location_ref'];
         final DocumentReference _supervisorRef = map['supervisor_ref'];
         final DocumentReference _managerRef = map['manager_ref'];
+        final bool _geoFenceEnabled = map[ShiftDataSchema.geoFenceEnabled];
+        double _geoFenceDistance = 0;
+
+        if (map[ShiftDataSchema.geoFenceDistance] != null) {
+          try {
+            _geoFenceDistance = double.tryParse(
+                map[ShiftDataSchema.geoFenceDistance].toString());
+          } catch (e) {
+            _geoFenceDistance = 0;
+            print("geo fencing parse_______$e");
+          }
+        }
 
         if (_organisationRef != null) {
           _organisation = OrganisationModel.fromMap(
@@ -166,6 +181,8 @@ class ShiftPatternDataModel {
             shiftActivitiesModel: null,
             isRecurring: _isRecurring,
             assigned: _assigned,
+            isGeoFencingEnabled: _geoFenceEnabled,
+            geoFenceRadius: _geoFenceDistance,
             //_shiftActivitiesModel,
             workerId: _workerRef?.id,
             workerModel: map.containsKey(ShiftDataSchema.workerData)
@@ -183,27 +200,30 @@ class ShiftPatternDataModel {
 
   ShiftPatternDataModel copyWith(ShiftPatternDataModel shiftPatternDataModel) {
     return ShiftPatternDataModel(
-        docID: shiftPatternDataModel.docID,
-        startDate: shiftPatternDataModel.startDate,
-        endDate: shiftPatternDataModel.endDate,
-        startTimeInt: shiftPatternDataModel.startTimeInt,
-        endTimeInt: shiftPatternDataModel.endTimeInt,
-        recurrence: shiftPatternDataModel.recurrence,
-        jobTitle: shiftPatternDataModel.jobTitle,
-        jobID: shiftPatternDataModel.jobID,
-        jobRefId: shiftPatternDataModel.jobRefId,
-        assigned: shiftPatternDataModel.assigned,
-        role: shiftPatternDataModel.role,
-        organisation: shiftPatternDataModel.organisation,
-        supervisorRef: shiftPatternDataModel.supervisorRef,
-        managerRef: shiftPatternDataModel.managerRef,
-        shiftLocationDataModel: shiftPatternDataModel.shiftLocationDataModel,
-        shiftActivitiesModel: shiftPatternDataModel.shiftActivitiesModel,
-        workerId: shiftPatternDataModel.workerId,
-        workerModel: shiftPatternDataModel.workerModel,
-        isUnavailableForOrganisation:
-            shiftPatternDataModel.isUnavailableForOrganisation,
-        shiftPatternRefId: shiftPatternDataModel.shiftPatternRefId,
-        occupationModel: shiftPatternDataModel.occupationModel);
+      docID: shiftPatternDataModel.docID,
+      startDate: shiftPatternDataModel.startDate,
+      endDate: shiftPatternDataModel.endDate,
+      startTimeInt: shiftPatternDataModel.startTimeInt,
+      endTimeInt: shiftPatternDataModel.endTimeInt,
+      recurrence: shiftPatternDataModel.recurrence,
+      jobTitle: shiftPatternDataModel.jobTitle,
+      jobID: shiftPatternDataModel.jobID,
+      jobRefId: shiftPatternDataModel.jobRefId,
+      assigned: shiftPatternDataModel.assigned,
+      role: shiftPatternDataModel.role,
+      organisation: shiftPatternDataModel.organisation,
+      supervisorRef: shiftPatternDataModel.supervisorRef,
+      managerRef: shiftPatternDataModel.managerRef,
+      shiftLocationDataModel: shiftPatternDataModel.shiftLocationDataModel,
+      shiftActivitiesModel: shiftPatternDataModel.shiftActivitiesModel,
+      workerId: shiftPatternDataModel.workerId,
+      workerModel: shiftPatternDataModel.workerModel,
+      isUnavailableForOrganisation:
+          shiftPatternDataModel.isUnavailableForOrganisation,
+      shiftPatternRefId: shiftPatternDataModel.shiftPatternRefId,
+      occupationModel: shiftPatternDataModel.occupationModel,
+      geoFenceRadius: shiftPatternDataModel.geoFenceRadius,
+      isGeoFencingEnabled: shiftPatternDataModel.isGeoFencingEnabled,
+    );
   }
 }

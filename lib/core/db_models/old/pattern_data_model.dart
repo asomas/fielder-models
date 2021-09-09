@@ -26,6 +26,8 @@ class PatternDataModel {
   String shiftPatternDate;
   DocumentReference workerRef;
   WorkerModel workerModel;
+  bool isGeoFencingEnabled;
+  double geoFenceRadius;
 
   PatternDataModel(
       {this.docID,
@@ -42,7 +44,9 @@ class PatternDataModel {
       this.shiftPatternDate,
       this.googlePlaceModel,
       this.workerModel,
-      this.addressModel});
+      this.addressModel,
+      this.isGeoFencingEnabled = false,
+      this.geoFenceRadius = 0});
 
   factory PatternDataModel.fromMap(String docID, Map<String, dynamic> map) {
     PatternDataModel shiftPatternDataModel;
@@ -84,6 +88,8 @@ class PatternDataModel {
         ShiftDataSchema.startDate: DateFormat('yyyy-MM-dd').format(startDate),
         ShiftDataSchema.startTime: startTimeInt,
         ShiftDataSchema.endTime: endTimeInt,
+        ShiftDataSchema.geoFenceEnabled: isGeoFencingEnabled,
+        ShiftDataSchema.geoFenceDistance: geoFenceRadius,
         //  ShiftDataSchema.intervalAmount: intervalAmount,
         // ShiftDataSchema.repeatIntervalType: intervalType,
         ShiftDataSchema.recurrence: recurrence.toJSON(),
