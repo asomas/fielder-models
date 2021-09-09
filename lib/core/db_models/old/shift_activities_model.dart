@@ -18,22 +18,41 @@ class ShiftActivitiesModel {
   DocumentReference workerRef;
   bool clocked;
   bool awaitingApproval;
+  bool needsAttention;
+  bool dismissible;
+  bool clockedInLate;
+  bool clockedInEarly;
+  bool clockedInFaraway;
+  bool clockedOutLate;
+  bool clockedOutEarly;
+  bool clockedOutFaraway;
+  DateTime updatedAt;
 
-  ShiftActivitiesModel(
-      {this.clockInTime,
-      this.clockInLocation,
-      this.clockOutTime,
-      this.clockOutLocation,
-      this.shiftDate,
-      this.docID,
-      this.shiftPatternRef,
-      this.approved = false,
-      this.approvedBy,
-      this.approvedTime,
-      this.shiftPatternDataModel,
-      this.workerRef,
-      this.clocked = false,
-      this.awaitingApproval = false});
+  ShiftActivitiesModel({
+    this.clockInTime,
+    this.clockInLocation,
+    this.clockOutTime,
+    this.clockOutLocation,
+    this.shiftDate,
+    this.docID,
+    this.shiftPatternRef,
+    this.approved = false,
+    this.approvedBy,
+    this.approvedTime,
+    this.shiftPatternDataModel,
+    this.workerRef,
+    this.clocked = false,
+    this.awaitingApproval = false,
+    this.clockedInEarly,
+    this.clockedInFaraway,
+    this.clockedInLate,
+    this.clockedOutEarly,
+    this.clockedOutFaraway,
+    this.clockedOutLate,
+    this.dismissible,
+    this.needsAttention,
+    this.updatedAt,
+  });
 
   factory ShiftActivitiesModel.fromMap({
     @required Map<String, dynamic> map,
@@ -59,10 +78,22 @@ class ShiftActivitiesModel {
             map[ShiftActivitiesSchema.shiftDate];
         final Timestamp _approvedTimeTimeStamp =
             map[ShiftActivitiesSchema.approveTime];
+        final Timestamp _updatedatTimeStamp =
+            map[ShiftActivitiesSchema.updatedAt];
         final bool _approved = map[ShiftActivitiesSchema.approved];
         final bool _clocked = map[ShiftActivitiesSchema.clocked];
         final bool _awaitingApproval =
             map[ShiftActivitiesSchema.awaitingApproval];
+        final bool _needsAttention = map[ShiftActivitiesSchema.needsAttention];
+        final bool _dismissible = map[ShiftActivitiesSchema.dismissible];
+        final bool _clockInLate = map[ShiftActivitiesSchema.clockedInLate];
+        final bool _clockInEarly = map[ShiftActivitiesSchema.clockedInEarly];
+        final bool _clockInFarAway =
+            map[ShiftActivitiesSchema.clockedInFaraway];
+        final bool _clockOutLate = map[ShiftActivitiesSchema.clockedOutLate];
+        final bool _clockOutEarly = map[ShiftActivitiesSchema.clockedOutEarly];
+        final bool _clockOutFarAway =
+            map[ShiftActivitiesSchema.clockedOutFaraway];
 
         final ShiftPatternDataModel shiftPatternDataModel =
             map[ShiftActivitiesSchema.shiftPatternData] != null
@@ -96,6 +127,12 @@ class ShiftActivitiesModel {
             _approvedTimeTimeStamp.millisecondsSinceEpoch,
           );
         }
+        DateTime _updatedAtTimeDateTime;
+        if (_updatedatTimeStamp != null) {
+          _updatedAtTimeDateTime = DateTime.fromMillisecondsSinceEpoch(
+            _updatedatTimeStamp.millisecondsSinceEpoch,
+          );
+        }
 
         return ShiftActivitiesModel(
             docID: docID,
@@ -111,7 +148,16 @@ class ShiftActivitiesModel {
             shiftPatternDataModel: shiftPatternDataModel,
             workerRef: _workerRef,
             clocked: _clocked,
-            awaitingApproval: _awaitingApproval);
+            awaitingApproval: _awaitingApproval,
+            updatedAt: _updatedAtTimeDateTime,
+            needsAttention: _needsAttention,
+            dismissible: _dismissible,
+            clockedInEarly: _clockInEarly,
+            clockedInLate: _clockInLate,
+            clockedInFaraway: _clockInFarAway,
+            clockedOutEarly: _clockOutEarly,
+            clockedOutLate: _clockOutLate,
+            clockedOutFaraway: _clockOutFarAway);
       } on Exception catch (e) {
         print("ShiftActivitiesModel.fromMap error $e");
       }
