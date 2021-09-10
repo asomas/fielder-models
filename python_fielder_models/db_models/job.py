@@ -1,12 +1,20 @@
+from datetime import datetime
+from enum import Enum
+
 from fielder_backend_utils.rest_utils import DocumentReferenceField
-from python_fielder_models.api_models.organisation import (
-    OrganisationLocationAPISerializer,
-)
 from python_fielder_models.db_models.common import RecurrenceSerializer
 from python_fielder_models.db_models.organisation import (
     OrganisationLocationDBSerializer,
 )
 from rest_framework import serializers
+
+
+class OfferStatus(Enum):
+    Pending = 0
+    Queued = 1
+    Declined = 2
+    Accepted = 3
+    Expired = 4
 
 
 # TODO complete all other fields
@@ -43,3 +51,20 @@ class ShiftPatternDBSerializer(serializers.Serializer):
             raise serializers.ValidationError("start_time must be before end_time")
 
         return data
+
+
+class OfferDBSerializer(serializers.Serializer):
+    shift_pattern_ref = DocumentReferenceField()
+    worker_ref = DocumentReferenceField()
+    job_ref = DocumentReferenceField()
+    shift_pattern_data = serializers.DictField()  # set as dict to pass tests
+    worker_data = serializers.DictField()
+    job_data = serializers.DictField()  # set as dict to pass tests
+    status = serializers.ChoiceField(choices=OfferStatus._member_names_)
+    expiry_time = serializers.DateTimeField()
+    created_at = serializers.DateTimeField(default=datetime.now())
+    updated_at = serializers.DateTimeField(default=datetime.now())
+
+    def to_internal_value(self, data):
+        data["updated_at"] = datetime.now()
+        return super().to_internal_value(data)
