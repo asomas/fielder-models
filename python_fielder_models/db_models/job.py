@@ -61,7 +61,7 @@ class OfferDBSerializer(serializers.Serializer):
     worker_data = serializers.DictField()
     job_data = serializers.DictField()  # set as dict to pass tests
     status = serializers.ChoiceField(choices=OfferStatus._member_names_)
-    expiry_time = serializers.DateTimeField()
+    expiry_time = serializers.DateTimeField(allow_null=True, default=None)
     created_at = serializers.DateTimeField(default=datetime.now())
     updated_at = serializers.DateTimeField(default=datetime.now())
 
