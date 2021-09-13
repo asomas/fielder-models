@@ -18,7 +18,7 @@ class MatchingRequestSerializer(serializers.Serializer):
     recurrence = RecurrenceSerializer()
     start_date = serializers.DateField()
     start_time = serializers.IntegerField(min_value=0, max_value=86400)
-    skip = serializers.IntegerField(min_value=0, max_value=10, default=0)
+    skip = serializers.IntegerField(min_value=0, default=0)
     limit = serializers.IntegerField(min_value=0, max_value=10, default=5)
     is_staff = serializers.BooleanField(default=False, required=False)
 
