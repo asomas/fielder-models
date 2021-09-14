@@ -35,10 +35,10 @@ class WorkExperienceAPISerializer(BaseExperienceAPISerializer):
         skill_ref = DocumentReferenceField()
 
     company_number = serializers.CharField(
-        required=False, allow_null=True, min_length=8, max_length=8
+        allow_blank=True, required=False, allow_null=True, min_length=8, max_length=8
     )
     occupation = OccupationSerializer(required=False, allow_null=True)
-    job_title = serializers.CharField(required=False, allow_null=True)
+    job_title = serializers.CharField(allow_blank=True, required=False, allow_null=True)
     from_companies_house = serializers.BooleanField(required=False, allow_null=True)
     skills = serializers.ListField(
         required=False, allow_null=True, child=SkillSerializer()
