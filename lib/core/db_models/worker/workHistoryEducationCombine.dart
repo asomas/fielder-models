@@ -21,23 +21,26 @@ class WorkHistoryEducationCombine {
   Course course;
   bool expanded;
   VerificationStatus verificationStatus;
+  String companyLogo;
 
-  WorkHistoryEducationCombine(
-      {this.docId,
-      this.endDate,
-      this.startDate,
-      this.location,
-      this.organisationName,
-      this.skills,
-      this.knowledgeAreaList,
-      this.sicCode,
-      this.occupation,
-      this.educationInstitution,
-      this.course,
-      this.jobTitle,
-      this.workerType,
-      this.expanded,
-      this.verificationStatus});
+  WorkHistoryEducationCombine({
+    this.docId,
+    this.endDate,
+    this.startDate,
+    this.location,
+    this.organisationName,
+    this.skills,
+    this.knowledgeAreaList,
+    this.sicCode,
+    this.occupation,
+    this.educationInstitution,
+    this.course,
+    this.jobTitle,
+    this.workerType,
+    this.expanded,
+    this.verificationStatus,
+    this.companyLogo,
+  });
 
   factory WorkHistoryEducationCombine.fromJson(Map<String, dynamic> json,
           {String docId}) =>
