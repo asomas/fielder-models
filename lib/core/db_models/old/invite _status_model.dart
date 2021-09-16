@@ -4,7 +4,7 @@ import 'package:fielder_models/core/enums/enums.dart';
 
 class InviteStatusModel {
   bool isStaff;
-  String status;
+  InviteStaffStatus status;
   String workerFirstName;
   String workerLastName;
   String workerPhone;
@@ -13,7 +13,7 @@ class InviteStatusModel {
 
   InviteStatusModel(
       {this.isStaff = false,
-      this.status = '',
+      this.status,
       this.workerFirstName = '',
       this.workerLastName = '',
       this.workerPhone = '',
@@ -44,7 +44,8 @@ class InviteStatusModel {
     return InviteStatusModel(
         invitationId: invitationId ?? "",
         isStaff: data[StaffStatusSchema.isStaff],
-        status: data[StaffStatusSchema.status],
+        status: EnumHelpers.inviteStaffStatusFromString(
+            data[StaffStatusSchema.status]),
         workerFirstName: data[StaffStatusSchema.workerFirstName],
         workerLastName: data[StaffStatusSchema.workerLastName],
         workerPhone: data[StaffStatusSchema.workerPhone],
@@ -53,7 +54,7 @@ class InviteStatusModel {
 
   clear() {
     isStaff = null;
-    status = "";
+    status = InviteStaffStatus.None;
     workerFirstName = "";
     workerLastName = "";
     workerPhone = "";

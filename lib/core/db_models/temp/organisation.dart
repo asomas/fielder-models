@@ -301,7 +301,7 @@ class Company {
         vatRegistrationDate: map['vat_registration_date'],
       );
     } catch (e, s) {
-      print('company catch error ${e},$s');
+      print('company catch error $e,$s');
       return null;
     }
   }

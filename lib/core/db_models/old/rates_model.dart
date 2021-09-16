@@ -23,7 +23,7 @@ class RatesModel {
             SalaryAndCurrency.fromMap(map[RatesSchema.nationalMedianSalary]),
       );
     } catch (e, s) {
-      print('rates model catch ${e}, $s');
+      print('rates model catch $e, $s');
       return null;
     }
   }
@@ -42,7 +42,7 @@ class SalaryAndCurrency {
         currency: map[RatesSchema.currency],
       );
     } catch (e, s) {
-      print('rates and currency model catch ${e}, $s');
+      print('rates and currency model catch $e, $s');
       return null;
     }
   }
