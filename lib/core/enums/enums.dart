@@ -59,7 +59,7 @@ enum CalculatePay { ShiftHours, ClockedInHours }
 
 enum CalendarType { date, time, none }
 
-enum AssignJobCard { Staff, Fielder }
+enum AssignJobCard { Staff, Fielder, FielderNetwork }
 
 enum OfferStatus { Pending, Rejected, Accepted, Expired, None }
 
