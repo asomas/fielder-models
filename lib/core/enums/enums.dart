@@ -96,3 +96,5 @@ enum OrganisationContractStatus { NotSigned, InReview, Signed }
 enum NewsCardType { Mini, Medium }
 
 enum SalaryType { Hourly, Daily, Weekly, Monthly, Yearly }
+
+enum InviteStaffStatus { Pending, Accepted, Declined, None }
