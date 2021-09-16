@@ -226,4 +226,17 @@ class EnumHelpers {
         return 'HOURLY';
     }
   }
+
+  static InviteStaffStatus inviteStaffStatusFromString(String status) {
+    switch (status) {
+      case 'Pending':
+        return InviteStaffStatus.Pending;
+      case 'Declined':
+        return InviteStaffStatus.Declined;
+      case 'Accepted':
+        return InviteStaffStatus.Accepted;
+      default:
+        return InviteStaffStatus.None;
+    }
+  }
 }
