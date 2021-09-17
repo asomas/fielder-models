@@ -239,4 +239,18 @@ class EnumHelpers {
         return InviteStaffStatus.None;
     }
   }
+
+  static String stringFromCandidatesWorkerType(
+      CandidatesWorkerType workerType) {
+    switch (workerType) {
+      case CandidatesWorkerType.FIELDER:
+        return 'FIELDER';
+      case CandidatesWorkerType.STAFF:
+        return 'STAFF';
+      case CandidatesWorkerType.NETWORK:
+        return 'NETWORK';
+      default:
+        return '';
+    }
+  }
 }
