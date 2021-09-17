@@ -1,5 +1,13 @@
+from enum import Enum, auto
+
 from python_fielder_models.db_models.common import RecurrenceSerializer
 from rest_framework import serializers
+
+
+class WorkerType(Enum):
+    FIELDER = auto()
+    STAFF = auto()
+    NETWORK = auto()
 
 
 class MatchingRequestSerializer(serializers.Serializer):
@@ -20,7 +28,7 @@ class MatchingRequestSerializer(serializers.Serializer):
     start_time = serializers.IntegerField(min_value=0, max_value=86400)
     skip = serializers.IntegerField(min_value=0, default=0)
     limit = serializers.IntegerField(min_value=0, max_value=10, default=5)
-    is_staff = serializers.BooleanField(default=False, required=False)
+    worker_type = serializers.ChoiceField(choices=WorkerType._member_names_)
 
 
 class MatchingWorker(serializers.Serializer):
