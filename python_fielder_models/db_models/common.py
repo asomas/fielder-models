@@ -14,24 +14,6 @@ COMPANY_NAME_MAX_LENGTH = 156
 FULL_NAME_MAX_LENGTH = 75
 
 
-class VerifiedBaseSerializer(serializers.Serializer):
-    dov = serializers.DateTimeField()
-    is_verified = serializers.BooleanField()
-    source = serializers.CharField()
-
-
-class VerifiedStringSerializer(VerifiedBaseSerializer):
-    value = serializers.CharField()
-
-
-class VerifiedDateSerializer(VerifiedBaseSerializer):
-    value = serializers.RegexField(DATE_FIELD_REGEX)
-
-
-class VerifiedDateTimeSerializer(VerifiedBaseSerializer):
-    value = serializers.DateTimeField()
-
-
 class RecurrenceSerializer(serializers.Serializer):
     interval_amount = serializers.IntegerField(
         required=False, allow_null=True, default=1, min_value=0

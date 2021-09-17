@@ -161,3 +161,8 @@ class IntercomIdentityVerifyAPIRequestSerializer(serializers.Serializer):
 
 class OrganizationNameManualUpdate(serializers.Serializer):
     organisation_name = serializers.CharField()
+
+
+class RTWShareCodeAPISerializer(serializers.Serializer):
+    share_code = serializers.CharField()
+    date_of_birth = serializers.DateField()

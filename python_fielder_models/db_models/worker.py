@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import Enum, auto
 
 from fielder_backend_utils.rest_utils import DocumentReferenceField
 from rest_framework import serializers
@@ -131,3 +131,48 @@ class RegisteredAddressDBSerializer(LocationDBSerializer):
     is_valid = serializers.BooleanField(default=False)
     worker_document_ref = DocumentReferenceField(allow_null=True, default=None)
     source = serializers.CharField(allow_null=True, default=None)
+
+
+class VerificationPath(Enum):
+    PASSPORT = auto()
+    BIRTH_CERTIFICATE = auto()
+    BRP = auto()
+    SHARE_CODE = auto()
+
+
+class Status(Enum):
+    UNDER_REVIEW = auto()
+    VERIFIED = auto()
+    REJECTED = auto()
+
+
+class VerifiedBaseSerializer(serializers.Serializer):
+    dov = serializers.DateTimeField()
+    is_verified = serializers.BooleanField()
+    serializers.ChoiceField(choices=[_.name for _ in VerificationPath])
+    woker_document_ref = DocumentReferenceField(allow_null=True)
+
+
+class VerifiedStringSerializer(VerifiedBaseSerializer):
+    value = serializers.CharField()
+
+
+class VerifiedDateSerializer(VerifiedBaseSerializer):
+    value = serializers.RegexField(DATE_FIELD_REGEX)
+
+
+class VerifiedDateTimeSerializer(VerifiedBaseSerializer):
+    value = serializers.DateTimeField()
+
+
+class WorkerDBSerializer(serializers.Serializer):
+    dob = VerifiedDateSerializer()
+    full_name = VerifiedStringSerializer()
+
+
+class RTWSubColSerializer(serializers.Serializer):
+    verification_path = serializers.ChoiceField(
+        choices=[_.name for _ in VerificationPath]
+    )
+    status = serializers.ChoiceField(choices=[_.name for _ in Status])
+    submitted = serializers.BooleanField()
