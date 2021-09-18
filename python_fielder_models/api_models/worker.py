@@ -2,6 +2,7 @@ from fielder_backend_utils.rest_utils import DocumentReferenceField
 from rest_framework import serializers
 
 from ..api_models.common import *
+from ..common.worker import VerificationPath
 from ..db_models.worker import *
 
 
@@ -166,3 +167,9 @@ class OrganizationNameManualUpdate(serializers.Serializer):
 class RTWShareCodeAPISerializer(serializers.Serializer):
     share_code = serializers.CharField()
     date_of_birth = serializers.DateField()
+
+
+class InitializeRTWVerificationAPISerializer(serializers.Serializer):
+    Verification_path = serializers.ChoiceField(
+        choices=[_.name for _ in VerificationPath]
+    )

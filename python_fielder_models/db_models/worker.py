@@ -3,6 +3,7 @@ from enum import Enum, auto
 from fielder_backend_utils.rest_utils import DocumentReferenceField
 from rest_framework import serializers
 
+from ..common.worker import VerificationPath
 from .common import *
 
 
@@ -133,14 +134,8 @@ class RegisteredAddressDBSerializer(LocationDBSerializer):
     source = serializers.CharField(allow_null=True, default=None)
 
 
-class VerificationPath(Enum):
-    PASSPORT = auto()
-    BIRTH_CERTIFICATE = auto()
-    BRP = auto()
-    SHARE_CODE = auto()
-
-
 class Status(Enum):
+    STARTED = auto()
     UNDER_REVIEW = auto()
     VERIFIED = auto()
     REJECTED = auto()
