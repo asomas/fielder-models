@@ -193,3 +193,4 @@ class WorkerDocumentDBSerializer(serializers.Serializer):
     )
     number = serializers.CharField(required=False, allow_null=True, allow_blank=True)
     dob = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+    worker_ref = DocumentReferenceField()
