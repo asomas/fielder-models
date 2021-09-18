@@ -149,7 +149,7 @@ class Status(Enum):
 class VerifiedBaseSerializer(serializers.Serializer):
     dov = serializers.DateTimeField()
     is_verified = serializers.BooleanField()
-    serializers.ChoiceField(choices=[_.name for _ in VerificationPath])
+    source = serializers.ChoiceField(choices=[_.name for _ in VerificationPath])
     woker_document_ref = DocumentReferenceField(allow_null=True)
 
 
