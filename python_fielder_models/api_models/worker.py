@@ -170,6 +170,6 @@ class RTWShareCodeAPISerializer(serializers.Serializer):
 
 
 class InitializeRTWVerificationAPISerializer(serializers.Serializer):
-    Verification_path = serializers.ChoiceField(
+    verification_path = serializers.ChoiceField(
         choices=[_.name for _ in VerificationPath]
     )
