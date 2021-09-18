@@ -150,7 +150,7 @@ class VerifiedBaseSerializer(serializers.Serializer):
     dov = serializers.DateTimeField()
     is_verified = serializers.BooleanField()
     source = serializers.ChoiceField(choices=[_.name for _ in VerificationPath])
-    woker_document_ref = DocumentReferenceField(allow_null=True)
+    worker_document_ref = DocumentReferenceField(allow_null=True)
 
 
 class VerifiedStringSerializer(VerifiedBaseSerializer):
