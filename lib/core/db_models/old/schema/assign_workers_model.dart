@@ -5,6 +5,7 @@ class CandidatesModel {
   String firstName;
   String lastName;
   String fullName;
+  String phoneNumber;
   String pictureUrl;
   bool isStaff;
   double skillScore;
@@ -19,6 +20,7 @@ class CandidatesModel {
     this.firstName,
     this.lastName,
     this.fullName,
+    this.phoneNumber,
     this.pictureUrl,
     this.skillScore = 0,
     this.qualificationScore = 0,
@@ -40,21 +42,21 @@ class CandidatesModel {
   }
 
   factory CandidatesModel.fromMatching(Map<String, dynamic> map, bool isStaff,
-      String firstName, String lastName, String avatarUrl) {
+      String firstName, String lastName, String avatarUrl, String phoneNumber) {
     try {
       return CandidatesModel(
-        workerId: map[CandidatesMatchingSchema.id],
-        skillScore: map[CandidatesMatchingSchema.skillsScore],
-        qualificationScore: map[CandidatesMatchingSchema.qualificationsScore],
-        checkScore: map[CandidatesMatchingSchema.checksScore],
-        availabilityScore: map[CandidatesMatchingSchema.availabilityScore],
-        totalScore: map[CandidatesMatchingSchema.overallScore],
-        isStaff: isStaff,
-        firstName: firstName,
-        lastName: lastName,
-        fullName: "${firstName ?? ""} ${lastName ?? ""}",
-        pictureUrl: avatarUrl,
-      );
+          workerId: map[CandidatesMatchingSchema.id],
+          skillScore: map[CandidatesMatchingSchema.skillsScore],
+          qualificationScore: map[CandidatesMatchingSchema.qualificationsScore],
+          checkScore: map[CandidatesMatchingSchema.checksScore],
+          availabilityScore: map[CandidatesMatchingSchema.availabilityScore],
+          totalScore: map[CandidatesMatchingSchema.overallScore],
+          isStaff: isStaff,
+          firstName: firstName,
+          lastName: lastName,
+          fullName: "${firstName ?? ""} ${lastName ?? ""}",
+          pictureUrl: avatarUrl,
+          phoneNumber: phoneNumber);
     } catch (e) {
       print("candidates matching model catch_______$e");
       return null;
