@@ -171,3 +171,25 @@ class RTWSubColSerializer(serializers.Serializer):
     )
     status = serializers.ChoiceField(choices=[_.name for _ in Status])
     submitted = serializers.BooleanField()
+
+
+class WorkerDocumentDBSerializer(serializers.Serializer):
+    id_doc_type = serializers.CharField(
+        required=False, allow_null=True, allow_blank=True
+    )
+    country = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+    first_name = serializers.CharField(
+        required=False, allow_null=True, allow_blank=True
+    )
+    first_name_en = serializers.CharField(
+        required=False, allow_null=True, allow_blank=True
+    )
+    last_name = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+    last_name_en = serializers.CharField(
+        required=False, allow_null=True, allow_blank=True
+    )
+    valid_until = serializers.CharField(
+        required=False, allow_null=True, allow_blank=True
+    )
+    number = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+    dob = serializers.CharField(required=False, allow_null=True, allow_blank=True)
