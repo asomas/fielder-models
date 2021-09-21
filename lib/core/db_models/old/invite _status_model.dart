@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
@@ -10,6 +11,7 @@ class InviteStatusModel {
   String workerPhone;
   DateTime createdAt;
   String invitationId;
+  DocumentReference workerRef;
 
   InviteStatusModel(
       {this.isStaff = false,
@@ -18,7 +20,8 @@ class InviteStatusModel {
       this.workerLastName = '',
       this.workerPhone = '',
       this.createdAt,
-      this.invitationId});
+      this.invitationId,
+      this.workerRef});
 
   Map<String, dynamic> toJSON() {
     //print('AddJobModel toJSON invoked');
@@ -49,6 +52,7 @@ class InviteStatusModel {
         workerFirstName: data[StaffStatusSchema.workerFirstName],
         workerLastName: data[StaffStatusSchema.workerLastName],
         workerPhone: data[StaffStatusSchema.workerPhone],
+        workerRef: data[StaffStatusSchema.workerRef],
         createdAt: data[StaffStatusSchema.createdAt]?.toDate());
   }
 

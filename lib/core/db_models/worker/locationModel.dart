@@ -27,20 +27,21 @@ class LocationModelDetail {
     }
     try {
       return LocationModelDetail(
-          name: json[LocationSchema.name] != null
-              ? json[LocationSchema.name]
-              : "",
-          shortName: json[LocationSchema.shortName] ??
-              json[LocationSchema
-                  .name], // here name is added just to unblock the process
-          formattedAddress: json[LocationSchema.formattedAddress] != null
-              ? json[LocationSchema.formattedAddress]
-              : "",
-          coordinates: _coordinates,
-          address: json[LocationSchema.address] != null
-              ? Address.fromJson(json[LocationSchema.address])
-              : null,
-          organisationRef: json[LocationSchema.organisationRef]);
+        name:
+            json[LocationSchema.name] != null ? json[LocationSchema.name] : "",
+        shortName: json[LocationSchema.shortName] ??
+            json[LocationSchema
+                .name], // here name is added just to unblock the process
+        formattedAddress: json[LocationSchema.formattedAddress] != null
+            ? json[LocationSchema.formattedAddress]
+            : "",
+        coordinates: _coordinates,
+        address: json[LocationSchema.address] != null
+            ? Address.fromJson(json[LocationSchema.address])
+            : null,
+        organisationRef:
+            json[LocationSchema.organisationRef] as DocumentReference,
+      );
     } catch (e, stacktrace) {
       print("locationModel.dart_______Catch______${e}_____$stacktrace");
       return null;
