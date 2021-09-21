@@ -6,4 +6,6 @@ class InviteStaffSchema {
   static const String status = "status";
   static const String workerPhone = "worker_phone";
   static const String workerRef = "worker_ref";
+  static const String workerId = "worker_id";
+  static const String workerType = "worker_type";
 }

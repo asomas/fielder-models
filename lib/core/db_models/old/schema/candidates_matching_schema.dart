@@ -26,4 +26,5 @@ class CandidatesMatchingRequestSchema {
   static const String checks = "checks";
   static const String skip = "skip";
   static const String limit = "limit";
+  static const String workerType = "worker_type";
 }
