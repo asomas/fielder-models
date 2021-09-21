@@ -135,7 +135,6 @@ class RegisteredAddressDBSerializer(LocationDBSerializer):
 
 
 class Status(Enum):
-    STARTED = auto()
     UNDER_REVIEW = auto()
     VERIFIED = auto()
     REJECTED = auto()
@@ -143,7 +142,7 @@ class Status(Enum):
 
 class VerifiedBaseSerializer(serializers.Serializer):
     dov = serializers.DateTimeField()
-    is_verified = serializers.BooleanField()
+    is_valid = serializers.BooleanField()
     source = serializers.ChoiceField(choices=[_.name for _ in VerificationPath])
     worker_document_ref = DocumentReferenceField(allow_null=True)
 
