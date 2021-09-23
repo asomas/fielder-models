@@ -141,9 +141,11 @@ class Status(Enum):
 
 
 class VerifiedBaseSerializer(serializers.Serializer):
-    dov = serializers.DateTimeField()
-    is_valid = serializers.BooleanField()
-    source = serializers.ChoiceField(choices=[_.name for _ in VerificationPath])
+    dov = serializers.DateTimeField(allow_null=True)
+    is_valid = serializers.BooleanField(default=False)
+    source = serializers.ChoiceField(
+        choices=[_.name for _ in VerificationPath], allow_null=True
+    )
     worker_document_ref = DocumentReferenceField(allow_null=True)
 
 
