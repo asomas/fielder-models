@@ -150,15 +150,15 @@ class VerifiedBaseSerializer(serializers.Serializer):
 
 
 class VerifiedStringSerializer(VerifiedBaseSerializer):
-    value = serializers.CharField()
+    value = serializers.CharField(allow_null=True)
 
 
 class VerifiedDateSerializer(VerifiedBaseSerializer):
-    value = serializers.RegexField(DATE_FIELD_REGEX)
+    value = serializers.RegexField(DATE_FIELD_REGEX, allow_null=True)
 
 
 class VerifiedDateTimeSerializer(VerifiedBaseSerializer):
-    value = serializers.DateTimeField()
+    value = serializers.DateTimeField(allow_null=True)
 
 
 class WorkerDBSerializer(serializers.Serializer):
