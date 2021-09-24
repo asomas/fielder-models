@@ -172,6 +172,8 @@ class RTWSubColSerializer(serializers.Serializer):
     )
     status = serializers.ChoiceField(choices=[_.name for _ in Status])
     submitted = serializers.BooleanField()
+    share_code = serializers.CharField(allow_null=True)
+    submitted_at = serializers.DateTimeField(allow_null=True)
 
 
 class WorkerDocumentDBSerializer(serializers.Serializer):
