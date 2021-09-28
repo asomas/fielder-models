@@ -44,4 +44,5 @@ class JobSummarySchema {
   static const String overTimeRate = "overtime_rate";
   static const String occupation = "occupation";
   static const String jobReferenceId = "job_reference_id";
+  static const String overtimeThreshold = "overtime_threshold";
 }

@@ -3,6 +3,7 @@ import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/job_template_model.dart';
 import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
 import 'package:fielder_models/core/db_models/old/qualification_model.dart';
+import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/payment_model_schema.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
@@ -31,9 +32,11 @@ class AddJobModel {
   DefaultLocationDataModel defaultLocationData;
   List<PatternDataModel> shiftPatternsArray;
   bool volunteer;
-  bool payDetectionEnabled;
   OccupationModel occupationModel;
   PaymentModel paymentModel;
+  bool enableEarlyDeduction;
+  bool enableLateDeduction;
+  int overTimeThreshHold;
 
   AddJobModel(
       {this.description = '',
@@ -43,7 +46,7 @@ class AddJobModel {
       this.selTemplate,
       this.additionalReqsArray,
       this.workLocationAddress,
-      this.payCalculation = "Actual hours",
+      this.payCalculation = "Shift hours",
       this.lateArrival = 0,
       this.earlyLeaver = 0,
       this.overTimeRate,
@@ -54,11 +57,13 @@ class AddJobModel {
       this.defaultLocationData,
       this.shiftPatternsArray,
       this.volunteer = false,
-      this.payDetectionEnabled = true,
+      this.enableLateDeduction = false,
+      this.enableEarlyDeduction = false,
       this.checksArray,
       this.checks,
       this.occupationModel,
-      this.paymentModel});
+      this.paymentModel,
+      this.overTimeThreshHold});
 
   Map<String, dynamic> toJSON() {
     print('AddJobModel toJSON invoked');
@@ -98,13 +103,19 @@ class AddJobModel {
         // JobTemplateSchema.defaultLocationdata:
         //     defaultLocationData.toJSON() ?? {},
         JobTemplateSchema.shiftPatternData: _shiftPatternsMapArray,
-        JobTemplateSchema.enablePayDetection: payDetectionEnabled,
         JobTemplateSchema.checksIds: (checksArray?.isNotEmpty == true)
             ? checksArray.map((e) => e.checkID).toList() ?? []
             : [],
+        JobTemplateSchema.enableEarlyDeduction: enableEarlyDeduction,
+        JobTemplateSchema.enableLateDeduction: enableLateDeduction,
+        JobSummarySchema.overtimeThreshold: overTimeThreshHold,
       };
       if (volunteer) {
         _map.remove(JobTemplateSchema.payment);
+      }
+      if (payCalculation == "Actual hours") {
+        _map.remove(JobTemplateSchema.enableLateDeduction);
+        _map.remove(JobTemplateSchema.enableEarlyDeduction);
       }
       print("AddJobModel map -> $_map");
     } catch (e) {
@@ -129,8 +140,11 @@ class AddJobModel {
         lateArrival: data[JobTemplateSchema.lateArrival] ?? 0,
         earlyLeaver: data[JobTemplateSchema.earlyLeaver] ?? 0,
         overTimeRate: data[JobTemplateSchema.overtimeRate] ?? 0,
-        payDetectionEnabled:
-            data[JobTemplateSchema.enablePayDetection] ?? false,
+        enableEarlyDeduction:
+            data[JobTemplateSchema.enableEarlyDeduction] ?? false,
+        enableLateDeduction:
+            data[JobTemplateSchema.enableLateDeduction] ?? false,
+        overTimeThreshHold: data[JobSummarySchema.overtimeThreshold],
         occupationModel: data[JobTemplateSchema.occupation] != null
             ? OccupationModel.fromJson(data[JobTemplateSchema.occupation])
             : null,
