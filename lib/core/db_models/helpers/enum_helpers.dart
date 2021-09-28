@@ -253,4 +253,33 @@ class EnumHelpers {
         return '';
     }
   }
+
+  static RightToWorkFlow rightToWorkFlowFromString(String flowName) {
+    switch (flowName) {
+      case 'PASSPORT':
+        return RightToWorkFlow.Passport;
+      case 'BIRTH_CERTIFICATE':
+        return RightToWorkFlow.BirthCertificate;
+      case 'BRP':
+        return RightToWorkFlow.BRP;
+      case 'SHARE_CODE':
+        return RightToWorkFlow.ShareCode;
+      default:
+        return RightToWorkFlow.None;
+    }
+  }
+
+  static RightToWorkVerificationStatus rightToWorkVerificationStatusFromString(
+      String status) {
+    switch (status) {
+      case 'UNDER_REVIEW':
+        return RightToWorkVerificationStatus.UnderReview;
+      case 'VERIFIED':
+        return RightToWorkVerificationStatus.Verified;
+      case 'REJECTED':
+        return RightToWorkVerificationStatus.Rejected;
+      default:
+        return RightToWorkVerificationStatus.None;
+    }
+  }
 }
