@@ -41,6 +41,8 @@ class JobTemplateSchema {
   static const String organisationId = "organisation_id";
   static const String organisationTemplateLimit = "limit";
   static const String payment = "payment";
+  static const String enableLateDeduction = "enable_late_deduction";
+  static const String enableEarlyDeduction = "enable_early_deduction";
 
   static const String fielderTemplateId = "fielder_template_id";
   static const String fielderTemplateName = "name";
