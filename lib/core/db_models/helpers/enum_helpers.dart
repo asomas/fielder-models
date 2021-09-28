@@ -276,7 +276,7 @@ class EnumHelpers {
         return RightToWorkVerificationStatus.UnderReview;
       case 'VERIFIED':
         return RightToWorkVerificationStatus.Verified;
-      case 'VERIFIED':
+      case 'REJECTED':
         return RightToWorkVerificationStatus.Rejected;
       default:
         return RightToWorkVerificationStatus.None;

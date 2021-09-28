@@ -31,7 +31,7 @@ class RightToWork {
           submitted: map[RightToWorkSchema.submitted] ?? false,
           shareCode: map[RightToWorkSchema.shareCode],
           submittedAt:
-              (map[RightToWorkSchema.submittedAt] as Timestamp).toDate());
+              (map[RightToWorkSchema.submittedAt] as Timestamp)?.toDate());
     } catch (e, s) {
       print('right to work model catch $e, $s');
       return null;
