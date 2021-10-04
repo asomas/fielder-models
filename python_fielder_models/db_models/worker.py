@@ -164,6 +164,8 @@ class VerifiedDateTimeSerializer(VerifiedBaseSerializer):
 class WorkerDBSerializer(serializers.Serializer):
     dob = VerifiedDateSerializer()
     full_name = VerifiedStringSerializer()
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
 
 
 class RTWSubColSerializer(serializers.Serializer):
