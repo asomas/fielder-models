@@ -2,8 +2,13 @@ from python_fielder_models.api_models.common import GooglePlaceDataSerializer
 from python_fielder_models.api_models.organisation import (
     OrganisationLocationAPISerializer,
 )
+from python_fielder_models.common.job import JobSerializer
 from python_fielder_models.db_models.common import RecurrenceSerializer
 from rest_framework import serializers
+
+
+class JobAPISerializer(JobSerializer):
+    pass
 
 
 class ApproveShiftRequestSerializer(serializers.Serializer):

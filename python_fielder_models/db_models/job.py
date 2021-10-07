@@ -2,11 +2,16 @@ from datetime import datetime
 from enum import Enum
 
 from fielder_backend_utils.rest_utils import DocumentReferenceField
+from python_fielder_models.common.job import JobSerializer
 from python_fielder_models.db_models.common import RecurrenceSerializer
 from python_fielder_models.db_models.organisation import (
     OrganisationLocationDBSerializer,
 )
 from rest_framework import serializers
+
+
+class JobDBSerializer(JobSerializer):
+    pass
 
 
 class OfferStatus(Enum):
