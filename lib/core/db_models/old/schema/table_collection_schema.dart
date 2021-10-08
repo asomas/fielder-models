@@ -37,4 +37,5 @@ class FbCollections {
   static const String signupReferrals = "signup_referrals";
   static const String private = "private";
   static const String rightToWork = 'right_to_work';
+  static const String occupationSkillRelations = 'occupation_skill_relations';
 }

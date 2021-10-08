@@ -64,6 +64,8 @@ class EnumHelpers {
         return OfferStatus.Rejected;
       case 'Expired':
         return OfferStatus.Expired;
+      case 'Queued':
+        return OfferStatus.Queued;
       default:
         return OfferStatus.None;
     }

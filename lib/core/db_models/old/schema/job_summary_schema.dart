@@ -45,4 +45,5 @@ class JobSummarySchema {
   static const String occupation = "occupation";
   static const String jobReferenceId = "job_reference_id";
   static const String overtimeThreshold = "overtime_threshold";
+  static const String isArchived = "is_archived";
 }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -20,6 +21,10 @@ class SkillsModel {
         _value = map['value'] ?? '';
       } else if (map.containsKey(JobTemplateSchema.skillValue)) {
         _value = map[JobTemplateSchema.skillValue] ?? '';
+      }
+
+      if (docID == null || docID.isEmpty) {
+        docID = (map[JobTemplateSchema.skillRef] as DocumentReference)?.id;
       }
       if (_value.isNotEmpty) {
         return SkillsModel(

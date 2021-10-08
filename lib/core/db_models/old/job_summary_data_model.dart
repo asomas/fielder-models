@@ -9,13 +9,15 @@ class JobSummaryDataModel {
   JobDataModel jobDataModel;
   String jobId;
   List<WorkerModel> workersArray;
+  bool isArchived;
 
-  JobSummaryDataModel({
-    this.organisationId,
-    this.jobDataModel,
-    this.jobId,
-    this.workersArray,
-  }) : assert(
+  JobSummaryDataModel(
+      {this.organisationId,
+      this.jobDataModel,
+      this.jobId,
+      this.workersArray,
+      this.isArchived = false})
+      : assert(
           jobDataModel != null && jobId != null,
         );
 
@@ -51,11 +53,11 @@ class JobSummaryDataModel {
 
           if (_jobId.isNotEmpty) {
             return JobSummaryDataModel(
-              organisationId: _organisationId,
-              jobDataModel: _jobDataModel,
-              jobId: _jobId,
-              workersArray: _allWorkerArray,
-            );
+                organisationId: _organisationId,
+                jobDataModel: _jobDataModel,
+                jobId: _jobId,
+                workersArray: _allWorkerArray,
+                isArchived: map[JobSummarySchema.isArchived] ?? false);
           }
         }
       } catch (e) {
