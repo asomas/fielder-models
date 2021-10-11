@@ -75,6 +75,7 @@ class StaffDetailsPersnoalDetailsResponse(serializers.Serializer):
         required=False, allow_null=True, child=serializers.CharField()
     )
     personal_statement = serializers.CharField(required=False, allow_null=True)
+    has_logged_in = serializers.BooleanField(required=False)
 
 
 class StaffDetailsProfessionalDetailsResponse(serializers.Serializer):
