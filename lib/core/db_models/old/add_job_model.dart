@@ -37,6 +37,7 @@ class AddJobModel {
   bool enableEarlyDeduction;
   bool enableLateDeduction;
   int overTimeThreshHold;
+  bool isArchived;
 
   AddJobModel(
       {this.description = '',
@@ -63,7 +64,8 @@ class AddJobModel {
       this.checks,
       this.occupationModel,
       this.paymentModel,
-      this.overTimeThreshHold});
+      this.overTimeThreshHold,
+      this.isArchived = false});
 
   Map<String, dynamic> toJSON() {
     print('AddJobModel toJSON invoked');
@@ -109,6 +111,7 @@ class AddJobModel {
         JobTemplateSchema.enableEarlyDeduction: enableEarlyDeduction,
         JobTemplateSchema.enableLateDeduction: enableLateDeduction,
         JobSummarySchema.overtimeThreshold: overTimeThreshHold,
+        JobSummarySchema.isArchived: isArchived ?? false
       };
       if (volunteer) {
         _map.remove(JobTemplateSchema.payment);
@@ -140,6 +143,7 @@ class AddJobModel {
         lateArrival: data[JobTemplateSchema.lateArrival] ?? 0,
         earlyLeaver: data[JobTemplateSchema.earlyLeaver] ?? 0,
         overTimeRate: data[JobTemplateSchema.overtimeRate] ?? 0,
+        isArchived: data[JobSummarySchema.isArchived] ?? false,
         enableEarlyDeduction:
             data[JobTemplateSchema.enableEarlyDeduction] ?? false,
         enableLateDeduction:

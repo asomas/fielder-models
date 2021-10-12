@@ -15,6 +15,7 @@ class CandidatesModel {
   double availabilityScore;
   double totalScore;
   InviteStatusModel fielderNetworkInvite;
+  bool isGhostUser;
 
   CandidatesModel(
       {this.workerId,
@@ -29,7 +30,8 @@ class CandidatesModel {
       this.checkScore = 0,
       this.availabilityScore = 0,
       this.totalScore = 0,
-      this.fielderNetworkInvite});
+      this.fielderNetworkInvite,
+      this.isGhostUser = false});
 
   factory CandidatesModel.fromMap(Map<String, dynamic> map) {
     return CandidatesModel(
@@ -72,7 +74,8 @@ class CandidatesModel {
       String lastName,
       String avatarUrl,
       String phoneNumber,
-      {InviteStatusModel invite}) {
+      {InviteStatusModel invite,
+      bool isGhostUser}) {
     try {
       return CandidatesModel(
           workerId: map[CandidatesMatchingSchema.id],
@@ -87,7 +90,8 @@ class CandidatesModel {
           fullName: "${firstName ?? ""} ${lastName ?? ""}",
           pictureUrl: avatarUrl,
           phoneNumber: phoneNumber,
-          fielderNetworkInvite: invite);
+          fielderNetworkInvite: invite,
+          isGhostUser: isGhostUser);
     } catch (e) {
       print("candidates matching model catch_______$e");
       return null;

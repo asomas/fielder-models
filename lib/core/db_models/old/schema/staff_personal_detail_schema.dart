@@ -15,4 +15,5 @@ class StaffPersonalDetailSchema {
   static const String city = "city";
   static const String postcode = "postal_code";
   static const String workerReferenceId = "worker_reference_id";
+  static const String hasLoggedIn = "has_logged_in";
 }
