@@ -1,8 +1,8 @@
 import 'package:fielder_models/core/db_models/old/additional_info_model.dart';
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
+import 'package:fielder_models/core/db_models/old/courses_and_level_model.dart';
 import 'package:fielder_models/core/db_models/old/job_template_model.dart';
 import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
-import 'package:fielder_models/core/db_models/old/qualification_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/payment_model_schema.dart';
@@ -21,7 +21,6 @@ class AddJobModel {
   List<SkillsModel> skillsArray;
   List<CheckModel> checksArray;
   List<dynamic> checks;
-  List<QualificationModel> requiredQualification;
   bool isDBSRequired;
   bool isEnhancedDBSRequired;
   String workLocationAddress;
@@ -38,6 +37,7 @@ class AddJobModel {
   bool enableLateDeduction;
   int overTimeThreshHold;
   bool isArchived;
+  List<CoursesAndLevelModel> courses;
 
   AddJobModel(
       {this.description = '',
@@ -53,7 +53,6 @@ class AddJobModel {
       this.overTimeRate,
       this.isDBSRequired = false,
       this.isEnhancedDBSRequired = false,
-      this.requiredQualification,
       this.skillsArray,
       this.defaultLocationData,
       this.shiftPatternsArray,
@@ -65,6 +64,7 @@ class AddJobModel {
       this.occupationModel,
       this.paymentModel,
       this.overTimeThreshHold,
+      this.courses,
       this.isArchived = false});
 
   Map<String, dynamic> toJSON() {
@@ -94,10 +94,6 @@ class AddJobModel {
         JobTemplateSchema.skillsIds: (skillsArray?.isNotEmpty == true)
             ? skillsArray.map((e) => e.docID).toList() ?? []
             : [],
-        JobTemplateSchema.qualificationsIds:
-            (requiredQualification?.isNotEmpty == true)
-                ? requiredQualification.map((e) => e.docID).toList() ?? []
-                : [],
         JobTemplateSchema.additionalRequirements:
             (additionalReqsArray?.isNotEmpty == true)
                 ? additionalReqsArray.map((e) => e.docID).toList() ?? []
@@ -111,7 +107,10 @@ class AddJobModel {
         JobTemplateSchema.enableEarlyDeduction: enableEarlyDeduction,
         JobTemplateSchema.enableLateDeduction: enableLateDeduction,
         JobSummarySchema.overtimeThreshold: overTimeThreshHold,
-        JobSummarySchema.isArchived: isArchived ?? false
+        JobSummarySchema.isArchived: isArchived ?? false,
+        JobSummarySchema.courses: (courses?.isNotEmpty == true)
+            ? courses.map((e) => e.toJsonForApi()).toList() ?? []
+            : [],
       };
       if (volunteer) {
         _map.remove(JobTemplateSchema.payment);
@@ -171,15 +170,6 @@ class AddJobModel {
                         docID: e[JobTemplateSchema.skillRef].toString()))
                     .toList()
                 : [],
-        requiredQualification:
-            (data[JobTemplateSchema.qualifications] as List)?.isNotEmpty == true
-                ? (data[JobTemplateSchema.qualifications] as List)
-                    .map((e) => QualificationModel.fromMap(
-                        map: e,
-                        docID:
-                            e[JobTemplateSchema.qualificationRef].toString()))
-                    .toList()
-                : [],
         additionalReqsArray:
             (data[JobTemplateSchema.additionalRequirement] as List)
                         ?.isNotEmpty ==
@@ -191,6 +181,11 @@ class AddJobModel {
                             .toString()))
                     .toList()
                 : [],
+        courses: (data[JobSummarySchema.courses] as List)?.isNotEmpty == true
+            ? (data[JobSummarySchema.courses] as List)
+                .map((e) => CoursesAndLevelModel.fromMap(e))
+                .toList()
+            : [],
       );
     }
     return addJobModel;
@@ -205,8 +200,8 @@ class AddJobModel {
     workLocationAddress = '';
     isDBSRequired = false;
     isEnhancedDBSRequired = false;
-    requiredQualification = [];
     skillsArray = [];
+    checks = [];
     defaultLocationData = null;
     shiftPatternsArray = [];
     checksArray = [];

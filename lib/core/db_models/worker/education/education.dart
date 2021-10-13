@@ -158,8 +158,9 @@ class Level {
   DocumentReference levelRef;
   String value;
   String levelId;
+  int levelNumber;
 
-  Level({this.levelRef, this.value, this.levelId});
+  Level({this.levelRef, this.value, this.levelId, this.levelNumber});
 
   factory Level.fromJson(Map<String, dynamic> json) => Level(
         levelRef: json[EducationSchema.levelRef] != null
@@ -170,6 +171,7 @@ class Level {
             : null,
         value: json[EducationSchema.value] ?? "",
         levelId: json[EducationSchema.levelId] ?? "",
+        levelNumber: json[EducationSchema.levelNumber],
       );
 
   Map<String, dynamic> toJson() => {
