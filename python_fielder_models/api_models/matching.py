@@ -1,5 +1,6 @@
 from enum import Enum, auto
 
+from python_fielder_models.api_models.common import LocationAPISerializer
 from python_fielder_models.db_models.common import RecurrenceSerializer
 from rest_framework import serializers
 
@@ -29,6 +30,7 @@ class MatchingRequestSerializer(serializers.Serializer):
     skip = serializers.IntegerField(min_value=0, default=0)
     limit = serializers.IntegerField(min_value=0, max_value=10, default=5)
     worker_type = serializers.ChoiceField(choices=WorkerType._member_names_)
+    address = LocationAPISerializer()
 
 
 class MatchingWorker(serializers.Serializer):
@@ -38,6 +40,7 @@ class MatchingWorker(serializers.Serializer):
     checks_score = serializers.IntegerField(min_value=0, max_value=100)
     availability_score = serializers.IntegerField(min_value=0, max_value=100)
     overall_score = serializers.IntegerField(min_value=0, max_value=100)
+    distance = serializers.FloatField(min_value=0)
 
 
 class MatchingResponseSerializer(serializers.Serializer):
