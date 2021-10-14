@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/old/additional_info_model.dart';
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
+import 'package:fielder_models/core/db_models/old/courses_and_level_model.dart';
 import 'package:fielder_models/core/db_models/old/default_location_data_model.dart';
 import 'package:fielder_models/core/db_models/old/qualification_model.dart';
+import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'package:fielder_models/core/db_models/worker/occupation.dart';
@@ -14,7 +16,7 @@ class JobTemplateModel {
   final List<AdditionalInfoModel> additionalRequirements;
   final List<SkillsModel> requiredSkill;
   final List<CheckModel> checks;
-  final List<QualificationModel> requiredQualification;
+  //final List<QualificationModel> requiredQualification;
   final String workLocationAddress;
   final int rate;
   final String name;
@@ -22,6 +24,7 @@ class JobTemplateModel {
   final bool volunteer;
   final OccupationModel occupationModel;
   final DefaultLocationDataModel defaultLocationData;
+  List<CoursesAndLevelModel> courses;
 
   JobTemplateModel({
     this.jobTitle,
@@ -30,7 +33,7 @@ class JobTemplateModel {
     this.additionalRequirements,
     this.workLocationAddress,
     this.rate,
-    this.requiredQualification,
+    //this.requiredQualification,
     this.requiredSkill,
     this.volunteer = false,
     this.defaultLocation,
@@ -38,6 +41,7 @@ class JobTemplateModel {
     this.checks,
     this.occupationModel,
     this.defaultLocationData,
+    this.courses,
   });
 
   factory JobTemplateModel.fromMap(Map<String, dynamic> map) {
@@ -140,12 +144,17 @@ class JobTemplateModel {
           description: map[JobTemplateSchema.description] ?? '',
           jobTitle: map[JobTemplateSchema.jobTitle] ?? '',
           rate: map[JobTemplateSchema.rate] ?? 0,
-          requiredQualification: _allQualificationsArray,
+          //requiredQualification: _allQualificationsArray,
           requiredSkill: _allSkillsArray,
           checks: _allChecksArray,
           volunteer: map[JobTemplateSchema.volunteer] ?? false,
           occupationModel: _occupationModel,
           workLocationAddress: map[JobTemplateSchema.location],
+          courses: (map[JobSummarySchema.courses] as List)?.isNotEmpty == true
+              ? (map[JobSummarySchema.courses] as List)
+                  .map((e) => CoursesAndLevelModel.fromMap(e))
+                  .toList()
+              : [],
         );
       }
     } catch (e) {

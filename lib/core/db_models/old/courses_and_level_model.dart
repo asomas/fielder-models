@@ -58,14 +58,16 @@ class CoursesAndLevelModel {
   }
 
   Map<String, dynamic> toJsonForApi() {
-    return {
-      JobSummarySchema.courseRef: course?.docID != null
-          ? '${JobSummarySchema.courses}/${course.docID}'
-          : null,
-      JobSummarySchema.levelRef: level?.levelId != null
-          ? "${JobSummarySchema.levels}/${level.levelId}"
-          : null,
-    };
+    Map<String, dynamic> dataMap = {};
+    if (course?.docID != null) {
+      dataMap[JobSummarySchema.courseRef] =
+          '${JobSummarySchema.courses}/${course.docID}';
+    }
+    if (level?.levelId != null) {
+      dataMap[JobSummarySchema.levelRef] =
+          "${JobSummarySchema.levels}/${level.levelId}";
+    }
+    return dataMap;
   }
 
   DocumentReference _getCourseRef(String id) {

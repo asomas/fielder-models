@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/old/schema/default_location_data_schema.dart';
+import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:flutter/cupertino.dart';
 
 class AddressModel {
@@ -34,6 +35,37 @@ class AddressModel {
     tempMap[DefaultLocationDataSchema.postalCode] = postalCode ?? '';
     tempMap[DefaultLocationDataSchema.flat] = flat ?? '';
     return tempMap;
+  }
+
+  Map<String, dynamic> toJsonLocation() {
+    Map<String, dynamic> addressMap = Map();
+    addressMap[DefaultLocationDataSchema.country] = country ?? '';
+    addressMap[DefaultLocationDataSchema.city] = city ?? '';
+    addressMap[DefaultLocationDataSchema.building] = building ?? '';
+    addressMap[DefaultLocationDataSchema.county] = county ?? '';
+    addressMap[DefaultLocationDataSchema.street] = street ?? '';
+    addressMap[DefaultLocationDataSchema.postalCode] = postalCode ?? '';
+    addressMap[DefaultLocationDataSchema.flat] = flat ?? '';
+    Map<String, dynamic> coordsMap = Map();
+    coordsMap[DefaultLocationDataSchema.lat] = coordinates?.latitude;
+    coordsMap[DefaultLocationDataSchema.lng] = coordinates?.longitude;
+    return {
+      DefaultLocationDataSchema.address: addressMap,
+      DefaultLocationDataSchema.coordinates: coordsMap,
+    };
+  }
+
+  factory AddressModel.fromObject(LocationModelDetail location) {
+    return AddressModel(
+      coordinates: location.coordinates,
+      county: location.address?.county,
+      country: location.address?.country,
+      city: location.address?.city,
+      building: location.address?.building,
+      flat: location.address?.flat,
+      street: location.address?.street,
+      postalCode: location.address?.postalCode,
+    );
   }
 
   factory AddressModel.fromMap({
