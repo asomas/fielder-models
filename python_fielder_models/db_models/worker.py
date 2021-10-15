@@ -175,7 +175,7 @@ class RTWSubColSerializer(serializers.Serializer):
     status = serializers.ChoiceField(choices=[_.name for _ in Status])
     submitted = serializers.BooleanField()
     share_code = serializers.CharField(allow_null=True)
-    share_code_response = serializers.CharField(allow_null=True, required=False, default=None)
+    share_code_response = serializers.CharField(allow_null=True)
     submitted_at = serializers.DateTimeField(allow_null=True)
 
 
