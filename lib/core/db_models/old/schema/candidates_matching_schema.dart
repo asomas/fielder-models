@@ -10,6 +10,7 @@ class CandidatesMatchingSchema {
   static const String checksScore = "checks_score";
   static const String availabilityScore = "availability_score";
   static const String overallScore = "overall_score";
+  static const String distance = "distance";
 }
 
 class CandidatesMatchingRequestSchema {

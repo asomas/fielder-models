@@ -16,6 +16,7 @@ class CandidatesModel {
   double totalScore;
   InviteStatusModel fielderNetworkInvite;
   bool isGhostUser;
+  double distance;
 
   CandidatesModel(
       {this.workerId,
@@ -31,18 +32,19 @@ class CandidatesModel {
       this.availabilityScore = 0,
       this.totalScore = 0,
       this.fielderNetworkInvite,
-      this.isGhostUser = false});
+      this.isGhostUser = false,
+      this.distance = 0});
 
   factory CandidatesModel.fromMap(Map<String, dynamic> map) {
     return CandidatesModel(
-      workerId: map[CandidatesMatchingSchema.workerId],
-      isStaff: map[CandidatesMatchingSchema.isStaff],
-      firstName: map[CandidatesMatchingSchema.firstName],
-      lastName: map[CandidatesMatchingSchema.lastName],
-      fullName: "${map[CandidatesMatchingSchema.firstName] ?? ""}"
-          " ${map[CandidatesMatchingSchema.lastName] ?? ""}",
-      pictureUrl: map[CandidatesMatchingSchema.pictureUrl],
-    );
+        workerId: map[CandidatesMatchingSchema.workerId],
+        isStaff: map[CandidatesMatchingSchema.isStaff],
+        firstName: map[CandidatesMatchingSchema.firstName],
+        lastName: map[CandidatesMatchingSchema.lastName],
+        fullName: "${map[CandidatesMatchingSchema.firstName] ?? ""}"
+            " ${map[CandidatesMatchingSchema.lastName] ?? ""}",
+        pictureUrl: map[CandidatesMatchingSchema.pictureUrl],
+        distance: map[CandidatesMatchingSchema.distance]);
   }
 
   factory CandidatesModel.fromMatching(Map<String, dynamic> map, bool isStaff,
@@ -60,7 +62,8 @@ class CandidatesModel {
           lastName: lastName,
           fullName: "${firstName ?? ""} ${lastName ?? ""}",
           pictureUrl: avatarUrl,
-          phoneNumber: phoneNumber);
+          phoneNumber: phoneNumber,
+          distance: map[CandidatesMatchingSchema.distance]);
     } catch (e) {
       print("candidates matching model catch_______$e");
       return null;
@@ -91,7 +94,8 @@ class CandidatesModel {
           pictureUrl: avatarUrl,
           phoneNumber: phoneNumber,
           fielderNetworkInvite: invite,
-          isGhostUser: isGhostUser);
+          isGhostUser: isGhostUser,
+          distance: map[CandidatesMatchingSchema.distance]);
     } catch (e) {
       print("candidates matching model catch_______$e");
       return null;
