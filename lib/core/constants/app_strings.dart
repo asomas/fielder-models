@@ -155,4 +155,8 @@ class AppStrings {
 
   static const String dummy =
       "Body: Lorem Ipsum is simply dummy text of the printing and typesetting industry.";
+
+  static const String oopsSomethingWentWrong = "Oops, something went wrong! 🙈";
+  static const String errorHelpingDetail =
+      "It’s okay, we are here to help! If you continue to have issues, drop us a message by selecting the question mark at the top right";
 }

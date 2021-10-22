@@ -284,4 +284,15 @@ class EnumHelpers {
         return RightToWorkVerificationStatus.None;
     }
   }
+
+  static OverlayType overlayTypeFromString(String type) {
+    switch (type) {
+      case 'error':
+        return OverlayType.ERROR;
+      case 'warning':
+        return OverlayType.WARNING;
+      default:
+        return OverlayType.SUCCESS;
+    }
+  }
 }
