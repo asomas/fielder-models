@@ -12,15 +12,20 @@ class WorkerType(Enum):
 
 
 class MatchingRequestSerializer(serializers.Serializer):
+    class CourseLevelSerializer(serializers.Serializer):
+        course_id = serializers.CharField()
+        level_id = serializers.CharField(allow_null=True, default="0")
+        level_number = serializers.IntegerField(allow_null=True, default=0)
+
     worker_id = serializers.CharField(required=False, allow_blank=True)
     skills = serializers.ListField(
-        required=False, allow_null=True, child=serializers.CharField()
+        required=False, allow_null=True, allow_empty=True, child=serializers.CharField()
     )
-    qualifications = serializers.ListField(
-        required=False, allow_null=True, child=serializers.CharField()
+    courses = serializers.ListField(
+        required=False, allow_null=True, allow_empty=True, child=CourseLevelSerializer()
     )
     checks = serializers.ListField(
-        required=False, allow_null=True, child=serializers.CharField()
+        required=False, allow_null=True, allow_empty=True, child=serializers.CharField()
     )
     end_date = serializers.DateField()
     end_time = serializers.IntegerField(min_value=0, max_value=86400)
@@ -36,7 +41,7 @@ class MatchingRequestSerializer(serializers.Serializer):
 class MatchingWorker(serializers.Serializer):
     id = serializers.CharField()
     skills_score = serializers.IntegerField(min_value=0, max_value=100)
-    qualifications_score = serializers.IntegerField(min_value=0, max_value=100)
+    courses_score = serializers.IntegerField(min_value=0, max_value=100)
     checks_score = serializers.IntegerField(min_value=0, max_value=100)
     availability_score = serializers.IntegerField(min_value=0, max_value=100)
     overall_score = serializers.IntegerField(min_value=0, max_value=100)
