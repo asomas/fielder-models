@@ -37,6 +37,23 @@ class MatchingRequestSerializer(serializers.Serializer):
     worker_type = serializers.ChoiceField(choices=WorkerType._member_names_)
     address = LocationAPISerializer()
 
+    def to_internal_value(self, data):
+        data = super().to_internal_value(data)
+        if "courses" in data:
+            courses = []
+            for course in data["courses"]:
+                level_id = course.get("level_id") or "0"
+                level_number = course.get("level_number") or 0
+                courses.append(
+                    {
+                        "course_id": course["course_id"],
+                        "level_id": level_id,
+                        "level_number": level_number,
+                    }
+                )
+            data["courses"] = courses
+        return data
+
 
 class MatchingWorker(serializers.Serializer):
     id = serializers.CharField()
