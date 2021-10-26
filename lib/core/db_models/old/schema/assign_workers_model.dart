@@ -10,7 +10,7 @@ class CandidatesModel {
   String pictureUrl;
   bool isStaff;
   double skillScore;
-  double qualificationScore;
+  double coursesScore;
   double checkScore;
   double availabilityScore;
   double totalScore;
@@ -27,7 +27,7 @@ class CandidatesModel {
       this.phoneNumber,
       this.pictureUrl,
       this.skillScore = 0,
-      this.qualificationScore = 0,
+      this.coursesScore = 0,
       this.checkScore = 0,
       this.availabilityScore = 0,
       this.totalScore = 0,
@@ -53,7 +53,7 @@ class CandidatesModel {
       return CandidatesModel(
           workerId: map[CandidatesMatchingSchema.id],
           skillScore: map[CandidatesMatchingSchema.skillsScore],
-          qualificationScore: map[CandidatesMatchingSchema.qualificationsScore],
+          coursesScore: map[CandidatesMatchingSchema.coursesScore],
           checkScore: map[CandidatesMatchingSchema.checksScore],
           availabilityScore: map[CandidatesMatchingSchema.availabilityScore],
           totalScore: map[CandidatesMatchingSchema.overallScore],
@@ -83,7 +83,7 @@ class CandidatesModel {
       return CandidatesModel(
           workerId: map[CandidatesMatchingSchema.id],
           skillScore: map[CandidatesMatchingSchema.skillsScore],
-          qualificationScore: map[CandidatesMatchingSchema.qualificationsScore],
+          coursesScore: map[CandidatesMatchingSchema.coursesScore],
           checkScore: map[CandidatesMatchingSchema.checksScore],
           availabilityScore: map[CandidatesMatchingSchema.availabilityScore],
           totalScore: map[CandidatesMatchingSchema.overallScore],

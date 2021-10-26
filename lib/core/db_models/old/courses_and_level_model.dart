@@ -70,6 +70,20 @@ class CoursesAndLevelModel {
     return dataMap;
   }
 
+  Map<String, dynamic> toJsonForMatching() {
+    Map<String, dynamic> dataMap = {};
+    if (course?.docID != null) {
+      dataMap[EducationSchema.courseId] = course.docID;
+    }
+    if (level?.levelId != null) {
+      dataMap[EducationSchema.levelId] = level.levelId;
+    }
+    if (level?.levelNumber != null) {
+      dataMap[EducationSchema.levelNumber] = level.levelNumber;
+    }
+    return dataMap;
+  }
+
   DocumentReference _getCourseRef(String id) {
     return FirebaseFirestore.instance.collection('courses').doc(id);
   }

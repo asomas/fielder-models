@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
-import 'package:fielder_models/core/db_models/old/qualification_model.dart';
-import 'package:fielder_models/core/db_models/old/skills_model.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:fielder_models/core/db_models/old/courses_and_level_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
+import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
+import 'package:flutter/cupertino.dart';
+
 import 'job_location_data_model.dart';
 
 class JobDataModel {
@@ -18,7 +19,7 @@ class JobDataModel {
   int rate;
   String payCalculation;
   List<SkillsModel> skills;
-  List<QualificationModel> qualifications;
+  List<CoursesAndLevelModel> courses;
   List<CheckModel> checks;
   List<String> issuesArray;
   List<WorkerModel> workersArray;
@@ -31,30 +32,30 @@ class JobDataModel {
   int lateArrival;
   double overTimeRate;
 
-  JobDataModel({
-    this.docID,
-    this.active,
-    this.jobTitle,
-    this.startDate,
-    this.endDate,
-    this.totalHours,
-    this.issuesArray,
-    this.workersArray,
-    this.locationsArray,
-    this.rate,
-    this.payCalculation,
-    this.skills,
-    this.qualifications,
-    this.checks,
-    this.organisationRef,
-    this.supervisorRef,
-    this.managerRef,
-    this.totalShiftsCount = 0,
-    this.earlyLeaver,
-    this.isPayDeductionEnabled,
-    this.lateArrival,
-    this.overTimeRate
-  }) : assert(docID != null);
+  JobDataModel(
+      {this.docID,
+      this.active,
+      this.jobTitle,
+      this.startDate,
+      this.endDate,
+      this.totalHours,
+      this.issuesArray,
+      this.workersArray,
+      this.locationsArray,
+      this.rate,
+      this.payCalculation,
+      this.skills,
+      this.courses,
+      this.checks,
+      this.organisationRef,
+      this.supervisorRef,
+      this.managerRef,
+      this.totalShiftsCount = 0,
+      this.earlyLeaver,
+      this.isPayDeductionEnabled,
+      this.lateArrival,
+      this.overTimeRate})
+      : assert(docID != null);
 
   factory JobDataModel.fromMap({
     @required Map<String, dynamic> map,
@@ -62,15 +63,19 @@ class JobDataModel {
   }) {
     if (map.isNotEmpty) {
       try {
-        DocumentReference _organisationRef = map[JobSummarySchema.organisationRef];
+        DocumentReference _organisationRef =
+            map[JobSummarySchema.organisationRef];
         DocumentReference _supervisorRef = map[JobSummarySchema.supervisorRef];
         DocumentReference _managerRef = map[JobSummarySchema.managerRef];
         final double _overTimeRate = map[JobSummarySchema.overTimeRate] != null
-              ? (map[JobSummarySchema.overTimeRate] / 100) : 0;
-        final int _earlyLeaver = map[JobSummarySchema.earlyLeaver] != null ?
-            map[JobSummarySchema.earlyLeaver] : 0;
-        final int _lateArrival = map[JobSummarySchema.lateArrival] != null?
-        map[JobSummarySchema.lateArrival] : 0;
+            ? (map[JobSummarySchema.overTimeRate] / 100)
+            : 0;
+        final int _earlyLeaver = map[JobSummarySchema.earlyLeaver] != null
+            ? map[JobSummarySchema.earlyLeaver]
+            : 0;
+        final int _lateArrival = map[JobSummarySchema.lateArrival] != null
+            ? map[JobSummarySchema.lateArrival]
+            : 0;
         final bool _isPayDeductionEnabled =
             map[JobSummarySchema.enablePayDeduction] ?? false;
         final Timestamp _startTimeStamp = map[JobSummarySchema.startDate];
@@ -129,26 +134,28 @@ class JobDataModel {
           }
         });
 
-        final List<SkillsModel> _skills = (map[JobSummarySchema.skills] as List)?.isNotEmpty == true
-            ? (map[JobSummarySchema.skills] as List)
-            .map((e) => SkillsModel.fromMap(
-            map: e, docID: e[JobSummarySchema.skillRef]?.id))
-            .toList()
-            : [];
+        final List<SkillsModel> _skills =
+            (map[JobSummarySchema.skills] as List)?.isNotEmpty == true
+                ? (map[JobSummarySchema.skills] as List)
+                    .map((e) => SkillsModel.fromMap(
+                        map: e, docID: e[JobSummarySchema.skillRef]?.id))
+                    .toList()
+                : [];
 
-        final List<QualificationModel> _qualifications = (map[JobSummarySchema.qualification] as List)?.isNotEmpty == true
-            ? (map[JobSummarySchema.qualification] as List)
-            .map((e) => QualificationModel.fromMap(
-            map: e, docID: e[JobSummarySchema.qualificationRef]?.id))
-            .toList()
-            : [];
+        final List<CoursesAndLevelModel> _courses =
+            (map[JobSummarySchema.courses] as List)?.isNotEmpty == true
+                ? (map[JobSummarySchema.courses] as List)
+                    .map((e) => CoursesAndLevelModel.fromMap(e))
+                    .toList()
+                : [];
 
-        final List<CheckModel> _checks = (map[JobSummarySchema.checks] as List)?.isNotEmpty == true
-            ? (map[JobSummarySchema.checks] as List)
-            .map((e) => CheckModel.fromMap(
-            map: e, checkID: e[JobSummarySchema.checkRef]?.id))
-            .toList()
-            : [];
+        final List<CheckModel> _checks =
+            (map[JobSummarySchema.checks] as List)?.isNotEmpty == true
+                ? (map[JobSummarySchema.checks] as List)
+                    .map((e) => CheckModel.fromMap(
+                        map: e, checkID: e[JobSummarySchema.checkRef]?.id))
+                    .toList()
+                : [];
 
         return JobDataModel(
             docID: docID,
@@ -162,7 +169,7 @@ class JobDataModel {
             issuesArray: _allIssuesArray,
             checks: _checks,
             skills: _skills,
-            qualifications: _qualifications,
+            courses: _courses,
             rate: _rate,
             payCalculation: _payCalculation,
             totalShiftsCount: map[JobSummarySchema.totalShiftsCount],
@@ -172,8 +179,7 @@ class JobDataModel {
             overTimeRate: _overTimeRate,
             earlyLeaver: _earlyLeaver,
             lateArrival: _lateArrival,
-            isPayDeductionEnabled: _isPayDeductionEnabled
-        );
+            isPayDeductionEnabled: _isPayDeductionEnabled);
       } catch (e) {
         print('JobDataModel fromMap error: $e');
       }
