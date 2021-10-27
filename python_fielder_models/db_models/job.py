@@ -63,7 +63,6 @@ class OfferDBSerializer(serializers.Serializer):
     worker_ref = DocumentReferenceField()
     job_ref = DocumentReferenceField()
     shift_pattern_data = serializers.DictField()  # set as dict to pass tests
-    worker_data = serializers.DictField()
     job_data = serializers.DictField()  # set as dict to pass tests
     status = serializers.ChoiceField(choices=OfferStatus._member_names_)
     expiry_time = serializers.DateTimeField(allow_null=True, default=None)
