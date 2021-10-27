@@ -1,6 +1,17 @@
 from rest_framework import serializers
 
 
+class UserPromptSerializer(serializers.Serializer):
+    title = serializers.CharField()
+    subtitle = serializers.CharField()
+    read_more_button_text = serializers.CharField(
+        required=False, allow_null=True, default=None
+    )
+    read_more_action_url = serializers.CharField(
+        required=False, allow_null=True, default=None
+    )
+
+
 class AcceptedResponse(serializers.Serializer):
     accepted = serializers.BooleanField(default=True)
 
