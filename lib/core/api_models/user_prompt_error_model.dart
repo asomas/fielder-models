@@ -37,7 +37,7 @@ class UserPrompt {
               map[UserPromptSchema.subTitle] ?? AppStrings.errorHelpingDetail,
           type: map[UserPromptSchema.type] != null
               ? EnumHelpers.overlayTypeFromString(map[UserPromptSchema.type])
-              : OverlayType.ERROR,
+              : null,
           readMoreButtonText: map[UserPromptSchema.readMoreButtonText],
           readMoreActionUrl: map[UserPromptSchema.readMoreActionUrl],
           showReadMore: (map[UserPromptSchema.readMoreButtonText] != null &&
