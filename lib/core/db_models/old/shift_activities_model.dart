@@ -27,6 +27,7 @@ class ShiftActivitiesModel {
   bool clockedOutEarly;
   bool clockedOutFaraway;
   DateTime updatedAt;
+  String shiftActivityReferenceId;
 
   ShiftActivitiesModel({
     this.clockInTime,
@@ -52,6 +53,7 @@ class ShiftActivitiesModel {
     this.dismissible,
     this.needsAttention,
     this.updatedAt,
+    this.shiftActivityReferenceId,
   });
 
   factory ShiftActivitiesModel.fromMap({
@@ -94,6 +96,8 @@ class ShiftActivitiesModel {
         final bool _clockOutEarly = map[ShiftActivitiesSchema.clockedOutEarly];
         final bool _clockOutFarAway =
             map[ShiftActivitiesSchema.clockedOutFaraway];
+        final String _shiftActivityReferenceId =
+            map[ShiftActivitiesSchema.shiftActivityReferenceId];
 
         final ShiftPatternDataModel shiftPatternDataModel =
             map[ShiftActivitiesSchema.shiftPatternData] != null
@@ -135,29 +139,31 @@ class ShiftActivitiesModel {
         }
 
         return ShiftActivitiesModel(
-            docID: docID,
-            clockInTime: _clockInDateTime,
-            clockInLocation: _clockInLocation,
-            clockOutTime: _clockOutDateTime,
-            shiftDate: _shiftPatternDateTime,
-            clockOutLocation: _clockOutLocation,
-            shiftPatternRef: _shiftPatternRef,
-            approvedTime: _approvedTimeDateTime,
-            approvedBy: _approvedBy,
-            approved: _approved,
-            shiftPatternDataModel: shiftPatternDataModel,
-            workerRef: _workerRef,
-            clocked: _clocked,
-            awaitingApproval: _awaitingApproval,
-            updatedAt: _updatedAtTimeDateTime,
-            needsAttention: _needsAttention,
-            dismissible: _dismissible,
-            clockedInEarly: _clockInEarly,
-            clockedInLate: _clockInLate,
-            clockedInFaraway: _clockInFarAway,
-            clockedOutEarly: _clockOutEarly,
-            clockedOutLate: _clockOutLate,
-            clockedOutFaraway: _clockOutFarAway);
+          docID: docID,
+          clockInTime: _clockInDateTime,
+          clockInLocation: _clockInLocation,
+          clockOutTime: _clockOutDateTime,
+          shiftDate: _shiftPatternDateTime,
+          clockOutLocation: _clockOutLocation,
+          shiftPatternRef: _shiftPatternRef,
+          approvedTime: _approvedTimeDateTime,
+          approvedBy: _approvedBy,
+          approved: _approved,
+          shiftPatternDataModel: shiftPatternDataModel,
+          workerRef: _workerRef,
+          clocked: _clocked,
+          awaitingApproval: _awaitingApproval,
+          updatedAt: _updatedAtTimeDateTime,
+          needsAttention: _needsAttention,
+          dismissible: _dismissible,
+          clockedInEarly: _clockInEarly,
+          clockedInLate: _clockInLate,
+          clockedInFaraway: _clockInFarAway,
+          clockedOutEarly: _clockOutEarly,
+          clockedOutLate: _clockOutLate,
+          clockedOutFaraway: _clockOutFarAway,
+          shiftActivityReferenceId: _shiftActivityReferenceId,
+        );
       } on Exception catch (e) {
         print("ShiftActivitiesModel.fromMap error $e");
       }

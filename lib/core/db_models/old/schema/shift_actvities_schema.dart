@@ -22,4 +22,5 @@ class ShiftActivitiesSchema {
   static const String clockedOutLate = "clocked_out_late";
   static const String clockedOutEarly = "clocked_out_early";
   static const String clockedOutFaraway = "clocked_out_faraway";
+  static const String shiftActivityReferenceId = "shift_activity_reference_id";
 }
