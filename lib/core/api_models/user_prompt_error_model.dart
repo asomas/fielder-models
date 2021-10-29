@@ -4,7 +4,7 @@ import 'package:fielder_models/core/enums/enums.dart';
 
 class UserPromptSchema {
   static const String title = 'title';
-  static const String subTitle = 'sub_title';
+  static const String subTitle = 'subtitle';
   static const String type = 'type';
   static const String readMoreButtonText = 'read_more_button_text';
   static const String readMoreActionUrl = 'read_more_action_url';
@@ -40,11 +40,11 @@ class UserPrompt {
               : OverlayType.ERROR,
           readMoreButtonText: map[UserPromptSchema.readMoreButtonText],
           readMoreActionUrl: map[UserPromptSchema.readMoreActionUrl],
-          showReadMore: (map[UserPromptSchema.readMoreButtonText] &&
+          showReadMore: (map[UserPromptSchema.readMoreButtonText] != null &&
                   map[UserPromptSchema.readMoreButtonText]
                       .toString()
                       .isNotEmpty) &&
-              (map[UserPromptSchema.readMoreActionUrl] &&
+              (map[UserPromptSchema.readMoreActionUrl] != null &&
                   map[UserPromptSchema.readMoreActionUrl]
                       .toString()
                       .isNotEmpty),
