@@ -66,6 +66,7 @@ class GeneralContact(ContactSerializer):
 
 class OrganisationLocationDBSerializer(LocationDBSerializer):
     archived = serializers.BooleanField(default=False)
+    created_at = serializers.DateTimeField()
     is_live = serializers.BooleanField(default=True)
     short_name = serializers.CharField(allow_null=True, allow_blank=True, default=None)
     icon_url = serializers.URLField(allow_null=True, default=None)
