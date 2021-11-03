@@ -94,6 +94,7 @@ class EducationSerializer(BaseExperienceSerializer):
 
     class LevelSerializer(ReferenceSerializer):
         level_ref = DocumentReferenceField()
+        level_number = serializers.IntegerField()
 
     class GradeSerializer(ReferenceSerializer):
         grade_ref = DocumentReferenceField()
