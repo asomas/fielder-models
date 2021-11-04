@@ -149,7 +149,7 @@ class ShiftPatternDataModel {
             map: map['organisation_data'] ?? {},
           );
         }
-        if (_locationRef != null) {
+        if (map.containsKey("location_data")) {
           _shiftLocationDataModel =
               LocationModelDetail.fromJson(map["location_data"]);
         }
