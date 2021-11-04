@@ -4,7 +4,6 @@ install_requires = [
     "black==20.8b1",
     "djangorestframework>=3.11.0",
     "wheel==0.36.2",
-    "fielder-backend-utils @ git+https://github.com/asomas/fielder-backend-utils.git@v1.0.30#egg=fielder-backend-utils",
 ]
 
 setup(
