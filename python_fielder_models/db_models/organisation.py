@@ -1,3 +1,4 @@
+from django.utils import timezone
 from fielder_backend_utils.rest_utils import DocumentReferenceField
 from rest_framework import serializers
 
@@ -66,7 +67,7 @@ class GeneralContact(ContactSerializer):
 
 class OrganisationLocationDBSerializer(LocationDBSerializer):
     archived = serializers.BooleanField(default=False)
-    created_at = serializers.DateTimeField()
+    created_at = serializers.DateTimeField(default=timezone.now)
     is_live = serializers.BooleanField(default=True)
     short_name = serializers.CharField(allow_null=True, allow_blank=True, default=None)
     icon_url = serializers.URLField(allow_null=True, default=None)
