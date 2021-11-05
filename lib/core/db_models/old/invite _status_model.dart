@@ -12,6 +12,7 @@ class InviteStatusModel {
   DateTime createdAt;
   String invitationId;
   DocumentReference workerRef;
+  String pictureUrl;
 
   InviteStatusModel(
       {this.isStaff = false,
@@ -21,7 +22,8 @@ class InviteStatusModel {
       this.workerPhone = '',
       this.createdAt,
       this.invitationId,
-      this.workerRef});
+      this.workerRef,
+      this.pictureUrl});
 
   Map<String, dynamic> toJSON() {
     //print('AddJobModel toJSON invoked');

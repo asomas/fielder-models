@@ -242,6 +242,19 @@ class EnumHelpers {
     }
   }
 
+  static String stringFromInviteStaffStatus(InviteStaffStatus status) {
+    switch (status) {
+      case InviteStaffStatus.Pending:
+        return 'Pending';
+      case InviteStaffStatus.Declined:
+        return 'Declined';
+      case InviteStaffStatus.Accepted:
+        return 'Accepted';
+      default:
+        return null;
+    }
+  }
+
   static String stringFromCandidatesWorkerType(
       CandidatesWorkerType workerType) {
     switch (workerType) {
