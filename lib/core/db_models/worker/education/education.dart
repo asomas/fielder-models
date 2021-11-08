@@ -158,7 +158,7 @@ class Level {
   DocumentReference levelRef;
   String value;
   String levelId;
-  int levelNumber;
+  num levelNumber;
 
   Level({this.levelRef, this.value, this.levelId, this.levelNumber});
 

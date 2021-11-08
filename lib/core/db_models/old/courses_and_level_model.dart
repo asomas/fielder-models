@@ -14,7 +14,7 @@ class CoursesAndLevelModel {
 
   factory CoursesAndLevelModel.fromMap(Map map) {
     if (map != null && map.isNotEmpty) {
-      int _levelNumber;
+      num _levelNumber;
       String _levelValue, _courseValue;
       if (map.containsKey(JobSummarySchema.courseData) &&
           map[JobSummarySchema.courseData] != null) {
