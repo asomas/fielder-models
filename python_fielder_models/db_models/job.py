@@ -2,6 +2,7 @@ from datetime import datetime
 from enum import Enum
 
 from fielder_backend_utils.rest_utils import DocumentReferenceField
+from python_fielder_models.api_models.matching import WorkerType
 from python_fielder_models.common.job import JobSerializer
 from python_fielder_models.db_models.common import RecurrenceSerializer
 from python_fielder_models.db_models.organisation import (
@@ -61,6 +62,7 @@ class ShiftPatternDBSerializer(serializers.Serializer):
 class OfferDBSerializer(serializers.Serializer):
     shift_pattern_ref = DocumentReferenceField()
     worker_ref = DocumentReferenceField()
+    worker_type = serializers.ChoiceField(choices=WorkerType._member_names_)
     job_ref = DocumentReferenceField()
     shift_pattern_data = serializers.DictField()  # set as dict to pass tests
     job_data = serializers.DictField()  # set as dict to pass tests
