@@ -269,6 +269,20 @@ class EnumHelpers {
     }
   }
 
+  static CandidatesWorkerType candidatesWorkerTypeFromString(
+      String workerType) {
+    switch (workerType) {
+      case 'FIELDER':
+        return CandidatesWorkerType.FIELDER;
+      case 'STAFF':
+        return CandidatesWorkerType.STAFF;
+      case 'NETWORK':
+        return CandidatesWorkerType.NETWORK;
+      default:
+        return null;
+    }
+  }
+
   static RightToWorkFlow rightToWorkFlowFromString(String flowName) {
     switch (flowName) {
       case 'PASSPORT':
@@ -306,6 +320,19 @@ class EnumHelpers {
         return OverlayType.WARNING;
       default:
         return OverlayType.SUCCESS;
+    }
+  }
+
+  static InviteStaffStatus offerStatusToInviteStatus(OfferStatus status) {
+    switch (status) {
+      case OfferStatus.None:
+        return InviteStaffStatus.None;
+      case OfferStatus.Rejected:
+        return InviteStaffStatus.Declined;
+      case OfferStatus.Accepted:
+        return InviteStaffStatus.Accepted;
+      default:
+        return InviteStaffStatus.Pending;
     }
   }
 }

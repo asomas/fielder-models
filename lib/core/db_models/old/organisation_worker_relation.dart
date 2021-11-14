@@ -3,6 +3,7 @@ import 'package:fielder_models/core/db_models/old/schema/organisation_worker_rel
 import 'package:flutter/cupertino.dart';
 
 class OrganisationWorkerRelation {
+  String docId;
   String organisationID;
   bool isStaff;
   String pictureUrl;
@@ -13,7 +14,8 @@ class OrganisationWorkerRelation {
   String workerId;
 
   OrganisationWorkerRelation(
-      {this.organisationID,
+      {this.docId,
+      this.organisationID,
       this.isStaff,
       this.pictureUrl,
       this.workerFirstName,
@@ -49,14 +51,16 @@ class OrganisationWorkerRelation {
         }
 
         return OrganisationWorkerRelation(
-            organisationID: _organisationIdRef.id,
-            isStaff: _isStaff,
-            pictureUrl: _pictureURL,
-            workerFirstName: _firstName,
-            workerLastName: _lastName,
-            phone: _phone,
-            lastReview: _lastReviewDate,
-            workerId: _workerIdRef.id);
+          docId: docID,
+          organisationID: _organisationIdRef.id,
+          isStaff: _isStaff,
+          pictureUrl: _pictureURL,
+          workerFirstName: _firstName,
+          workerLastName: _lastName,
+          phone: _phone,
+          lastReview: _lastReviewDate,
+          workerId: _workerIdRef.id,
+        );
       } catch (e) {
         print("organisation_worker_relation.dart_____Model Catch_________$e");
         return null;
