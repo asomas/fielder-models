@@ -15,6 +15,7 @@ class Offers {
   DocumentReference workerRef;
   CandidatesWorkerType workerType;
   DocumentReference shiftPatternRef;
+  DateTime updatedAt;
 
   Offers(
       {this.shiftPatternData,
@@ -23,6 +24,7 @@ class Offers {
       this.offerID,
       this.candidatesModel,
       this.workerRef,
+      this.updatedAt,
       this.workerType,
       this.shiftPatternRef});
 
@@ -40,6 +42,9 @@ class Offers {
         offerID: id,
         candidatesModel: candidatesModel,
         workerRef: map["worker_ref"],
+        updatedAt: map["updated_at"] != null
+            ? (map["updated_at"] as Timestamp).toDate()
+            : null,
         workerType:
             EnumHelpers.candidatesWorkerTypeFromString(map['worker_type']),
         shiftPatternRef: map['shift_pattern_ref'],
@@ -55,6 +60,7 @@ class Offers {
         workerPhone: offer?.workerData?.phone,
         workerRef: offer?.workerRef,
         invitationId: offer?.offerID,
+        createdAt: offer?.updatedAt,
         shiftRef: shiftPatternRef,
         fromOffer: true);
   }
