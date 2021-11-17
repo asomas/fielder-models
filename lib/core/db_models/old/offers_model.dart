@@ -52,7 +52,7 @@ class Offers {
 
   InviteStatusModel parseOffersToInviteStatusModel(Offers offer) {
     return InviteStatusModel(
-        workerType: offer?.workerType,
+        isStaff: offer?.workerType == CandidatesWorkerType.STAFF,
         status: EnumHelpers.offerStatusToInviteStatus(
             EnumHelpers.getOfferStatusFromString(offer?.status)),
         workerFirstName: offer?.workerData?.firstName,

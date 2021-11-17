@@ -4,7 +4,7 @@ import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dar
 import 'package:fielder_models/core/enums/enums.dart';
 
 class InviteStatusModel {
-  CandidatesWorkerType workerType;
+  bool isStaff;
   InviteStaffStatus status;
   String workerFirstName;
   String workerLastName;
@@ -17,7 +17,7 @@ class InviteStatusModel {
   DocumentReference shiftRef;
 
   InviteStatusModel(
-      {this.workerType,
+      {this.isStaff = false,
       this.status,
       this.workerFirstName = '',
       this.workerLastName = '',
@@ -36,8 +36,7 @@ class InviteStatusModel {
       // print('job created invoked');
 
       _map = {
-        StaffStatusSchema.workerType:
-            EnumHelpers.stringFromCandidatesWorkerType(workerType),
+        StaffStatusSchema.isStaff: isStaff,
         StaffStatusSchema.workerFirstName: workerFirstName,
         StaffStatusSchema.workerLastName: workerLastName,
         StaffStatusSchema.status: status,
@@ -53,8 +52,7 @@ class InviteStatusModel {
   factory InviteStatusModel.fromMap(Map data, {String invitationId}) {
     return InviteStatusModel(
         invitationId: invitationId ?? "",
-        workerType: EnumHelpers.candidatesWorkerTypeFromString(
-            data[StaffStatusSchema.workerType]),
+        isStaff: data[StaffStatusSchema.isStaff],
         status: EnumHelpers.inviteStaffStatusFromString(
             data[StaffStatusSchema.status]),
         workerFirstName: data[StaffStatusSchema.workerFirstName],
@@ -65,7 +63,7 @@ class InviteStatusModel {
   }
 
   clear() {
-    workerType = null;
+    isStaff = null;
     status = InviteStaffStatus.None;
     workerFirstName = "";
     workerLastName = "";
