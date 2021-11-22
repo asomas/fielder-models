@@ -8,7 +8,7 @@ install_requires = [
 
 setup(
     name="python_fielder_models",
-    version="0.0.194",
+    version="0.0.195",
     description="Django serializer models for Fielder",
     url="git@github.com:asomas/fielder-models",
     author="Sarmad Gulzar",

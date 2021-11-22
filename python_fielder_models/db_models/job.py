@@ -23,8 +23,7 @@ class OfferStatus(Enum):
 
 
 class SharedJobShiftDBSerializer(BaseJobSerializer):
-    start_date = serializers.DateTimeField()
-    end_date = serializers.DateTimeField(required=False)
+    end_date = serializers.DateTimeField(default=None, allow_null=True)
     enable_late_deduction = serializers.BooleanField(default=False)
     late_arrival = serializers.ChoiceField((0, 15, 30, 60), default=15)
     enable_early_deduction = serializers.BooleanField(default=False)
@@ -43,6 +42,7 @@ class SharedJobShiftDBSerializer(BaseJobSerializer):
 
 
 class ShiftPatternDBSerializer(SharedJobShiftDBSerializer):
+    start_date = serializers.DateTimeField()
     start_time = serializers.IntegerField()
     end_time = serializers.IntegerField()
     is_recurring = serializers.BooleanField(default=False)
@@ -79,6 +79,7 @@ class PaymentSerializer(serializers.Serializer):
 
 
 class JobDBSerializer(SharedJobShiftDBSerializer):
+    start_date = serializers.DateTimeField(default=None, allow_null=True)
     description = serializers.CharField(allow_null=True, default=None)
     volunteer = serializers.BooleanField(default=False)
     rate = serializers.IntegerField(default=0)
