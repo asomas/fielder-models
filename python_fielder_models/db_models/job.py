@@ -60,20 +60,20 @@ class ShiftPatternDBSerializer(SharedJobShiftDBSerializer):
     worker_data = serializers.DictField(default=None, allow_null=True)
 
 
-class PaymentSerializer(serializers.Serializer):
+class PaymentDBSerializer(serializers.Serializer):
     class StatutaryCostsSerializer(serializers.Serializer):
-        total = serializers.IntegerField()
-        ni_contribution = serializers.IntegerField()
-        pension_contribution = serializers.IntegerField()
-        apprentice_levy = serializers.IntegerField()
-        sick_leave = serializers.IntegerField()
+        total = serializers.FloatField()
+        ni_contribution = serializers.FloatField()
+        pension_contribution = serializers.FloatField()
+        apprentice_levy = serializers.FloatField()
+        sick_leave = serializers.FloatField()
 
     worker_rate = serializers.IntegerField()
     holiday_pay = serializers.IntegerField()
     statutary_costs = StatutaryCostsSerializer()
-    total_cost_excl_fees = serializers.IntegerField()
-    umbrella_fee = serializers.IntegerField()
-    finders_fee = serializers.IntegerField()
+    total_cost_excl_fees = serializers.FloatField()
+    umbrella_fee = serializers.FloatField()
+    finders_fee = serializers.FloatField()
     total_umbrella_service_cost = serializers.IntegerField()
     total_staffing_service_cost = serializers.IntegerField()
 
@@ -83,7 +83,7 @@ class JobDBSerializer(SharedJobShiftDBSerializer):
     description = serializers.CharField(allow_null=True, default=None)
     volunteer = serializers.BooleanField(default=False)
     rate = serializers.IntegerField(default=0)
-    payment = PaymentSerializer()
+    payment = PaymentDBSerializer()
     pay_calculation = serializers.ChoiceField(
         (
             "Actual hours",
