@@ -1,4 +1,4 @@
-class PaymentModelSchema{
+class PaymentModelSchema {
   static const String umbrellaFee = 'umbrella_fee';
   static const String findersFee = 'finders_fee';
   static const String totalStaffingServiceCost = 'total_staffing_service_cost';

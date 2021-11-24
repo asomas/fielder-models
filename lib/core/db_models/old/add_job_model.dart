@@ -84,7 +84,7 @@ class AddJobModel {
         JobTemplateSchema.jobTitle: title,
         JobTemplateSchema.volunteer: volunteer ?? false,
         JobTemplateSchema.payment:
-            PaymentModel(workerRate: paymentModel?.workerRate)
+            PaymentModel(totalCost: paymentModel?.totalCost)
                 .paymentMapForCreateJob(),
         JobTemplateSchema.payCalculation: payCalculation,
         JobTemplateSchema.lateArrival: lateArrival,
@@ -332,8 +332,11 @@ class PaymentModel {
   }
 
   Map paymentMapForCreateJob() {
-    if (workerRate != null) {
-      return {PaymentModelSchema.workerRate: (workerRate * onePence).round()};
+    if (totalCost != null) {
+      return {
+        PaymentModelSchema.totalStaffingServiceCost:
+            (totalCost * onePence).round()
+      };
     }
     return {};
   }
