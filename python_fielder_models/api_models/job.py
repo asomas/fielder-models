@@ -2,8 +2,13 @@ from python_fielder_models.api_models.common import GooglePlaceDataSerializer
 from python_fielder_models.api_models.organisation import (
     OrganisationLocationAPISerializer,
 )
+from python_fielder_models.common.job import JobSerializer
 from python_fielder_models.db_models.common import RecurrenceSerializer
 from rest_framework import serializers
+
+
+class JobAPISerializer(JobSerializer):
+    pass
 
 
 class ApproveShiftRequestSerializer(serializers.Serializer):
@@ -29,7 +34,7 @@ class ShiftPatternAPISerializer(serializers.Serializer):
     start_time = serializers.IntegerField()
     end_time = serializers.IntegerField()
     recurrence = RecurrenceSerializer()
-    geo_fence_enabled = serializers.BooleanField(default=False)
+    geo_fence_enabled = serializers.BooleanField()
     geo_fence_distance = serializers.IntegerField(
         required=False, max_value=3000, min_value=15
     )
@@ -39,10 +44,7 @@ class ShiftPatternAPISerializer(serializers.Serializer):
 
     def validate(self, data):
         # this validation will run after RecurrenceSerializer's validation
-        if (
-            data.get("geo_fence_enabled", False) == True
-            and "geo_fence_distance" not in data
-        ):
+        if data["geo_fence_enabled"] == True and "geo_fence_distance" not in data:
             raise serializers.ValidationError(
                 detail={
                     "geo_fence_distance": [
