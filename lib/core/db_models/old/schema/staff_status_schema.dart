@@ -7,6 +7,7 @@ class StaffStatusSchema {
   static const String workerPhone = "worker_phone";
   static const String workerRef = "worker_ref";
   static const String createdAt = "created_at";
+  static const String workerType = "worker_type";
 }
 
 class UploadCsvSchema {
