@@ -10,8 +10,11 @@ class AddressSearchModel {
   factory AddressSearchModel.fromJson(Map<String, dynamic> json) =>
       AddressSearchModel(
         fielder: Fielder.fromJson(json["fielder"]),
-        google:
-            List<Google>.from(json["google"].map((x) => Google.fromJson(x))),
+        google: List<Google>.from(
+          json["google"].map(
+            (x) => Google.fromJson(x),
+          ),
+        ),
       );
 }
 
@@ -94,13 +97,13 @@ class Hit {
       double _lat = json["lat"];
       double _lng = json["lng"];
       String _fullAddress = "";
-      if(_shortName.isNotEmpty){
+      if (_shortName.isNotEmpty) {
         _fullAddress += "$_shortName, ";
       }
-      if(_name.isNotEmpty){
+      if (_name.isNotEmpty) {
         _fullAddress += "$_name, ";
       }
-      if(_formattedAddress.isNotEmpty){
+      if (_formattedAddress.isNotEmpty) {
         _fullAddress += "$_formattedAddress, ";
       }
       if (_locationId != null && _lat != null && _lng != null) {
@@ -140,13 +143,23 @@ class Google {
 
   Google({this.address, this.lat, this.lng, this.placeId, this.name});
 
-  factory Google.fromJson(Map<String, dynamic> json) => Google(
-        address: json["formatted_address"],
-        lat: json["lat"].toDouble(),
-        lng: json["lng"].toDouble(),
-        placeId: json["place_id"],
-        name: json["name"],
-      );
+  factory Google.fromJson(Map<String, dynamic> json) {
+    try {
+      if (json != null && json.isNotEmpty) {
+        return Google(
+          address: json["formatted_address"],
+          lat: json["lat"].toDouble(),
+          lng: json["lng"].toDouble(),
+          placeId: json["place_id"],
+          name: json["name"],
+        );
+      }
+      return null;
+    } catch (e, s) {
+      print('google map error______${e}_____$s');
+      return null;
+    }
+  }
 
   Map<String, dynamic> toJson() => {
         "formatted_address": address,
