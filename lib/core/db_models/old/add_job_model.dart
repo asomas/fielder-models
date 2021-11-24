@@ -112,9 +112,9 @@ class AddJobModel {
             ? courses.map((e) => e.toJsonForApi()).toList() ?? []
             : [],
       };
-      if (volunteer) {
-        _map.remove(JobTemplateSchema.payment);
-      }
+      // if (volunteer) {
+      //   _map.remove(JobTemplateSchema.payment);
+      // }
       if (payCalculation == "Actual hours") {
         _map.remove(JobTemplateSchema.enableLateDeduction);
         _map.remove(JobTemplateSchema.enableEarlyDeduction);
