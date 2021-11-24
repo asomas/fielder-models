@@ -3,16 +3,15 @@ from enum import Enum
 
 from fielder_backend_utils.rest_utils import DocumentReferenceField
 from python_fielder_models.api_models.matching import WorkerType
-from python_fielder_models.common.job import JobSerializer
-from python_fielder_models.db_models.common import RecurrenceSerializer
+from python_fielder_models.common.job import BaseJobSerializer
+from python_fielder_models.db_models.common import (
+    AddressDBSerializer,
+    RecurrenceSerializer,
+)
 from python_fielder_models.db_models.organisation import (
     OrganisationLocationDBSerializer,
 )
 from rest_framework import serializers
-
-
-class JobDBSerializer(JobSerializer):
-    pass
 
 
 class OfferStatus(Enum):
@@ -23,40 +22,90 @@ class OfferStatus(Enum):
     Expired = 4
 
 
-# TODO complete all other fields
-class ShiftPatternDBSerializer(serializers.Serializer):
-    start_date = serializers.DateField()
-    end_date = serializers.DateField(required=False)
+class SharedJobShiftDBSerializer(BaseJobSerializer):
+    end_date = serializers.DateTimeField(default=None, allow_null=True)
+    enable_late_deduction = serializers.BooleanField(default=False)
+    late_arrival = serializers.ChoiceField((0, 15, 30, 60), default=15)
+    enable_early_deduction = serializers.BooleanField(default=False)
+    early_leaver = serializers.ChoiceField((0, 15, 30, 60), default=15)
+    job_reference_id = serializers.CharField()
+    manager_ref = DocumentReferenceField(default=None, allow_null=True)
+    supervisor_ref = DocumentReferenceField(default=None, allow_null=True)
+    total_shift_count = serializers.IntegerField()
+
+    created_at = serializers.DateTimeField(default=datetime.now())
+    updated_at = serializers.DateTimeField(default=datetime.now())
+
+    def to_internal_value(self, data):
+        data["updated_at"] = datetime.now()
+        return super().to_internal_value(data)
+
+
+class ShiftPatternDBSerializer(SharedJobShiftDBSerializer):
+    start_date = serializers.DateTimeField()
     start_time = serializers.IntegerField()
     end_time = serializers.IntegerField()
+    is_recurring = serializers.BooleanField(default=False)
     recurrence = RecurrenceSerializer()
+    location_ref = DocumentReferenceField(default=None, allow_null=True)
     location_data = OrganisationLocationDBSerializer()
-    organisation_ref = DocumentReferenceField()
+    assigned = serializers.BooleanField(default=False)
+    geo_fence_distance = serializers.IntegerField(default=0)
+    geo_fence_enabled = serializers.BooleanField(default=False)
+    job_ref = DocumentReferenceField()
+    role = serializers.CharField(required=False)
+    shift_pattern_reference_id = serializers.CharField()
+    total_shift_hours = serializers.IntegerField()
+    worker_ref = DocumentReferenceField(default=None, allow_null=True)
+    worker_data = serializers.DictField(default=None, allow_null=True)
 
-    def validate(self, data):
-        # this validation will run after RecurrenceSerializer's validation
-        # so in case of non-recurring, the repeat_interval_type = "None" should have been converted
-        # to repeat_interval_type = None
-        if (
-            data["recurrence"]["repeat_interval_type"] is not None
-            and "end_date" not in data
-        ):
-            raise serializers.ValidationError(
-                "recurring shift should have an end_date."
-            )
-        if data["recurrence"]["repeat_interval_type"] is None:
-            if "end_date" in data:
-                raise serializers.ValidationError(
-                    "Non-recurring shift should have no end date. "
-                )
-            else:
-                data["end_date"] = data["start_date"]
-        if data["start_date"] > data["end_date"]:
-            raise serializers.ValidationError("start_date must be before end_date")
-        if data["start_time"] > data["end_time"]:
-            raise serializers.ValidationError("start_time must be before end_time")
 
-        return data
+class PaymentDBSerializer(serializers.Serializer):
+    class StatutaryCostsSerializer(serializers.Serializer):
+        total = serializers.FloatField()
+        ni_contribution = serializers.FloatField()
+        pension_contribution = serializers.FloatField()
+        apprentice_levy = serializers.FloatField()
+        sick_leave = serializers.FloatField()
+
+    worker_rate = serializers.IntegerField()
+    holiday_pay = serializers.IntegerField()
+    statutary_costs = StatutaryCostsSerializer()
+    total_cost_excl_fees = serializers.FloatField()
+    umbrella_fee = serializers.FloatField()
+    finders_fee = serializers.FloatField()
+    total_umbrella_service_cost = serializers.IntegerField()
+    total_staffing_service_cost = serializers.IntegerField()
+
+
+class JobDBSerializer(SharedJobShiftDBSerializer):
+    start_date = serializers.DateTimeField(default=None, allow_null=True)
+    description = serializers.CharField(allow_null=True, default=None)
+    volunteer = serializers.BooleanField(default=False)
+    rate = serializers.IntegerField(default=0)
+    payment = PaymentDBSerializer()
+    pay_calculation = serializers.ChoiceField(
+        (
+            "Actual hours",
+            "Shift hours",
+        ),
+        default="Actual hours",
+    )
+    enable_pay_deduction = serializers.BooleanField(
+        required=False
+    )  # leave it for backword compatibilty
+    overtime_rate = serializers.IntegerField(default=0)
+    overtime_threshold = serializers.ChoiceField((0, 15, 30, 60), default=15)
+    total_hours = serializers.FloatField(default=0)
+    locations = serializers.DictField(child=AddressDBSerializer(), default={})
+    workers = serializers.DictField(default={})
+    is_archived = serializers.BooleanField(default=False)
+    active = serializers.BooleanField(default=True)
+
+
+class JobTemplateDBSerializer(BaseJobSerializer):
+    name = serializers.CharField()
+    description = serializers.CharField(allow_null=True, default=None)
 
 
 class OfferDBSerializer(serializers.Serializer):
