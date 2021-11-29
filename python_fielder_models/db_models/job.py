@@ -55,7 +55,7 @@ class ShiftPatternDBSerializer(SharedJobShiftDBSerializer):
     job_ref = DocumentReferenceField()
     role = serializers.CharField(required=False)
     shift_pattern_reference_id = serializers.CharField()
-    total_shift_hours = serializers.IntegerField()
+    total_shift_hours = serializers.FloatField()
     worker_ref = DocumentReferenceField(default=None, allow_null=True)
     worker_data = serializers.DictField(default=None, allow_null=True)
 
@@ -96,7 +96,7 @@ class JobDBSerializer(SharedJobShiftDBSerializer):
     )  # leave it for backword compatibilty
     overtime_rate = serializers.IntegerField(default=0)
     overtime_threshold = serializers.ChoiceField((0, 15, 30, 60), default=15)
-    total_hours = serializers.FloatField(default=0)
+    total_hours = serializers.FloatField(default=0.0)
     locations = serializers.DictField(child=AddressDBSerializer(), default={})
     workers = serializers.DictField(default={})
     is_archived = serializers.BooleanField(default=False)
