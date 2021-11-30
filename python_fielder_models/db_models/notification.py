@@ -25,7 +25,7 @@ class MiniCardSerializer(serializers.Serializer):
 class MediumCardSerializer(MiniCardSerializer):
     action_button_text = serializers.CharField(required=False)
     article_url = serializers.URLField(required=False)
-    image = serializers.CharField()
+    image = serializers.CharField(allow_null=True, default=None)
     body = serializers.CharField()
     expanded = serializers.BooleanField(default=True)
 
