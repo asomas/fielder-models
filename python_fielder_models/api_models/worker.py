@@ -97,11 +97,8 @@ class StaffDetailsProfessionalDetailsResponse(serializers.Serializer):
 
 
 class WorkerUnavailabilitySerializer(serializers.Serializer):
-    end_date = serializers.DateTimeField()
+    date = serializers.DateField()
     end_time = serializers.IntegerField(min_value=0, max_value=86400)
-    is_recurring = serializers.BooleanField()
-    recurrence = RecurrenceSerializer()
-    start_date = serializers.DateTimeField()
     start_time = serializers.IntegerField(min_value=0, max_value=86400)
 
 
