@@ -58,6 +58,11 @@ class ShiftPatternDBSerializer(SharedJobShiftDBSerializer):
     total_shift_hours = serializers.FloatField()
     worker_ref = DocumentReferenceField(default=None, allow_null=True)
     worker_data = serializers.DictField(default=None, allow_null=True)
+    shift_note_ref = DocumentReferenceField(
+        required=False,
+        default=None,
+        allow_null=True,
+    )
 
 
 class PaymentDBSerializer(serializers.Serializer):
@@ -124,3 +129,7 @@ class OfferDBSerializer(serializers.Serializer):
     def to_internal_value(self, data):
         data["updated_at"] = datetime.now()
         return super().to_internal_value(data)
+
+
+class ShiftNoteDBSerializer(serializers.Serializer):
+    value = serializers.CharField()

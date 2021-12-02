@@ -36,6 +36,11 @@ class ShiftPatternAPISerializer(serializers.Serializer):
     existing_location_id = serializers.CharField(required=False)
     new_location_data = OrganisationLocationAPISerializer(required=False)
     google_place_data = GooglePlaceDataSerializer(required=False)
+    shift_note_value = serializers.CharField(
+        required=False,
+        default=None,
+        allow_null=True,
+    )
 
     def validate(self, data):
         # this validation will run after RecurrenceSerializer's validation
