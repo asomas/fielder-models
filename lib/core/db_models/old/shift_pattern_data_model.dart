@@ -35,6 +35,7 @@ class ShiftPatternDataModel {
   String endTimeString;
   bool isGeoFencingEnabled;
   double geoFenceRadius;
+  DocumentReference shiftNoteRef;
 
   ShiftPatternDataModel(
       {this.docID,
@@ -62,7 +63,8 @@ class ShiftPatternDataModel {
       this.startTimeString,
       this.endTimeString,
       this.isGeoFencingEnabled = false,
-      this.geoFenceRadius = 0});
+      this.geoFenceRadius = 0,
+      this.shiftNoteRef});
 
   static String timeStringFromDuration(int secondsFromMidnight) {
     Duration duration = Duration(seconds: secondsFromMidnight?.round());
@@ -158,39 +160,43 @@ class ShiftPatternDataModel {
         }
 
         final DocumentReference _workerRef = map['worker_ref'];
+        final DocumentReference _shiftNoteRef =
+            map[ShiftDataSchema.shiftNoteRef];
 
         return ShiftPatternDataModel(
-            docID: docID,
-            shiftPatternRefId: _shiftPatternRef,
-            startDate: _startDate,
-            endDate: _endDate,
-            startTimeInt: _startTimeInt,
-            endTimeInt: _endTimeInt,
-            startTimeString: _startTimeStr,
-            endTimeString: _endTimeStr,
-            recurrence: _recurrence,
-            jobTitle: _jobTitle,
-            jobID: _jobRef?.id,
-            jobRefId: _jobRefId,
-            role: _role,
-            isUnavailableForOrganisation: isUnavailable,
-            organisation: _organisation,
-            supervisorRef: _supervisorRef,
-            managerRef: _managerRef,
-            shiftLocationDataModel: _shiftLocationDataModel,
-            shiftActivitiesModel: null,
-            isRecurring: _isRecurring,
-            assigned: _assigned,
-            isGeoFencingEnabled: _geoFenceEnabled,
-            geoFenceRadius: _geoFenceDistance,
-            //_shiftActivitiesModel,
-            workerId: _workerRef?.id,
-            workerModel: map.containsKey(ShiftDataSchema.workerData)
-                ? WorkerModel.fromMap(
-                    map: map[ShiftDataSchema.workerData],
-                    docID: map[ShiftDataSchema.workerRef]?.id)
-                : null,
-            occupationModel: _occupationModel);
+          docID: docID,
+          shiftPatternRefId: _shiftPatternRef,
+          startDate: _startDate,
+          endDate: _endDate,
+          startTimeInt: _startTimeInt,
+          endTimeInt: _endTimeInt,
+          startTimeString: _startTimeStr,
+          endTimeString: _endTimeStr,
+          recurrence: _recurrence,
+          jobTitle: _jobTitle,
+          jobID: _jobRef?.id,
+          jobRefId: _jobRefId,
+          role: _role,
+          isUnavailableForOrganisation: isUnavailable,
+          organisation: _organisation,
+          supervisorRef: _supervisorRef,
+          managerRef: _managerRef,
+          shiftLocationDataModel: _shiftLocationDataModel,
+          shiftActivitiesModel: null,
+          isRecurring: _isRecurring,
+          assigned: _assigned,
+          isGeoFencingEnabled: _geoFenceEnabled,
+          geoFenceRadius: _geoFenceDistance,
+          //_shiftActivitiesModel,
+          workerId: _workerRef?.id,
+          workerModel: map.containsKey(ShiftDataSchema.workerData)
+              ? WorkerModel.fromMap(
+                  map: map[ShiftDataSchema.workerData],
+                  docID: map[ShiftDataSchema.workerRef]?.id)
+              : null,
+          occupationModel: _occupationModel,
+          shiftNoteRef: _shiftNoteRef,
+        );
       } catch (e) {
         print('ShiftPatternDataModel fromMap error: $e');
       }
