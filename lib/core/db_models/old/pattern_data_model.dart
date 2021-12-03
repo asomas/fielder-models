@@ -28,6 +28,7 @@ class PatternDataModel {
   WorkerModel workerModel;
   bool isGeoFencingEnabled;
   double geoFenceRadius;
+  String shiftNoteValue;
 
   PatternDataModel(
       {this.docID,
@@ -46,7 +47,8 @@ class PatternDataModel {
       this.workerModel,
       this.addressModel,
       this.isGeoFencingEnabled = false,
-      this.geoFenceRadius = 0});
+      this.geoFenceRadius = 0,
+      this.shiftNoteValue});
 
   factory PatternDataModel.fromMap(String docID, Map<String, dynamic> map) {
     PatternDataModel shiftPatternDataModel;
@@ -113,6 +115,9 @@ class PatternDataModel {
           if (intervalType != "None")
             jsonMap[ShiftDataSchema.endDate] = _endDateString;
         }
+      }
+      if (shiftNoteValue != null) {
+        jsonMap[ShiftDataSchema.shiftNoteValue] = shiftNoteValue;
       }
       return jsonMap;
     } catch (e) {

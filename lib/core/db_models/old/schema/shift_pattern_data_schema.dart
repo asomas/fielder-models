@@ -30,4 +30,7 @@ class ShiftDataSchema {
   static const String newLocationData = "new_location_data";
   static const String geoFenceDistance = "geo_fence_distance";
   static const String geoFenceEnabled = "geo_fence_enabled";
+  static const String shiftNoteRef = "shift_note_ref";
+  static const String shiftNoteValue = "shift_note_value";
+  static const String value = "value";
 }
