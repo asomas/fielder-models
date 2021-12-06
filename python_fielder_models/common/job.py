@@ -57,6 +57,6 @@ class BaseJobSerializer(serializers.Serializer):
     def to_internal_value(self, data):
         if "job_title" in data:
             data["job_title_normalised"] = (
-                data["job_title"].strip().replace("[ ]+", " ")
+                data["job_title"].strip().replace("[ ]+", " ").lower()
             )
         return super().to_internal_value(data)
