@@ -42,6 +42,7 @@ class CourseLevelSerializer(serializers.Serializer):
 
 class BaseJobSerializer(serializers.Serializer):
     job_title = serializers.CharField()
+    job_title_normalised = serializers.CharField()
     occupation = OccupationSerializer()
     checks = serializers.ListField(child=CheckSerializer(), default=[])
     skills = serializers.ListField(child=SkillSerializer(), default=[])
@@ -52,3 +53,10 @@ class BaseJobSerializer(serializers.Serializer):
     courses = serializers.ListField(child=CourseLevelSerializer(), default=[])
     organisation_data = serializers.DictField()
     organisation_ref = DocumentReferenceField()
+
+    def to_internal_value(self, data):
+        if "job_title" in data:
+            data["job_title_normalised"] = (
+                data["job_title"].strip().replace("[ ]+", " ")
+            )
+        return super().to_internal_value(data)
