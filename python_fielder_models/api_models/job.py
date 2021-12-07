@@ -1,3 +1,4 @@
+from lxml.html.clean import clean_html
 from python_fielder_models.api_models.common import GooglePlaceDataSerializer
 from python_fielder_models.api_models.organisation import (
     OrganisationLocationAPISerializer,
@@ -91,6 +92,10 @@ class ShiftPatternAPISerializer(serializers.Serializer):
             raise serializers.ValidationError(
                 "One and only one of google_place_data, new_location_data, existing_location_id must be provided"
             )
+
+        shift_note_value = data.get("shift_note_value")
+        if shift_note_value:
+            data.update({"shift_note_value": clean_html(shift_note_value)})
 
         return data
 
