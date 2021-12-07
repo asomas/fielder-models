@@ -116,7 +116,7 @@ class PatternDataModel {
             jsonMap[ShiftDataSchema.endDate] = _endDateString;
         }
       }
-      if (shiftNoteValue != null) {
+      if (shiftNoteValue != null && shiftNoteValue.isNotEmpty) {
         jsonMap[ShiftDataSchema.shiftNoteValue] = shiftNoteValue;
       }
       return jsonMap;
