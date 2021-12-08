@@ -27,8 +27,9 @@ class DeleteShiftPatternRequestSerializer(serializers.Serializer):
 class ShiftPatternAPISerializer(serializers.Serializer):
     start_date = serializers.DateField()
     end_date = serializers.DateField(required=False)
-    start_time = serializers.IntegerField()
-    end_time = serializers.IntegerField()
+    start_time = serializers.IntegerField(min_value=0, max_value=86400)
+    end_time = serializers.IntegerField(min_value=0, max_value=172800)
+    multi_day_shift = serializers.BooleanField(default=False)
     recurrence = RecurrenceSerializer()
     geo_fence_enabled = serializers.BooleanField(default=False)
     geo_fence_distance = serializers.IntegerField(
@@ -42,6 +43,15 @@ class ShiftPatternAPISerializer(serializers.Serializer):
         default=None,
         allow_null=True,
     )
+
+    def to_internal_value(self, data):
+        if "end_time" in data and data["end_time"] > 86400:
+            data["multi_day_shift"] = True
+
+        shift_note_value = data.get("shift_note_value")
+        if shift_note_value:
+            data.update({"shift_note_value": clean_html(shift_note_value)})
+        return super().to_internal_value(data)
 
     def validate(self, data):
         # this validation will run after RecurrenceSerializer's validation
@@ -92,10 +102,6 @@ class ShiftPatternAPISerializer(serializers.Serializer):
             raise serializers.ValidationError(
                 "One and only one of google_place_data, new_location_data, existing_location_id must be provided"
             )
-
-        shift_note_value = data.get("shift_note_value")
-        if shift_note_value:
-            data.update({"shift_note_value": clean_html(shift_note_value)})
 
         return data
 

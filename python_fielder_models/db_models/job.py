@@ -45,6 +45,7 @@ class ShiftPatternDBSerializer(SharedJobShiftDBSerializer):
     start_date = serializers.DateTimeField()
     start_time = serializers.IntegerField()
     end_time = serializers.IntegerField()
+    multi_day_shift = serializers.BooleanField(default=False)
     is_recurring = serializers.BooleanField(default=False)
     recurrence = RecurrenceSerializer()
     location_ref = DocumentReferenceField(default=None, allow_null=True)
