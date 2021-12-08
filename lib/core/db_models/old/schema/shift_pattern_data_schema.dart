@@ -33,4 +33,5 @@ class ShiftDataSchema {
   static const String shiftNoteRef = "shift_note_ref";
   static const String shiftNoteValue = "shift_note_value";
   static const String value = "value";
+  static const String multiDayShift = "multi_day_shift";
 }

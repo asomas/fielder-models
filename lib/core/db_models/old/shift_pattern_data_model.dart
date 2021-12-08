@@ -36,6 +36,9 @@ class ShiftPatternDataModel {
   bool isGeoFencingEnabled;
   double geoFenceRadius;
   DocumentReference shiftNoteRef;
+  bool multiDayShift;
+  bool isHeadOFTheShift;
+  bool isTailOFTheShift;
 
   ShiftPatternDataModel(
       {this.docID,
@@ -64,7 +67,10 @@ class ShiftPatternDataModel {
       this.endTimeString,
       this.isGeoFencingEnabled = false,
       this.geoFenceRadius = 0,
-      this.shiftNoteRef});
+      this.shiftNoteRef,
+      this.multiDayShift,
+      this.isHeadOFTheShift,
+      this.isTailOFTheShift});
 
   static String timeStringFromDuration(int secondsFromMidnight) {
     Duration duration = Duration(seconds: secondsFromMidnight?.round());
@@ -196,6 +202,7 @@ class ShiftPatternDataModel {
               : null,
           occupationModel: _occupationModel,
           shiftNoteRef: _shiftNoteRef,
+          multiDayShift: map[ShiftDataSchema.multiDayShift] ?? false,
         );
       } catch (e) {
         print('ShiftPatternDataModel fromMap error: $e');
@@ -230,6 +237,8 @@ class ShiftPatternDataModel {
       occupationModel: shiftPatternDataModel.occupationModel,
       geoFenceRadius: shiftPatternDataModel.geoFenceRadius,
       isGeoFencingEnabled: shiftPatternDataModel.isGeoFencingEnabled,
+      shiftNoteRef: shiftPatternDataModel.shiftNoteRef,
+      multiDayShift: shiftPatternDataModel.multiDayShift,
     );
   }
 }
