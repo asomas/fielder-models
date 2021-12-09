@@ -133,6 +133,4 @@ class OfferDBSerializer(serializers.Serializer):
 
 
 class ShiftNoteDBSerializer(serializers.Serializer):
-    organisation_ref = DocumentReferenceField()
     value = serializers.CharField()
-    worker_ref = DocumentReferenceField(default=None, allow_null=True)
