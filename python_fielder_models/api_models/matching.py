@@ -11,7 +11,18 @@ class WorkerType(Enum):
     NETWORK = auto()
 
 
-class MatchingRequestSerializer(serializers.Serializer):
+class AvailabilityScoreRequestSerializer(serializers.Serializer):
+    start_time = serializers.IntegerField(min_value=0, max_value=86400)
+    end_time = serializers.IntegerField(min_value=0, max_value=172800)
+    start_date = serializers.DateField()
+    end_date = serializers.DateField()
+    recurrence = RecurrenceSerializer()
+    multi_day_shift = serializers.BooleanField(required=False)
+    worker_id = serializers.CharField()
+    organisation_id = serializers.CharField()
+
+
+class MatchingRequestSerializer(AvailabilityScoreRequestSerializer):
     class CourseLevelSerializer(serializers.Serializer):
         course_id = serializers.CharField()
         level_id = serializers.CharField(allow_null=True, default="0")
@@ -27,11 +38,6 @@ class MatchingRequestSerializer(serializers.Serializer):
     checks = serializers.ListField(
         required=False, allow_null=True, allow_empty=True, child=serializers.CharField()
     )
-    end_date = serializers.DateField()
-    end_time = serializers.IntegerField(min_value=0, max_value=86400)
-    recurrence = RecurrenceSerializer()
-    start_date = serializers.DateField()
-    start_time = serializers.IntegerField(min_value=0, max_value=86400)
     skip = serializers.IntegerField(min_value=0, default=0)
     limit = serializers.IntegerField(min_value=0, max_value=10, default=5)
     worker_type = serializers.ChoiceField(choices=WorkerType._member_names_)
@@ -55,16 +61,6 @@ class MatchingRequestSerializer(serializers.Serializer):
         return data
 
 
-class ShiftAvailabilityScoreRequestSerializer(serializers.Serializer):
-    start_time = serializers.IntegerField(min_value=0, max_value=86400)
-    end_time = serializers.IntegerField(min_value=0, max_value=86400)
-    start_date = serializers.DateField()
-    end_date = serializers.DateField()
-    recurrence = RecurrenceSerializer()
-    worker_id = serializers.CharField()
-    organisation_id = serializers.CharField()
-
-
 class MatchingWorker(serializers.Serializer):
     id = serializers.CharField()
     skills_score = serializers.IntegerField(min_value=0, max_value=100)
@@ -77,3 +73,22 @@ class MatchingWorker(serializers.Serializer):
 
 class MatchingResponseSerializer(serializers.Serializer):
     workers = serializers.ListField(child=MatchingWorker(), allow_empty=True)
+
+
+class WorkerUnavailabilitySerializer(serializers.Serializer):
+    date = serializers.DateField()
+    end_time = serializers.IntegerField(min_value=0, max_value=172800)
+    start_time = serializers.IntegerField(min_value=0, max_value=86400)
+
+
+class UnavailabilitiesResponse(serializers.Serializer):
+    worker_unavailabilities = serializers.ListField(
+        allow_empty=True, child=WorkerUnavailabilitySerializer()
+    )
+
+
+class UnavailabilitiesRequest(serializers.Serializer):
+    worker_id = serializers.CharField()
+    organisation_id = serializers.CharField()
+    start_date = serializers.DateField(format="%Y-%m-%d")
+    end_date = serializers.DateField(format="%Y-%m-%d")
