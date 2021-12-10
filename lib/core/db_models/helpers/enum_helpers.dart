@@ -100,7 +100,7 @@ class EnumHelpers {
       case ShiftFrequencies.Daily:
         return 'Daily';
       case ShiftFrequencies.None:
-        return 'None';
+        return 'Does not repeat';
       case ShiftFrequencies.Weekly:
         return 'Weekly';
       default:
