@@ -15,21 +15,26 @@ class SlotModel {
   final ShiftPatternDataModel shiftPatternDataModel;
   final ShiftActivitiesModel shiftActivitiesModel;
   final bool isUnavailable;
+  final bool spanMultipleDays;
+  final bool isHead;
+  final bool isTail;
 
-  SlotModel({
-    this.shiftId,
-    this.slotText = '',
-    this.workerAvatarUrl,
-    this.startTime,
-    this.endTime,
-    this.workerId,
-    this.workerName = '',
-    this.weekDay,
-    this.shiftPatternDataModel,
-    this.shiftActivitiesModel,
-    this.slotStatusIcon = SlotStatusIcon.Inactive,
-    this.isUnavailable = false,
-  });
+  SlotModel(
+      {this.shiftId,
+      this.slotText = '',
+      this.workerAvatarUrl,
+      this.startTime,
+      this.endTime,
+      this.workerId,
+      this.workerName = '',
+      this.weekDay,
+      this.shiftPatternDataModel,
+      this.shiftActivitiesModel,
+      this.slotStatusIcon = SlotStatusIcon.Inactive,
+      this.isUnavailable = false,
+      this.spanMultipleDays = false,
+      this.isHead = false,
+      this.isTail = false});
 
   @override
   bool operator ==(other) {

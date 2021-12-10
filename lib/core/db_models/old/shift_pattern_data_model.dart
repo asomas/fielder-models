@@ -7,6 +7,7 @@ import 'package:fielder_models/core/db_models/old/workers_model.dart';
 import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/occupation.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class ShiftPatternDataModel {
   String docID;
@@ -36,6 +37,9 @@ class ShiftPatternDataModel {
   bool isGeoFencingEnabled;
   double geoFenceRadius;
   DocumentReference shiftNoteRef;
+  bool multiDayShift;
+  bool isHeadOFTheShift;
+  bool isTailOFTheShift;
 
   ShiftPatternDataModel(
       {this.docID,
@@ -64,14 +68,25 @@ class ShiftPatternDataModel {
       this.endTimeString,
       this.isGeoFencingEnabled = false,
       this.geoFenceRadius = 0,
-      this.shiftNoteRef});
+      this.shiftNoteRef,
+      this.multiDayShift,
+      this.isHeadOFTheShift,
+      this.isTailOFTheShift});
 
   static String timeStringFromDuration(int secondsFromMidnight) {
     Duration duration = Duration(seconds: secondsFromMidnight?.round());
-    String twoDigits(int n) => n.toString().padLeft(2, "0");
-    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    String twoDigits(int n) => n.abs().toString().padLeft(2, "0");
+    int hours = duration.inHours;
+    int mins = duration.inMinutes.remainder(60);
+    if (hours > 24) {
+      hours = hours - 12;
+      TimeOfDay timeOfDay = TimeOfDay(hour: hours, minute: mins);
+      timeOfDay = timeOfDay.replacing(hour: timeOfDay.hourOfPeriod);
+      hours = timeOfDay.hour;
+    }
+    String twoDigitMinutes = twoDigits(mins);
     // String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-    return "${twoDigits(duration.inHours)}:$twoDigitMinutes";
+    return "${twoDigits(hours)}:$twoDigitMinutes";
     // return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
   }
 
@@ -196,6 +211,7 @@ class ShiftPatternDataModel {
               : null,
           occupationModel: _occupationModel,
           shiftNoteRef: _shiftNoteRef,
+          multiDayShift: map[ShiftDataSchema.multiDayShift] ?? false,
         );
       } catch (e) {
         print('ShiftPatternDataModel fromMap error: $e');
@@ -230,6 +246,10 @@ class ShiftPatternDataModel {
       occupationModel: shiftPatternDataModel.occupationModel,
       geoFenceRadius: shiftPatternDataModel.geoFenceRadius,
       isGeoFencingEnabled: shiftPatternDataModel.isGeoFencingEnabled,
+      shiftNoteRef: shiftPatternDataModel.shiftNoteRef,
+      multiDayShift: shiftPatternDataModel.multiDayShift,
+      startTimeString: shiftPatternDataModel.startTimeString,
+      endTimeString: shiftPatternDataModel.endTimeString,
     );
   }
 }

@@ -170,4 +170,33 @@ class ShiftActivitiesModel {
     }
     return null;
   }
+
+  ShiftActivitiesModel copyWith(ShiftActivitiesModel activity) {
+    return ShiftActivitiesModel(
+      docID: activity.docID,
+      clockInTime: activity.clockInTime,
+      clockInLocation: activity.clockOutLocation,
+      clockOutTime: activity.clockOutTime,
+      shiftDate: activity.shiftDate,
+      clockOutLocation: activity.clockOutLocation,
+      shiftPatternRef: activity.shiftPatternRef,
+      approvedTime: activity.approvedTime,
+      approvedBy: activity.approvedBy,
+      approved: activity.approved,
+      shiftPatternDataModel: activity.shiftPatternDataModel,
+      workerRef: activity.workerRef,
+      clocked: activity.clocked,
+      awaitingApproval: activity.awaitingApproval,
+      updatedAt: activity.updatedAt,
+      needsAttention: activity.needsAttention,
+      dismissible: activity.dismissible,
+      clockedInEarly: activity.clockedInEarly,
+      clockedInLate: activity.clockedInLate,
+      clockedInFaraway: activity.clockedInFaraway,
+      clockedOutEarly: activity.clockedOutEarly,
+      clockedOutLate: activity.clockedOutLate,
+      clockedOutFaraway: activity.clockedOutFaraway,
+      shiftActivityReferenceId: activity.shiftActivityReferenceId,
+    );
+  }
 }
