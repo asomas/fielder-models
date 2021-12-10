@@ -109,7 +109,8 @@ class PatternDataModel {
           }
         };
       }
-      if (endDate != null) {
+      if (recurrence.repeatIntervalType != ShiftFrequencies.None &&
+          endDate != null) {
         final String _endDateString = DateFormat('yyyy-MM-dd').format(endDate);
         if (_endDateString != null) {
           if (intervalType != "None")
