@@ -48,8 +48,8 @@ enum EndDateTypes {
 }
 
 enum ShiftFrequencies {
-  Daily,
   None,
+  Daily,
   Weekly,
 }
 
