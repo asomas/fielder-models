@@ -39,4 +39,5 @@ class FbCollections {
   static const String rightToWork = 'right_to_work';
   static const String occupationSkillRelations = 'occupation_skill_relations';
   static const String shiftNotes = 'shift_notes';
+  static const String additionalData = 'additional_data';
 }
