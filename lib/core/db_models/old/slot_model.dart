@@ -38,7 +38,9 @@ class SlotModel {
 
   @override
   bool operator ==(other) {
-    return "${this.shiftId}" == "${other.shiftId}";
+    return "${this.shiftId}" == "${other.shiftId}" &&
+        this.isHead == other.isHead &&
+        this.isTail == other.isTail;
   }
 
   @override
