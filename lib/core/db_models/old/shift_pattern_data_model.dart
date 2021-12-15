@@ -250,6 +250,7 @@ class ShiftPatternDataModel {
       multiDayShift: shiftPatternDataModel.multiDayShift,
       startTimeString: shiftPatternDataModel.startTimeString,
       endTimeString: shiftPatternDataModel.endTimeString,
+      isRecurring: shiftPatternDataModel.isRecurring,
     );
   }
 }
