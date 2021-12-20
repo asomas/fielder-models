@@ -339,9 +339,11 @@ class EnumHelpers {
   static String interviewTypeFromString(InterviewType interviewType) {
     switch (interviewType) {
       case InterviewType.Video:
-        return 'Video';
+        return 'VIDEO';
       case InterviewType.InPerson:
-        return 'In Person';
+        return 'IN_PERSON';
+      case InterviewType.NoInterview:
+        return 'NO_INTERVIEW';
       default:
         return '';
     }

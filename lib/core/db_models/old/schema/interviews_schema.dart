@@ -6,5 +6,6 @@ class InterviewsSchema {
   static const String organisationUserId = "organisation_user_id";
   static const String repeatCount = "repeat_count";
   static const String startTime = "start_time";
+  static const String endTime = "end_time";
   static const String interviewSlotId = "interview_slot_id";
 }
