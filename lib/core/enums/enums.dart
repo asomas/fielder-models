@@ -103,3 +103,8 @@ enum CandidatesWorkerType { STAFF, FIELDER, NETWORK }
 
 enum RightToWorkFlow { Passport, BirthCertificate, BRP, ShareCode, None }
 enum RightToWorkVerificationStatus { UnderReview, Verified, Rejected, None }
+
+enum InterviewType {
+  Video,
+  InPerson,
+}

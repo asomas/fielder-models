@@ -335,4 +335,15 @@ class EnumHelpers {
         return InviteStaffStatus.Pending;
     }
   }
+
+  static String interviewTypeFromString(InterviewType interviewType) {
+    switch (interviewType) {
+      case InterviewType.Video:
+        return 'Video';
+      case InterviewType.InPerson:
+        return 'In Person';
+      default:
+        return '';
+    }
+  }
 }
