@@ -8,4 +8,5 @@ class InviteStaffSchema {
   static const String workerRef = "worker_ref";
   static const String workerId = "worker_id";
   static const String workerType = "worker_type";
+  static const String shiftPatternId = "shift_pattern_id";
 }

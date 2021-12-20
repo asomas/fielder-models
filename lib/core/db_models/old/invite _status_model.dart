@@ -1,6 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
+import 'package:fielder_models/core/db_models/old/address_model.dart';
+import 'package:fielder_models/core/db_models/old/schema/interviews_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/invite_staff_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
+import 'package:fielder_models/core/db_models/worker/schema/locationSchema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 
 class InviteStatusModel {
@@ -15,6 +20,8 @@ class InviteStatusModel {
   String pictureUrl;
   bool fromOffer;
   DocumentReference shiftRef;
+  InterviewType interviewType;
+  AddressModel addressModel;
 
   InviteStatusModel(
       {this.workerType,
@@ -62,6 +69,37 @@ class InviteStatusModel {
         workerPhone: data[StaffStatusSchema.workerPhone],
         workerRef: data[StaffStatusSchema.workerRef],
         createdAt: data[StaffStatusSchema.createdAt]?.toDate());
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> _map = {};
+    try {
+      _map = {
+        InviteStaffSchema.workerFirstName: workerFirstName,
+        InviteStaffSchema.workerLastName: workerLastName,
+        InviteStaffSchema.workerPhone: workerPhone,
+        InviteStaffSchema.workerType:
+            EnumHelpers.stringFromCandidatesWorkerType(workerType),
+        InterviewsSchema.interviewType:
+            EnumHelpers.interviewTypeFromString(interviewType),
+      };
+      if (shiftRef != null) {
+        _map[InviteStaffSchema.shiftPatternId] = shiftRef.id;
+      }
+      if (addressModel != null) {
+        _map[ShiftDataSchema.newLocationData] = {
+          ShiftDataSchema.address: addressModel.toJSON(),
+          ShiftDataSchema.coords: {
+            LocationSchema.lat: addressModel?.coordinates?.latitude,
+            LocationSchema.lng: addressModel?.coordinates?.longitude
+          }
+        };
+      }
+      print("InviteStaffModel map -> $_map");
+    } catch (e) {
+      print('InviteStaffModel toJSON error: $e');
+    }
+    return _map;
   }
 
   clear() {
