@@ -22,19 +22,24 @@ class InviteStatusModel {
   DocumentReference shiftRef;
   InterviewType interviewType;
   AddressModel addressModel;
+  String shiftId;
 
-  InviteStatusModel(
-      {this.workerType,
-      this.status,
-      this.workerFirstName = '',
-      this.workerLastName = '',
-      this.workerPhone = '',
-      this.createdAt,
-      this.invitationId,
-      this.workerRef,
-      this.pictureUrl,
-      this.fromOffer = false,
-      this.shiftRef});
+  InviteStatusModel({
+    this.workerType,
+    this.status,
+    this.workerFirstName = '',
+    this.workerLastName = '',
+    this.workerPhone = '',
+    this.createdAt,
+    this.invitationId,
+    this.workerRef,
+    this.pictureUrl,
+    this.fromOffer = false,
+    this.shiftRef,
+    this.shiftId,
+    this.addressModel,
+    this.interviewType,
+  });
 
   Map<String, dynamic> toJSON() {
     //print('AddJobModel toJSON invoked');
@@ -83,7 +88,9 @@ class InviteStatusModel {
         InterviewsSchema.interviewType:
             EnumHelpers.interviewTypeFromString(interviewType),
       };
-      if (shiftRef != null) {
+      if (shiftId != null && shiftId.isNotEmpty) {
+        _map[InviteStaffSchema.shiftPatternId] = shiftId;
+      } else if (shiftRef != null) {
         _map[InviteStaffSchema.shiftPatternId] = shiftRef.id;
       }
       if (addressModel != null) {

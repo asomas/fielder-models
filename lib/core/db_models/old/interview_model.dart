@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/interviews_schema.dart';
@@ -14,6 +15,11 @@ class InterviewModel {
   AddressModel addressModel;
   String organisationId;
   DateTime interviewStartDateTime;
+  DateTime interviewEndDateTime;
+  bool assigned;
+  DocumentReference organisationRef;
+  DocumentReference organisationUserRef;
+  String interviewSlotId;
 
   InterviewModel({
     @required this.interviewDuration,
@@ -23,7 +29,42 @@ class InterviewModel {
     @required this.organisationId,
     @required this.interviewStartDateTime,
     this.addressModel,
+    this.assigned = false,
+    this.organisationRef,
+    this.organisationUserRef,
+    this.interviewEndDateTime,
+    this.interviewSlotId,
   });
+
+  factory InterviewModel.fromMap(
+      String interviewDocId, Map<String, dynamic> map) {
+    try {
+      InterviewType _interview =
+          EnumHelpers.getInterviewType(map[InterviewsSchema.interviewType]);
+      DateTime _startTime =
+          (map[InterviewsSchema.startTime] as Timestamp).toDate();
+      DateTime _endTime = (map[InterviewsSchema.endTime] as Timestamp).toDate();
+      int duration;
+      if (_startTime != null && _endTime != null) {
+        duration = _endTime.difference(_startTime).inMinutes;
+      }
+      return InterviewModel(
+          interviewDuration: duration,
+          breakDuration: 0,
+          repeatCount: 0,
+          interviewType: _interview,
+          organisationId:
+              (map[InterviewsSchema.organisationRef] as DocumentReference)?.id,
+          interviewStartDateTime: _startTime,
+          interviewEndDateTime: _endTime,
+          organisationUserRef: map[InterviewsSchema.organisationUserRef],
+          assigned: map[InterviewsSchema.assigned],
+          interviewSlotId: interviewDocId);
+    } catch (e, s) {
+      print("interview model to map catch___${e}____$s");
+      return null;
+    }
+  }
 
   Map<String, dynamic> toJson() {
     try {
@@ -35,7 +76,7 @@ class InterviewModel {
             EnumHelpers.interviewTypeFromString(interviewType),
         InterviewsSchema.organisationId: organisationId,
         InterviewsSchema.repeatCount: repeatCount,
-        InterviewsSchema.startTime: interviewStartDateTime
+        InterviewsSchema.startTime: interviewStartDateTime?.toString()
       };
       if (addressModel != null) {
         jsonMap[ShiftDataSchema.newLocationData] = {

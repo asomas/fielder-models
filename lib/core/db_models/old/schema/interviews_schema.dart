@@ -8,4 +8,7 @@ class InterviewsSchema {
   static const String startTime = "start_time";
   static const String endTime = "end_time";
   static const String interviewSlotId = "interview_slot_id";
+  static const String assigned = "assigned";
+  static const String organisationRef = "organisation_ref";
+  static const String organisationUserRef = "organisation_user_ref";
 }

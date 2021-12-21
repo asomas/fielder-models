@@ -348,4 +348,17 @@ class EnumHelpers {
         return '';
     }
   }
+
+  static InterviewType getInterviewType(String interviewType) {
+    switch (interviewType) {
+      case 'VIDEO':
+        return InterviewType.Video;
+      case 'IN_PERSON':
+        return InterviewType.InPerson;
+      case 'NO_INTERVIEW':
+        return InterviewType.NoInterview;
+      default:
+        return null;
+    }
+  }
 }
