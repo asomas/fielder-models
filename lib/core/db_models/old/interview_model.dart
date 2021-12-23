@@ -93,4 +93,9 @@ class InterviewModel {
       return null;
     }
   }
+
+  @override
+  bool operator ==(other) {
+    return "${this.interviewSlotId}" == "${other.interviewSlotId}";
+  }
 }

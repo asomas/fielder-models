@@ -349,6 +349,17 @@ class EnumHelpers {
     }
   }
 
+  static String dropDownStringForInterviewType(InterviewType interviewType) {
+    switch (interviewType) {
+      case InterviewType.Video:
+        return 'Video';
+      case InterviewType.InPerson:
+        return 'In Person';
+      default:
+        return '';
+    }
+  }
+
   static InterviewType getInterviewType(String interviewType) {
     switch (interviewType) {
       case 'VIDEO':
