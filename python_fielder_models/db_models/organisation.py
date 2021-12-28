@@ -26,6 +26,7 @@ class OrganisationUserSerializer(serializers.Serializer):
 
     name = serializers.CharField()
     email = serializers.EmailField()
+    organisation_user_reference_id = serializers.CharField()
     organisations = serializers.DictField(
         child=OrganisationSubscriptionSerializer(), allow_empty=True
     )
