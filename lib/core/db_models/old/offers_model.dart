@@ -43,7 +43,7 @@ class Offers {
         candidatesModel: candidatesModel,
         workerRef: map["worker_ref"],
         updatedAt: map["updated_at"] != null
-            ? (map["updated_at"] as Timestamp).toDate()
+            ? (map["updated_at"] as Timestamp)?.toDate()
             : null,
         workerType:
             EnumHelpers.candidatesWorkerTypeFromString(map['worker_type']),

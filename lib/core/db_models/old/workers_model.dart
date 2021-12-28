@@ -1,3 +1,6 @@
+import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
+import 'package:fielder_models/core/db_models/old/schema/invite_staff_schema.dart';
+import 'package:fielder_models/core/enums/enums.dart';
 import 'package:flutter/cupertino.dart';
 
 class WorkerModel {
@@ -8,6 +11,7 @@ class WorkerModel {
   bool isStaff;
   String phone;
   bool hasLoggedIn;
+  CandidatesWorkerType workerType;
 
   WorkerModel(
       {this.docID,
@@ -16,7 +20,8 @@ class WorkerModel {
       this.pictureUrl,
       this.isStaff,
       this.phone,
-      this.hasLoggedIn});
+      this.hasLoggedIn,
+      this.workerType});
 
   factory WorkerModel.fromMap({
     @required Map<String, dynamic> map,
@@ -41,6 +46,28 @@ class WorkerModel {
       return workerModel;
     }
     return null;
+  }
+
+  Map<String, dynamic> toJsonForInterviews() {
+    return {
+      InviteStaffSchema.workerId: docID,
+      InviteStaffSchema.workerFirstName: firstName,
+      InviteStaffSchema.workerLastName: lastName,
+      InviteStaffSchema.workerPhone: phone,
+      InviteStaffSchema.workerType:
+          EnumHelpers.stringFromCandidatesWorkerType(workerType)
+    };
+  }
+
+  WorkerModel fromJsonForInterviews(Map<String, dynamic> json) {
+    return WorkerModel(
+        docID: json[InviteStaffSchema.workerId],
+        firstName: json[InviteStaffSchema.workerFirstName],
+        lastName: json[InviteStaffSchema.workerLastName],
+        phone: json[InviteStaffSchema.workerPhone],
+        workerType: EnumHelpers.candidatesWorkerTypeFromString(
+          json[InviteStaffSchema.workerType],
+        ));
   }
 
   String getName() {

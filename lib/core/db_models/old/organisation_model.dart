@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:fielder_models/core/db_models/old/accounts_contact_model.dart';
 import 'package:fielder_models/core/db_models/old/alternative_contact_model.dart';
 import 'package:fielder_models/core/db_models/old/primary_contact_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/organisation_schema.dart';
+import 'package:flutter/cupertino.dart';
 
 class OrganisationModel {
   AccountsContactModel accountsContactModel;
@@ -28,7 +28,6 @@ class OrganisationModel {
       this.brandColor,
       this.primaryColor});
 
-
   static Color hexToColor(String code) {
     if (code?.isNotEmpty == true) {
       return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
@@ -45,10 +44,9 @@ class OrganisationModel {
       try {
         final String _name = map[OrganisationSchema.companyName] ?? '';
         final String _email = map[OrganisationSchema.email] ?? '';
-        final String _logoUrl = map[OrganisationSchema.logo_url] ?? '';
-        final String _primaryColor =
-            map[OrganisationSchema.primary_color] ?? '';
-        final String _brandBanner = map[OrganisationSchema.brand_banner] ?? '';
+        final String _logoUrl = map[OrganisationSchema.brandLogo] ?? '';
+        final String _primaryColor = map[OrganisationSchema.brandColor] ?? '';
+        final String _brandBanner = map[OrganisationSchema.brandBanner] ?? '';
 
         AccountsContactModel _accountsContactModel;
         final Map<String, dynamic> _accountsContactRef =

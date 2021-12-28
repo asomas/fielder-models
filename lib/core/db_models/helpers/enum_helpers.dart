@@ -335,4 +335,41 @@ class EnumHelpers {
         return InviteStaffStatus.Pending;
     }
   }
+
+  static String interviewTypeFromString(InterviewType interviewType) {
+    switch (interviewType) {
+      case InterviewType.Video:
+        return 'VIDEO';
+      case InterviewType.InPerson:
+        return 'IN_PERSON';
+      case InterviewType.NoInterview:
+        return 'NO_INTERVIEW';
+      default:
+        return '';
+    }
+  }
+
+  static String dropDownStringForInterviewType(InterviewType interviewType) {
+    switch (interviewType) {
+      case InterviewType.Video:
+        return 'Video';
+      case InterviewType.InPerson:
+        return 'In Person';
+      default:
+        return '';
+    }
+  }
+
+  static InterviewType getInterviewType(String interviewType) {
+    switch (interviewType) {
+      case 'VIDEO':
+        return InterviewType.Video;
+      case 'IN_PERSON':
+        return InterviewType.InPerson;
+      case 'NO_INTERVIEW':
+        return InterviewType.NoInterview;
+      default:
+        return null;
+    }
+  }
 }
