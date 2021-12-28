@@ -38,17 +38,19 @@ class InterviewModel {
 
   factory InterviewModel.fromMap(
       String interviewDocId, Map<String, dynamic> map) {
-    try {
-      InterviewType _interview =
-          EnumHelpers.getInterviewType(map[InterviewsSchema.interviewType]);
-      DateTime _startTime =
-          (map[InterviewsSchema.startTime] as Timestamp).toDate();
-      DateTime _endTime = (map[InterviewsSchema.endTime] as Timestamp).toDate();
-      int duration;
-      if (_startTime != null && _endTime != null) {
-        duration = _endTime.difference(_startTime).inMinutes;
-      }
-      return InterviewModel(
+    if (map != null && map.isNotEmpty) {
+      try {
+        InterviewType _interview =
+            EnumHelpers.getInterviewType(map[InterviewsSchema.interviewType]);
+        DateTime _startTime =
+            (map[InterviewsSchema.startTime] as Timestamp)?.toDate();
+        DateTime _endTime =
+            (map[InterviewsSchema.endTime] as Timestamp)?.toDate();
+        int duration;
+        if (_startTime != null && _endTime != null) {
+          duration = _endTime.difference(_startTime).inMinutes;
+        }
+        return InterviewModel(
           interviewDuration: duration,
           breakDuration: 0,
           repeatCount: 0,
@@ -59,9 +61,13 @@ class InterviewModel {
           interviewEndDateTime: _endTime,
           organisationUserRef: map[InterviewsSchema.organisationUserRef],
           assigned: map[InterviewsSchema.assigned],
-          interviewSlotId: interviewDocId);
-    } catch (e, s) {
-      print("interview model to map catch___${e}____$s");
+          interviewSlotId: interviewDocId,
+        );
+      } catch (e, s) {
+        print("interview model to map catch___${e}____$s");
+        return null;
+      }
+    } else {
       return null;
     }
   }

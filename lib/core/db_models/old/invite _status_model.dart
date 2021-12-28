@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
+import 'package:fielder_models/core/db_models/old/interview_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/interviews_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/invite_staff_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/organisation_schema.dart';
@@ -36,6 +37,7 @@ class InviteStatusModel {
   String brandBanner;
   String organisationName;
   DocumentReference interviewRef;
+  InterviewModel interviewModel;
 
   InviteStatusModel({
     this.workerType,
@@ -63,6 +65,7 @@ class InviteStatusModel {
     this.brandLogo,
     this.summaryInformation,
     this.interviewRef,
+    this.interviewModel,
   });
 
   static const Color blue = Color(0xFF0288D1);
@@ -98,11 +101,23 @@ class InviteStatusModel {
   factory InviteStatusModel.fromMap(Map data, {String invitationId}) {
     InterviewType _interview = InterviewType.NoInterview;
     DocumentReference _interviewRef;
-    if (data.containsKey(InviteStaffSchema.interview)) {
+    InterviewModel _interviewModel;
+    AddressModel _addressModel;
+    if (data.containsKey(InviteStaffSchema.interview) &&
+        data[InviteStaffSchema.interview] != null) {
       _interview = EnumHelpers.getInterviewType(
           data[InviteStaffSchema.interview][InterviewsSchema.interviewType]);
       _interviewRef =
           data[InviteStaffSchema.interview][InviteStaffSchema.interviewSlotRef];
+      _interviewModel = InterviewModel.fromMap(
+          _interviewRef?.id,
+          data[InviteStaffSchema.interview]
+              [InviteStaffSchema.interviewSlotData]);
+    }
+    if (data.containsKey(InviteStaffSchema.address) &&
+        data[InviteStaffSchema.address] != null) {
+      _addressModel =
+          AddressModel.fromInvitationsMap(map: data[InviteStaffSchema.address]);
     }
     return InviteStatusModel(
       invitationId: invitationId ?? "",
@@ -114,13 +129,14 @@ class InviteStatusModel {
       workerLastName: data[StaffStatusSchema.workerLastName],
       workerPhone: data[StaffStatusSchema.workerPhone],
       workerRef: data[StaffStatusSchema.workerRef],
+      workerId: (data[StaffStatusSchema.workerRef] as DocumentReference)?.id,
       shiftRef: data[StaffStatusSchema.shiftPatternRef],
       createdAt: data[StaffStatusSchema.createdAt]?.toDate(),
       requireInterview: data[InviteStaffSchema.requiresInterview] ?? false,
       organisationRef: data[InviteStaffSchema.organisationRef],
       organisationUserRef: data[InviteStaffSchema.organisationUserRef],
       summaryInformation: data[InviteStaffSchema.summaryInformation] ?? "",
-      createdDate: data[InviteStaffSchema.createdAt].toDate(),
+      createdDate: data[InviteStaffSchema.createdAt]?.toDate(),
       organisationName: data[OrganisationSchema.organisationData] != null
           ? data[OrganisationSchema.organisationData]
               [OrganisationSchema.organisationName]
@@ -139,6 +155,8 @@ class InviteStatusModel {
           : blue,
       interviewType: _interview,
       interviewRef: _interviewRef,
+      interviewModel: _interviewModel,
+      addressModel: _addressModel,
     );
   }
 
@@ -165,7 +183,7 @@ class InviteStatusModel {
         _map[InviteStaffSchema.shiftPatternId] = shiftRef.id;
       }
       if (addressModel != null) {
-        _map[ShiftDataSchema.newLocationData] = {
+        _map[ShiftDataSchema.address] = {
           ShiftDataSchema.address: addressModel.toJSON(),
           ShiftDataSchema.coords: {
             LocationSchema.lat: addressModel?.coordinates?.latitude,

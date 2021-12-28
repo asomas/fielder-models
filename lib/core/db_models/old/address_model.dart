@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/old/schema/default_location_data_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/invite_staff_schema.dart';
 import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -83,13 +84,62 @@ class AddressModel {
             map[DefaultLocationDataSchema.postalCode] ?? '';
 
         return AddressModel(
+          building: _building,
+          street: _street,
+          county: _county,
+          country: _country,
+          city: _city,
+          flat: _flat,
+          postalCode: _postalCode,
+        );
+      } catch (e) {
+        print('AddressModel fromMap error: $e');
+      }
+    }
+    return null;
+  }
+
+  factory AddressModel.fromInvitationsMap(
+      {@required Map<String, dynamic> map}) {
+    if (map.isNotEmpty &&
+        map.containsKey(InviteStaffSchema.address) &&
+        map[InviteStaffSchema.address] != null) {
+      try {
+        final String _building = map[InviteStaffSchema.address]
+                [DefaultLocationDataSchema.building] ??
+            '';
+        final String _street = map[InviteStaffSchema.address]
+                [DefaultLocationDataSchema.street] ??
+            '';
+        final String _county = map[InviteStaffSchema.address]
+                [DefaultLocationDataSchema.county] ??
+            '';
+        final String _country = map[InviteStaffSchema.address]
+                [DefaultLocationDataSchema.country] ??
+            '';
+        final String _city = map[InviteStaffSchema.address]
+                [DefaultLocationDataSchema.city] ??
+            '';
+        final String _flat = map[InviteStaffSchema.address]
+                [DefaultLocationDataSchema.flat] ??
+            '';
+        final String _postalCode = map[InviteStaffSchema.address]
+                [DefaultLocationDataSchema.postalCode] ??
+            '';
+        final String _formattedAddress =
+            map[DefaultLocationDataSchema.formatted_address] ?? '';
+        final GeoPoint _coords = map[DefaultLocationDataSchema.coordinates];
+
+        return AddressModel(
             building: _building,
             street: _street,
             county: _county,
             country: _country,
             city: _city,
             flat: _flat,
-            postalCode: _postalCode);
+            postalCode: _postalCode,
+            fullAddress: _formattedAddress,
+            coordinates: _coords);
       } catch (e) {
         print('AddressModel fromMap error: $e');
       }
