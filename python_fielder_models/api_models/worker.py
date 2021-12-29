@@ -48,7 +48,7 @@ class WorkExperienceAPISerializer(BaseExperienceAPISerializer):
         required=False, allow_null=True, child=SICCodeSerializer()
     )
     referencing_data = ReferencingDataSerializer(
-        required=False, allow_null=True, defaul=None
+        required=False, allow_null=True, default=None
     )
 
 

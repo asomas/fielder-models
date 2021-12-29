@@ -63,7 +63,7 @@ class WorkExperienceSerializer(BaseExperienceSerializer):
         allow_null=True, default=None, child=SICCodeSerializer()
     )
     referencing_data = ReferencingDataSerializer(
-        required=False, allow_null=True, defaul=None
+        required=False, allow_null=True, default=None
     )
 
     def to_internal_value(self, data):
