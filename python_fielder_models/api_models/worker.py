@@ -2,7 +2,7 @@ from fielder_backend_utils.rest_utils import DocumentReferenceField
 from rest_framework import serializers
 
 from ..api_models.common import *
-from ..common.worker import VerificationPath
+from ..common.worker import ReferencingDataSerializer, VerificationPath
 from ..db_models.worker import *
 
 
@@ -46,6 +46,9 @@ class WorkExperienceAPISerializer(BaseExperienceAPISerializer):
     )
     sic_codes = serializers.ListField(
         required=False, allow_null=True, child=SICCodeSerializer()
+    )
+    referencing_data = ReferencingDataSerializer(
+        required=False, allow_null=True, defaul=None
     )
 
 

@@ -3,7 +3,7 @@ from enum import Enum, auto
 from fielder_backend_utils.rest_utils import DocumentReferenceField
 from rest_framework import serializers
 
-from ..common.worker import VerificationPath
+from ..common.worker import ReferencingDataSerializer, VerificationPath
 from .common import *
 
 
@@ -38,12 +38,6 @@ class BaseExperienceSerializer(serializers.Serializer):
 
 
 class WorkExperienceSerializer(BaseExperienceSerializer):
-    class ReferencingDataSerializer(serializers.Serializer):
-        contact_name = serializers.CharField()
-        contact_phone = serializers.CharField()
-        contact_position = serializers.CharField()
-        contact_email = serializers.CharField()
-
     class ReferenceSerializer(serializers.Serializer):
         value = serializers.CharField(allow_null=True)
 
