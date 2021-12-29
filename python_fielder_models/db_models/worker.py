@@ -38,6 +38,12 @@ class BaseExperienceSerializer(serializers.Serializer):
 
 
 class WorkExperienceSerializer(BaseExperienceSerializer):
+    class ReferencingDataSerializer(serializers.Serializer):
+        contact_name = serializers.CharField()
+        contact_phone = serializers.CharField()
+        contact_position = serializers.CharField()
+        contact_email = serializers.CharField()
+
     class ReferenceSerializer(serializers.Serializer):
         value = serializers.CharField(allow_null=True)
 
@@ -61,6 +67,9 @@ class WorkExperienceSerializer(BaseExperienceSerializer):
     )
     sic_codes = serializers.ListField(
         allow_null=True, default=None, child=SICCodeSerializer()
+    )
+    referencing_data = ReferencingDataSerializer(
+        required=False, allow_null=True, defaul=None
     )
 
     def to_internal_value(self, data):
