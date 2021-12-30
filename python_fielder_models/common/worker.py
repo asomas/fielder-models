@@ -12,7 +12,7 @@ class VerificationPath(Enum):
 
 
 class ReferencingDataSerializer(Serializer):
-    contact_name = CharField()
-    contact_phone = CharField()
-    contact_position = CharField()
-    contact_email = CharField()
+    contact_name = CharField(allow_null=True, default=None)
+    contact_phone = CharField(allow_null=True, default=None)
+    contact_position = CharField(allow_null=True, default=None)
+    contact_email = CharField(allow_null=True, default=None)
