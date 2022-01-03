@@ -4,7 +4,42 @@ import 'package:fielder_models/core/db_models/worker/schema/workerHistorySchema.
 
 enum WorkerType { EXTERNAL, FIELDER, EDUCATION }
 
-enum VerificationStatus {Unchecked , Checked, AwaitingVerification, Verified, Rejected}
+enum VerificationStatus {
+  Unchecked,
+  Checked,
+  AwaitingVerification,
+  Verified,
+  Rejected
+}
+
+enum RefereeFields { Name, Phone, Position }
+
+class RefereeModel {
+  String phone;
+  String name;
+  String email;
+  String position;
+
+  RefereeModel({this.phone, this.name, this.position, this.email});
+
+  factory RefereeModel.fromMap(Map map) {
+    try {
+      if (map != null && map.isNotEmpty) {
+        return RefereeModel(
+          name: map[WorkerHistorySchema.contactName],
+          position: map[WorkerHistorySchema.contactPosition],
+          phone: map[WorkerHistorySchema.contactPhone],
+          email: map[WorkerHistorySchema.contactEmail],
+        );
+      } else {
+        return null;
+      }
+    } catch (e, s) {
+      print("RefereeModelCatch______${e}____$s");
+      return null;
+    }
+  }
+}
 
 class WorkHistory {
   List<Check> checks;
@@ -24,25 +59,28 @@ class WorkHistory {
   WorkerType workerType;
   double totalHours;
   int totalShifts;
+  RefereeModel refereeModel;
 
-  WorkHistory(
-      {this.checks,
-      this.endDate,
-      this.location,
-      this.occupation,
-      this.organisationName,
-      this.qualifications,
-      this.sicCode,
-      this.skills,
-      this.startDate,
-      this.summary,
-      this.workerRef,
-      this.jobRef,
-      this.workerType,
-      this.docId,
-      this.jobTitle,
-      this.totalHours,
-      this.totalShifts});
+  WorkHistory({
+    this.checks,
+    this.endDate,
+    this.location,
+    this.occupation,
+    this.organisationName,
+    this.qualifications,
+    this.sicCode,
+    this.skills,
+    this.startDate,
+    this.summary,
+    this.workerRef,
+    this.jobRef,
+    this.workerType,
+    this.docId,
+    this.jobTitle,
+    this.totalHours,
+    this.totalShifts,
+    this.refereeModel,
+  });
 
   static DocumentReference documentReferenceFromString(
       String stringDocumentReference) {
@@ -82,54 +120,60 @@ class WorkHistory {
       _startDate = Timestamp.fromDate(DateTime.parse(split));
     }
     return WorkHistory(
-        docId: docId,
-        checks: json[WorkerHistorySchema.checks] != null
-            ? List<Check>.from(
-                json[WorkerHistorySchema.checks].map((x) => Check.fromJson(x)))
-            : [],
-        jobTitle: json[WorkerHistorySchema.jobTitle] != null
-            ? json[WorkerHistorySchema.jobTitle]
-            : "",
-        endDate: _endDate,
-        startDate: _startDate,
-        location: json[WorkerHistorySchema.locationData] != null
-            ? LocationModelDetail.fromJson(
-                json[WorkerHistorySchema.locationData])
-            : null,
-        occupation: json[WorkerHistorySchema.occupation] != null
-            ? Occupation.fromJson(json[WorkerHistorySchema.occupation])
-            : null,
-        organisationName: json[WorkerHistorySchema.organisationName] != null
-            ? json[WorkerHistorySchema.organisationName]
-            : "",
-        qualifications: json[WorkerHistorySchema.qualifications] != null
-            ? List<Qualification>.from(json[WorkerHistorySchema.qualifications]
-                .map((x) => Qualification.fromJson(x)))
-            : [],
-        sicCode: json[WorkerHistorySchema.sicCode] != null
-            ? List<SicCode>.from(json[WorkerHistorySchema.sicCode]
-                .map((x) => SicCode.fromJson(x)))
-            : [],
-        skills: json[WorkerHistorySchema.skills] != null
-            ? List<Skill>.from(
-                json[WorkerHistorySchema.skills].map((x) => Skill.fromJson(x)))
-            : [],
-        summary: json[WorkerHistorySchema.summary] != null
-            ? json[WorkerHistorySchema.summary]
-            : "",
-        workerType: getWorkerType(json[WorkerHistorySchema.type]),
-        workerRef: json[WorkerHistorySchema.workerRef] != null
-            ? json[WorkerHistorySchema.workerRef] is String
-                ? documentReferenceFromString(json[WorkerHistorySchema.workerRef])
-                : json[WorkerHistorySchema.workerRef]
-            : null,
-        jobRef: json[WorkerHistorySchema.jobRef] != null
-            ? json[WorkerHistorySchema.jobRef] is String
-                ? documentReferenceFromString(json[WorkerHistorySchema.jobRef])
-                : json[WorkerHistorySchema.jobRef]
-            : null,
-        totalHours: json[WorkerHistorySchema.totalHours] != null ? double.parse(json[WorkerHistorySchema.totalHours].toString()) : 0,
-        totalShifts: json[WorkerHistorySchema.totalShifts] != null ? json[WorkerHistorySchema.totalShifts] : 0);
+      docId: docId,
+      checks: json[WorkerHistorySchema.checks] != null
+          ? List<Check>.from(
+              json[WorkerHistorySchema.checks].map((x) => Check.fromJson(x)))
+          : [],
+      jobTitle: json[WorkerHistorySchema.jobTitle] != null
+          ? json[WorkerHistorySchema.jobTitle]
+          : "",
+      endDate: _endDate,
+      startDate: _startDate,
+      location: json[WorkerHistorySchema.locationData] != null
+          ? LocationModelDetail.fromJson(json[WorkerHistorySchema.locationData])
+          : null,
+      occupation: json[WorkerHistorySchema.occupation] != null
+          ? Occupation.fromJson(json[WorkerHistorySchema.occupation])
+          : null,
+      organisationName: json[WorkerHistorySchema.organisationName] != null
+          ? json[WorkerHistorySchema.organisationName]
+          : "",
+      qualifications: json[WorkerHistorySchema.qualifications] != null
+          ? List<Qualification>.from(json[WorkerHistorySchema.qualifications]
+              .map((x) => Qualification.fromJson(x)))
+          : [],
+      sicCode: json[WorkerHistorySchema.sicCode] != null
+          ? List<SicCode>.from(
+              json[WorkerHistorySchema.sicCode].map((x) => SicCode.fromJson(x)))
+          : [],
+      skills: json[WorkerHistorySchema.skills] != null
+          ? List<Skill>.from(
+              json[WorkerHistorySchema.skills].map((x) => Skill.fromJson(x)))
+          : [],
+      summary: json[WorkerHistorySchema.summary] != null
+          ? json[WorkerHistorySchema.summary]
+          : "",
+      workerType: getWorkerType(json[WorkerHistorySchema.type]),
+      workerRef: json[WorkerHistorySchema.workerRef] != null
+          ? json[WorkerHistorySchema.workerRef] is String
+              ? documentReferenceFromString(json[WorkerHistorySchema.workerRef])
+              : json[WorkerHistorySchema.workerRef]
+          : null,
+      jobRef: json[WorkerHistorySchema.jobRef] != null
+          ? json[WorkerHistorySchema.jobRef] is String
+              ? documentReferenceFromString(json[WorkerHistorySchema.jobRef])
+              : json[WorkerHistorySchema.jobRef]
+          : null,
+      totalHours: json[WorkerHistorySchema.totalHours] != null
+          ? double.parse(json[WorkerHistorySchema.totalHours].toString())
+          : 0,
+      totalShifts: json[WorkerHistorySchema.totalShifts] != null
+          ? json[WorkerHistorySchema.totalShifts]
+          : 0,
+      refereeModel:
+          RefereeModel.fromMap(json[WorkerHistorySchema.referencingData]),
+    );
   }
   static WorkerType getWorkerType(String type) {
     WorkerType workerType = WorkerType.EXTERNAL;
@@ -151,15 +195,16 @@ class WorkHistory {
       verificationStatus = VerificationStatus.Checked;
     } else if (type == WorkerHistorySchema.awaitingVerification) {
       verificationStatus = VerificationStatus.AwaitingVerification;
-    }else if (type == WorkerHistorySchema.verified) {
+    } else if (type == WorkerHistorySchema.verified) {
       verificationStatus = VerificationStatus.Verified;
-    }else if (type == WorkerHistorySchema.rejected) {
+    } else if (type == WorkerHistorySchema.rejected) {
       verificationStatus = VerificationStatus.Rejected;
     }
     return verificationStatus;
   }
 
-  static String stringFromVerificationStatus(VerificationStatus verificationStatus) {
+  static String stringFromVerificationStatus(
+      VerificationStatus verificationStatus) {
     String status = WorkerHistorySchema.unchecked;
     if (verificationStatus == VerificationStatus.Unchecked) {
       status = WorkerHistorySchema.unchecked;
@@ -174,7 +219,6 @@ class WorkHistory {
     }
     return status;
   }
-
 }
 
 class Occupation {

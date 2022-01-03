@@ -60,4 +60,9 @@ class WorkerHistorySchema {
   static const String awaitingVerification = "AWAITING_VERIFICATION";
   static const String verified = "VERIFIED";
   static const String rejected = "REJECTED";
+  static const String referencingData = "referencing_data";
+  static const String contactName = "contact_name";
+  static const String contactPhone = "contact_phone";
+  static const String contactPosition = "contact_position";
+  static const String contactEmail = "contact_email";
 }
