@@ -53,6 +53,11 @@ enum ShiftFrequencies {
   Weekly,
 }
 
+enum RepeatInterval {
+  Weekly,
+  EveryTwoWeeks,
+}
+
 enum OverlayType { ERROR, SUCCESS, WARNING }
 
 enum CalculatePay { ShiftHours, ClockedInHours }
