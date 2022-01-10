@@ -32,6 +32,7 @@ class SharedJobShiftDBSerializer(BaseJobSerializer):
     manager_ref = DocumentReferenceField(default=None, allow_null=True)
     supervisor_ref = DocumentReferenceField(default=None, allow_null=True)
     total_shift_count = serializers.IntegerField()
+    enable_unpaid_breaks = serializers.BooleanField(default=False)
 
     created_at = serializers.DateTimeField(default=datetime.now())
     updated_at = serializers.DateTimeField(default=datetime.now())
@@ -134,3 +135,10 @@ class OfferDBSerializer(serializers.Serializer):
 
 class ShiftNoteDBSerializer(serializers.Serializer):
     value = serializers.CharField()
+
+
+class ShiftActivityBreakDBSerializer(serializers.Serializer):
+    start_time = serializers.DateTimeField()
+    end_time = serializers.DateTimeField()
+    duration = serializers.IntegerField()
+    early_stop = serializers.BooleanField(default=False)
