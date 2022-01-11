@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/old/organisation_model.dart';
 import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
+import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
 import 'package:fielder_models/core/db_models/old/shift_activities_model.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
 import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/occupation.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ShiftPatternDataModel {
@@ -28,6 +28,7 @@ class ShiftPatternDataModel {
   ShiftActivitiesModel shiftActivitiesModel;
   WorkerModel workerModel;
   LocationModelDetail shiftLocationDataModel;
+  DocumentReference locationRef;
   OccupationModel occupationModel;
   bool isUnavailableForOrganisation;
   bool isRecurring;
@@ -40,38 +41,42 @@ class ShiftPatternDataModel {
   bool multiDayShift;
   bool isHeadOFTheShift;
   bool isTailOFTheShift;
+  bool enableUnpaidBreaks;
 
-  ShiftPatternDataModel(
-      {this.docID,
-      this.shiftPatternRefId,
-      this.organisation,
-      this.endDate,
-      this.endTimeInt,
-      this.jobTitle,
-      this.jobID,
-      this.recurrence,
-      this.role,
-      this.startDate,
-      this.startTimeInt,
-      this.workerId,
-      this.shiftActivitiesModel,
-      this.shiftLocationDataModel,
-      this.workerModel,
-      this.supervisorRef,
-      this.jobRefId,
-      this.managerRef,
-      this.occupationModel,
-      this.isUnavailableForOrganisation = false,
-      this.isRecurring,
-      this.assigned = false,
-      this.startTimeString,
-      this.endTimeString,
-      this.isGeoFencingEnabled = false,
-      this.geoFenceRadius = 0,
-      this.shiftNoteRef,
-      this.multiDayShift,
-      this.isHeadOFTheShift,
-      this.isTailOFTheShift});
+  ShiftPatternDataModel({
+    this.docID,
+    this.shiftPatternRefId,
+    this.organisation,
+    this.endDate,
+    this.endTimeInt,
+    this.jobTitle,
+    this.jobID,
+    this.recurrence,
+    this.role,
+    this.startDate,
+    this.startTimeInt,
+    this.workerId,
+    this.shiftActivitiesModel,
+    this.shiftLocationDataModel,
+    this.locationRef,
+    this.workerModel,
+    this.supervisorRef,
+    this.jobRefId,
+    this.managerRef,
+    this.occupationModel,
+    this.isUnavailableForOrganisation = false,
+    this.isRecurring,
+    this.assigned = false,
+    this.startTimeString,
+    this.endTimeString,
+    this.isGeoFencingEnabled = false,
+    this.geoFenceRadius = 0,
+    this.shiftNoteRef,
+    this.multiDayShift,
+    this.isHeadOFTheShift,
+    this.isTailOFTheShift,
+    this.enableUnpaidBreaks,
+  });
 
   static String timeStringFromDuration(int secondsFromMidnight) {
     Duration duration = Duration(seconds: secondsFromMidnight?.round());
@@ -197,6 +202,7 @@ class ShiftPatternDataModel {
           supervisorRef: _supervisorRef,
           managerRef: _managerRef,
           shiftLocationDataModel: _shiftLocationDataModel,
+          locationRef: _locationRef,
           shiftActivitiesModel: null,
           isRecurring: _isRecurring,
           assigned: _assigned,
@@ -212,6 +218,7 @@ class ShiftPatternDataModel {
           occupationModel: _occupationModel,
           shiftNoteRef: _shiftNoteRef,
           multiDayShift: map[ShiftDataSchema.multiDayShift] ?? false,
+          enableUnpaidBreaks: map[JobSummarySchema.enableUnpaidBreaks] ?? false,
         );
       } catch (e) {
         print('ShiftPatternDataModel fromMap error: $e');
@@ -237,6 +244,7 @@ class ShiftPatternDataModel {
       supervisorRef: shiftPatternDataModel.supervisorRef,
       managerRef: shiftPatternDataModel.managerRef,
       shiftLocationDataModel: shiftPatternDataModel.shiftLocationDataModel,
+      locationRef: shiftPatternDataModel.locationRef,
       shiftActivitiesModel: shiftPatternDataModel.shiftActivitiesModel,
       workerId: shiftPatternDataModel.workerId,
       workerModel: shiftPatternDataModel.workerModel,
@@ -251,6 +259,7 @@ class ShiftPatternDataModel {
       startTimeString: shiftPatternDataModel.startTimeString,
       endTimeString: shiftPatternDataModel.endTimeString,
       isRecurring: shiftPatternDataModel.isRecurring,
+      enableUnpaidBreaks: shiftPatternDataModel.enableUnpaidBreaks,
     );
   }
 }

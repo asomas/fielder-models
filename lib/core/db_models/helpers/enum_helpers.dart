@@ -4,7 +4,6 @@ import 'package:fielder_models/core/db_models/old/schema/company_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
 import 'package:fielder_models/core/db_models/worker/schema/newsNotificationSchema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:number_to_words/number_to_words.dart';
 

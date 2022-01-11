@@ -38,34 +38,37 @@ class AddJobModel {
   int overTimeThreshHold;
   bool isArchived;
   List<CoursesAndLevelModel> courses;
+  bool enableUnpaidBreaks;
 
-  AddJobModel(
-      {this.description = '',
-      this.templateName = '',
-      this.title = '',
-      this.jobReferenceId = '',
-      this.selTemplate,
-      this.additionalReqsArray,
-      this.workLocationAddress,
-      this.payCalculation = "Shift hours",
-      this.lateArrival = 0,
-      this.earlyLeaver = 0,
-      this.overTimeRate,
-      this.isDBSRequired = false,
-      this.isEnhancedDBSRequired = false,
-      this.skillsArray,
-      this.defaultLocationData,
-      this.shiftPatternsArray,
-      this.volunteer = false,
-      this.enableLateDeduction = false,
-      this.enableEarlyDeduction = false,
-      this.checksArray,
-      this.checks,
-      this.occupationModel,
-      this.paymentModel,
-      this.overTimeThreshHold,
-      this.courses,
-      this.isArchived = false});
+  AddJobModel({
+    this.description = '',
+    this.templateName = '',
+    this.title = '',
+    this.jobReferenceId = '',
+    this.selTemplate,
+    this.additionalReqsArray,
+    this.workLocationAddress,
+    this.payCalculation = "Shift hours",
+    this.lateArrival = 0,
+    this.earlyLeaver = 0,
+    this.overTimeRate,
+    this.isDBSRequired = false,
+    this.isEnhancedDBSRequired = false,
+    this.skillsArray,
+    this.defaultLocationData,
+    this.shiftPatternsArray,
+    this.volunteer = false,
+    this.enableLateDeduction = false,
+    this.enableEarlyDeduction = false,
+    this.checksArray,
+    this.checks,
+    this.occupationModel,
+    this.paymentModel,
+    this.overTimeThreshHold,
+    this.courses,
+    this.isArchived = false,
+    this.enableUnpaidBreaks = false,
+  });
 
   Map<String, dynamic> toJSON() {
     print('AddJobModel toJSON invoked');
@@ -111,6 +114,7 @@ class AddJobModel {
         JobSummarySchema.courses: (courses?.isNotEmpty == true)
             ? courses.map((e) => e.toJsonForApi()).toList() ?? []
             : [],
+        JobSummarySchema.enableUnpaidBreaks: enableUnpaidBreaks,
       };
       // if (volunteer) {
       //   _map.remove(JobTemplateSchema.payment);
@@ -186,6 +190,7 @@ class AddJobModel {
                 .map((e) => CoursesAndLevelModel.fromMap(e))
                 .toList()
             : [],
+        enableUnpaidBreaks: data[JobSummarySchema.enableUnpaidBreaks],
       );
     }
     return addJobModel;
@@ -207,6 +212,7 @@ class AddJobModel {
     checksArray = [];
     occupationModel = null;
     paymentModel = null;
+    enableUnpaidBreaks = false;
   }
 
 // sprint 8 work
