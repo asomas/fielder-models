@@ -23,5 +23,5 @@ class ShiftActivitiesSchema {
   static const String clockedOutEarly = "clocked_out_early";
   static const String clockedOutFaraway = "clocked_out_faraway";
   static const String shiftActivityReferenceId = "shift_activity_reference_id";
-  static const String totalBreakMins = "total_break_mins";
+  static const String totalBreakMins = "total_breaks_mins";
 }

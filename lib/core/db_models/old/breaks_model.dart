@@ -14,7 +14,7 @@ class BreakModel {
       return BreakModel(
           startTime: (map[BreakSchema.startTime] as Timestamp)?.toDate(),
           endTime: (map[BreakSchema.endTime] as Timestamp)?.toDate(),
-          breakLength: map[BreakSchema.breakLength],
+          breakLength: map[BreakSchema.duration],
           earlyStop: map[BreakSchema.earlyStop] ?? false);
     } catch (e, s) {
       print('break model catch_____${e}______$s');
