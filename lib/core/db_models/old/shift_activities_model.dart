@@ -167,7 +167,7 @@ class ShiftActivitiesModel {
           clockedOutLate: _clockOutLate,
           clockedOutFaraway: _clockOutFarAway,
           shiftActivityReferenceId: _shiftActivityReferenceId,
-          totalBreakMins: map[ShiftActivitiesSchema.totalBreakMins],
+          totalBreakMins: map[ShiftActivitiesSchema.totalBreakMins] ?? 0,
         );
       } on Exception catch (e) {
         print("ShiftActivitiesModel.fromMap error $e");
