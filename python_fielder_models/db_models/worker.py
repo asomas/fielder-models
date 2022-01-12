@@ -29,6 +29,7 @@ class BaseExperienceSerializer(serializers.Serializer):
             ("External"),
             ("Fielder"),
             ("Education"),
+            ("Gap"),
         ),
     )
     status = serializers.ChoiceField(
