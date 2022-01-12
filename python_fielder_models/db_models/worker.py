@@ -16,7 +16,6 @@ class STATUS(Enum):
 
 
 class BaseExperienceSerializer(serializers.Serializer):
-    location_data = LocationDBSerializer(allow_null=True, default=None)
     start_date = serializers.DateTimeField(
         allow_null=True, default=None, input_formats=["%Y-%m-%d"]
     )
@@ -37,7 +36,15 @@ class BaseExperienceSerializer(serializers.Serializer):
     )
 
 
-class WorkExperienceSerializer(BaseExperienceSerializer):
+class WorkExperienceGapSerializer(BaseExperienceSerializer):
+    pass
+
+
+class BaseWorkExperienceSerializer(BaseExperienceSerializer):
+    location_data = LocationDBSerializer(allow_null=True, default=None)
+
+
+class WorkExperienceSerializer(BaseWorkExperienceSerializer):
     class ReferenceSerializer(serializers.Serializer):
         value = serializers.CharField(allow_null=True)
 
@@ -85,7 +92,7 @@ class FielderWorkExperienceSerializer(WorkExperienceSerializer):
         return super().to_internal_value(data)
 
 
-class EducationSerializer(BaseExperienceSerializer):
+class EducationSerializer(BaseWorkExperienceSerializer):
     class ReferenceSerializer(serializers.Serializer):
         value = serializers.CharField(allow_null=True)
 
