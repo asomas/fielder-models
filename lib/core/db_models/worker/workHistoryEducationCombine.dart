@@ -23,6 +23,7 @@ class WorkHistoryEducationCombine {
   VerificationStatus verificationStatus;
   String companyLogo;
   RefereeModel refereeModel;
+  String summary;
 
   WorkHistoryEducationCombine({
     this.docId,
@@ -42,6 +43,7 @@ class WorkHistoryEducationCombine {
     this.verificationStatus,
     this.companyLogo,
     this.refereeModel,
+    this.summary,
   });
 
   factory WorkHistoryEducationCombine.fromJson(Map<String, dynamic> json,
@@ -88,5 +90,6 @@ class WorkHistoryEducationCombine {
             json[WorkerHistorySchema.status]),
         refereeModel:
             RefereeModel.fromMap(json[WorkerHistorySchema.referencingData]),
+        summary: json[WorkerHistorySchema.summary]
       );
 }
