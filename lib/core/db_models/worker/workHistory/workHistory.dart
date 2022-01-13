@@ -183,6 +183,8 @@ class WorkHistory {
       workerType = ExperienceType.FIELDER;
     } else if (type == WorkerHistorySchema.education) {
       workerType = ExperienceType.EDUCATION;
+    } else if (type == WorkerHistorySchema.gap) {
+      workerType = ExperienceType.GAP;
     }
     return workerType;
   }
