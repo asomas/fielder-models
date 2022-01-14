@@ -25,6 +25,7 @@ class WorkerHistorySchema {
   static const String external = "External";
   static const String fielder = "Fielder";
   static const String education = "Education";
+  static const String gap = "Gap";
   static const String type = "type";
   static const String jobRef = "job_ref";
   static const String totalHours = "total_hours";
