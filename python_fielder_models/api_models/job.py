@@ -1,3 +1,5 @@
+from math import ceil, floor
+
 from lxml.html.clean import clean_html
 from python_fielder_models.api_models.common import GooglePlaceDataSerializer
 from python_fielder_models.api_models.organisation import (
@@ -24,6 +26,119 @@ class DeleteShiftPatternRequestSerializer(serializers.Serializer):
     range = serializers.ChoiceField(("current", "future", "all"))
 
 
+class PaymentAPISerializer(serializers.Serializer):
+
+    pension_contribution_percentage = 0.03
+    apprentice_levy_percentage = 0.005
+    ni_contribution_percentage = 0.138
+    holiday_pay_percentage = 0.1207
+    umbrella_fee_percentage = 0.03
+    finders_fee_precentage = 0.03
+    sick_leave_percentage = 0.0
+
+    def to_internal_value(self, data):
+        data = super().to_internal_value(data)
+        data["total_umbrella_service_cost"] = ceil(
+            data["total_staffing_service_cost"] / 1.06 * 1.03
+        )
+        data["total_cost_excl_fees"] = data["total_staffing_service_cost"] / 1.06
+        data["umbrella_fee"] = ceil(
+            PaymentAPISerializer.umbrella_fee_percentage * data["total_cost_excl_fees"]
+        )
+        data["finders_fee"] = ceil(
+            PaymentAPISerializer.finders_fee_precentage * data["total_cost_excl_fees"]
+        )
+
+        statutary_costs = {}
+        statutary_costs["ni_contribution"] = data["total_cost_excl_fees"] - (
+            data["total_cost_excl_fees"]
+            / (1 + PaymentAPISerializer.ni_contribution_percentage)
+        )
+        statutary_costs["pension_contribution"] = data["total_cost_excl_fees"] - (
+            data["total_cost_excl_fees"]
+            / (1 + PaymentAPISerializer.pension_contribution_percentage)
+        )
+        statutary_costs["apprentice_levy"] = data["total_cost_excl_fees"] - (
+            data["total_cost_excl_fees"]
+            / (1 + PaymentAPISerializer.apprentice_levy_percentage)
+        )
+        statutary_costs["sick_leave"] = 0
+        statutary_costs["total"] = (
+            statutary_costs["ni_contribution"]
+            + statutary_costs["pension_contribution"]
+            + statutary_costs["apprentice_levy"]
+            + statutary_costs["sick_leave"]
+        )
+        data["statutary_costs"] = statutary_costs
+
+        combined_worker_rate_and_holiday = floor(
+            data["total_cost_excl_fees"] - statutary_costs["total"]
+        )
+        data["worker_rate"] = floor(
+            combined_worker_rate_and_holiday
+            / (1 + PaymentAPISerializer.holiday_pay_percentage)
+        )
+        data["holiday_pay"] = combined_worker_rate_and_holiday - data["worker_rate"]
+
+        return super().to_internal_value(data)
+
+    class StatutaryCostsSerializer(serializers.Serializer):
+        total = serializers.FloatField(required=False)
+        ni_contribution = serializers.FloatField(required=False)
+        pension_contribution = serializers.FloatField(required=False)
+        apprentice_levy = serializers.FloatField(required=False)
+        sick_leave = serializers.FloatField(required=False)
+
+    worker_rate = serializers.IntegerField(required=False)
+    holiday_pay = serializers.IntegerField(required=False)
+    statutary_costs = StatutaryCostsSerializer(required=False)
+    total_cost_excl_fees = serializers.FloatField(required=False)
+    umbrella_fee = serializers.FloatField(required=False)
+    finders_fee = serializers.FloatField(required=False)
+    total_umbrella_service_cost = serializers.IntegerField(required=False)
+    total_staffing_service_cost = serializers.IntegerField()
+
+
+class ShiftBudgetAPISerializer(serializers.Serializer):
+    volunteer = serializers.BooleanField(default=False)
+    payment = PaymentAPISerializer()
+    pay_calculation = serializers.ChoiceField(
+        (
+            "Actual hours",
+            "Shift hours",
+        ),
+        default="Actual hours",
+    )
+    enable_late_deduction = serializers.BooleanField(default=False)
+    late_arrival = serializers.ChoiceField((0, 15, 30, 60), default=15)
+    enable_early_deduction = serializers.BooleanField(default=False)
+    early_leaver = serializers.ChoiceField((0, 15, 30, 60), default=15)
+    overtime_rate = serializers.IntegerField(default=0)
+    overtime_threshold = serializers.ChoiceField((0, 15, 30, 60), default=15)
+    enable_unpaid_breaks = serializers.BooleanField(default=False)
+
+    # serializer validation order https://stackoverflow.com/a/60161014/1608420
+    def validate(self, data):
+        if data["payment"]["total_staffing_service_cost"] > 0 and data.get(
+            "volunteer", False
+        ):
+            raise serializers.ValidationError("Volunteering shifts cannot have rates")
+        elif data["payment"]["total_staffing_service_cost"] <= 0 and not data.get(
+            "volunteer", False
+        ):
+            raise serializers.ValidationError(
+                "Budget should either have rates or be a volunteering shift"
+            )
+
+        if data["pay_calculation"] == "Actual hours":
+            if data["enable_late_deduction"] or data["enable_early_deduction"]:
+                raise serializers.ValidationError(
+                    "Cannot enable late or early deduction when pay calculation is Actual hours!"
+                )
+
+        return data
+
+
 class ShiftPatternAPISerializer(serializers.Serializer):
     start_date = serializers.DateField()
     end_date = serializers.DateField(required=False)
@@ -43,6 +158,7 @@ class ShiftPatternAPISerializer(serializers.Serializer):
         default=None,
         allow_null=True,
     )
+    budget = ShiftBudgetAPISerializer(required=False)
 
     def to_internal_value(self, data):
         if "end_time" in data and data["end_time"] > 86400:
