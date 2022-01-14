@@ -8,6 +8,7 @@ import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'package:fielder_models/core/db_models/worker/occupation.dart';
 
 class AddJobModel {
+  String docId;
   String description;
   String title;
   String templateName;
@@ -24,6 +25,7 @@ class AddJobModel {
   List<CoursesAndLevelModel> courses;
 
   AddJobModel({
+    this.docId,
     this.description = '',
     this.templateName = '',
     this.title = '',
@@ -71,13 +73,14 @@ class AddJobModel {
     return _map;
   }
 
-  factory AddJobModel.fromMap(Map data) {
+  factory AddJobModel.fromMap(Map data, {String docId}) {
     AddJobModel addJobModel;
 
     print("checks are ${data[JobTemplateSchema.checks]}");
 
     if (data[JobTemplateSchema.jobReferenceId] != null) {
       addJobModel = AddJobModel(
+        docId: docId,
         title: data[JobTemplateSchema.jobTitle] ?? "",
         jobReferenceId: data[JobTemplateSchema.jobReferenceId],
         description: data[JobTemplateSchema.description] ?? "",

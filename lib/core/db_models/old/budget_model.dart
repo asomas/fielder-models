@@ -86,6 +86,13 @@ class BudgetModel {
     }
     return _map;
   }
+
+  static int convertRateToPence(String rate) {
+    if (rate != null && rate.isNotEmpty) {
+      return (double.parse(rate) * PaymentModel.onePence).toInt();
+    }
+    return 0;
+  }
 }
 
 class PaymentModel {
