@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
+import 'package:fielder_models/core/db_models/old/budget_model.dart';
 import 'package:fielder_models/core/db_models/old/invite%20_status_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/assign_workers_model.dart';
 import 'package:fielder_models/core/db_models/old/shift_pattern_data_model.dart';
@@ -16,6 +17,7 @@ class Offers {
   CandidatesWorkerType workerType;
   DocumentReference shiftPatternRef;
   DateTime updatedAt;
+  BudgetModel budgetModel;
 
   Offers(
       {this.shiftPatternData,
@@ -26,7 +28,8 @@ class Offers {
       this.workerRef,
       this.updatedAt,
       this.workerType,
-      this.shiftPatternRef});
+      this.shiftPatternRef,
+      this.budgetModel});
 
   factory Offers.fromMap(String id, Map<String, dynamic> map,
           {CandidatesModel candidatesModel, WorkerModel workerModel}) =>
@@ -48,6 +51,8 @@ class Offers {
         workerType:
             EnumHelpers.candidatesWorkerTypeFromString(map['worker_type']),
         shiftPatternRef: map['shift_pattern_ref'],
+        budgetModel:
+            map["budget"] != null ? BudgetModel.fromMap(map["budget"]) : null,
       );
 
   InviteStatusModel parseOffersToInviteStatusModel(Offers offer) {
