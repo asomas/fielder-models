@@ -64,7 +64,8 @@ class BudgetModel {
         JobTemplateSchema.payment:
             PaymentModel(totalCost: paymentModel?.totalCost)
                 .paymentMapForCreateJob(),
-        JobTemplateSchema.payCalculation: payCalculation,
+        JobTemplateSchema.payCalculation:
+            EnumHelpers.getStringForPayType(payCalculation),
         JobTemplateSchema.lateArrival: lateArrival,
         JobTemplateSchema.earlyLeaver: earlyLeaver,
         JobTemplateSchema.overtimeRate: overTimeRate,

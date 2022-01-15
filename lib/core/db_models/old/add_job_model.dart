@@ -65,6 +65,7 @@ class AddJobModel {
         JobSummarySchema.courses: (courses?.isNotEmpty == true)
             ? courses.map((e) => e.toJsonForApi()).toList() ?? []
             : [],
+        JobTemplateSchema.shiftPatternData: []
       };
       print("AddJobModel map -> $_map");
     } catch (e) {
