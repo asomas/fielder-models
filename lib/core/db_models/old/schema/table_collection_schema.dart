@@ -42,4 +42,5 @@ class FbCollections {
   static const String additionalData = 'additional_data';
   static const String interviewSlots = 'interview_slots';
   static const String breaks = 'breaks';
+  static const String budget = 'budget';
 }
