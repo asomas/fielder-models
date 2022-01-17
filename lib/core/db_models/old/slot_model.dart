@@ -20,6 +20,7 @@ class SlotModel {
   final bool isHead;
   final bool isTail;
   final InterviewModel interviewModel;
+  int timeRowIndex;
 
   SlotModel(
       {this.shiftId,
@@ -37,7 +38,8 @@ class SlotModel {
       this.spanMultipleDays = false,
       this.isHead = false,
       this.isTail = false,
-      this.interviewModel});
+      this.interviewModel,
+      this.timeRowIndex = 1});
 
   @override
   bool operator ==(other) {

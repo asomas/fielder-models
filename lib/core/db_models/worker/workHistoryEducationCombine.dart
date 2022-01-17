@@ -7,7 +7,7 @@ import 'package:fielder_models/core/db_models/worker/workHistory/workHistory.dar
 
 class WorkHistoryEducationCombine {
   String docId;
-  WorkerType workerType;
+  ExperienceType workerType;
   Timestamp endDate;
   Timestamp startDate;
   LocationModelDetail location;
@@ -23,6 +23,7 @@ class WorkHistoryEducationCombine {
   VerificationStatus verificationStatus;
   String companyLogo;
   RefereeModel refereeModel;
+  String summary;
 
   WorkHistoryEducationCombine({
     this.docId,
@@ -42,51 +43,66 @@ class WorkHistoryEducationCombine {
     this.verificationStatus,
     this.companyLogo,
     this.refereeModel,
+    this.summary,
   });
 
   factory WorkHistoryEducationCombine.fromJson(Map<String, dynamic> json,
-          {String docId}) =>
-      WorkHistoryEducationCombine(
-        docId: docId,
-        endDate: json[EducationSchema.endDate] != null
-            ? json[EducationSchema.endDate]
-            : null,
-        startDate: json[EducationSchema.startDate] != null
-            ? json[EducationSchema.startDate]
-            : null,
-        location: json[EducationSchema.locationData] != null
-            ? LocationModelDetail.fromJson(json[EducationSchema.locationData])
-            : null,
-        organisationName: json[WorkerHistorySchema.organisationName] != null
-            ? json[WorkerHistorySchema.organisationName]
-            : "",
-        jobTitle: json[WorkerHistorySchema.jobTitle] ?? "",
-        expanded: json[WorkerHistorySchema.expanded] ?? false,
-        skills: json[WorkerHistorySchema.skills] != null
-            ? List<Skill>.from(
-                json[WorkerHistorySchema.skills].map((x) => Skill.fromJson(x)))
-            : [],
-        knowledgeAreaList: json[EducationSchema.knowledgeAreas] != null
-            ? List<KnowledgeArea>.from(json[EducationSchema.knowledgeAreas]
-                .map((x) => KnowledgeArea.fromJson(x)))
-            : [],
-        sicCode: json[WorkerHistorySchema.sicCode] != null
-            ? List<SicCode>.from(json[WorkerHistorySchema.sicCode]
-                .map((x) => SicCode.fromJson(x)))
-            : [],
-        occupation: json[WorkerHistorySchema.occupation] != null
-            ? Occupation.fromJson(json[WorkerHistorySchema.occupation])
-            : null,
-        educationInstitution: json[EducationSchema.institution] != null
-            ? EducationInstitution.fromJson(json[EducationSchema.institution])
-            : null,
-        course: json[EducationSchema.course] != null
-            ? Course.fromJson(json[EducationSchema.course])
-            : null,
-        workerType: WorkHistory.getWorkerType(json[WorkerHistorySchema.type]),
-        verificationStatus: WorkHistory.verificationStatusFromString(
-            json[WorkerHistorySchema.status]),
-        refereeModel:
-            RefereeModel.fromMap(json[WorkerHistorySchema.referencingData]),
+          {String docId}) {
+    try{
+      var _startDate = json[EducationSchema.startDate];
+      var _endDate = json[EducationSchema.endDate];
+
+      if(_startDate != null && _startDate is String){
+        _startDate = Timestamp.fromDate(DateTime.parse(_startDate));
+      }
+
+      if(_endDate != null && _endDate is String){
+        _endDate = Timestamp.fromDate(DateTime.parse(_endDate));
+      }
+
+     return WorkHistoryEducationCombine(
+          docId: docId,
+          endDate: _endDate,
+          startDate: _startDate,
+          location: json[EducationSchema.locationData] != null
+              ? LocationModelDetail.fromJson(json[EducationSchema.locationData])
+              : null,
+          organisationName: json[WorkerHistorySchema.organisationName] != null
+              ? json[WorkerHistorySchema.organisationName]
+              : "",
+          jobTitle: json[WorkerHistorySchema.jobTitle] ?? "",
+          expanded: json[WorkerHistorySchema.expanded] ?? false,
+          skills: json[WorkerHistorySchema.skills] != null
+              ? List<Skill>.from(
+              json[WorkerHistorySchema.skills].map((x) => Skill.fromJson(x)))
+              : [],
+          knowledgeAreaList: json[EducationSchema.knowledgeAreas] != null
+              ? List<KnowledgeArea>.from(json[EducationSchema.knowledgeAreas]
+              .map((x) => KnowledgeArea.fromJson(x)))
+              : [],
+          sicCode: json[WorkerHistorySchema.sicCode] != null
+              ? List<SicCode>.from(json[WorkerHistorySchema.sicCode]
+              .map((x) => SicCode.fromJson(x)))
+              : [],
+          occupation: json[WorkerHistorySchema.occupation] != null
+              ? Occupation.fromJson(json[WorkerHistorySchema.occupation])
+              : null,
+          educationInstitution: json[EducationSchema.institution] != null
+              ? EducationInstitution.fromJson(json[EducationSchema.institution])
+              : null,
+          course: json[EducationSchema.course] != null
+              ? Course.fromJson(json[EducationSchema.course])
+              : null,
+          workerType: WorkHistory.getWorkerType(json[WorkerHistorySchema.type]),
+          verificationStatus: WorkHistory.verificationStatusFromString(
+              json[WorkerHistorySchema.status]),
+          refereeModel:
+          RefereeModel.fromMap(json[WorkerHistorySchema.referencingData]),
+          summary: json[WorkerHistorySchema.summary]
       );
+    }catch(e,s){
+      print("work history education combine catch_____${e}______$s");
+      return null;
+    }
+  }
 }

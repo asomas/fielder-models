@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/schema/workerHistorySchema.dart';
 
-enum WorkerType { EXTERNAL, FIELDER, EDUCATION }
+enum ExperienceType { EXTERNAL, FIELDER, EDUCATION, GAP }
 
 enum VerificationStatus {
   Unchecked,
@@ -56,7 +56,7 @@ class WorkHistory {
   DocumentReference jobRef;
   String jobTitle;
   String docId;
-  WorkerType workerType;
+  ExperienceType workerType;
   double totalHours;
   int totalShifts;
   RefereeModel refereeModel;
@@ -175,14 +175,16 @@ class WorkHistory {
           RefereeModel.fromMap(json[WorkerHistorySchema.referencingData]),
     );
   }
-  static WorkerType getWorkerType(String type) {
-    WorkerType workerType = WorkerType.EXTERNAL;
+  static ExperienceType getWorkerType(String type) {
+    ExperienceType workerType = ExperienceType.EXTERNAL;
     if (type == WorkerHistorySchema.external) {
-      workerType = WorkerType.EXTERNAL;
+      workerType = ExperienceType.EXTERNAL;
     } else if (type == WorkerHistorySchema.fielder) {
-      workerType = WorkerType.FIELDER;
+      workerType = ExperienceType.FIELDER;
     } else if (type == WorkerHistorySchema.education) {
-      workerType = WorkerType.EDUCATION;
+      workerType = ExperienceType.EDUCATION;
+    } else if (type == WorkerHistorySchema.gap) {
+      workerType = ExperienceType.GAP;
     }
     return workerType;
   }
