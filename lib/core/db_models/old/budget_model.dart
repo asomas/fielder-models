@@ -6,14 +6,14 @@ import 'package:fielder_models/core/enums/enums.dart';
 
 class BudgetModel {
   CalculatePay payCalculation;
-  int lateArrival;
-  int earlyLeaver;
-  int overTimeRate;
+  num lateArrival;
+  num earlyLeaver;
+  num overTimeRate;
   bool volunteer;
   PaymentModel paymentModel;
   bool enableEarlyDeduction;
   bool enableLateDeduction;
-  int overTimeThreshHold;
+  num overTimeThreshHold;
   bool enableUnpaidBreaks;
 
   BudgetModel({
