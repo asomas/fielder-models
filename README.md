@@ -2,7 +2,7 @@
 
 A new Flutter module for fielder models
 
-## Getting Started
+## Getting Started:
 
 For help getting started with Flutter, view our online
 [documentation](https://flutter.dev/).

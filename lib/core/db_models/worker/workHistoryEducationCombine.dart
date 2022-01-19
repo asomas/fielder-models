@@ -7,7 +7,7 @@ import 'package:fielder_models/core/db_models/worker/workHistory/workHistory.dar
 
 class WorkHistoryEducationCombine {
   String docId;
-  WorkerType workerType;
+  ExperienceType workerType;
   Timestamp endDate;
   Timestamp startDate;
   LocationModelDetail location;

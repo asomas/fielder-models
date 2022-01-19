@@ -25,6 +25,7 @@ class WorkerHistorySchema {
   static const String external = "External";
   static const String fielder = "Fielder";
   static const String education = "Education";
+  static const String gap = "Gap";
   static const String type = "type";
   static const String jobRef = "job_ref";
   static const String totalHours = "total_hours";
@@ -60,4 +61,9 @@ class WorkerHistorySchema {
   static const String awaitingVerification = "AWAITING_VERIFICATION";
   static const String verified = "VERIFIED";
   static const String rejected = "REJECTED";
+  static const String referencingData = "referencing_data";
+  static const String contactName = "contact_name";
+  static const String contactPhone = "contact_phone";
+  static const String contactPosition = "contact_position";
+  static const String contactEmail = "contact_email";
 }

@@ -9,20 +9,22 @@ class JobSearchTemplate {
   factory JobSearchTemplate.fromMap(Map<String, dynamic> map) {
     JobSearchTemplate temp;
     try {
+      var _limit = map["organisation_templates"] != null
+          ? map["organisation_templates"]["limit"]
+          : 10;
       temp = JobSearchTemplate(
-          limit: map["organisation_templates"] != null
-              ? map["organisation_templates"]["limit"]
-              : 10,
+          limit: _limit is String ? int.tryParse(_limit) : _limit,
           organisationJobTemplate: map["organisation_templates"] != null
               ? _getOrganisationJobTemplate(
                   map["organisation_templates"]["hits"])
               : [],
-          fielderJobTemplate: map["fielder_templates"] != null
+          fielderJobTemplate: map["fielder_templates"] != null &&
+                  !(map["fielder_templates"] is List)
               ? _getFielderJobTemplate(map["fielder_templates"]["hits"])
               : []);
       return temp;
-    } catch (e) {
-      print("template error: $e");
+    } catch (e, s) {
+      print("template error: ${e}_________$s");
       return null;
     }
   }

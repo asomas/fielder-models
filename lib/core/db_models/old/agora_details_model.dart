@@ -17,7 +17,7 @@ class AgoraDetailsModel {
         token: map[AgoraDetailsSchema.token],
       );
     } catch (e, s) {
-      print('agora model parsing catch ${e}, $s');
+      print('agora model parsing catch $e, $s');
       return null;
     }
   }

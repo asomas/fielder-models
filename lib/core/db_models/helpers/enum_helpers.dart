@@ -4,8 +4,8 @@ import 'package:fielder_models/core/db_models/old/schema/company_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
 import 'package:fielder_models/core/db_models/worker/schema/newsNotificationSchema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:number_to_words/number_to_words.dart';
 
 class EnumHelpers {
   static OrganisationContractStatus contractStatusTypeFromString(String type) {
@@ -121,6 +121,72 @@ class EnumHelpers {
       default:
         return ShiftFrequencies.None;
     }
+  }
+
+  static String getStringForRepeatIntervals(
+      {@required RepeatInterval repeatInterval,
+      @required ShiftFrequencies shiftFrequencies}) {
+    if (shiftFrequencies == ShiftFrequencies.Daily) {
+      switch (repeatInterval) {
+        case RepeatInterval.Weekly:
+          return 'Daily';
+        case RepeatInterval.EveryTwoWeeks:
+          return 'Every Other Day';
+        default:
+          return 'None';
+      }
+    } else if (shiftFrequencies == ShiftFrequencies.Weekly) {
+      switch (repeatInterval) {
+        case RepeatInterval.Weekly:
+          return 'Weekly';
+        case RepeatInterval.EveryTwoWeeks:
+          return 'Every Two Weeks';
+        default:
+          return 'None';
+      }
+    } else {
+      return 'None';
+    }
+  }
+
+  static int getIntForRepeatIntervals(
+      {@required RepeatInterval repeatInterval}) {
+    switch (repeatInterval) {
+      case RepeatInterval.Weekly:
+        return 1;
+      case RepeatInterval.EveryTwoWeeks:
+        return 2;
+      default:
+        return 1;
+    }
+  }
+
+  static String getStringForIntInterval(
+      {@required int repeatInterval,
+      @required ShiftFrequencies shiftFrequencies}) {
+    if (shiftFrequencies == ShiftFrequencies.Weekly) {
+      if (repeatInterval == 1) {
+        return "Every Week";
+      } else if (repeatInterval == 2) {
+        return "Every Two Weeks";
+      } else {
+        return "Every ${convertIntToStrNumber(repeatInterval)} Weeks";
+      }
+    } else if (shiftFrequencies == ShiftFrequencies.Daily) {
+      if (repeatInterval == 1) {
+        return "Everyday";
+      } else if (repeatInterval == 2) {
+        return "Every Other Day";
+      } else {
+        return "Every ${convertIntToStrNumber(repeatInterval)} Days";
+      }
+    } else {
+      return "Non Repeating";
+    }
+  }
+
+  static convertIntToStrNumber(int num) {
+    return NumberToWord().convert('en-in', num);
   }
 
   static String getActivePageStringFor({

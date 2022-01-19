@@ -22,12 +22,48 @@ class OfferStatus(Enum):
     Expired = 4
 
 
-class SharedJobShiftDBSerializer(BaseJobSerializer):
-    end_date = serializers.DateTimeField(default=None, allow_null=True)
+class PaymentDBSerializer(serializers.Serializer):
+    class StatutaryCostsSerializer(serializers.Serializer):
+        total = serializers.FloatField()
+        ni_contribution = serializers.FloatField()
+        pension_contribution = serializers.FloatField()
+        apprentice_levy = serializers.FloatField()
+        sick_leave = serializers.FloatField()
+
+    worker_rate = serializers.IntegerField()
+    holiday_pay = serializers.IntegerField()
+    statutary_costs = StatutaryCostsSerializer()
+    total_cost_excl_fees = serializers.FloatField()
+    umbrella_fee = serializers.FloatField()
+    finders_fee = serializers.FloatField()
+    total_umbrella_service_cost = serializers.IntegerField()
+    total_staffing_service_cost = serializers.IntegerField()
+
+
+class ShiftBudgetSharedDBSerializer(serializers.Serializer):
+    enable_unpaid_breaks = serializers.BooleanField(default=False)
     enable_late_deduction = serializers.BooleanField(default=False)
     late_arrival = serializers.ChoiceField((0, 15, 30, 60), default=15)
     enable_early_deduction = serializers.BooleanField(default=False)
     early_leaver = serializers.ChoiceField((0, 15, 30, 60), default=15)
+
+
+class ShiftBudgetDBSerializer(ShiftBudgetSharedDBSerializer):
+    payment = PaymentDBSerializer()
+    volunteer = serializers.BooleanField(default=False)
+    pay_calculation = serializers.ChoiceField(
+        (
+            "Actual hours",
+            "Shift hours",
+        ),
+        default="Actual hours",
+    )
+    overtime_rate = serializers.IntegerField(default=0)
+    overtime_threshold = serializers.ChoiceField((0, 15, 30, 60), default=15)
+
+
+class SharedJobShiftDBSerializer(BaseJobSerializer):
+    end_date = serializers.DateTimeField(default=None, allow_null=True)
     job_reference_id = serializers.CharField()
     manager_ref = DocumentReferenceField(default=None, allow_null=True)
     supervisor_ref = DocumentReferenceField(default=None, allow_null=True)
@@ -41,7 +77,9 @@ class SharedJobShiftDBSerializer(BaseJobSerializer):
         return super().to_internal_value(data)
 
 
-class ShiftPatternDBSerializer(SharedJobShiftDBSerializer):
+class ShiftPatternDBSerializer(
+    SharedJobShiftDBSerializer, ShiftBudgetSharedDBSerializer
+):
     start_date = serializers.DateTimeField()
     start_time = serializers.IntegerField()
     end_time = serializers.IntegerField()
@@ -66,42 +104,9 @@ class ShiftPatternDBSerializer(SharedJobShiftDBSerializer):
     )
 
 
-class PaymentDBSerializer(serializers.Serializer):
-    class StatutaryCostsSerializer(serializers.Serializer):
-        total = serializers.FloatField()
-        ni_contribution = serializers.FloatField()
-        pension_contribution = serializers.FloatField()
-        apprentice_levy = serializers.FloatField()
-        sick_leave = serializers.FloatField()
-
-    worker_rate = serializers.IntegerField()
-    holiday_pay = serializers.IntegerField()
-    statutary_costs = StatutaryCostsSerializer()
-    total_cost_excl_fees = serializers.FloatField()
-    umbrella_fee = serializers.FloatField()
-    finders_fee = serializers.FloatField()
-    total_umbrella_service_cost = serializers.IntegerField()
-    total_staffing_service_cost = serializers.IntegerField()
-
-
 class JobDBSerializer(SharedJobShiftDBSerializer):
     start_date = serializers.DateTimeField(default=None, allow_null=True)
     description = serializers.CharField(allow_null=True, default=None)
-    volunteer = serializers.BooleanField(default=False)
-    rate = serializers.IntegerField(default=0)
-    payment = PaymentDBSerializer()
-    pay_calculation = serializers.ChoiceField(
-        (
-            "Actual hours",
-            "Shift hours",
-        ),
-        default="Actual hours",
-    )
-    enable_pay_deduction = serializers.BooleanField(
-        required=False
-    )  # leave it for backword compatibilty
-    overtime_rate = serializers.IntegerField(default=0)
-    overtime_threshold = serializers.ChoiceField((0, 15, 30, 60), default=15)
     total_hours = serializers.FloatField(default=0.0)
     locations = serializers.DictField(child=AddressDBSerializer(), default={})
     workers = serializers.DictField(default={})
@@ -119,11 +124,13 @@ class OfferDBSerializer(serializers.Serializer):
     worker_ref = DocumentReferenceField()
     worker_type = serializers.ChoiceField(choices=WorkerType._member_names_)
     job_ref = DocumentReferenceField()
-    shift_pattern_data = serializers.DictField()  # set as dict to pass tests
-    job_data = serializers.DictField()  # set as dict to pass tests
+    shift_pattern_data = serializers.DictField()
+    job_data = serializers.DictField()
     status = serializers.ChoiceField(choices=OfferStatus._member_names_)
     expiry_time = serializers.DateTimeField(allow_null=True, default=None)
     sent_time = serializers.DateTimeField(allow_null=True, default=None)
+    budget = serializers.DictField()
+
     created_at = serializers.DateTimeField(default=datetime.now())
     updated_at = serializers.DateTimeField(default=datetime.now())
 
@@ -134,3 +141,10 @@ class OfferDBSerializer(serializers.Serializer):
 
 class ShiftNoteDBSerializer(serializers.Serializer):
     value = serializers.CharField()
+
+
+class ShiftActivityBreakDBSerializer(serializers.Serializer):
+    start_time = serializers.DateTimeField()
+    end_time = serializers.DateTimeField()
+    duration = serializers.IntegerField()
+    early_stop = serializers.BooleanField(default=False)

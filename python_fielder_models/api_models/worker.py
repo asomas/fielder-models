@@ -7,12 +7,19 @@ from ..db_models.worker import *
 
 
 class BaseExperienceAPISerializer(serializers.Serializer):
-    location_data = LocationAPISerializer(required=False)
-    google_place_data = GooglePlaceDataSerializer(required=False)
     start_date = serializers.RegexField(DATE_FIELD_REGEX)
     end_date = serializers.RegexField(DATE_FIELD_REGEX)
     summary = serializers.CharField(allow_blank=True)
     status = serializers.ChoiceField(choices=STATUS._member_names_, required=False)
+
+
+class WorkExperienceGapAPISerializer(BaseExperienceAPISerializer):
+    pass
+
+
+class BaseWorkExperienceAPISerializer(BaseExperienceAPISerializer):
+    location_data = LocationAPISerializer(required=False)
+    google_place_data = GooglePlaceDataSerializer(required=False)
 
     def validate(self, data):
         if "location_data" in data and "google_place_data" in data:
@@ -22,7 +29,7 @@ class BaseExperienceAPISerializer(serializers.Serializer):
         return super().validate(data)
 
 
-class WorkExperienceAPISerializer(BaseExperienceAPISerializer):
+class WorkExperienceAPISerializer(BaseWorkExperienceAPISerializer):
     class ReferenceSerializer(serializers.Serializer):
         value = serializers.CharField(allow_null=True)
 
@@ -121,7 +128,7 @@ class UnavailabilitiesRequest(WorkerDetailRequest):
     end_date = serializers.RegexField(DATE_FIELD_REGEX)
 
 
-class EducationAPISerializer(BaseExperienceAPISerializer):
+class EducationAPISerializer(BaseWorkExperienceAPISerializer):
     class ValueSerializer(serializers.Serializer):
         value = serializers.CharField(allow_null=True)
 

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/old/breaks_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_actvities_schema.dart';
 import 'package:fielder_models/core/db_models/old/shift_pattern_data_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,6 +29,8 @@ class ShiftActivitiesModel {
   bool clockedOutFaraway;
   DateTime updatedAt;
   String shiftActivityReferenceId;
+  int totalBreakMins;
+  BreakModel breakModel;
 
   ShiftActivitiesModel({
     this.clockInTime,
@@ -54,6 +57,8 @@ class ShiftActivitiesModel {
     this.needsAttention,
     this.updatedAt,
     this.shiftActivityReferenceId,
+    this.totalBreakMins,
+    this.breakModel,
   });
 
   factory ShiftActivitiesModel.fromMap({
@@ -137,7 +142,6 @@ class ShiftActivitiesModel {
             _updatedatTimeStamp.millisecondsSinceEpoch,
           );
         }
-
         return ShiftActivitiesModel(
           docID: docID,
           clockInTime: _clockInDateTime,
@@ -163,6 +167,7 @@ class ShiftActivitiesModel {
           clockedOutLate: _clockOutLate,
           clockedOutFaraway: _clockOutFarAway,
           shiftActivityReferenceId: _shiftActivityReferenceId,
+          totalBreakMins: map[ShiftActivitiesSchema.totalBreakMins] ?? 0,
         );
       } on Exception catch (e) {
         print("ShiftActivitiesModel.fromMap error $e");
@@ -197,6 +202,8 @@ class ShiftActivitiesModel {
       clockedOutLate: activity.clockedOutLate,
       clockedOutFaraway: activity.clockedOutFaraway,
       shiftActivityReferenceId: activity.shiftActivityReferenceId,
+      totalBreakMins: activity.totalBreakMins,
+      breakModel: activity.breakModel,
     );
   }
 }
