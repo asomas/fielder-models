@@ -44,7 +44,7 @@ class WorkHistoryEducationCombine {
 
   factory WorkHistoryEducationCombine.fromJson(Map<String, dynamic> json,
       {String docId}) {
-    if (json != null) {
+    if (json != null && json.isNotEmpty) {
       try {
         return WorkHistoryEducationCombine(
           docId: docId,
