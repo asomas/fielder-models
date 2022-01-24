@@ -4,6 +4,7 @@ import 'package:fielder_models/core/db_models/old/schema/staff_professional_deta
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'package:fielder_models/core/db_models/worker/education/education.dart';
 import 'package:fielder_models/core/db_models/worker/workHistory/workHistory.dart';
+import 'package:fielder_models/core/db_models/worker/workHistoryEducationCombine.dart';
 
 class StaffProfessionalDetailModel {
   List<SkillsModel> skillsModelList;
@@ -11,13 +12,16 @@ class StaffProfessionalDetailModel {
   List<QualificationModel> qualificationModelList;
   List<WorkHistory> workHistoryList;
   List<Education> educationList;
+  List<WorkHistoryEducationCombine> workerExperience;
 
-  StaffProfessionalDetailModel(
-      {this.skillsModelList,
-      this.checkModelList,
-      this.qualificationModelList,
-      this.workHistoryList,
-      this.educationList});
+  StaffProfessionalDetailModel({
+    this.skillsModelList,
+    this.checkModelList,
+    this.qualificationModelList,
+    this.workHistoryList,
+    this.educationList,
+    this.workerExperience,
+  });
 
   factory StaffProfessionalDetailModel.fromMap(Map<String, dynamic> map) {
     if (map != null && map.isNotEmpty) {
@@ -60,6 +64,14 @@ class StaffProfessionalDetailModel {
                   .map((e) => Education.fromJson(e))
                   .toList()
               : [],
+          workerExperience:
+              (map[StaffProfessionalDetailSchema.workHistories] as List)
+                          ?.isNotEmpty ==
+                      true
+                  ? (map[StaffProfessionalDetailSchema.workHistories] as List)
+                      .map((e) => WorkHistoryEducationCombine.fromJson(e))
+                      .toList()
+                  : [],
         );
       } catch (e, stacktrace) {
         print(
