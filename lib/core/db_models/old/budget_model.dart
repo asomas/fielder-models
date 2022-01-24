@@ -70,7 +70,9 @@ class BudgetModel {
             EnumHelpers.getStringForPayType(payCalculation),
         JobTemplateSchema.lateArrival: lateArrival,
         JobTemplateSchema.earlyLeaver: earlyLeaver,
-        JobTemplateSchema.overtimeRate: overTimeRate,
+        JobTemplateSchema.overtimeRate: overTimeRate != null
+            ? convertRateToPence(overTimeRate.toString())
+            : 0,
         JobTemplateSchema.enableEarlyDeduction: enableEarlyDeduction,
         JobTemplateSchema.enableLateDeduction: enableLateDeduction,
         JobSummarySchema.overtimeThreshold: overTimeThreshHold,
@@ -92,7 +94,7 @@ class BudgetModel {
 
   static int convertRateToPence(String rate) {
     if (rate != null && rate.isNotEmpty) {
-      return (double.parse(rate) * PaymentModel.onePence).toInt();
+      return (double.parse(rate) * PaymentModel.onePence).round();
     }
     return 0;
   }
