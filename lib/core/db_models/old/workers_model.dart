@@ -12,16 +12,19 @@ class WorkerModel {
   String phone;
   bool hasLoggedIn;
   CandidatesWorkerType workerType;
+  bool hasRightToWork;
 
-  WorkerModel(
-      {this.docID,
-      this.firstName,
-      this.lastName,
-      this.pictureUrl,
-      this.isStaff,
-      this.phone,
-      this.hasLoggedIn,
-      this.workerType});
+  WorkerModel({
+    this.docID,
+    this.firstName,
+    this.lastName,
+    this.pictureUrl,
+    this.isStaff,
+    this.phone,
+    this.hasLoggedIn,
+    this.workerType,
+    this.hasRightToWork,
+  });
 
   factory WorkerModel.fromMap({
     @required Map<String, dynamic> map,
@@ -34,6 +37,7 @@ class WorkerModel {
       final bool _isStaff = map['is_staff'] ?? false;
       final String _phone = map['phone'] ?? '';
       final bool _hasLoggedIn = map['has_logged_in'] ?? true;
+      final bool _hasRightToWork = map['has_right_to_work'] ?? false;
       var workerModel = WorkerModel(
         docID: docID,
         firstName: _firstName,
@@ -41,6 +45,7 @@ class WorkerModel {
         pictureUrl: _pictureURL,
         isStaff: _isStaff,
         hasLoggedIn: _hasLoggedIn,
+        hasRightToWork: _hasRightToWork,
         phone: _phone,
       );
       return workerModel;
