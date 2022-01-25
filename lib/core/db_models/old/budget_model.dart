@@ -40,7 +40,8 @@ class BudgetModel {
         lateArrival: data[JobTemplateSchema.lateArrival] ?? 0,
         earlyLeaver: data[JobTemplateSchema.earlyLeaver] ?? 0,
         overTimeRate: data[JobTemplateSchema.overtimeRate] != null
-            ? data[JobTemplateSchema.overtimeRate] / PaymentModel.onePence
+            ? (data[JobTemplateSchema.overtimeRate] / PaymentModel.onePence)
+                .toDouble()
             : 0,
         enableEarlyDeduction:
             data[JobTemplateSchema.enableEarlyDeduction] ?? false,
