@@ -2,24 +2,18 @@ import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/qualification_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_professional_detail_schema.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
-import 'package:fielder_models/core/db_models/worker/education/education.dart';
-import 'package:fielder_models/core/db_models/worker/workHistory/workHistory.dart';
 import 'package:fielder_models/core/db_models/worker/workHistoryEducationCombine.dart';
 
 class StaffProfessionalDetailModel {
   List<SkillsModel> skillsModelList;
   List<CheckModel> checkModelList;
   List<QualificationModel> qualificationModelList;
-  List<WorkHistory> workHistoryList;
-  List<Education> educationList;
   List<WorkHistoryEducationCombine> workerExperience;
 
   StaffProfessionalDetailModel({
     this.skillsModelList,
     this.checkModelList,
     this.qualificationModelList,
-    this.workHistoryList,
-    this.educationList,
     this.workerExperience,
   });
 
@@ -49,21 +43,6 @@ class StaffProfessionalDetailModel {
                       .map((e) => QualificationModel.fromString(e))
                       .toList()
                   : [],
-          workHistoryList:
-              (map[StaffProfessionalDetailSchema.workHistories] as List)
-                          ?.isNotEmpty ==
-                      true
-                  ? (map[StaffProfessionalDetailSchema.workHistories] as List)
-                      .map((e) => WorkHistory.fromJson(e))
-                      .toList()
-                  : [],
-          educationList: (map[StaffProfessionalDetailSchema.educations] as List)
-                      ?.isNotEmpty ==
-                  true
-              ? (map[StaffProfessionalDetailSchema.educations] as List)
-                  .map((e) => Education.fromJson(e))
-                  .toList()
-              : [],
           workerExperience:
               (map[StaffProfessionalDetailSchema.workHistories] as List)
                           ?.isNotEmpty ==
