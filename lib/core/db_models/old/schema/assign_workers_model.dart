@@ -101,4 +101,16 @@ class CandidatesModel {
       return null;
     }
   }
+
+  Map<String, dynamic> rawJson() {
+    return {
+      CandidatesMatchingSchema.id: workerId,
+      CandidatesMatchingSchema.skillsScore: skillScore,
+      CandidatesMatchingSchema.coursesScore: coursesScore,
+      CandidatesMatchingSchema.checksScore: checkScore,
+      CandidatesMatchingSchema.availabilityScore: availabilityScore,
+      CandidatesMatchingSchema.overallScore: totalScore,
+      CandidatesMatchingSchema.distance: distance,
+    };
+  }
 }
