@@ -28,4 +28,7 @@ class CandidatesMatchingRequestSchema {
   static const String skip = "skip";
   static const String limit = "limit";
   static const String workerType = "worker_type";
+  static const String jobId = 'job_id';
+  static const String shiftPatternId = 'shift_pattern_id';
+  static const String staff = 'staff';
 }
