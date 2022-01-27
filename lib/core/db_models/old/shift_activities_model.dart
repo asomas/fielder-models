@@ -31,6 +31,7 @@ class ShiftActivitiesModel {
   String shiftActivityReferenceId;
   int totalBreakMins;
   BreakModel breakModel;
+  bool awaitingConfirmation;
 
   ShiftActivitiesModel({
     this.clockInTime,
@@ -59,6 +60,7 @@ class ShiftActivitiesModel {
     this.shiftActivityReferenceId,
     this.totalBreakMins,
     this.breakModel,
+    this.awaitingConfirmation = false,
   });
 
   factory ShiftActivitiesModel.fromMap({
@@ -168,6 +170,8 @@ class ShiftActivitiesModel {
           clockedOutFaraway: _clockOutFarAway,
           shiftActivityReferenceId: _shiftActivityReferenceId,
           totalBreakMins: map[ShiftActivitiesSchema.totalBreakMins] ?? 0,
+          awaitingConfirmation:
+              map[ShiftActivitiesSchema.awaitingConfirmation] ?? false,
         );
       } on Exception catch (e) {
         print("ShiftActivitiesModel.fromMap error $e");
@@ -204,6 +208,7 @@ class ShiftActivitiesModel {
       shiftActivityReferenceId: activity.shiftActivityReferenceId,
       totalBreakMins: activity.totalBreakMins,
       breakModel: activity.breakModel,
+      awaitingConfirmation: activity.awaitingConfirmation,
     );
   }
 }
