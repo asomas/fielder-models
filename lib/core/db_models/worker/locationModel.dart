@@ -40,7 +40,9 @@ class LocationModelDetail {
             ? Address.fromJson(json[LocationSchema.address])
             : null,
         organisationRef:
-            json[LocationSchema.organisationRef] as DocumentReference,
+            json[LocationSchema.organisationRef] is DocumentReference
+                ? json[LocationSchema.organisationRef] as DocumentReference
+                : null,
       );
     } catch (e, stacktrace) {
       print("locationModel.dart_______Catch______${e}_____$stacktrace");
