@@ -24,4 +24,7 @@ class ShiftActivitiesSchema {
   static const String clockedOutFaraway = "clocked_out_faraway";
   static const String shiftActivityReferenceId = "shift_activity_reference_id";
   static const String totalBreakMins = "total_breaks_mins";
+  static const String awaitingConfirmation = "awaiting_confirmation";
+  static const String status = "status";
+  static const String responseTime = "response_time";
 }
