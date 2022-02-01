@@ -94,29 +94,26 @@ class AddJobModel {
             (data[JobTemplateSchema.checks] as List)?.isNotEmpty == true
                 ? (data[JobTemplateSchema.checks] as List)
                     .map((e) => CheckModel.fromMap(
-                        map: e,
-                        checkID: e[JobTemplateSchema.checksRef].toString()))
+                        map: e, checkID: e[JobTemplateSchema.checksRef]?.id))
                     .toList()
                 : [],
         skillsArray:
             (data[JobTemplateSchema.skills] as List)?.isNotEmpty == true
                 ? (data[JobTemplateSchema.skills] as List)
                     .map((e) => SkillsModel.fromMap(
-                        map: e,
-                        docID: e[JobTemplateSchema.skillRef].toString()))
+                        map: e, docID: e[JobTemplateSchema.skillRef]?.id))
                     .toList()
                 : [],
-        additionalReqsArray:
-            (data[JobTemplateSchema.additionalRequirement] as List)
-                        ?.isNotEmpty ==
-                    true
-                ? (data[JobTemplateSchema.additionalRequirement] as List)
-                    .map((e) => AdditionalInfoModel.fromMap(
-                        map: e,
-                        docID: e[JobTemplateSchema.additionalRequirementRef]
-                            .toString()))
-                    .toList()
-                : [],
+        additionalReqsArray: (data[JobTemplateSchema.additionalRequirement]
+                        as List)
+                    ?.isNotEmpty ==
+                true
+            ? (data[JobTemplateSchema.additionalRequirement] as List)
+                .map((e) => AdditionalInfoModel.fromMap(
+                    map: e,
+                    docID: e[JobTemplateSchema.additionalRequirementRef]?.id))
+                .toList()
+            : [],
         courses: (data[JobSummarySchema.courses] as List)?.isNotEmpty == true
             ? (data[JobSummarySchema.courses] as List)
                 .map((e) => CoursesAndLevelModel.fromMap(e))
