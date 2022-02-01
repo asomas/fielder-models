@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
+import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/interview_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/interviews_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/invite_staff_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/organisation_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
@@ -38,6 +40,7 @@ class InviteStatusModel {
   String organisationName;
   DocumentReference interviewRef;
   InterviewModel interviewModel;
+  List<CheckModel> checkModels;
 
   InviteStatusModel({
     this.workerType,
@@ -66,6 +69,7 @@ class InviteStatusModel {
     this.summaryInformation,
     this.interviewRef,
     this.interviewModel,
+    this.checkModels,
   });
 
   static const Color blue = Color(0xFF0288D1);
@@ -103,6 +107,7 @@ class InviteStatusModel {
     DocumentReference _interviewRef;
     InterviewModel _interviewModel;
     AddressModel _addressModel;
+    List<CheckModel> _checks = [];
     if (data.containsKey(InviteStaffSchema.interview) &&
         data[InviteStaffSchema.interview] != null) {
       _interview = EnumHelpers.getInterviewType(
@@ -118,6 +123,13 @@ class InviteStatusModel {
         data[InviteStaffSchema.address] != null) {
       _addressModel =
           AddressModel.fromInvitationsMap(map: data[InviteStaffSchema.address]);
+    }
+    if (data.containsKey(InviteStaffSchema.checks) &&
+        data[InviteStaffSchema.checks] != null) {
+      _checks = (data[InviteStaffSchema.checks] as List)
+          .map((e) => CheckModel.fromMap(
+              map: e, checkID: e[JobSummarySchema.checkRef]?.id))
+          .toList();
     }
     return InviteStatusModel(
       invitationId: invitationId ?? "",
@@ -157,6 +169,7 @@ class InviteStatusModel {
       interviewRef: _interviewRef,
       interviewModel: _interviewModel,
       addressModel: _addressModel,
+      checkModels: _checks,
     );
   }
 
@@ -181,6 +194,10 @@ class InviteStatusModel {
         _map[InviteStaffSchema.shiftPatternId] = shiftId;
       } else if (shiftRef != null) {
         _map[InviteStaffSchema.shiftPatternId] = shiftRef.id;
+      }
+      if (checkModels != null && checkModels.isNotEmpty) {
+        _map[InviteStaffSchema.checkIds] =
+            checkModels.map((e) => e?.checkID).toList();
       }
       if (addressModel != null) {
         _map[ShiftDataSchema.address] = {

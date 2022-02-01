@@ -18,4 +18,6 @@ class InviteStaffSchema {
   static const String interviewSlotData = "interview_slot_data";
   static const String interviewSlotRef = "interview_slot_ref";
   static const String address = "address";
+  static const String checkIds = "check_ids";
+  static const String checks = "checks";
 }
