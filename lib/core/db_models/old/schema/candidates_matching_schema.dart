@@ -32,4 +32,6 @@ class CandidatesMatchingRequestSchema {
   static const String shiftPatternId = 'shift_pattern_id';
   static const String staff = 'staff';
   static const String badMatch = 'bad_match';
+  static const String fielders = 'fielders';
+  static const String network = 'network';
 }
