@@ -43,4 +43,5 @@ class FbCollections {
   static const String interviewSlots = 'interview_slots';
   static const String breaks = 'breaks';
   static const String budget = 'budget';
+  static const String offers = 'offers';
 }
