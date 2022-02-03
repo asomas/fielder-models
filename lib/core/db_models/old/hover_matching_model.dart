@@ -28,7 +28,7 @@ class HoverMatchingModel {
             ?.toList(),
       );
     } catch (e, s) {
-      print("hover matching catch____${e}____$s");
+      print("hover matching model catch____${e}____$s");
       return null;
     }
   }
@@ -48,8 +48,9 @@ class AvailabilityMatching {
 class SkillsMatching {
   String skillId;
   bool valid;
+  String value;
 
-  SkillsMatching({this.skillId, this.valid});
+  SkillsMatching({this.skillId, this.valid, this.value});
 
   factory SkillsMatching.fromList(List list) {
     return SkillsMatching(skillId: list[0], valid: list[1] ?? false);
@@ -59,8 +60,9 @@ class SkillsMatching {
 class ChecksMatching {
   String checkId;
   bool valid;
+  String value;
 
-  ChecksMatching({this.checkId, this.valid});
+  ChecksMatching({this.checkId, this.valid, this.value});
 
   factory ChecksMatching.fromList(List list) {
     return ChecksMatching(checkId: list[0], valid: list[1] ?? false);
@@ -71,11 +73,18 @@ class CoursesMatching {
   String courseId;
   String levelId;
   bool valid;
+  String courseValue;
+  String levelValue;
 
-  CoursesMatching({this.courseId, this.levelId, this.valid});
+  CoursesMatching(
+      {this.courseId,
+      this.levelId,
+      this.valid,
+      this.courseValue,
+      this.levelValue});
 
   factory CoursesMatching.fromList(List list) {
     return CoursesMatching(
-        courseId: list[0], levelId: list[1], valid: list[2] ?? false);
+        courseId: list[0][0], levelId: list[0][1], valid: list[1] ?? false);
   }
 }

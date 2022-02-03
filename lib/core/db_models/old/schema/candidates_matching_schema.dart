@@ -43,4 +43,5 @@ class HoverMatchingSchema {
   static const String checks = "checks";
   static const String courses = "courses";
   static const String distance = "distance";
+  static const String value = "value";
 }
