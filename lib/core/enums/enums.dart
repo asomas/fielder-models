@@ -110,3 +110,5 @@ enum RightToWorkFlow { Passport, BirthCertificate, BRP, ShareCode, None }
 enum RightToWorkVerificationStatus { UnderReview, Verified, Rejected, None }
 
 enum InterviewType { Video, InPerson, NoInterview }
+
+enum ChecksType { DBS, EnhancedDBS, IDCheck }
