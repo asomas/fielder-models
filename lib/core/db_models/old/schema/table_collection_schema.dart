@@ -44,4 +44,6 @@ class FbCollections {
   static const String breaks = 'breaks';
   static const String budget = 'budget';
   static const String offers = 'offers';
+  static const String courses = 'courses';
+  static const String levels = 'levels';
 }
