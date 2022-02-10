@@ -1,3 +1,7 @@
+from email.policy import default
+from xml.dom import ValidationErr
+
+from django.forms import ValidationError
 from fielder_backend_utils.rest_utils import DocumentReferenceField
 from rest_framework import serializers
 
@@ -14,7 +18,21 @@ class BaseExperienceAPISerializer(serializers.Serializer):
 
 
 class WorkExperienceGapAPISerializer(BaseExperienceAPISerializer):
-    pass
+    has_acceptable_reference = serializers.BooleanField(default=False)
+    reference_name = serializers.CharField(allow_null=True, default=None)
+    reference_phone = serializers.CharField(allow_null=True, default=None)
+    reference_relationship = serializers.CharField(allow_null=True, default=None)
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        if data["has_acceptable_reference"] == True:
+            req_fields = ["reference_name", "reference_phone", "reference_relationship"]
+            for f in req_fields:
+                if data[f] is None:
+                    raise ValidationError(
+                        f"{f} is required when has_acceptable_reference is true."
+                    )
+        return data
 
 
 class BaseWorkExperienceAPISerializer(BaseExperienceAPISerializer):
