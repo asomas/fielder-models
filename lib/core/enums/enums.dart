@@ -112,3 +112,6 @@ enum RightToWorkVerificationStatus { UnderReview, Verified, Rejected, None }
 enum InterviewType { Video, InPerson, NoInterview }
 
 enum MatchingHoverType { Availability, Skills, Checks, Courses, Location }
+
+enum ScheduleShiftStatus { NotStarted, InProgress, Completed, Failed }
+enum ScheduleShiftResultStatus { Success, Fail }

@@ -46,4 +46,6 @@ class FbCollections {
   static const String offers = 'offers';
   static const String courses = 'courses';
   static const String levels = 'levels';
+  static const String scheduleTasks = 'schedule_tasks';
+  static const String result = 'result';
 }
