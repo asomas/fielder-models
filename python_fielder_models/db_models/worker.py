@@ -46,10 +46,10 @@ class WorkExperienceGapSerializer(BaseExperienceSerializer):
 
     def validate(self, attrs):
         data = super().validate(attrs)
-        if data["has_acceptable_reference"] == True:
+        if data.get("has_acceptable_reference", False) == True:
             req_fields = ["reference_name", "reference_phone", "reference_relationship"]
             for f in req_fields:
-                if data[f] is None:
+                if data.get(f, None) is None:
                     raise APIException(
                         f"{f} is required when has_acceptable_reference is true."
                     )
