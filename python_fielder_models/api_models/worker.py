@@ -1,9 +1,9 @@
 from email.policy import default
 from xml.dom import ValidationErr
 
-from django.forms import ValidationError
 from fielder_backend_utils.rest_utils import DocumentReferenceField
 from rest_framework import serializers
+from rest_framework.exceptions import APIException, ValidationError
 
 from ..api_models.common import *
 from ..common.worker import ReferencingDataSerializer, VerificationPath
