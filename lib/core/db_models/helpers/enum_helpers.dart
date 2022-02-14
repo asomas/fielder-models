@@ -438,4 +438,16 @@ class EnumHelpers {
         return null;
     }
   }
+
+  static ChecksType getChecksTypeFromString(String value) {
+    if (value.toUpperCase().startsWith('DBS'.toUpperCase())) {
+      return ChecksType.DBS;
+    } else if (value.toUpperCase().startsWith('Enhanced DBS'.toUpperCase())) {
+      return ChecksType.EnhancedDBS;
+    } else if (value.toUpperCase().startsWith('Proof of ID'.toUpperCase())) {
+      return ChecksType.ProofOfID;
+    } else {
+      return null;
+    }
+  }
 }
