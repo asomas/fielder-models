@@ -16,3 +16,4 @@ class ReferencingDataSerializer(Serializer):
     contact_phone = CharField(allow_null=True, default=None)
     contact_position = CharField(allow_null=True, default=None)
     contact_email = CharField(allow_null=True, default=None)
+    contact_relationship = CharField(allow_null=True, default=None)
