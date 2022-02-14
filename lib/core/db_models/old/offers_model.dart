@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/old/budget_model.dart';
 import 'package:fielder_models/core/db_models/old/invite%20_status_model.dart';
+import 'package:fielder_models/core/db_models/old/job_data_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/assign_workers_model.dart';
 import 'package:fielder_models/core/db_models/old/shift_pattern_data_model.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
@@ -18,18 +19,21 @@ class Offers {
   DocumentReference shiftPatternRef;
   DateTime updatedAt;
   BudgetModel budgetModel;
+  JobDataModel jobDataModel;
 
-  Offers(
-      {this.shiftPatternData,
-      this.workerData,
-      this.status,
-      this.offerID,
-      this.candidatesModel,
-      this.workerRef,
-      this.updatedAt,
-      this.workerType,
-      this.shiftPatternRef,
-      this.budgetModel});
+  Offers({
+    this.shiftPatternData,
+    this.workerData,
+    this.status,
+    this.offerID,
+    this.candidatesModel,
+    this.workerRef,
+    this.updatedAt,
+    this.workerType,
+    this.shiftPatternRef,
+    this.budgetModel,
+    this.jobDataModel,
+  });
 
   factory Offers.fromMap(String id, Map<String, dynamic> map,
           {CandidatesModel candidatesModel, WorkerModel workerModel}) =>
@@ -53,20 +57,28 @@ class Offers {
         shiftPatternRef: map['shift_pattern_ref'],
         budgetModel:
             map["budget"] != null ? BudgetModel.fromMap(map["budget"]) : null,
+        jobDataModel: map['job_data'] != null
+            ? JobDataModel.fromMap(
+                map: map['job_data'],
+                docID: map['job_ref']?.id,
+              )
+            : null,
       );
 
   InviteStatusModel parseOffersToInviteStatusModel(Offers offer) {
     return InviteStatusModel(
-        workerType: offer?.workerType,
-        status: EnumHelpers.offerStatusToInviteStatus(
-            EnumHelpers.getOfferStatusFromString(offer?.status)),
-        workerFirstName: offer?.workerData?.firstName,
-        workerLastName: offer?.workerData?.lastName,
-        workerPhone: offer?.workerData?.phone,
-        workerRef: offer?.workerRef,
-        invitationId: offer?.offerID,
-        createdAt: offer?.updatedAt,
-        shiftRef: shiftPatternRef,
-        fromOffer: true);
+      workerType: offer?.workerType,
+      status: EnumHelpers.offerStatusToInviteStatus(
+          EnumHelpers.getOfferStatusFromString(offer?.status)),
+      workerFirstName: offer?.workerData?.firstName,
+      workerLastName: offer?.workerData?.lastName,
+      workerPhone: offer?.workerData?.phone,
+      workerRef: offer?.workerRef,
+      invitationId: offer?.offerID,
+      createdAt: offer?.updatedAt,
+      shiftRef: shiftPatternRef,
+      fromOffer: true,
+      offer: offer,
+    );
   }
 }

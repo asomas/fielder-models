@@ -35,3 +35,13 @@ class CandidatesMatchingRequestSchema {
   static const String fielders = 'fielders';
   static const String network = 'network';
 }
+
+class HoverMatchingSchema {
+  static const String id = "id";
+  static const String availabilities = "availabilities";
+  static const String skills = "skills";
+  static const String checks = "checks";
+  static const String courses = "courses";
+  static const String distance = "distance";
+  static const String value = "value";
+}

@@ -3,6 +3,7 @@ import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/interview_model.dart';
+import 'package:fielder_models/core/db_models/old/offers_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/interviews_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/invite_staff_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
@@ -41,6 +42,7 @@ class InviteStatusModel {
   DocumentReference interviewRef;
   InterviewModel interviewModel;
   List<CheckModel> checkModels;
+  Offers offer;
 
   InviteStatusModel({
     this.workerType,
@@ -70,6 +72,7 @@ class InviteStatusModel {
     this.interviewRef,
     this.interviewModel,
     this.checkModels,
+    this.offer,
   });
 
   static const Color blue = Color(0xFF0288D1);
