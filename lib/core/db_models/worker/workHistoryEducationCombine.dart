@@ -27,6 +27,7 @@ class WorkHistoryEducationCombine {
   Level level;
   Grade grade;
   bool award;
+  bool hasAcceptableReference;
 
   WorkHistoryEducationCombine({
     this.docId,
@@ -50,6 +51,7 @@ class WorkHistoryEducationCombine {
     this.level,
     this.grade,
     this.award,
+    this.hasAcceptableReference,
   });
 
   factory WorkHistoryEducationCombine.fromJson(Map<String, dynamic> json,
@@ -115,6 +117,7 @@ class WorkHistoryEducationCombine {
           award: json[EducationSchema.award] != null
               ? json[EducationSchema.award]
               : null,
+          hasAcceptableReference: json[WorkerHistorySchema.hasAcceptableReference]
         );
       } catch (e, s) {
         print("worker experience model catch______${e}_____$s");
