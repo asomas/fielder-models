@@ -44,22 +44,6 @@ class WorkExperienceGapSerializer(BaseExperienceSerializer):
         required=False, allow_null=True, default=None
     )
 
-    def validate(self, attrs):
-        data = super().validate(attrs)
-        if data.get("has_acceptable_reference", False) == True:
-            referencing_data = data.get("referencing_data")
-            if referencing_data is None:
-                raise APIException(
-                    f"referencing_data is required when has_acceptable_reference is true."
-                )
-            req_fields = ["contact_name", "contact_phone", "contact_relationship"]
-            for f in req_fields:
-                if referencing_data.get(f, None) is None:
-                    raise APIException(
-                        f"{f} is required when has_acceptable_reference is true."
-                    )
-        return data
-
 
 class BaseWorkExperienceSerializer(BaseExperienceSerializer):
     location_data = LocationDBSerializer(allow_null=True, default=None)
