@@ -444,10 +444,8 @@ class EnumHelpers {
       return ChecksType.DBS;
     } else if (value.toUpperCase().startsWith('Enhanced DBS'.toUpperCase())) {
       return ChecksType.EnhancedDBS;
-    } else if (value
-        .toUpperCase()
-        .startsWith('ID Verification'.toUpperCase())) {
-      return ChecksType.IDCheck;
+    } else if (value.toUpperCase().startsWith('Proof of ID'.toUpperCase())) {
+      return ChecksType.ProofOfID;
     } else {
       return null;
     }

@@ -111,4 +111,4 @@ enum RightToWorkVerificationStatus { UnderReview, Verified, Rejected, None }
 
 enum InterviewType { Video, InPerson, NoInterview }
 
-enum ChecksType { DBS, EnhancedDBS, IDCheck }
+enum ChecksType { DBS, EnhancedDBS, ProofOfID }
