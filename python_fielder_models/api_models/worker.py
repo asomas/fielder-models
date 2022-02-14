@@ -15,7 +15,7 @@ class BaseExperienceAPISerializer(serializers.Serializer):
 
 
 class WorkExperienceGapAPISerializer(BaseExperienceAPISerializer):
-    has_acceptable_reference = serializers.BooleanField(default=False)
+    has_acceptable_reference = serializers.BooleanField(default=True)
     referencing_data = ReferencingDataSerializer(
         required=False, allow_null=True, default=None
     )
