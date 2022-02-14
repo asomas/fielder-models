@@ -56,6 +56,8 @@ class WorkerHistorySchema {
   static const String knowledgeAreaRef = "knowledge_area_ref";
   static const String knowledgeAreas = "knowledge_areas";
 
+  static const String hasAcceptableReference = "has_acceptable_reference";
+
   static const String unchecked = "UNCHECKED";
   static const String checked = "CHECKED";
   static const String awaitingVerification = "AWAITING_VERIFICATION";
@@ -66,4 +68,5 @@ class WorkerHistorySchema {
   static const String contactPhone = "contact_phone";
   static const String contactPosition = "contact_position";
   static const String contactEmail = "contact_email";
+  static const String contactRelationship = "contact_relationship";
 }
