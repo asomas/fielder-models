@@ -23,15 +23,19 @@ class ScheduleShiftModel {
 
   factory ScheduleShiftModel.fromMap(Map map) {
     try {
-      return ScheduleShiftModel(
-        organisationRef: map[ScheduleShiftSchema.organisationRef],
-        organisationUserRef: map[ScheduleShiftSchema.organisationRef],
-        progressPercentage: map[ScheduleShiftSchema.progressPercent],
-        status: EnumHelpers.getScheduleShiftStatusFromString(
-          map[ScheduleShiftSchema.status],
-        ),
-        step: map[ScheduleShiftSchema.step],
-      );
+      if (map != null && map.isNotEmpty) {
+        return ScheduleShiftModel(
+          organisationRef: map[ScheduleShiftSchema.organisationRef],
+          organisationUserRef: map[ScheduleShiftSchema.organisationRef],
+          progressPercentage: map[ScheduleShiftSchema.progressPercent],
+          status: EnumHelpers.getScheduleShiftStatusFromString(
+            map[ScheduleShiftSchema.status],
+          ),
+          step: map[ScheduleShiftSchema.step],
+        );
+      } else {
+        return null;
+      }
     } catch (e, s) {
       print("ScheduleShiftModel catch ${e}___$s");
       return null;
@@ -49,14 +53,18 @@ class ScheduleShiftResultModel {
 
   factory ScheduleShiftResultModel.fromMap(Map map) {
     try {
-      return ScheduleShiftResultModel(
-        status: EnumHelpers.getScheduleShiftResultStatusFromString(
-            map[ScheduleShiftSchema.status]),
-        statusMessage: map[ScheduleShiftSchema.statusMessage],
-        resultDataModel: ScheduleShiftResultDataModel.fromMap(
-          map[ScheduleShiftSchema.data],
-        ),
-      );
+      if (map != null && map.isNotEmpty) {
+        return ScheduleShiftResultModel(
+          status: EnumHelpers.getScheduleShiftResultStatusFromString(
+              map[ScheduleShiftSchema.status]),
+          statusMessage: map[ScheduleShiftSchema.statusMessage],
+          resultDataModel: ScheduleShiftResultDataModel.fromMap(
+            map[ScheduleShiftSchema.data],
+          ),
+        );
+      } else {
+        return null;
+      }
     } catch (e, s) {
       print("ScheduleShiftResultModel catch ${e}___$s");
       return null;
@@ -81,16 +89,22 @@ class ScheduleShiftResultDataModel {
 
   factory ScheduleShiftResultDataModel.fromMap(Map map) {
     try {
-      return ScheduleShiftResultDataModel(
-        shiftPatternRef: map[ScheduleShiftSchema.shiftPatternRef],
-        workerRef: map[ScheduleShiftSchema.workerRef],
-        startDate: (map[ScheduleShiftSchema.startDate] as Timestamp)?.toDate(),
-        endDate: (map[ScheduleShiftSchema.endDate] as Timestamp)?.toDate(),
-        workerModel: WorkerModel.fromMap(
-          map: map[ScheduleShiftSchema.workerData],
-          docID: (map[ScheduleShiftSchema.workerRef] as DocumentReference)?.id,
-        ),
-      );
+      if (map != null && map.isNotEmpty) {
+        return ScheduleShiftResultDataModel(
+          shiftPatternRef: map[ScheduleShiftSchema.shiftPatternRef],
+          workerRef: map[ScheduleShiftSchema.workerRef],
+          startDate:
+              (map[ScheduleShiftSchema.startDate] as Timestamp)?.toDate(),
+          endDate: (map[ScheduleShiftSchema.endDate] as Timestamp)?.toDate(),
+          workerModel: WorkerModel.fromMap(
+            map: map[ScheduleShiftSchema.workerData],
+            docID:
+                (map[ScheduleShiftSchema.workerRef] as DocumentReference)?.id,
+          ),
+        );
+      } else {
+        return null;
+      }
     } catch (e, s) {
       print("ScheduleShiftResultDataModel catch ${e}___$s");
       return null;
