@@ -1,3 +1,4 @@
+from email.policy import default
 from enum import Enum, auto
 
 from fielder_backend_utils.rest_utils import DocumentReferenceField
@@ -148,6 +149,7 @@ class RegisteredAddressDBSerializer(LocationDBSerializer):
     is_valid = serializers.BooleanField(default=False)
     worker_document_ref = DocumentReferenceField(allow_null=True, default=None)
     source = serializers.CharField(allow_null=True, default=None)
+    value = LocationDBSerializer(allow_null=True, default=None)
 
 
 class Status(Enum):
