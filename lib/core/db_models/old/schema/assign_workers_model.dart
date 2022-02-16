@@ -17,23 +17,26 @@ class CandidatesModel {
   InviteStatusModel fielderNetworkInvite;
   bool isGhostUser;
   double distance;
+  bool hasLoggedIn;
 
-  CandidatesModel(
-      {this.workerId,
-      this.isStaff,
-      this.firstName,
-      this.lastName,
-      this.fullName,
-      this.phoneNumber,
-      this.pictureUrl,
-      this.skillScore = 0,
-      this.coursesScore = 0,
-      this.checkScore = 0,
-      this.availabilityScore = 0,
-      this.totalScore = 0,
-      this.fielderNetworkInvite,
-      this.isGhostUser = false,
-      this.distance = 0});
+  CandidatesModel({
+    this.workerId,
+    this.isStaff,
+    this.firstName,
+    this.lastName,
+    this.fullName,
+    this.phoneNumber,
+    this.pictureUrl,
+    this.skillScore = 0,
+    this.coursesScore = 0,
+    this.checkScore = 0,
+    this.availabilityScore = 0,
+    this.totalScore = 0,
+    this.fielderNetworkInvite,
+    this.isGhostUser = false,
+    this.distance = 0,
+    this.hasLoggedIn,
+  });
 
   factory CandidatesModel.fromMap(Map<String, dynamic> map) {
     return CandidatesModel(
@@ -71,31 +74,35 @@ class CandidatesModel {
   }
 
   factory CandidatesModel.forFielderNetwork(
-      Map<String, dynamic> map,
-      bool isStaff,
-      String firstName,
-      String lastName,
-      String avatarUrl,
-      String phoneNumber,
-      {InviteStatusModel invite,
-      bool isGhostUser}) {
+    Map<String, dynamic> map,
+    bool isStaff,
+    String firstName,
+    String lastName,
+    String avatarUrl,
+    String phoneNumber, {
+    InviteStatusModel invite,
+    bool isGhostUser,
+    bool hasLoggedIn,
+  }) {
     try {
       return CandidatesModel(
-          workerId: map[CandidatesMatchingSchema.id],
-          skillScore: map[CandidatesMatchingSchema.skillsScore],
-          coursesScore: map[CandidatesMatchingSchema.coursesScore],
-          checkScore: map[CandidatesMatchingSchema.checksScore],
-          availabilityScore: map[CandidatesMatchingSchema.availabilityScore],
-          totalScore: map[CandidatesMatchingSchema.overallScore],
-          isStaff: isStaff,
-          firstName: firstName,
-          lastName: lastName,
-          fullName: "${firstName ?? ""} ${lastName ?? ""}",
-          pictureUrl: avatarUrl,
-          phoneNumber: phoneNumber,
-          fielderNetworkInvite: invite,
-          isGhostUser: isGhostUser,
-          distance: map[CandidatesMatchingSchema.distance]);
+        workerId: map[CandidatesMatchingSchema.id],
+        skillScore: map[CandidatesMatchingSchema.skillsScore],
+        coursesScore: map[CandidatesMatchingSchema.coursesScore],
+        checkScore: map[CandidatesMatchingSchema.checksScore],
+        availabilityScore: map[CandidatesMatchingSchema.availabilityScore],
+        totalScore: map[CandidatesMatchingSchema.overallScore],
+        isStaff: isStaff,
+        firstName: firstName,
+        lastName: lastName,
+        fullName: "${firstName ?? ""} ${lastName ?? ""}",
+        pictureUrl: avatarUrl,
+        phoneNumber: phoneNumber,
+        fielderNetworkInvite: invite,
+        isGhostUser: isGhostUser,
+        distance: map[CandidatesMatchingSchema.distance],
+        hasLoggedIn: hasLoggedIn,
+      );
     } catch (e) {
       print("candidates matching model catch_______$e");
       return null;
