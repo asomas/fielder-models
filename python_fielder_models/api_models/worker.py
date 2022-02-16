@@ -10,7 +10,7 @@ from ..db_models.worker import *
 class BaseExperienceAPISerializer(serializers.Serializer):
     start_date = serializers.RegexField(DATE_FIELD_REGEX)
     end_date = serializers.RegexField(DATE_FIELD_REGEX)
-    summary = serializers.CharField(allow_blank=True)
+    summary = serializers.CharField(allow_blank=True, default="")
     status = serializers.ChoiceField(choices=STATUS._member_names_, required=False)
 
 

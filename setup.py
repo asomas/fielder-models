@@ -1,5 +1,7 @@
 from setuptools import find_packages, setup
 
+from python_fielder_models import __version__
+
 install_requires = [
     "black==20.8b1",
     "djangorestframework>=3.11.0",
@@ -9,7 +11,7 @@ install_requires = [
 
 setup(
     name="python_fielder_models",
-    version="0.0.220",
+    version=__version__,
     description="Django serializer models for Fielder",
     url="git@github.com:asomas/fielder-models",
     author="Sarmad Gulzar",
