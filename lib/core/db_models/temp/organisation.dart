@@ -408,6 +408,7 @@ class UserDetail {
     this.status,
     this.role,
     this.manager,
+    this.groupCount,
   });
 
   String id;
@@ -417,20 +418,21 @@ class UserDetail {
   AcceptanceStatus status;
   String role;
   String manager;
+  num groupCount;
 
   factory UserDetail.fromJson(Map<String, dynamic> json) => UserDetail(
-        id: json["id"],
-        name: json["name"] == null ? null : json["name"],
-        email: json["email"] == null ? null : json["email"],
-        dateCreated: json["date_created"] == null
-            ? null
-            : DateTime.parse(json["date_created"]),
-        status: json["status"] == null
-            ? null
-            : OrganisationSubscription.getAcceptanceStatus(json['status']),
-        role: json["role"] == null ? null : json["role"],
-        manager: json["manager"] == null ? null : json["manager"],
-      );
+      id: json["id"],
+      name: json["name"] == null ? null : json["name"],
+      email: json["email"] == null ? null : json["email"],
+      dateCreated: json["date_created"] == null
+          ? null
+          : DateTime.parse(json["date_created"]),
+      status: json["status"] == null
+          ? null
+          : OrganisationSubscription.getAcceptanceStatus(json['status']),
+      role: json["role"] == null ? null : json["role"],
+      manager: json["manager"] == null ? null : json["manager"],
+      groupCount: json['group_count']);
 
   Map<String, dynamic> toJson() => {
         "name": name == null ? null : name,
@@ -440,6 +442,7 @@ class UserDetail {
         "status": status == null ? null : status,
         "role": role == null ? null : role,
         "manager": manager == null ? null : manager,
+        "group_count": groupCount,
       };
 
   static Future<UserDetail> getUserDetails(DocumentReference ref,
