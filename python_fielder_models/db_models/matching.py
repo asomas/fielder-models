@@ -1,4 +1,3 @@
-from email.policy import default
 from enum import Enum, auto
 
 from fielder_backend_utils.rest_utils import DocumentReferenceField
@@ -26,7 +25,7 @@ class ScheduleTaskDBSerializer(BaseDBSerializer):
     progress_percent = serializers.IntegerField(min_value=0, max_value=100, default=0)
     status = serializers.ChoiceField(
         choices=ScheduleTaskStatus._member_names_,
-        default=ScheduleTaskStatus.NOT_STARTED,
+        default=ScheduleTaskStatus.NOT_STARTED.name,
     )
     step_message = serializers.CharField(default="Queued")
 
