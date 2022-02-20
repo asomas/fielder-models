@@ -1,3 +1,4 @@
+from datetime import datetime, time
 from enum import Enum, auto
 
 from fielder_backend_utils.rest_utils import DocumentReferenceField
@@ -38,3 +39,10 @@ class ScheduleTaskResultDBSerializer(BaseDBSerializer):
 
 class ScheduleTaskRequestDBSerializer(BaseDBSerializer):
     request_data = ShchedluerRequestSerializer()
+
+    def to_internal_value(self, data):
+        data = super().to_internal_value(data)
+        for shift in data.get("request_data", {}).get("shifts", []):
+            shift["start_date"] = datetime.combine(shift["start_date"], time(0, 0))
+            shift["end_date"] = datetime.combine(shift["end_date"], time(0, 0))
+        return data
