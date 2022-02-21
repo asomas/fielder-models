@@ -89,6 +89,7 @@ class ShiftPatternDataModel {
       timeOfDay = timeOfDay.replacing(hour: timeOfDay.hourOfPeriod);
       hours = timeOfDay.hour;
     }
+    if (hours == 24) hours = 0;
     String twoDigitMinutes = twoDigits(mins);
     // String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
     return "${twoDigits(hours)}:$twoDigitMinutes";
