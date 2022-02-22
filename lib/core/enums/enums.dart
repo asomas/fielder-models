@@ -51,6 +51,7 @@ enum ShiftFrequencies {
   None,
   Daily,
   Weekly,
+  TwoWeeks,
 }
 
 enum RepeatInterval {

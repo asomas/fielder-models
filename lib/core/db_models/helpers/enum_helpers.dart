@@ -103,6 +103,8 @@ class EnumHelpers {
         return 'Does not repeat';
       case ShiftFrequencies.Weekly:
         return 'Weekly';
+      case ShiftFrequencies.TwoWeeks:
+        return 'Every two weeks';
       default:
         return '';
     }
