@@ -28,6 +28,7 @@ class ScheduleTaskDBSerializer(BaseDBSerializer):
         choices=ScheduleTaskStatus._member_names_,
         default=ScheduleTaskStatus.NOT_STARTED.name,
     )
+    archived = serializers.BooleanField(default=False)
     step_message = serializers.CharField(default="Queued")
 
 
