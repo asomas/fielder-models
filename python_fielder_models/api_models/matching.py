@@ -73,7 +73,7 @@ class MatchingRequestSerializer(MatchingShiftRequestSerializer):
     worker_type = serializers.ChoiceField(choices=WorkerType._member_names_)
 
 
-class ShchedluerRequestSerializer(serializers.Serializer):
+class SchedulerRequestSerializer(serializers.Serializer):
     shifts = serializers.ListField(child=SchedulerShiftRequestSerializer())
     include_fielders = serializers.BooleanField(default=False)
     include_staff = serializers.BooleanField(default=False)
