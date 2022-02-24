@@ -2,7 +2,7 @@ from datetime import datetime, time
 from enum import Enum, auto
 
 from fielder_backend_utils.rest_utils import DocumentReferenceField
-from python_fielder_models.api_models.matching import ShchedluerRequestSerializer
+from python_fielder_models.api_models.matching import SchedulerRequestSerializer
 from python_fielder_models.db_models import BaseDBSerializer
 from rest_framework import serializers
 
@@ -39,7 +39,7 @@ class ScheduleTaskResultDBSerializer(BaseDBSerializer):
 
 
 class ScheduleTaskRequestDBSerializer(BaseDBSerializer):
-    request_data = ShchedluerRequestSerializer()
+    request_data = SchedulerRequestSerializer()
 
     def to_internal_value(self, data):
         data = super().to_internal_value(data)
