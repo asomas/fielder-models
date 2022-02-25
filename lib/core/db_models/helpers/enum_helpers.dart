@@ -1,6 +1,7 @@
 import 'package:fielder_models/core/constants/app_colors.dart';
 import 'package:fielder_models/core/constants/app_strings.dart';
 import 'package:fielder_models/core/db_models/old/schema/company_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/schedule_shift_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
 import 'package:fielder_models/core/db_models/worker/schema/newsNotificationSchema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
@@ -450,6 +451,52 @@ class EnumHelpers {
       return ChecksType.ProofOfID;
     } else {
       return null;
+    }
+  }
+
+  static ScheduleShiftStatus getScheduleShiftStatusFromString(String status) {
+    switch (status) {
+      case ScheduleShiftStatusString.notStarted:
+        return ScheduleShiftStatus.NotStarted;
+      case ScheduleShiftStatusString.inProgress:
+        return ScheduleShiftStatus.InProgress;
+      case ScheduleShiftStatusString.complete:
+        return ScheduleShiftStatus.Completed;
+      case ScheduleShiftStatusString.failed:
+        return ScheduleShiftStatus.Failed;
+      case ScheduleShiftStatusString.cancelled:
+        return ScheduleShiftStatus.Cancelled;
+      default:
+        return ScheduleShiftStatus.NotStarted;
+    }
+  }
+
+  static ScheduleShiftResultStatus getScheduleShiftResultStatusFromString(
+      String status) {
+    switch (status) {
+      case ScheduleShiftStatusString.success:
+        return ScheduleShiftResultStatus.Success;
+      case ScheduleShiftStatusString.failed:
+        return ScheduleShiftResultStatus.Fail;
+      default:
+        return null;
+    }
+  }
+
+  static String getStringFromScheduleShiftStatus(ScheduleShiftStatus status) {
+    switch (status) {
+      case ScheduleShiftStatus.NotStarted:
+        return ScheduleShiftStatusString.notStarted;
+      case ScheduleShiftStatus.InProgress:
+        return ScheduleShiftStatusString.inProgress;
+      case ScheduleShiftStatus.Cancelled:
+        return ScheduleShiftStatusString.cancelled;
+      case ScheduleShiftStatus.Completed:
+        return ScheduleShiftStatusString.complete;
+      case ScheduleShiftStatus.Failed:
+        return ScheduleShiftStatusString.failed;
+      default:
+        return ScheduleShiftStatusString.notStarted;
     }
   }
 }
