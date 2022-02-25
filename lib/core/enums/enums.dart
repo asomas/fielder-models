@@ -115,3 +115,12 @@ enum InterviewType { Video, InPerson, NoInterview }
 enum ChecksType { DBS, EnhancedDBS, ProofOfID }
 
 enum MatchingHoverType { Availability, Skills, Checks, Courses, Location }
+
+enum ScheduleShiftStatus {
+  NotStarted,
+  InProgress,
+  Completed,
+  Failed,
+  Cancelled
+}
+enum ScheduleShiftResultStatus { Success, Fail }
