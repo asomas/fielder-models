@@ -3,6 +3,7 @@ import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/old/schema/schedule_shift_schema.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
 import 'package:fielder_models/core/enums/enums.dart';
+import 'package:intl/intl.dart';
 
 class ScheduleShiftModel {
   String docId;
@@ -127,8 +128,13 @@ class SchedulerAssignmentModel {
     return {
       ScheduleShiftSchema.workerId: workerRef?.id,
       ScheduleShiftSchema.shiftPatternId: shiftPatternRef?.id,
-      ScheduleShiftSchema.startDate: workerRef?.id,
-      ScheduleShiftSchema.endDate: workerRef?.id,
+      ScheduleShiftSchema.startDate: yearMonthDay(startDate),
+      ScheduleShiftSchema.endDate: yearMonthDay(endDate),
     };
+  }
+
+  static String yearMonthDay(DateTime dateTime) {
+    if (dateTime != null) return DateFormat("yyyy-MM-dd").format(dateTime);
+    return null;
   }
 }
