@@ -44,6 +44,9 @@ class FbCollections {
   static const String breaks = 'breaks';
   static const String budget = 'budget';
   static const String offers = 'offers';
+  static const String workerCheckRelations = 'worker_check_relations';
+  static const String dbs = 'dbs';
+  static const String enhancedDbs = 'enhanced_dbs';
   static const String courses = 'courses';
   static const String levels = 'levels';
   static const String scheduleTasks = 'schedule_tasks';

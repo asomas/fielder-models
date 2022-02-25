@@ -1,20 +1,24 @@
 from fielder_backend_utils.rest_utils import DocumentReferenceField
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 
 from ..api_models.common import *
-from ..common.worker import ReferencingDataSerializer, VerificationPath
+from ..common.worker import ReferencingDataSerializer
 from ..db_models.worker import *
 
 
 class BaseExperienceAPISerializer(serializers.Serializer):
     start_date = serializers.RegexField(DATE_FIELD_REGEX)
     end_date = serializers.RegexField(DATE_FIELD_REGEX)
-    summary = serializers.CharField(allow_blank=True)
+    summary = serializers.CharField(allow_blank=True, default="")
     status = serializers.ChoiceField(choices=STATUS._member_names_, required=False)
 
 
 class WorkExperienceGapAPISerializer(BaseExperienceAPISerializer):
-    pass
+    has_acceptable_reference = serializers.BooleanField(default=True)
+    referencing_data = ReferencingDataSerializer(
+        required=False, allow_null=True, default=None
+    )
 
 
 class BaseWorkExperienceAPISerializer(BaseExperienceAPISerializer):

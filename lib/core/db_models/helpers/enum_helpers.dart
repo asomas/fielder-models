@@ -103,6 +103,8 @@ class EnumHelpers {
         return 'Does not repeat';
       case ShiftFrequencies.Weekly:
         return 'Weekly';
+      case ShiftFrequencies.TwoWeeks:
+        return 'Every two weeks';
       default:
         return '';
     }
@@ -436,6 +438,18 @@ class EnumHelpers {
         return InterviewType.NoInterview;
       default:
         return null;
+    }
+  }
+
+  static ChecksType getChecksTypeFromString(String value) {
+    if (value.toUpperCase().startsWith('DBS'.toUpperCase())) {
+      return ChecksType.DBS;
+    } else if (value.toUpperCase().startsWith('Enhanced DBS'.toUpperCase())) {
+      return ChecksType.EnhancedDBS;
+    } else if (value.toUpperCase().startsWith('Proof of ID'.toUpperCase())) {
+      return ChecksType.ProofOfID;
+    } else {
+      return null;
     }
   }
 }

@@ -51,6 +51,7 @@ enum ShiftFrequencies {
   None,
   Daily,
   Weekly,
+  TwoWeeks,
 }
 
 enum RepeatInterval {
@@ -110,6 +111,8 @@ enum RightToWorkFlow { Passport, BirthCertificate, BRP, ShareCode, None }
 enum RightToWorkVerificationStatus { UnderReview, Verified, Rejected, None }
 
 enum InterviewType { Video, InPerson, NoInterview }
+
+enum ChecksType { DBS, EnhancedDBS, ProofOfID }
 
 enum MatchingHoverType { Availability, Skills, Checks, Courses, Location }
 

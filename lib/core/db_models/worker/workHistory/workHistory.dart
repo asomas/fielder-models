@@ -19,8 +19,10 @@ class RefereeModel {
   String name;
   String email;
   String position;
+  String relationship;
 
-  RefereeModel({this.phone, this.name, this.position, this.email});
+  RefereeModel(
+      {this.phone, this.name, this.position, this.email, this.relationship});
 
   factory RefereeModel.fromMap(Map map) {
     try {
@@ -30,6 +32,7 @@ class RefereeModel {
           position: map[WorkerHistorySchema.contactPosition],
           phone: map[WorkerHistorySchema.contactPhone],
           email: map[WorkerHistorySchema.contactEmail],
+          relationship: map[WorkerHistorySchema.contactRelationship],
         );
       } else {
         return null;

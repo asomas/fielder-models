@@ -1,7 +1,9 @@
+from email.policy import default
 from enum import Enum, auto
 
 from fielder_backend_utils.rest_utils import DocumentReferenceField
 from rest_framework import serializers
+from rest_framework.exceptions import APIException
 
 from ..common.worker import ReferencingDataSerializer, VerificationPath
 from .common import *
@@ -38,7 +40,10 @@ class BaseExperienceSerializer(serializers.Serializer):
 
 
 class WorkExperienceGapSerializer(BaseExperienceSerializer):
-    pass
+    has_acceptable_reference = serializers.BooleanField(default=True)
+    referencing_data = ReferencingDataSerializer(
+        required=False, allow_null=True, default=None
+    )
 
 
 class BaseWorkExperienceSerializer(BaseExperienceSerializer):
@@ -144,6 +149,7 @@ class RegisteredAddressDBSerializer(LocationDBSerializer):
     is_valid = serializers.BooleanField(default=False)
     worker_document_ref = DocumentReferenceField(allow_null=True, default=None)
     source = serializers.CharField(allow_null=True, default=None)
+    value = LocationDBSerializer(allow_null=True, default=None)
 
 
 class Status(Enum):

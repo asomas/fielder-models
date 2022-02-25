@@ -9,26 +9,29 @@ class WorkerType(Enum):
     FIELDER = auto()
     STAFF = auto()
     NETWORK = auto()
+    STAFF_FIELDER = auto()
 
 
-class AvailabilityScoreRequestSerializer(serializers.Serializer):
+class BaseMatchingShiftRequestSerializer(serializers.Serializer):
     start_time = serializers.IntegerField(min_value=0, max_value=86400)
     end_time = serializers.IntegerField(min_value=0, max_value=172800)
     start_date = serializers.DateField()
     end_date = serializers.DateField()
     recurrence = RecurrenceSerializer()
     multi_day_shift = serializers.BooleanField(required=False)
+
+
+class AvailabilityScoreRequestSerializer(BaseMatchingShiftRequestSerializer):
     worker_id = serializers.CharField()
     organisation_id = serializers.CharField()
 
 
-class MatchingRequestSerializer(AvailabilityScoreRequestSerializer):
+class MatchingShiftRequestSerializer(BaseMatchingShiftRequestSerializer):
     class CourseLevelSerializer(serializers.Serializer):
         course_id = serializers.CharField()
         level_id = serializers.CharField(allow_null=True, default="0")
         level_number = serializers.IntegerField(allow_null=True, default=0)
 
-    worker_id = serializers.CharField(required=False, allow_blank=True)
     skills = serializers.ListField(
         required=False, allow_null=True, allow_empty=True, child=serializers.CharField()
     )
@@ -38,9 +41,6 @@ class MatchingRequestSerializer(AvailabilityScoreRequestSerializer):
     checks = serializers.ListField(
         required=False, allow_null=True, allow_empty=True, child=serializers.CharField()
     )
-    skip = serializers.IntegerField(min_value=0, default=0)
-    limit = serializers.IntegerField(min_value=0, max_value=10, default=5)
-    worker_type = serializers.ChoiceField(choices=WorkerType._member_names_)
     address = LocationAPISerializer()
 
     def to_internal_value(self, data):
@@ -59,6 +59,31 @@ class MatchingRequestSerializer(AvailabilityScoreRequestSerializer):
                 )
             data["courses"] = courses
         return data
+
+
+class SchedulerShiftRequestSerializer(MatchingShiftRequestSerializer):
+    shift_id = serializers.CharField()
+
+
+class MatchingRequestSerializer(MatchingShiftRequestSerializer):
+    worker_id = serializers.CharField(required=False, allow_blank=True)
+    organisation_id = serializers.CharField()
+    skip = serializers.IntegerField(min_value=0, default=0)
+    limit = serializers.IntegerField(min_value=0, max_value=10, default=5)
+    worker_type = serializers.ChoiceField(choices=WorkerType._member_names_)
+
+
+class SchedulerRequestSerializer(serializers.Serializer):
+    shifts = serializers.ListField(child=SchedulerShiftRequestSerializer())
+    include_fielders = serializers.BooleanField(default=False)
+    include_staff = serializers.BooleanField(default=False)
+
+    def validate(self, attrs):
+        if not attrs.get("include_fielders") and not attrs("include_staff"):
+            raise serializers.ValidationError(
+                "At least one of include_fielders or include_staff must be true"
+            )
+        return super().validate(attrs)
 
 
 class MatchingWorker(serializers.Serializer):
