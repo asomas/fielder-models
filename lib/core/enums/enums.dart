@@ -113,5 +113,11 @@ enum InterviewType { Video, InPerson, NoInterview }
 
 enum MatchingHoverType { Availability, Skills, Checks, Courses, Location }
 
-enum ScheduleShiftStatus { NotStarted, InProgress, Completed, Failed }
+enum ScheduleShiftStatus {
+  NotStarted,
+  InProgress,
+  Completed,
+  Failed,
+  Cancelled
+}
 enum ScheduleShiftResultStatus { Success, Fail }

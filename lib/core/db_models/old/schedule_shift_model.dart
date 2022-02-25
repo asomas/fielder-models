@@ -5,34 +5,43 @@ import 'package:fielder_models/core/db_models/old/workers_model.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 
 class ScheduleShiftModel {
+  String docId;
   DocumentReference organisationRef;
   DocumentReference organisationUserRef;
   int progressPercentage;
   ScheduleShiftStatus status;
   String step;
   ScheduleShiftResultModel result;
+  bool archived;
+  DateTime updatedAt;
 
   ScheduleShiftModel({
+    this.docId,
     this.organisationRef,
     this.organisationUserRef,
     this.progressPercentage,
     this.status,
     this.step,
     this.result,
+    this.archived,
+    this.updatedAt,
   });
 
-  factory ScheduleShiftModel.fromMap(Map map) {
+  factory ScheduleShiftModel.fromMap(String docId, Map map) {
     try {
       if (map != null && map.isNotEmpty) {
         return ScheduleShiftModel(
-          organisationRef: map[ScheduleShiftSchema.organisationRef],
-          organisationUserRef: map[ScheduleShiftSchema.organisationRef],
-          progressPercentage: map[ScheduleShiftSchema.progressPercent],
-          status: EnumHelpers.getScheduleShiftStatusFromString(
-            map[ScheduleShiftSchema.status],
-          ),
-          step: map[ScheduleShiftSchema.step],
-        );
+            docId: docId,
+            organisationRef: map[ScheduleShiftSchema.organisationRef],
+            organisationUserRef: map[ScheduleShiftSchema.organisationRef],
+            progressPercentage: map[ScheduleShiftSchema.progressPercent],
+            archived: map[ScheduleShiftSchema.archived],
+            status: EnumHelpers.getScheduleShiftStatusFromString(
+              map[ScheduleShiftSchema.status],
+            ),
+            step: map[ScheduleShiftSchema.step],
+            updatedAt:
+                (map[ScheduleShiftSchema.updatedAt] as Timestamp).toDate());
       } else {
         return null;
       }
@@ -46,10 +55,9 @@ class ScheduleShiftModel {
 class ScheduleShiftResultModel {
   ScheduleShiftResultStatus status;
   String statusMessage;
-  ScheduleShiftResultDataModel resultDataModel;
+  List<SchedulerAssignmentModel> assignment;
 
-  ScheduleShiftResultModel(
-      {this.status, this.statusMessage, this.resultDataModel});
+  ScheduleShiftResultModel({this.status, this.statusMessage, this.assignment});
 
   factory ScheduleShiftResultModel.fromMap(Map map) {
     try {
@@ -58,9 +66,13 @@ class ScheduleShiftResultModel {
           status: EnumHelpers.getScheduleShiftResultStatusFromString(
               map[ScheduleShiftSchema.status]),
           statusMessage: map[ScheduleShiftSchema.statusMessage],
-          resultDataModel: ScheduleShiftResultDataModel.fromMap(
-            map[ScheduleShiftSchema.data],
-          ),
+          assignment: map[ScheduleShiftSchema.assignments] != null
+              ? (map[ScheduleShiftSchema.assignments] as List)
+                  ?.map((e) => SchedulerAssignmentModel.fromMap(
+                        e,
+                      ))
+                  ?.toList()
+              : null,
         );
       } else {
         return null;
@@ -72,14 +84,14 @@ class ScheduleShiftResultModel {
   }
 }
 
-class ScheduleShiftResultDataModel {
+class SchedulerAssignmentModel {
   DocumentReference shiftPatternRef;
   DocumentReference workerRef;
   DateTime startDate;
   DateTime endDate;
   WorkerModel workerModel;
 
-  ScheduleShiftResultDataModel({
+  SchedulerAssignmentModel({
     this.shiftPatternRef,
     this.workerRef,
     this.startDate,
@@ -87,10 +99,10 @@ class ScheduleShiftResultDataModel {
     this.workerModel,
   });
 
-  factory ScheduleShiftResultDataModel.fromMap(Map map) {
+  factory SchedulerAssignmentModel.fromMap(Map map) {
     try {
       if (map != null && map.isNotEmpty) {
-        return ScheduleShiftResultDataModel(
+        return SchedulerAssignmentModel(
           shiftPatternRef: map[ScheduleShiftSchema.shiftPatternRef],
           workerRef: map[ScheduleShiftSchema.workerRef],
           startDate:

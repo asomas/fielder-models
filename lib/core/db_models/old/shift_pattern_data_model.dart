@@ -5,12 +5,14 @@ import 'package:fielder_models/core/db_models/old/organisation_model.dart';
 import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/candidates_matching_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/schedule_shift_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
 import 'package:fielder_models/core/db_models/old/shift_activities_model.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
 import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/occupation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../worker/schema/locationSchema.dart';
 
@@ -82,6 +84,13 @@ class ShiftPatternDataModel {
     this.isTailOFTheShift,
     this.enableUnpaidBreaks,
   });
+
+  static const String dateFormatWithHyphen = "yyyy-MM-dd";
+  static String yearMonthDay(DateTime dateTime) {
+    if (dateTime != null)
+      return DateFormat(dateFormatWithHyphen).format(dateTime);
+    return null;
+  }
 
   static String timeStringFromDuration(int secondsFromMidnight) {
     Duration duration = Duration(seconds: secondsFromMidnight?.round());
@@ -271,11 +280,11 @@ class ShiftPatternDataModel {
   Map<String, dynamic> toMatchingData(JobDataModel jobDataModel) {
     try {
       return {
-        CandidatesMatchingRequestSchema.shiftPatternId: docID,
+        ScheduleShiftSchema.shiftId: docID,
         CandidatesMatchingRequestSchema.organisationId: organisation?.docID,
-        CandidatesMatchingRequestSchema.startDate: startDate,
-        CandidatesMatchingRequestSchema.endDate: endDate,
-        CandidatesMatchingRequestSchema.recurrence: recurrence,
+        CandidatesMatchingRequestSchema.startDate: yearMonthDay(startDate),
+        CandidatesMatchingRequestSchema.endDate: yearMonthDay(endDate),
+        CandidatesMatchingRequestSchema.recurrence: recurrence.toJSON(),
         CandidatesMatchingRequestSchema.skills:
             jobDataModel?.skills?.map((e) => e?.docID)?.toList() ?? [],
         CandidatesMatchingRequestSchema.courses: jobDataModel?.courses

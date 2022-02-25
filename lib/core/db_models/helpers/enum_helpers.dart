@@ -451,6 +451,8 @@ class EnumHelpers {
         return ScheduleShiftStatus.Completed;
       case ScheduleShiftStatusString.failed:
         return ScheduleShiftStatus.Failed;
+      case ScheduleShiftStatusString.cancelled:
+        return ScheduleShiftStatus.Cancelled;
       default:
         return ScheduleShiftStatus.NotStarted;
     }
@@ -465,6 +467,23 @@ class EnumHelpers {
         return ScheduleShiftResultStatus.Fail;
       default:
         return null;
+    }
+  }
+
+  static String getStringFromScheduleShiftStatus(ScheduleShiftStatus status) {
+    switch (status) {
+      case ScheduleShiftStatus.NotStarted:
+        return ScheduleShiftStatusString.notStarted;
+      case ScheduleShiftStatus.InProgress:
+        return ScheduleShiftStatusString.inProgress;
+      case ScheduleShiftStatus.Cancelled:
+        return ScheduleShiftStatusString.cancelled;
+      case ScheduleShiftStatus.Completed:
+        return ScheduleShiftStatusString.complete;
+      case ScheduleShiftStatus.Failed:
+        return ScheduleShiftStatusString.failed;
+      default:
+        return ScheduleShiftStatusString.notStarted;
     }
   }
 }
