@@ -20,6 +20,8 @@ class ScheduleShiftSchema {
   static const String archived = "archived";
   static const String updatedAt = "updated_at";
   static const String assignments = "assignments";
+  static const String workerId = "worker_id";
+  static const String shiftPatternId = "shift_pattern_id";
 }
 
 class ScheduleShiftStatusString {

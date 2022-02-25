@@ -122,4 +122,13 @@ class SchedulerAssignmentModel {
       return null;
     }
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      ScheduleShiftSchema.workerId: workerRef?.id,
+      ScheduleShiftSchema.shiftPatternId: shiftPatternRef?.id,
+      ScheduleShiftSchema.startDate: workerRef?.id,
+      ScheduleShiftSchema.endDate: workerRef?.id,
+    };
+  }
 }
