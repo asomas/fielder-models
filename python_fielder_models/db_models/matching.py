@@ -33,9 +33,21 @@ class ScheduleTaskDBSerializer(BaseDBSerializer):
 
 
 class ScheduleTaskResultDBSerializer(BaseDBSerializer):
-    status = serializers.ChoiceField(choices=ScheduleTaskResultStatus._member_names_)
-    status_message = serializers.CharField()
-    data = serializers.DictField()
+    class SchedulerAssignmentSerializer(serializers.Serializer):
+        shift_pattern_ref = DocumentReferenceField()
+        start_date = serializers.DateField()
+        end_date = serializers.DateField()
+        worker_ref = DocumentReferenceField()
+        worker_data = serializers.DictField()
+
+    status = serializers.ChoiceField(
+        choices=ScheduleTaskResultStatus._member_names_,
+        default=ScheduleTaskResultStatus.SUCCESS.name,
+    )
+    status_message = serializers.CharField(default="Scheduler completed successfully")
+    assignments = serializers.ListField(
+        child=SchedulerAssignmentSerializer(), default=[]
+    )
 
 
 class ScheduleTaskRequestDBSerializer(BaseDBSerializer):
