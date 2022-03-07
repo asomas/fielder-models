@@ -51,4 +51,6 @@ class FbCollections {
   static const String levels = 'levels';
   static const String scheduleTasks = 'schedule_tasks';
   static const String result = 'result';
+  static const String staffHubWelcomeCarousel = 'staff_hub_welcome_carousel';
+  static const String images = 'images';
 }
