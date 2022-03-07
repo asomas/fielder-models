@@ -49,4 +49,5 @@ class FbCollections {
   static const String enhancedDbs = 'enhanced_dbs';
   static const String courses = 'courses';
   static const String levels = 'levels';
+  static const String organisationUserRelations = "organisation_user_relations";
 }
