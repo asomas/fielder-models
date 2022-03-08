@@ -453,6 +453,7 @@ class EnumHelpers {
   }
 
   static Roles getRole(String role) {
+    role = role.toLowerCase();
     Roles userRole = Roles.OWNER;
     if (role == 'owner') {
       userRole = Roles.OWNER;
@@ -464,6 +465,8 @@ class EnumHelpers {
       userRole = Roles.ADMIN;
     } else if (role == "hr") {
       userRole = Roles.HR;
+    } else if (role == "group_user" || role == 'group member') {
+      userRole = Roles.GROUP_MEMBER;
     }
 
     return userRole;
@@ -481,6 +484,8 @@ class EnumHelpers {
       userRole = "admin";
     } else if (role == Roles.HR) {
       userRole = "hr";
+    } else if (role == Roles.GROUP_MEMBER) {
+      userRole = "group_user";
     }
     return userRole;
   }
@@ -495,5 +500,41 @@ class EnumHelpers {
       acceptanceStatus = AcceptanceStatus.PENDING;
     }
     return acceptanceStatus;
+  }
+
+  static String stringFromGroupRole(GroupRole role) {
+    switch (role) {
+      case (GroupRole.Manager):
+        return 'Manager';
+      case (GroupRole.Supervisor):
+        return 'Supervisor';
+      default:
+        return '';
+    }
+  }
+
+  static GroupRole groupRoleFromString(String role) {
+    role = role.toLowerCase();
+    switch (role) {
+      case ('manager'):
+        return GroupRole.Manager;
+      case ('supervisor'):
+        return GroupRole.Supervisor;
+      default:
+        return null;
+    }
+  }
+
+  static String stringFromOrgRole(Roles role, {bool forApi = false}) {
+    switch (role) {
+      case (Roles.OWNER):
+        return 'Owner';
+      case (Roles.ADMIN):
+        return 'Admin';
+      case (Roles.GROUP_MEMBER):
+        return forApi ? 'GROUP_USER' : 'Group Member';
+      default:
+        return '';
+    }
   }
 }

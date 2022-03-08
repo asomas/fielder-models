@@ -51,4 +51,5 @@ class FbCollections {
   static const String levels = 'levels';
   static const String organisationUserRelations = "organisation_user_relations";
   static const String groups = 'groups';
+  static const String groupOrgUserRelations = 'group_org_user_relations';
 }
