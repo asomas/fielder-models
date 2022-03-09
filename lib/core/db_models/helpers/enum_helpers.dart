@@ -472,23 +472,23 @@ class EnumHelpers {
     return userRole;
   }
 
-  static String getRoleString(Roles role) {
-    String userRole = "owner";
-    if (role == Roles.OWNER) {
-      userRole = "owner";
-    } else if (role == Roles.MANAGER) {
-      userRole = "manager";
-    } else if (role == Roles.SUPERVISOR) {
-      userRole = "supervisor";
-    } else if (role == Roles.ADMIN) {
-      userRole = "admin";
-    } else if (role == Roles.HR) {
-      userRole = "hr";
-    } else if (role == Roles.GROUP_MEMBER) {
-      userRole = "group_user";
-    }
-    return userRole;
-  }
+  // static String getRoleString(Roles role) {
+  //   String userRole = "owner";
+  //   if (role == Roles.OWNER) {
+  //     userRole = "owner";
+  //   } else if (role == Roles.MANAGER) {
+  //     userRole = "manager";
+  //   } else if (role == Roles.SUPERVISOR) {
+  //     userRole = "supervisor";
+  //   } else if (role == Roles.ADMIN) {
+  //     userRole = "admin";
+  //   } else if (role == Roles.HR) {
+  //     userRole = "hr";
+  //   } else if (role == Roles.GROUP_MEMBER) {
+  //     userRole = "group_user";
+  //   }
+  //   return userRole;
+  // }
 
   static AcceptanceStatus getAcceptanceStatus(String status) {
     AcceptanceStatus acceptanceStatus = AcceptanceStatus.ACCEPTED;
