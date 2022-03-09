@@ -4,6 +4,7 @@ import 'package:fielder_models/core/db_models/old/schema/organisation_user_schem
 import 'package:fielder_models/core/db_models/temp/common.dart';
 
 class OrganisationUserRelation {
+  String docId;
   DocumentReference organisationRef;
   DocumentReference organisationUserRef;
   Roles role;
@@ -11,6 +12,7 @@ class OrganisationUserRelation {
   Organisation organisation;
 
   OrganisationUserRelation({
+    this.docId,
     this.organisationRef,
     this.organisationUserRef,
     this.role,
@@ -18,7 +20,7 @@ class OrganisationUserRelation {
     this.organisation,
   });
 
-  factory OrganisationUserRelation.fromMap(Map map,
+  factory OrganisationUserRelation.fromMap(String docId, Map map,
       {Map organisationDetailsMap}) {
     try {
       Organisation org;
@@ -26,6 +28,7 @@ class OrganisationUserRelation {
         org = Organisation.fromMap(organisationDetailsMap);
       }
       return OrganisationUserRelation(
+        docId: docId,
         organisationRef: map[OrganisationUserRelationSchema.organisationRef],
         organisationUserRef:
             map[OrganisationUserRelationSchema.organisationUserRef],

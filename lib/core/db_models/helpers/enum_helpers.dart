@@ -491,6 +491,7 @@ class EnumHelpers {
   // }
 
   static AcceptanceStatus getAcceptanceStatus(String status) {
+    status = status.toLowerCase();
     AcceptanceStatus acceptanceStatus = AcceptanceStatus.ACCEPTED;
     if (status == 'accepted') {
       acceptanceStatus = AcceptanceStatus.ACCEPTED;
