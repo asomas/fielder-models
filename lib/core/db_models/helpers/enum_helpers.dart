@@ -506,14 +506,8 @@ class EnumHelpers {
     Roles userRole = Roles.OWNER;
     if (role == 'owner') {
       userRole = Roles.OWNER;
-    } else if (role == 'manager') {
-      userRole = Roles.MANAGER;
-    } else if (role == 'supervisor') {
-      userRole = Roles.SUPERVISOR;
     } else if (role == "admin") {
       userRole = Roles.ADMIN;
-    } else if (role == "hr") {
-      userRole = Roles.HR;
     } else if (role == "group_user" || role == 'group member') {
       userRole = Roles.GROUP_MEMBER;
     }
@@ -550,6 +544,17 @@ class EnumHelpers {
       acceptanceStatus = AcceptanceStatus.PENDING;
     }
     return acceptanceStatus;
+  }
+
+  static String getStringFromAcceptanceStatus(AcceptanceStatus status) {
+    if (status == AcceptanceStatus.ACCEPTED) {
+      return 'Accepted';
+    } else if (status == AcceptanceStatus.DECLINED) {
+      return 'Declined';
+    } else if (status == AcceptanceStatus.PENDING) {
+      return 'Pending';
+    }
+    return '';
   }
 
   static String stringFromGroupRole(GroupRole role) {
