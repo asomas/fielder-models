@@ -53,6 +53,7 @@ class BaseJobSerializer(serializers.Serializer):
     courses = serializers.ListField(child=CourseLevelSerializer(), default=[])
     organisation_data = serializers.DictField()
     organisation_ref = DocumentReferenceField()
+    group_ref = DocumentReferenceField()
 
     def to_internal_value(self, data):
         if "job_title" in data:

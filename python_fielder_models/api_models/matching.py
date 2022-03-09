@@ -9,6 +9,7 @@ class WorkerType(Enum):
     FIELDER = auto()
     STAFF = auto()
     NETWORK = auto()
+    STAFF_FIELDER = auto()
 
 
 class BaseMatchingShiftRequestSerializer(serializers.Serializer):
@@ -66,12 +67,13 @@ class SchedulerShiftRequestSerializer(MatchingShiftRequestSerializer):
 
 class MatchingRequestSerializer(MatchingShiftRequestSerializer):
     worker_id = serializers.CharField(required=False, allow_blank=True)
+    organisation_id = serializers.CharField()
     skip = serializers.IntegerField(min_value=0, default=0)
     limit = serializers.IntegerField(min_value=0, max_value=10, default=5)
     worker_type = serializers.ChoiceField(choices=WorkerType._member_names_)
 
 
-class ShchedluerRequestSerializer(serializers.Serializer):
+class SchedulerRequestSerializer(serializers.Serializer):
     shifts = serializers.ListField(child=SchedulerShiftRequestSerializer())
     include_fielders = serializers.BooleanField(default=False)
     include_staff = serializers.BooleanField(default=False)

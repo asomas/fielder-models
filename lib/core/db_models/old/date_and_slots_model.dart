@@ -13,3 +13,32 @@ class DateAndSlotsModel {
       this.disabled = false,
       this.totalTimeRows = 1});
 }
+
+class SlotGroupModel {
+  String jobId;
+  String workerId;
+  String locationName;
+  int rowIndex;
+
+  SlotGroupModel(
+      {@required this.jobId,
+      @required this.workerId,
+      @required this.locationName,
+      @required this.rowIndex});
+
+  Map toJson() {
+    return {
+      'job_id': jobId,
+      'worker_id': workerId,
+      'location_name': locationName,
+      'row_index': rowIndex
+    };
+  }
+
+  @override
+  bool operator ==(other) {
+    return this.jobId == other.jobId &&
+        this.workerId == other.workerId &&
+        this.locationName == other.locationName;
+  }
+}

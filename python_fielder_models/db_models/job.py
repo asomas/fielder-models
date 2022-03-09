@@ -1,5 +1,5 @@
 from datetime import datetime
-from enum import Enum
+from enum import Enum, auto
 
 from fielder_backend_utils.rest_utils import DocumentReferenceField
 from python_fielder_models.api_models.matching import WorkerType
@@ -15,11 +15,14 @@ from rest_framework import serializers
 
 
 class OfferStatus(Enum):
-    Pending = 0
-    Queued = 1
-    Declined = 2
-    Accepted = 3
-    Expired = 4
+    ACCEPTED = auto()
+    DECLINED = auto()
+    PENDING_CHECKS_BACKOFFICE = auto()
+    PENDING_CHECKS_WORKER = auto()
+    PENDING_WORKER_FINAL_CONFIRMATION = auto()
+    PENDING_WORKER_RESPONSE = auto()
+    QUEUED = auto()
+    RETRACTED = auto()
 
 
 class PaymentDBSerializer(serializers.Serializer):

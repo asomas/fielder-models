@@ -1,13 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/old/address_model.dart';
+import 'package:fielder_models/core/db_models/old/job_data_model.dart';
 import 'package:fielder_models/core/db_models/old/organisation_model.dart';
 import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
+import 'package:fielder_models/core/db_models/old/schema/candidates_matching_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/schedule_shift_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
 import 'package:fielder_models/core/db_models/old/shift_activities_model.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
 import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/occupation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import '../worker/schema/locationSchema.dart';
 
 class ShiftPatternDataModel {
   String docID;
@@ -78,6 +85,13 @@ class ShiftPatternDataModel {
     this.enableUnpaidBreaks,
   });
 
+  static const String dateFormatWithHyphen = "yyyy-MM-dd";
+  static String yearMonthDay(DateTime dateTime) {
+    if (dateTime != null)
+      return DateFormat(dateFormatWithHyphen).format(dateTime);
+    return null;
+  }
+
   static String timeStringFromDuration(int secondsFromMidnight) {
     Duration duration = Duration(seconds: secondsFromMidnight?.round());
     String twoDigits(int n) => n.abs().toString().padLeft(2, "0");
@@ -89,6 +103,7 @@ class ShiftPatternDataModel {
       timeOfDay = timeOfDay.replacing(hour: timeOfDay.hourOfPeriod);
       hours = timeOfDay.hour;
     }
+    if (hours == 24) hours = 0;
     String twoDigitMinutes = twoDigits(mins);
     // String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
     return "${twoDigits(hours)}:$twoDigitMinutes";
@@ -261,5 +276,32 @@ class ShiftPatternDataModel {
       isRecurring: shiftPatternDataModel.isRecurring,
       enableUnpaidBreaks: shiftPatternDataModel.enableUnpaidBreaks,
     );
+  }
+
+  Map<String, dynamic> toMatchingData(JobDataModel jobDataModel) {
+    try {
+      return {
+        ScheduleShiftSchema.shiftId: docID,
+        CandidatesMatchingRequestSchema.organisationId: organisation?.docID,
+        CandidatesMatchingRequestSchema.startDate: yearMonthDay(startDate),
+        CandidatesMatchingRequestSchema.endDate: yearMonthDay(endDate),
+        CandidatesMatchingRequestSchema.recurrence: recurrence.toJSON(),
+        CandidatesMatchingRequestSchema.skills:
+            jobDataModel?.skills?.map((e) => e?.docID)?.toList() ?? [],
+        CandidatesMatchingRequestSchema.courses: jobDataModel?.courses
+                ?.map((e) => e?.toJsonForMatching())
+                ?.toList() ??
+            [],
+        CandidatesMatchingRequestSchema.checks:
+            jobDataModel?.checks?.map((e) => e?.checkID)?.toList() ?? [],
+        CandidatesMatchingRequestSchema.startTime: startTimeInt,
+        CandidatesMatchingRequestSchema.endTime: endTimeInt,
+        LocationSchema.address:
+            (AddressModel.fromObject(shiftLocationDataModel)).toJsonLocation()
+      };
+    } catch (e, s) {
+      print("to matching from shift patterns catch___${e}_____$s");
+      return {};
+    }
   }
 }

@@ -51,6 +51,7 @@ enum ShiftFrequencies {
   None,
   Daily,
   Weekly,
+  TwoWeeks,
 }
 
 enum RepeatInterval {
@@ -116,3 +117,12 @@ enum ChecksType { DBS, EnhancedDBS, ProofOfID }
 enum MatchingHoverType { Availability, Skills, Checks, Courses, Location }
 
 enum GroupRole { Manager, Supervisor }
+
+enum ScheduleShiftStatus {
+  NotStarted,
+  InProgress,
+  Completed,
+  Failed,
+  Cancelled
+}
+enum ScheduleShiftResultStatus { Success, Fail }
