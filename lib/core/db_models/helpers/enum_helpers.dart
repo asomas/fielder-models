@@ -3,6 +3,7 @@ import 'package:fielder_models/core/constants/app_strings.dart';
 import 'package:fielder_models/core/db_models/old/schema/company_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/schedule_shift_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
+import 'package:fielder_models/core/db_models/temp/common.dart';
 import 'package:fielder_models/core/db_models/worker/schema/newsNotificationSchema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 import 'package:flutter/material.dart';
@@ -497,6 +498,93 @@ class EnumHelpers {
         return ScheduleShiftStatusString.failed;
       default:
         return ScheduleShiftStatusString.notStarted;
+    }
+  }
+
+  static Roles getRole(String role) {
+    role = role.toLowerCase();
+    Roles userRole = Roles.OWNER;
+    if (role == 'owner') {
+      userRole = Roles.OWNER;
+    } else if (role == 'manager') {
+      userRole = Roles.MANAGER;
+    } else if (role == 'supervisor') {
+      userRole = Roles.SUPERVISOR;
+    } else if (role == "admin") {
+      userRole = Roles.ADMIN;
+    } else if (role == "hr") {
+      userRole = Roles.HR;
+    } else if (role == "group_user" || role == 'group member') {
+      userRole = Roles.GROUP_MEMBER;
+    }
+
+    return userRole;
+  }
+
+  // static String getRoleString(Roles role) {
+  //   String userRole = "owner";
+  //   if (role == Roles.OWNER) {
+  //     userRole = "owner";
+  //   } else if (role == Roles.MANAGER) {
+  //     userRole = "manager";
+  //   } else if (role == Roles.SUPERVISOR) {
+  //     userRole = "supervisor";
+  //   } else if (role == Roles.ADMIN) {
+  //     userRole = "admin";
+  //   } else if (role == Roles.HR) {
+  //     userRole = "hr";
+  //   } else if (role == Roles.GROUP_MEMBER) {
+  //     userRole = "group_user";
+  //   }
+  //   return userRole;
+  // }
+
+  static AcceptanceStatus getAcceptanceStatus(String status) {
+    status = status.toLowerCase();
+    AcceptanceStatus acceptanceStatus = AcceptanceStatus.ACCEPTED;
+    if (status == 'accepted') {
+      acceptanceStatus = AcceptanceStatus.ACCEPTED;
+    } else if (status == 'declined') {
+      acceptanceStatus = AcceptanceStatus.DECLINED;
+    } else if (status == 'pending') {
+      acceptanceStatus = AcceptanceStatus.PENDING;
+    }
+    return acceptanceStatus;
+  }
+
+  static String stringFromGroupRole(GroupRole role) {
+    switch (role) {
+      case (GroupRole.Manager):
+        return 'Manager';
+      case (GroupRole.Supervisor):
+        return 'Supervisor';
+      default:
+        return '';
+    }
+  }
+
+  static GroupRole groupRoleFromString(String role) {
+    role = role.toLowerCase();
+    switch (role) {
+      case ('manager'):
+        return GroupRole.Manager;
+      case ('supervisor'):
+        return GroupRole.Supervisor;
+      default:
+        return null;
+    }
+  }
+
+  static String stringFromOrgRole(Roles role, {bool forApi = false}) {
+    switch (role) {
+      case (Roles.OWNER):
+        return 'Owner';
+      case (Roles.ADMIN):
+        return 'Admin';
+      case (Roles.GROUP_MEMBER):
+        return forApi ? 'GROUP_USER' : 'Group Member';
+      default:
+        return '';
     }
   }
 }

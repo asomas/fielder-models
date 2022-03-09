@@ -1,43 +1,92 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
+import 'package:fielder_models/core/db_models/old/schema/organisation_user_schema.dart';
 import 'package:fielder_models/core/db_models/temp/common.dart';
 
-// collection name: organisation_user
+class OrganisationUserRelation {
+  String docId;
+  DocumentReference organisationRef;
+  DocumentReference organisationUserRef;
+  Roles role;
+  AcceptanceStatus status;
+  Organisation organisation;
+
+  OrganisationUserRelation({
+    this.docId,
+    this.organisationRef,
+    this.organisationUserRef,
+    this.role,
+    this.status,
+    this.organisation,
+  });
+
+  factory OrganisationUserRelation.fromMap(String docId, Map map,
+      {Map organisationDetailsMap}) {
+    try {
+      Organisation org;
+      if (organisationDetailsMap != null && organisationDetailsMap.isNotEmpty) {
+        org = Organisation.fromMap(organisationDetailsMap);
+      }
+      return OrganisationUserRelation(
+        docId: docId,
+        organisationRef: map[OrganisationUserRelationSchema.organisationRef],
+        organisationUserRef:
+            map[OrganisationUserRelationSchema.organisationUserRef],
+        role: EnumHelpers.getRole(map[OrganisationUserRelationSchema.orgRole]),
+        status: EnumHelpers.getAcceptanceStatus(
+            map[OrganisationUserRelationSchema.status]),
+        organisation: org,
+      );
+    } catch (e, s) {
+      print("organisation user catch____${e}____$s");
+      return null;
+    }
+  }
+}
+
 class OrganisationUser {
   String name; // max value 156
   String email; // valid email
   var organisations = Map<String,
-      OrganisationSubscription>(); // id of map should be an Id of organisation in organisation collection
+      OrganisationUserRelation>(); // id of map should be an Id of organisation in organisation collection
   Timestamp dateCreated; // FirestoreTimeStamp
-
-  // Test Example
-  String testJson =
-      '{ "name": "Test", "email": "abc@test.com", "organisations": {"org1": {"name": "Deepak", "role": "", "status": '
-      '""}}, '
-      '"date_created": ""}';
+  String organisationUserRefId;
 
   static OrganisationUser fromMap(Map<String, dynamic> map) {
     if (map == null) return null;
-    print("inside map $map");
-    //print("organisation ${map['organisations']}");
-    var name = map['name'];
-    print("name is $name");
+    try {
+      print("inside map $map");
+      //print("organisation ${map['organisations']}");
+      var name = map['name'];
+      print("name is $name");
 
-    OrganisationUser organisationUser = OrganisationUser();
-    organisationUser.name = map['name'];
-    organisationUser.email = map['email'];
-    //organisationUser.organisations = map['organisations'];
-    var data = map['organisations'] as Map;
+      OrganisationUser organisationUser = OrganisationUser();
+      organisationUser.name = map['name'];
+      organisationUser.email = map['email'];
+      organisationUser.organisationUserRefId =
+          map['organisation_user_reference_id'];
+      //organisationUser.organisations = map['organisations'];
+      //var data = map['organisations'] as Map;
 
-    if (data != null) {
-      data.forEach((key, value) {
-        var user = OrganisationSubscription.fromMap(value);
-        var data = {key.toString(): user};
-        organisationUser.organisations.addAll(data);
-      });
+      // if (orgUserRelationMap != null && orgUserRelationMap.isNotEmpty) {
+      //   orgUserRelationMap.forEach((element) {
+      //     organisationUser.organisations[element.id] =
+      //         OrganisationUserRelation.fromMap(element.data(),
+      //             organisationDetailsMap: organisationDetailsMap);
+      //   });
+
+      // data.forEach((key, value) {
+      //   var user = OrganisationSubscription.fromMap(value);
+      //   var data = {key.toString(): user};
+      //   organisationUser.organisations.addAll(data);
+      // });
+      //}
+      organisationUser.dateCreated = map['date_created'];
+      print("organisation is $organisationUser");
+      return organisationUser;
+    } catch (e, s) {
+      print('create organisation user catch_____${e}____$s');
     }
-    organisationUser.dateCreated = map['date_created'];
-    print("organisation is $organisationUser");
-    return organisationUser;
   }
 
   Map toJson() => {
@@ -48,79 +97,26 @@ class OrganisationUser {
       };
 }
 
-// Validate all the condition inside fromMap if everything is good
-//check dependency no need to don manually
-// Make the json manually
-
-//Read json_annotation
-//https://pub.dev/packages/json_schema
-
-// helper
-class OrganisationSubscription {
-  String companyName; //max length 75
-  AcceptanceStatus status; // check into fromMap and return the StatusEnums
-  Roles role; // check into fromMap and return the RolesEnum
-
-  static OrganisationSubscription fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-    OrganisationSubscription userOrganisation = OrganisationSubscription();
-    userOrganisation.companyName = map['company_name'];
-    userOrganisation.role = getRole(map['role']);
-    userOrganisation.status = getAcceptanceStatus(map['status']);
-    return userOrganisation;
-  }
-
-  static Roles getRole(String role) {
-    Roles userRole = Roles.OWNER;
-    if (role == 'owner') {
-      userRole = Roles.OWNER;
-    } else if (role == 'manager') {
-      userRole = Roles.MANAGER;
-    } else if (role == 'supervisor') {
-      userRole = Roles.SUPERVISOR;
-    } else if (role == "admin") {
-      userRole = Roles.ADMIN;
-    } else if (role == "hr") {
-      userRole = Roles.HR;
-    }
-
-    return userRole;
-  }
-
-  static String getRoleString(Roles role) {
-    String userRole = "owner";
-    if (role == Roles.OWNER) {
-      userRole = "owner";
-    } else if (role == Roles.MANAGER) {
-      userRole = "manager";
-    } else if (role == Roles.SUPERVISOR) {
-      userRole = "supervisor";
-    } else if (role == Roles.ADMIN) {
-      userRole = "admin";
-    } else if (role == Roles.HR) {
-      userRole = "hr";
-    }
-    return userRole;
-  }
-
-  static AcceptanceStatus getAcceptanceStatus(String status) {
-    AcceptanceStatus acceptanceStatus = AcceptanceStatus.ACCEPTED;
-    if (status == 'accepted') {
-      acceptanceStatus = AcceptanceStatus.ACCEPTED;
-    } else if (status == 'declined') {
-      acceptanceStatus = AcceptanceStatus.DECLINED;
-    } else if (status == 'pending') {
-      acceptanceStatus = AcceptanceStatus.PENDING;
-    }
-    return acceptanceStatus;
-  }
-
-  Map toJson() => {
-        "name": companyName,
-        "role": role,
-        "status": status,
-      };
-}
+// class OrganisationSubscription {
+//   String companyName; //max length 75
+//   AcceptanceStatus status; // check into fromMap and return the StatusEnums
+//   Roles role; // check into fromMap and return the RolesEnum
+//
+//   static OrganisationSubscription fromMap(Map<String, dynamic> map) {
+//     if (map == null) return null;
+//     OrganisationSubscription userOrganisation = OrganisationSubscription();
+//     userOrganisation.companyName = map['company_name'];
+//     userOrganisation.role = EnumHelpers.getRole(map['role']);
+//     userOrganisation.status = EnumHelpers.getAcceptanceStatus(map['status']);
+//     return userOrganisation;
+//   }
+//
+//   Map toJson() => {
+//         "name": companyName,
+//         "role": role,
+//         "status": status,
+//       };
+// }
 
 // Collection name: organisations
 class Organisation {
@@ -408,6 +404,7 @@ class UserDetail {
     this.status,
     this.role,
     this.manager,
+    this.groupCount,
   });
 
   String id;
@@ -417,20 +414,21 @@ class UserDetail {
   AcceptanceStatus status;
   String role;
   String manager;
+  num groupCount;
 
   factory UserDetail.fromJson(Map<String, dynamic> json) => UserDetail(
-        id: json["id"],
-        name: json["name"] == null ? null : json["name"],
-        email: json["email"] == null ? null : json["email"],
-        dateCreated: json["date_created"] == null
-            ? null
-            : DateTime.parse(json["date_created"]),
-        status: json["status"] == null
-            ? null
-            : OrganisationSubscription.getAcceptanceStatus(json['status']),
-        role: json["role"] == null ? null : json["role"],
-        manager: json["manager"] == null ? null : json["manager"],
-      );
+      id: json["id"],
+      name: json["name"] == null ? null : json["name"],
+      email: json["email"] == null ? null : json["email"],
+      dateCreated: json["date_created"] == null
+          ? null
+          : DateTime.parse(json["date_created"]),
+      status: json["status"] == null
+          ? null
+          : EnumHelpers.getAcceptanceStatus(json['status']),
+      role: json["role"] == null ? null : json["role"],
+      manager: json["manager"] == null ? null : json["manager"],
+      groupCount: json['group_count']);
 
   Map<String, dynamic> toJson() => {
         "name": name == null ? null : name,
@@ -440,6 +438,7 @@ class UserDetail {
         "status": status == null ? null : status,
         "role": role == null ? null : role,
         "manager": manager == null ? null : manager,
+        "group_count": groupCount,
       };
 
   static Future<UserDetail> getUserDetails(DocumentReference ref,
