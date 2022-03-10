@@ -28,7 +28,7 @@ class OrganisationWorkerRelation {
     @required Map<String, dynamic> map,
     @required String docID,
   }) {
-    if (map.isNotEmpty) {
+    if (map != null && map.isNotEmpty) {
       try {
         final DocumentReference _organisationIdRef =
             map[OrganisationWorkerRelationSchema.organisationRef];
@@ -52,17 +52,18 @@ class OrganisationWorkerRelation {
 
         return OrganisationWorkerRelation(
           docId: docID,
-          organisationID: _organisationIdRef.id,
+          organisationID: _organisationIdRef?.id,
           isStaff: _isStaff,
           pictureUrl: _pictureURL,
           workerFirstName: _firstName,
           workerLastName: _lastName,
           phone: _phone,
           lastReview: _lastReviewDate,
-          workerId: _workerIdRef.id,
+          workerId: _workerIdRef?.id,
         );
-      } catch (e) {
-        print("organisation_worker_relation.dart_____Model Catch_________$e");
+      } catch (e, s) {
+        print(
+            "organisation_worker_relation.dart_____Model Catch_________${e}___$s");
         return null;
       }
     }

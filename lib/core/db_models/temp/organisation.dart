@@ -412,7 +412,7 @@ class UserDetail {
   String email;
   DateTime dateCreated;
   AcceptanceStatus status;
-  String role;
+  Roles role;
   String manager;
   num groupCount;
 
@@ -426,7 +426,7 @@ class UserDetail {
       status: json["status"] == null
           ? null
           : EnumHelpers.getAcceptanceStatus(json['status']),
-      role: json["role"] == null ? null : json["role"],
+      role: json["role"] == null ? null : EnumHelpers.getRole(json["role"]),
       manager: json["manager"] == null ? null : json["manager"],
       groupCount: json['group_count']);
 
