@@ -79,7 +79,7 @@ class SchedulerRequestSerializer(serializers.Serializer):
     include_staff = serializers.BooleanField(default=False)
 
     def validate(self, attrs):
-        if not attrs.get("include_fielders") and not attrs("include_staff"):
+        if not attrs.get("include_fielders") and not attrs.get("include_staff"):
             raise serializers.ValidationError(
                 "At least one of include_fielders or include_staff must be true"
             )
