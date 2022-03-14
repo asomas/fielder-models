@@ -1,6 +1,7 @@
 import 'package:fielder_models/core/constants/app_colors.dart';
 import 'package:fielder_models/core/constants/app_strings.dart';
 import 'package:fielder_models/core/db_models/old/schema/company_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/offers_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/schedule_shift_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
 import 'package:fielder_models/core/db_models/temp/common.dart';
@@ -59,15 +60,26 @@ class EnumHelpers {
   }
 
   static OfferStatus getOfferStatusFromString(String status) {
+    status = status.toUpperCase();
     switch (status) {
-      case 'Pending':
-        return OfferStatus.Pending;
-      case 'Declined':
-        return OfferStatus.Rejected;
-      case 'Expired':
-        return OfferStatus.Expired;
-      case 'Queued':
+      case OffersStatusString.pendingChecksBackoffice:
+        return OfferStatus.PendingChecksBackOffice;
+      case OffersStatusString.pendingChecksWorker:
+        return OfferStatus.PendingChecksWorker;
+      case OffersStatusString.pendingWorkerFinalConfirmation:
+        return OfferStatus.PendingWorkerFinalConfirmation;
+      case OffersStatusString.pendingWorkerResponse:
+        return OfferStatus.PendingWorkerResponse;
+      case OffersStatusString.queued:
         return OfferStatus.Queued;
+      case OffersStatusString.accepted:
+        return OfferStatus.Accepted;
+      case OffersStatusString.declined:
+        return OfferStatus.Declined;
+      case OffersStatusString.retracted:
+        return OfferStatus.Retracted;
+      case OffersStatusString.expired:
+        return OfferStatus.Expired;
       default:
         return OfferStatus.None;
     }
@@ -397,7 +409,7 @@ class EnumHelpers {
     switch (status) {
       case OfferStatus.None:
         return InviteStaffStatus.None;
-      case OfferStatus.Rejected:
+      case OfferStatus.Declined:
         return InviteStaffStatus.Declined;
       case OfferStatus.Accepted:
         return InviteStaffStatus.Accepted;
