@@ -11,3 +11,7 @@ class OffersStatusString {
   static const String expired = 'EXPIRED';
   static const String none = 'NONE';
 }
+
+class OffersSchema {
+  static const String status = 'status';
+}
