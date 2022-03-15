@@ -35,8 +35,8 @@ class ScheduleTaskDBSerializer(BaseDBSerializer):
 class ScheduleTaskResultDBSerializer(BaseDBSerializer):
     class SchedulerAssignmentSerializer(serializers.Serializer):
         shift_pattern_ref = DocumentReferenceField()
-        start_date = serializers.DateField()
-        end_date = serializers.DateField()
+        start_date = serializers.DateTimeField()
+        end_date = serializers.DateTimeField()
         worker_ref = DocumentReferenceField()
         worker_data = serializers.DictField()
 

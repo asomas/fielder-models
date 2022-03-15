@@ -116,6 +116,8 @@ enum ChecksType { DBS, EnhancedDBS, ProofOfID }
 
 enum MatchingHoverType { Availability, Skills, Checks, Courses, Location }
 
+enum GroupRole { Manager, Supervisor }
+
 enum ScheduleShiftStatus {
   NotStarted,
   InProgress,

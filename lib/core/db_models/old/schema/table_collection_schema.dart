@@ -49,6 +49,9 @@ class FbCollections {
   static const String enhancedDbs = 'enhanced_dbs';
   static const String courses = 'courses';
   static const String levels = 'levels';
+  static const String organisationUserRelations = "organisation_user_relations";
+  static const String groups = 'groups';
+  static const String groupOrgUserRelations = 'group_org_user_relations';
   static const String scheduleTasks = 'schedule_tasks';
   static const String result = 'result';
   static const String staffHubWelcomeCarousel = 'staff_hub_welcome_carousel';

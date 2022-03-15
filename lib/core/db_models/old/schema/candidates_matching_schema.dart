@@ -34,6 +34,7 @@ class CandidatesMatchingRequestSchema {
   static const String badMatch = 'bad_match';
   static const String fielders = 'fielders';
   static const String network = 'network';
+  static const String activeRequest = 'active_request';
 }
 
 class HoverMatchingSchema {

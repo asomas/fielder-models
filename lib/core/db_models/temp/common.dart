@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum AcceptanceStatus { ACCEPTED, DECLINED, PENDING }
 
-enum Roles { OWNER, MANAGER, SUPERVISOR, ADMIN, HR }
+enum Roles { OWNER, ADMIN, GROUP_MEMBER }
 
 class VerifiedBase {
   Timestamp dov;
