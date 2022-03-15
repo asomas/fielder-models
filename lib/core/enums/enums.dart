@@ -126,3 +126,5 @@ enum ScheduleShiftStatus {
   Cancelled
 }
 enum ScheduleShiftResultStatus { Success, Fail }
+
+enum WelcomeCarouselItemType { Image, Video }
