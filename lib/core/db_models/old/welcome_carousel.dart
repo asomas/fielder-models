@@ -58,7 +58,6 @@ class WelcomeCarouselItem {
   static WelcomeCarouselItemType getUrlType(String url) {
     Uri uri = Uri.parse(url);
     String typeString = p.extension(uri.path).replaceAll('.', "");
-    print("EXTENSioN p_______${typeString}");
     if (videoFormats.contains(typeString.toLowerCase())) {
       return WelcomeCarouselItemType.Video;
     } else {
