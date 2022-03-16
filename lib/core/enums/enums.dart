@@ -67,7 +67,18 @@ enum CalendarType { date, time, none }
 
 enum AssignJobCard { Staff, Fielder, FielderNetwork, Interview }
 
-enum OfferStatus { Queued, Pending, Rejected, Accepted, Expired, None }
+enum OfferStatus {
+  Queued,
+  Retracted,
+  Accepted,
+  Declined,
+  Expired,
+  None,
+  PendingChecksBackOffice,
+  PendingChecksWorker,
+  PendingWorkerFinalConfirmation,
+  PendingWorkerResponse
+}
 
 enum GenericOverlayType { Jobs, AssignJob }
 
