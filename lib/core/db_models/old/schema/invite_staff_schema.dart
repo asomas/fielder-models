@@ -20,4 +20,5 @@ class InviteStaffSchema {
   static const String address = "address";
   static const String checkIds = "check_ids";
   static const String checks = "checks";
+  static const String documentsToSign = "documents_to_sign";
 }

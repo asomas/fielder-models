@@ -4,6 +4,7 @@ import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/interview_model.dart';
 import 'package:fielder_models/core/db_models/old/offers_model.dart';
+import 'package:fielder_models/core/db_models/old/on_boarding_docs_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/interviews_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/invite_staff_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
@@ -43,6 +44,7 @@ class InviteStatusModel {
   InterviewModel interviewModel;
   List<CheckModel> checkModels;
   Offers offer;
+  List<OnBoardingDocumentModel> docsToSign;
 
   InviteStatusModel({
     this.workerType,
@@ -73,6 +75,7 @@ class InviteStatusModel {
     this.interviewModel,
     this.checkModels,
     this.offer,
+    this.docsToSign,
   });
 
   static const Color blue = Color(0xFF0288D1);
@@ -111,6 +114,7 @@ class InviteStatusModel {
     InterviewModel _interviewModel;
     AddressModel _addressModel;
     List<CheckModel> _checks = [];
+    List<OnBoardingDocumentModel> _docsToSign = [];
     if (data.containsKey(InviteStaffSchema.interview) &&
         data[InviteStaffSchema.interview] != null) {
       _interview = EnumHelpers.getInterviewType(
@@ -132,6 +136,13 @@ class InviteStatusModel {
       _checks = (data[InviteStaffSchema.checks] as List)
           .map((e) => CheckModel.fromMap(
               map: e, checkID: e[JobSummarySchema.checkRef]?.id))
+          .toList();
+    }
+
+    if (data.containsKey(InviteStaffSchema.documentsToSign) &&
+        data[InviteStaffSchema.documentsToSign] != null) {
+      _docsToSign = (data[InviteStaffSchema.documentsToSign] as List)
+          .map((e) => OnBoardingDocumentModel.fromMap(e))
           .toList();
     }
     return InviteStatusModel(
@@ -173,6 +184,7 @@ class InviteStatusModel {
       interviewModel: _interviewModel,
       addressModel: _addressModel,
       checkModels: _checks,
+      docsToSign: _docsToSign,
     );
   }
 
