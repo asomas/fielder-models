@@ -139,3 +139,5 @@ enum ScheduleShiftStatus {
 enum ScheduleShiftResultStatus { Success, Fail }
 
 enum WelcomeCarouselItemType { Image, Video }
+
+enum OnBoardingDocumentSignStatus { Signed, Unsigned }

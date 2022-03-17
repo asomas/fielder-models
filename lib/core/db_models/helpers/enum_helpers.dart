@@ -604,4 +604,25 @@ class EnumHelpers {
         return '';
     }
   }
+
+  static String stringFromOnBoardingDocumentSignedStatus(
+      OnBoardingDocumentSignStatus status) {
+    switch (status) {
+      case (OnBoardingDocumentSignStatus.Signed):
+        return 'Signed';
+      default:
+        return 'Unsigned';
+    }
+  }
+
+  static OnBoardingDocumentSignStatus onBoardingDocumentSignStatusFromString(
+      String string) {
+    string = string?.toLowerCase();
+    switch (string) {
+      case ('signed'):
+        return OnBoardingDocumentSignStatus.Signed;
+      default:
+        return OnBoardingDocumentSignStatus.Unsigned;
+    }
+  }
 }
