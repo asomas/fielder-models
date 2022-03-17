@@ -3,7 +3,9 @@ import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/old/budget_model.dart';
 import 'package:fielder_models/core/db_models/old/invite%20_status_model.dart';
 import 'package:fielder_models/core/db_models/old/job_data_model.dart';
+import 'package:fielder_models/core/db_models/old/on_boarding_docs_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/assign_workers_model.dart';
+import 'package:fielder_models/core/db_models/old/schema/invite_staff_schema.dart';
 import 'package:fielder_models/core/db_models/old/shift_pattern_data_model.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
 import 'package:fielder_models/core/enums/enums.dart';
@@ -20,6 +22,7 @@ class Offers {
   DateTime updatedAt;
   BudgetModel budgetModel;
   JobDataModel jobDataModel;
+  List<OnBoardingDocumentModel> docsToSign;
 
   Offers({
     this.shiftPatternData,
@@ -33,52 +36,62 @@ class Offers {
     this.shiftPatternRef,
     this.budgetModel,
     this.jobDataModel,
+    this.docsToSign,
   });
 
   factory Offers.fromMap(String id, Map<String, dynamic> map,
-          {CandidatesModel candidatesModel, WorkerModel workerModel}) =>
-      Offers(
-        shiftPatternData: ShiftPatternDataModel.fromMap(
-            map: map["shift_pattern_data"],
-            docID: map["shift_pattern_ref"]?.id),
-        workerData: map.containsKey("worker_data")
-            ? WorkerModel.fromMap(
-                map: map["worker_data"], docID: map["worker_ref"]?.id)
-            : workerModel,
-        status: map["status"],
-        offerID: id,
-        candidatesModel: candidatesModel,
-        workerRef: map["worker_ref"],
-        updatedAt: map["updated_at"] != null
-            ? (map["updated_at"] as Timestamp)?.toDate()
-            : null,
-        workerType:
-            EnumHelpers.candidatesWorkerTypeFromString(map['worker_type']),
-        shiftPatternRef: map['shift_pattern_ref'],
-        budgetModel:
-            map["budget"] != null ? BudgetModel.fromMap(map["budget"]) : null,
-        jobDataModel: map['job_data'] != null
-            ? JobDataModel.fromMap(
-                map: map['job_data'],
-                docID: map['job_ref']?.id,
-              )
-            : null,
-      );
+      {CandidatesModel candidatesModel, WorkerModel workerModel}) {
+    try {
+      return Offers(
+          shiftPatternData: ShiftPatternDataModel.fromMap(
+              map: map["shift_pattern_data"],
+              docID: map["shift_pattern_ref"]?.id),
+          workerData: map.containsKey("worker_data")
+              ? WorkerModel.fromMap(
+                  map: map["worker_data"], docID: map["worker_ref"]?.id)
+              : workerModel,
+          status: map["status"],
+          offerID: id,
+          candidatesModel: candidatesModel,
+          workerRef: map["worker_ref"],
+          updatedAt: map["updated_at"] != null
+              ? (map["updated_at"] as Timestamp)?.toDate()
+              : null,
+          workerType:
+              EnumHelpers.candidatesWorkerTypeFromString(map['worker_type']),
+          shiftPatternRef: map['shift_pattern_ref'],
+          budgetModel:
+              map["budget"] != null ? BudgetModel.fromMap(map["budget"]) : null,
+          jobDataModel: map['job_data'] != null
+              ? JobDataModel.fromMap(
+                  map: map['job_data'],
+                  docID: map['job_ref']?.id,
+                )
+              : null,
+          docsToSign: (map[InviteStaffSchema.documentsToSign] as List)
+                  ?.map((e) => OnBoardingDocumentModel.fromMap(e))
+                  ?.toList() ??
+              []);
+    } catch (e, s) {
+      print('offers model catch____${e}_____$s');
+      return null;
+    }
+  }
 
   InviteStatusModel parseOffersToInviteStatusModel(Offers offer) {
     return InviteStatusModel(
-      workerType: offer?.workerType,
-      status: EnumHelpers.offerStatusToInviteStatus(
-          EnumHelpers.getOfferStatusFromString(offer?.status)),
-      workerFirstName: offer?.workerData?.firstName,
-      workerLastName: offer?.workerData?.lastName,
-      workerPhone: offer?.workerData?.phone,
-      workerRef: offer?.workerRef,
-      invitationId: offer?.offerID,
-      createdAt: offer?.updatedAt,
-      shiftRef: shiftPatternRef,
-      fromOffer: true,
-      offer: offer,
-    );
+        workerType: offer?.workerType,
+        status: EnumHelpers.offerStatusToInviteStatus(
+            EnumHelpers.getOfferStatusFromString(offer?.status)),
+        workerFirstName: offer?.workerData?.firstName,
+        workerLastName: offer?.workerData?.lastName,
+        workerPhone: offer?.workerData?.phone,
+        workerRef: offer?.workerRef,
+        invitationId: offer?.offerID,
+        createdAt: offer?.updatedAt,
+        shiftRef: shiftPatternRef,
+        fromOffer: true,
+        offer: offer,
+        docsToSign: offer.docsToSign);
   }
 }
