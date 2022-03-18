@@ -604,4 +604,14 @@ class EnumHelpers {
         return '';
     }
   }
+
+  static CheckStatus checkStatusFromString(String string) {
+    string = string.toUpperCase();
+    switch (string) {
+      case ('CONFIRMED'):
+        return CheckStatus.Confirmed;
+      default:
+        return null;
+    }
+  }
 }

@@ -8,4 +8,5 @@ class WorkerChecksSchema {
   static const String source = 'source';
   static const String documentRef = 'document_ref';
   static const String checkType = 'check_type';
+  static const String status = 'status';
 }
