@@ -198,6 +198,31 @@ class RTWSubColSerializer(serializers.Serializer):
 
 
 class WorkerDocumentDBSerializer(serializers.Serializer):
+    class SumsubAddressSerializer(serializers.Serializer):
+        building_number = serializers.CharField(
+            required=False, allow_null=True, allow_blank=True
+        )
+        building_name = serializers.CharField(
+            required=False, allow_null=True, allow_blank=True
+        )
+        flat_number = serializers.CharField(
+            required=False, allow_null=True, allow_blank=True
+        )
+        street = serializers.CharField(
+            required=False, allow_null=True, allow_blank=True
+        )
+        sub_street = serializers.CharField(
+            required=False, allow_null=True, allow_blank=True
+        )
+        town = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+        state = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+        post_code = serializers.CharField(
+            required=False, allow_null=True, allow_blank=True
+        )
+        country = serializers.CharField(
+            required=False, allow_null=True, allow_blank=True
+        )
+
     id_doc_type = serializers.CharField(
         required=False, allow_null=True, allow_blank=True
     )
@@ -216,6 +241,7 @@ class WorkerDocumentDBSerializer(serializers.Serializer):
         required=False, allow_null=True, allow_blank=True
     )
     number = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+    address = SumsubAddressSerializer(required=False, allow_null=True)
     dob = serializers.CharField(required=False, allow_null=True, allow_blank=True)
     is_valid = serializers.BooleanField()
     worker_ref = DocumentReferenceField()
