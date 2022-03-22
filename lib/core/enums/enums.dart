@@ -8,6 +8,7 @@ enum AddJobSubViews {
 }
 
 enum SideMenuItems {
+  GettingStarted,
   Dashboard,
   BusinessSetup,
   MyJobs,
@@ -138,6 +139,6 @@ enum ScheduleShiftStatus {
 }
 enum ScheduleShiftResultStatus { Success, Fail }
 
-enum WelcomeCarouselItemType { Image, Video }
+enum WelcomeCarouselItemType { Image, Video, YoutubeVideo }
 
 enum CheckStatus { Confirmed }
