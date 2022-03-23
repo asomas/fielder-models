@@ -456,7 +456,7 @@ class EnumHelpers {
   }
 
   static ChecksType getChecksTypeFromString(String value) {
-    if (value.toUpperCase().startsWith('DBS'.toUpperCase())) {
+    if (value?.toUpperCase()?.startsWith('DBS'.toUpperCase()) == true) {
       return ChecksType.DBS;
     } else if (value.toUpperCase().startsWith('Enhanced DBS'.toUpperCase())) {
       return ChecksType.EnhancedDBS;
@@ -514,7 +514,7 @@ class EnumHelpers {
   }
 
   static Roles getRole(String role) {
-    role = role.toLowerCase();
+    role = role?.toLowerCase();
     Roles userRole = Roles.OWNER;
     if (role == 'owner') {
       userRole = Roles.OWNER;
@@ -546,7 +546,7 @@ class EnumHelpers {
   // }
 
   static AcceptanceStatus getAcceptanceStatus(String status) {
-    status = status.toLowerCase();
+    status = status?.toLowerCase();
     AcceptanceStatus acceptanceStatus = AcceptanceStatus.ACCEPTED;
     if (status == 'accepted') {
       acceptanceStatus = AcceptanceStatus.ACCEPTED;
@@ -581,7 +581,7 @@ class EnumHelpers {
   }
 
   static GroupRole groupRoleFromString(String role) {
-    role = role.toLowerCase();
+    role = role?.toLowerCase();
     switch (role) {
       case ('manager'):
         return GroupRole.Manager;
@@ -606,7 +606,7 @@ class EnumHelpers {
   }
 
   static CheckStatus checkStatusFromString(String string) {
-    string = string.toUpperCase();
+    string = string?.toUpperCase();
     switch (string) {
       case ('CONFIRMED'):
         return CheckStatus.Confirmed;
