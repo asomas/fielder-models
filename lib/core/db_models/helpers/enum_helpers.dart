@@ -462,6 +462,10 @@ class EnumHelpers {
       return ChecksType.EnhancedDBS;
     } else if (value.toUpperCase().startsWith('Proof of ID'.toUpperCase())) {
       return ChecksType.ProofOfID;
+    } else if (value
+        .toUpperCase()
+        .startsWith('Proof of Address'.toUpperCase())) {
+      return ChecksType.ProofOfAddress;
     } else {
       return null;
     }
