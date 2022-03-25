@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
+import 'package:fielder_models/core/db_models/old/budget_model.dart';
 import 'package:fielder_models/core/db_models/old/job_data_model.dart';
 import 'package:fielder_models/core/db_models/old/organisation_model.dart';
 import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
@@ -49,6 +50,7 @@ class ShiftPatternDataModel {
   bool isHeadOFTheShift;
   bool isTailOFTheShift;
   bool enableUnpaidBreaks;
+  BudgetModel budget;
 
   ShiftPatternDataModel({
     this.docID,
@@ -83,6 +85,7 @@ class ShiftPatternDataModel {
     this.isHeadOFTheShift,
     this.isTailOFTheShift,
     this.enableUnpaidBreaks,
+    this.budget,
   });
 
   static const String dateFormatWithHyphen = "yyyy-MM-dd";

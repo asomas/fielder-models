@@ -8,6 +8,7 @@ enum AddJobSubViews {
 }
 
 enum SideMenuItems {
+  GettingStarted,
   Dashboard,
   BusinessSetup,
   MyJobs,
@@ -123,7 +124,7 @@ enum RightToWorkVerificationStatus { UnderReview, Verified, Rejected, None }
 
 enum InterviewType { Video, InPerson, NoInterview }
 
-enum ChecksType { DBS, EnhancedDBS, ProofOfID }
+enum ChecksType { DBS, EnhancedDBS, ProofOfID, ProofOfAddress }
 
 enum MatchingHoverType { Availability, Skills, Checks, Courses, Location }
 
@@ -136,8 +137,10 @@ enum ScheduleShiftStatus {
   Failed,
   Cancelled
 }
+enum WelcomeCarouselItemType { Image, Video, YoutubeVideo }
+
 enum ScheduleShiftResultStatus { Success, Fail }
 
-enum WelcomeCarouselItemType { Image, Video }
-
 enum OnBoardingDocumentSignStatus { Signed, Unsigned }
+
+enum CheckStatus { Confirmed }

@@ -56,6 +56,9 @@ class WelcomeCarouselItem {
   }
 
   static WelcomeCarouselItemType getUrlType(String url) {
+    if (url.startsWith('https://www.youtube.com/watch')) {
+      return WelcomeCarouselItemType.YoutubeVideo;
+    }
     Uri uri = Uri.parse(url);
     String typeString = p.extension(uri.path).replaceAll('.', "");
     if (videoFormats.contains(typeString.toLowerCase())) {
