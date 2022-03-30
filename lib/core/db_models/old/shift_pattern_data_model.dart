@@ -300,7 +300,8 @@ class ShiftPatternDataModel {
         CandidatesMatchingRequestSchema.startTime: startTimeInt,
         CandidatesMatchingRequestSchema.endTime: endTimeInt,
         LocationSchema.address:
-            (AddressModel.fromObject(shiftLocationDataModel)).toJsonLocation()
+            (AddressModel.fromObject(shiftLocationDataModel)).toJsonLocation(),
+        ShiftDataSchema.multiDayShift: multiDayShift ?? false,
       };
     } catch (e, s) {
       print("to matching from shift patterns catch___${e}_____$s");
