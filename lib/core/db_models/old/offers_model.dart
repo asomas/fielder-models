@@ -36,8 +36,9 @@ class Offers {
   });
 
   factory Offers.fromMap(String id, Map<String, dynamic> map,
-          {CandidatesModel candidatesModel, WorkerModel workerModel}) =>
-      Offers(
+      {CandidatesModel candidatesModel, WorkerModel workerModel}) {
+    try {
+      return Offers(
         shiftPatternData: ShiftPatternDataModel.fromMap(
             map: map["shift_pattern_data"],
             docID: map["shift_pattern_ref"]?.id),
@@ -64,6 +65,11 @@ class Offers {
               )
             : null,
       );
+    } catch (e, s) {
+      print('offers model catch____${e}_____$s');
+      return null;
+    }
+  }
 
   InviteStatusModel parseOffersToInviteStatusModel(Offers offer) {
     return InviteStatusModel(

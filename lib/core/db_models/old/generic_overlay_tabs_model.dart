@@ -8,6 +8,7 @@ class OverlayTabsModel {
   bool isNextDisabled; // To disable going forward from the current tab
   bool isBackDisabled; // To disable going back from the current tab
   Key key;
+  double width;
 
   OverlayTabsModel(
       {this.key,
@@ -16,6 +17,7 @@ class OverlayTabsModel {
       this.isDisabled = false,
       this.isNextDisabled = false,
       this.isBackDisabled = false,
+      this.width = 124,
       @required this.view})
       : assert(label != null && view != null);
 }

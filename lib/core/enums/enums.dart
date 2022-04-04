@@ -137,8 +137,10 @@ enum ScheduleShiftStatus {
   Failed,
   Cancelled
 }
+enum WelcomeCarouselItemType { Image, Video, YoutubeVideo }
+
 enum ScheduleShiftResultStatus { Success, Fail }
 
-enum WelcomeCarouselItemType { Image, Video, YoutubeVideo }
+enum OnBoardingDocumentSignStatus { Signed, Unsigned }
 
 enum CheckStatus { Confirmed }

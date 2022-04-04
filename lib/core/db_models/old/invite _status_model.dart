@@ -4,6 +4,7 @@ import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/interview_model.dart';
 import 'package:fielder_models/core/db_models/old/offers_model.dart';
+import 'package:fielder_models/core/db_models/old/on_boarding_docs_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/interviews_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/invite_staff_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
@@ -111,6 +112,7 @@ class InviteStatusModel {
     InterviewModel _interviewModel;
     AddressModel _addressModel;
     List<CheckModel> _checks = [];
+    List<OnBoardingDocumentModel> _docsToSign = [];
     if (data.containsKey(InviteStaffSchema.interview) &&
         data[InviteStaffSchema.interview] != null) {
       _interview = EnumHelpers.getInterviewType(
