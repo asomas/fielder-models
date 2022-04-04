@@ -16,11 +16,16 @@ class OnBoardingDocumentModel {
   factory OnBoardingDocumentModel.fromMap(Map map, {String id}) {
     if (map != null && map.isNotEmpty) {
       try {
+        dynamic _uploadDate;
+        _uploadDate = map[OnBoardingDocumentSchema.uploadDate];
+        if (_uploadDate != null && _uploadDate is String) {
+          String split = _uploadDate.toString().split("T")[0];
+          _uploadDate = Timestamp.fromDate(DateTime.parse(split));
+        }
         return OnBoardingDocumentModel(
           id: id ?? map[OnBoardingDocumentSchema.id],
           title: map[OnBoardingDocumentSchema.title],
-          uploadDate:
-              (map[OnBoardingDocumentSchema.uploadDate] as Timestamp)?.toDate(),
+          uploadDate: _uploadDate?.toDate(),
           docPath: map[OnBoardingDocumentSchema.filePath],
           status: EnumHelpers.onBoardingDocumentSignStatusFromString(
             map[OnBoardingDocumentSchema.status],

@@ -44,7 +44,6 @@ class InviteStatusModel {
   InterviewModel interviewModel;
   List<CheckModel> checkModels;
   Offers offer;
-  List<OnBoardingDocumentModel> docsToSign;
 
   InviteStatusModel({
     this.workerType,
@@ -75,7 +74,6 @@ class InviteStatusModel {
     this.interviewModel,
     this.checkModels,
     this.offer,
-    this.docsToSign,
   });
 
   static const Color blue = Color(0xFF0288D1);
@@ -138,13 +136,6 @@ class InviteStatusModel {
               map: e, checkID: e[JobSummarySchema.checkRef]?.id))
           .toList();
     }
-
-    if (data.containsKey(InviteStaffSchema.documentsToSign) &&
-        data[InviteStaffSchema.documentsToSign] != null) {
-      _docsToSign = (data[InviteStaffSchema.documentsToSign] as List)
-          .map((e) => OnBoardingDocumentModel.fromMap(e))
-          .toList();
-    }
     return InviteStatusModel(
       invitationId: invitationId ?? "",
       workerType: EnumHelpers.candidatesWorkerTypeFromString(
@@ -184,7 +175,6 @@ class InviteStatusModel {
       interviewModel: _interviewModel,
       addressModel: _addressModel,
       checkModels: _checks,
-      docsToSign: _docsToSign,
     );
   }
 
