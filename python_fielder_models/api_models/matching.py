@@ -115,5 +115,6 @@ class UnavailabilitiesResponse(serializers.Serializer):
 class UnavailabilitiesRequest(serializers.Serializer):
     worker_id = serializers.CharField()
     organisation_id = serializers.CharField()
+    group_id = serializers.CharField()
     start_date = serializers.DateField(format="%Y-%m-%d")
     end_date = serializers.DateField(format="%Y-%m-%d")
