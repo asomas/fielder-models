@@ -57,4 +57,5 @@ class FbCollections {
   static const String staffHubWelcomeCarousel = 'staff_hub_welcome_carousel';
   static const String images = 'images';
   static const String onboardingDocs = 'onboarding_docs';
+  static const String budgetProfiles = 'budget_profiles';
 }

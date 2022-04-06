@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
@@ -15,6 +16,10 @@ class BudgetModel {
   bool enableLateDeduction;
   int overTimeThreshHold;
   bool enableUnpaidBreaks;
+  String id;
+  String name;
+  DocumentReference groupRef;
+  DocumentReference jobTemplateRef;
 
   BudgetModel({
     this.payCalculation = CalculatePay.ShiftHours,
@@ -27,9 +32,13 @@ class BudgetModel {
     this.paymentModel,
     this.overTimeThreshHold,
     this.enableUnpaidBreaks = false,
+    this.id,
+    this.name,
+    this.groupRef,
+    this.jobTemplateRef,
   });
 
-  factory BudgetModel.fromMap(Map data) {
+  factory BudgetModel.fromMap(Map data, {String id}) {
     try {
       return BudgetModel(
         volunteer: data[JobTemplateSchema.volunteer] ?? false,
@@ -52,6 +61,10 @@ class BudgetModel {
             ? PaymentModel.fromMap(data[JobTemplateSchema.payment])
             : null,
         enableUnpaidBreaks: data[JobSummarySchema.enableUnpaidBreaks],
+        id: id,
+        name: data[JobTemplateSchema.name],
+        groupRef: data[JobTemplateSchema.groupRef],
+        jobTemplateRef: data[JobTemplateSchema.jobTemplateRef],
       );
     } catch (e, s) {
       print("Budget Model catch_____${e}____$s");
