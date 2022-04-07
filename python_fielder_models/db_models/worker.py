@@ -3,9 +3,14 @@ from enum import Enum, auto
 
 from fielder_backend_utils.rest_utils import DocumentReferenceField
 from rest_framework import serializers
-from rest_framework.exceptions import APIException
 
-from ..common.worker import ReferencingDataSerializer, VerificationPath
+from ..common.worker import (
+    CheckType,
+    ReferencingDataSerializer,
+    VerificationPath,
+    WCRStatus,
+)
+from ..db_models import BaseDBSerializer
 from .common import *
 
 
@@ -245,3 +250,27 @@ class WorkerDocumentDBSerializer(serializers.Serializer):
     dob = serializers.CharField(required=False, allow_null=True, allow_blank=True)
     is_valid = serializers.BooleanField()
     worker_ref = DocumentReferenceField()
+
+
+class WorkerCheckRelationSerializer(BaseDBSerializer):
+    class VerificationInfoSerializer(serializers.Serializer):
+        source = serializers.CharField()
+        is_valid = serializers.BooleanField()
+        dov = serializers.DateTimeField()
+        worker_document_ref = DocumentReferenceField()
+
+    worker_ref = DocumentReferenceField()
+    check_ref = DocumentReferenceField()
+    organisation_ref = DocumentReferenceField(allow_null=True, default=None)
+    check_value = serializers.CharField()
+    verification_info = VerificationInfoSerializer(allow_null=True, default=None)
+    status = serializers.ChoiceField(choices=WCRStatus._member_names_)
+    check_type = serializers.ChoiceField(choices=CheckType._member_names_)
+
+    def validate(self, attrs):
+        if attrs.get("check_type", None) == CheckType.ORG_SPECIFIC.value:
+            if not attrs.get("organisation_ref", None):
+                raise serializers.ValidationError(
+                    "organisation_ref is required when check_type is ORG_SPECIFIC"
+                )
+        return super().validate(attrs)
