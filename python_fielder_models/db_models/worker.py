@@ -257,7 +257,7 @@ class WorkerCheckRelationSerializer(BaseDBSerializer):
         source = serializers.CharField()
         is_valid = serializers.BooleanField()
         dov = serializers.DateTimeField()
-        worker_document_ref = DocumentReferenceField()
+        worker_document_ref = DocumentReferenceField(allow_null=True, default=None)
 
     worker_ref = DocumentReferenceField()
     check_ref = DocumentReferenceField()
