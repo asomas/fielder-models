@@ -63,6 +63,7 @@ class ShiftBudgetDBSerializer(ShiftBudgetSharedDBSerializer):
     )
     overtime_rate = serializers.IntegerField(default=0)
     overtime_threshold = serializers.ChoiceField((0, 15, 30, 60), default=15)
+    budget_ref = DocumentReferenceField(allow_null=True, default=None)
 
 
 class SharedJobShiftDBSerializer(BaseJobSerializer):
