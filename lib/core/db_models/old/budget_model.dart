@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
+import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/payment_model_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 
 class BudgetModel {
@@ -20,6 +22,7 @@ class BudgetModel {
   String name;
   DocumentReference groupRef;
   DocumentReference jobTemplateRef;
+  AddressModel addressModel;
 
   BudgetModel({
     this.payCalculation = CalculatePay.ShiftHours,
@@ -36,6 +39,7 @@ class BudgetModel {
     this.name,
     this.groupRef,
     this.jobTemplateRef,
+    this.addressModel,
   });
 
   factory BudgetModel.fromMap(Map data, {String id}) {
@@ -98,6 +102,17 @@ class BudgetModel {
       if (payCalculation == CalculatePay.ClockedInHours) {
         _map.remove(JobTemplateSchema.enableLateDeduction);
         _map.remove(JobTemplateSchema.enableEarlyDeduction);
+      }
+      if (name != null && name.isNotEmpty) {
+        _map[JobTemplateSchema.name] = name;
+      }
+      if (jobTemplateRef != null) {
+        _map[JobTemplateSchema.jobTemplateRef] = jobTemplateRef;
+      }
+      if (addressModel != null) {
+        _map[JobTemplateSchema.location] = {
+          ShiftDataSchema.address: addressModel.toJSON(),
+        };
       }
       print("Budget Model map -> $_map");
     } catch (e) {
