@@ -69,6 +69,11 @@ class BudgetModel {
         name: data[JobTemplateSchema.name],
         groupRef: data[JobTemplateSchema.groupRef],
         jobTemplateRef: data[JobTemplateSchema.jobTemplateRef],
+        addressModel: data[JobTemplateSchema.location] != null
+            ? AddressModel.fromMap(
+                map: data[JobTemplateSchema.location]
+                    [JobTemplateSchema.address])
+            : null,
       );
     } catch (e, s) {
       print("Budget Model catch_____${e}____$s");
@@ -107,7 +112,7 @@ class BudgetModel {
         _map[JobTemplateSchema.name] = name;
       }
       if (jobTemplateRef != null) {
-        _map[JobTemplateSchema.jobTemplateRef] = jobTemplateRef;
+        _map[JobTemplateSchema.jobTemplateRef] = "${jobTemplateRef.path}";
       }
       if (addressModel != null) {
         _map[JobTemplateSchema.location] = {

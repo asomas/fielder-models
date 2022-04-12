@@ -83,6 +83,19 @@ class AddressModel {
         final String _postalCode =
             map[DefaultLocationDataSchema.postalCode] ?? '';
 
+        final List<String> fullAddressMap = [
+          _building,
+          _street,
+          _county,
+          _country,
+          _city,
+          _flat,
+          _postalCode
+        ];
+        fullAddressMap
+            .removeWhere((element) => element == null || element.isEmpty);
+        final String _fullAddress = fullAddressMap.join(',');
+
         return AddressModel(
           building: _building,
           street: _street,
@@ -91,6 +104,7 @@ class AddressModel {
           city: _city,
           flat: _flat,
           postalCode: _postalCode,
+          fullAddress: _fullAddress,
         );
       } catch (e) {
         print('AddressModel fromMap error: $e');

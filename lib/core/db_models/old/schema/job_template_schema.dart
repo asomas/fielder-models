@@ -52,4 +52,5 @@ class JobTemplateSchema {
 
   static const String groupRef = "group_ref";
   static const String jobTemplateRef = "job_template_ref";
+  static const String address = "address";
 }
