@@ -6,6 +6,7 @@ import 'package:fielder_models/core/db_models/old/default_location_data_model.da
 import 'package:fielder_models/core/db_models/old/qualification_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/table_collection_schema.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'package:fielder_models/core/db_models/worker/occupation.dart';
 
@@ -25,26 +26,27 @@ class JobTemplateModel {
   final OccupationModel occupationModel;
   final DefaultLocationDataModel defaultLocationData;
   List<CoursesAndLevelModel> courses;
+  final String id;
 
-  JobTemplateModel({
-    this.jobTitle,
-    this.description,
-    this.jobTemplate,
-    this.additionalRequirements,
-    this.workLocationAddress,
-    this.rate,
-    //this.requiredQualification,
-    this.requiredSkill,
-    this.volunteer = false,
-    this.defaultLocation,
-    this.name,
-    this.checks,
-    this.occupationModel,
-    this.defaultLocationData,
-    this.courses,
-  });
+  JobTemplateModel(
+      {this.jobTitle,
+      this.description,
+      this.jobTemplate,
+      this.additionalRequirements,
+      this.workLocationAddress,
+      this.rate,
+      //this.requiredQualification,
+      this.requiredSkill,
+      this.volunteer = false,
+      this.defaultLocation,
+      this.name,
+      this.checks,
+      this.occupationModel,
+      this.defaultLocationData,
+      this.courses,
+      this.id});
 
-  factory JobTemplateModel.fromMap(Map<String, dynamic> map) {
+  factory JobTemplateModel.fromMap(Map<String, dynamic> map, String id) {
     try {
       //Name
       final String name = map[JobTemplateSchema.name];
@@ -139,6 +141,7 @@ class JobTemplateModel {
 
       if (name != null) {
         return JobTemplateModel(
+          id: id,
           name: name,
           additionalRequirements: _infosArray,
           description: map[JobTemplateSchema.description] ?? '',
@@ -162,6 +165,20 @@ class JobTemplateModel {
     }
 
     return null;
+  }
+
+  static DocumentReference templateRefFromId(String templateId) {
+    DocumentReference ref = FirebaseFirestore.instance
+        .collection(FbCollections.jobTemplates)
+        .doc(templateId);
+    if (ref != null) {
+      return ref;
+    } else {
+      ref = FirebaseFirestore.instance
+          .collection(FbCollections.fielderJobTemplates)
+          .doc(templateId);
+      return ref;
+    }
   }
 
 // Map<String, dynamic> toMap() {

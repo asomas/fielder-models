@@ -35,4 +35,5 @@ class ShiftDataSchema {
   static const String value = "value";
   static const String multiDayShift = "multi_day_shift";
   static const String locationRef = "location_ref";
+  static const String budgetRef = "budget_ref";
 }

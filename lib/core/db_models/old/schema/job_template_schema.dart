@@ -49,4 +49,8 @@ class JobTemplateSchema {
   static const String fielderTemplateLimit = "limit";
   static const String faceted = "faceted";
   static const String general = "general";
+
+  static const String groupRef = "group_ref";
+  static const String jobTemplateRef = "job_template_ref";
+  static const String address = "address";
 }
