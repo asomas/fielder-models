@@ -17,3 +17,14 @@ class ReferencingDataSerializer(Serializer):
     contact_position = CharField(allow_null=True, required=False)
     contact_email = CharField(allow_null=True, required=False)
     contact_relationship = CharField(allow_null=True, required=False)
+
+class WCRStatus(Enum):
+    AWAITING_BACKOFFICE = auto()
+    CONFIRMED = auto()
+    INVALIDATED = auto()
+
+
+class CheckType(Enum):
+    GLOBAL = auto()
+    ORG_SPECIFIC = auto()
+

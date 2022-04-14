@@ -187,3 +187,9 @@ class BirthCertificateAPISerializer(serializers.Serializer):
     full_name = serializers.CharField()
     status = serializers.ChoiceField(Status._member_names_)
     worker_id = serializers.CharField()
+
+
+class EvaluateWorkerChecksRequestSerializer(serializers.Serializer):
+    worker_id = serializers.CharField()
+    organisation_id = serializers.CharField(allow_null=True, default=None)
+    checks_ids = serializers.ListField(child=serializers.CharField())

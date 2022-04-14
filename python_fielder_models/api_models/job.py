@@ -1,5 +1,6 @@
 from math import ceil, floor
 
+from fielder_backend_utils.rest_utils import DocumentReferenceField
 from lxml.html.clean import clean_html
 from python_fielder_models.api_models.common import GooglePlaceDataSerializer
 from python_fielder_models.api_models.organisation import (
@@ -99,7 +100,7 @@ class PaymentAPISerializer(serializers.Serializer):
     total_staffing_service_cost = serializers.IntegerField()
 
 
-class ShiftBudgetAPISerializer(serializers.Serializer):
+class ShiftBudgetBaseSerializer(serializers.Serializer):
     volunteer = serializers.BooleanField(default=False)
     payment = PaymentAPISerializer()
     pay_calculation = serializers.ChoiceField(
@@ -137,6 +138,10 @@ class ShiftBudgetAPISerializer(serializers.Serializer):
                 )
 
         return data
+
+
+class ShiftBudgetAPISerializer(ShiftBudgetBaseSerializer):
+    budget_ref = DocumentReferenceField(allow_null=True, default=None)
 
 
 class ShiftPatternAPISerializer(serializers.Serializer):
