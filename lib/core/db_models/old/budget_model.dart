@@ -44,6 +44,12 @@ class BudgetModel {
 
   factory BudgetModel.fromMap(Map data, {String id}) {
     try {
+      String budgetId = id;
+      if (data != null &&
+          data.containsKey(JobTemplateSchema.budgetRef) &&
+          data[JobTemplateSchema.budgetRef] != null) {
+        budgetId = (data[JobTemplateSchema.budgetRef] as DocumentReference)?.id;
+      }
       return BudgetModel(
         volunteer: data[JobTemplateSchema.volunteer] ?? false,
         payCalculation: data[JobTemplateSchema.payCalculation] != null
@@ -65,7 +71,7 @@ class BudgetModel {
             ? PaymentModel.fromMap(data[JobTemplateSchema.payment])
             : null,
         enableUnpaidBreaks: data[JobSummarySchema.enableUnpaidBreaks],
-        id: id,
+        id: budgetId,
         name: data[JobTemplateSchema.name],
         groupRef: data[JobTemplateSchema.groupRef],
         jobTemplateRef: data[JobTemplateSchema.jobTemplateRef],
