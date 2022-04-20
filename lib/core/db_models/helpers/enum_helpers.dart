@@ -119,6 +119,10 @@ class EnumHelpers {
         return 'Weekly';
       case ShiftFrequencies.TwoWeeks:
         return 'Every two weeks';
+      case ShiftFrequencies.Weekdays:
+        return 'Week days (Mon-Fri)';
+      case ShiftFrequencies.Weekends:
+        return 'Weekends (Sat-Sun)';
       default:
         return '';
     }
