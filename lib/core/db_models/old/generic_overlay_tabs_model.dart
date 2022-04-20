@@ -9,15 +9,17 @@ class OverlayTabsModel {
   bool isBackDisabled; // To disable going back from the current tab
   Key key;
   double width;
+  Function onTap;
 
-  OverlayTabsModel(
-      {this.key,
-      @required this.label,
-      this.icon,
-      this.isDisabled = false,
-      this.isNextDisabled = false,
-      this.isBackDisabled = false,
-      this.width = 124,
-      @required this.view})
-      : assert(label != null && view != null);
+  OverlayTabsModel({
+    this.key,
+    @required this.label,
+    this.icon,
+    this.isDisabled = false,
+    this.isNextDisabled = false,
+    this.isBackDisabled = false,
+    this.width = 124,
+    @required this.view,
+    this.onTap,
+  }) : assert(label != null && view != null);
 }
