@@ -48,12 +48,7 @@ enum EndDateTypes {
   EndAfter,
 }
 
-enum ShiftFrequencies {
-  None,
-  Daily,
-  Weekly,
-  TwoWeeks,
-}
+enum ShiftFrequencies { None, Daily, Weekly, TwoWeeks, Weekdays, Weekends }
 
 enum RepeatInterval {
   Weekly,
