@@ -140,6 +140,7 @@ class RecurrenceModel {
       int _intervalAmount = intervalAmount ?? 1;
       String _repeatIntervalType = EnumHelpers.getStringForFrequency(
         shiftPatternFrequency: repeatIntervalType,
+        forApi: true,
       );
 
       //Backend doesnot support NONE for now
