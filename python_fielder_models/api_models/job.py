@@ -120,19 +120,22 @@ class ShiftBudgetBaseSerializer(serializers.Serializer):
 
     # serializer validation order https://stackoverflow.com/a/60161014/1608420
     def validate(self, data):
-        if data["payment"]["total_staffing_service_cost"] > 0 and data.get(
-            "volunteer", False
-        ):
-            raise serializers.ValidationError("Volunteering shifts cannot have rates")
-        elif data["payment"]["total_staffing_service_cost"] <= 0 and not data.get(
-            "volunteer", False
-        ):
-            raise serializers.ValidationError(
-                "Budget should either have rates or be a volunteering shift"
-            )
+        if "payment" in data and "total_staffing_service_cost" in data["payment"]:
+            if data["payment"]["total_staffing_service_cost"] > 0 and data.get(
+                "volunteer", False
+            ):
+                raise serializers.ValidationError(
+                    "Volunteering shifts cannot have rates"
+                )
+            elif data["payment"]["total_staffing_service_cost"] <= 0 and not data.get(
+                "volunteer", False
+            ):
+                raise serializers.ValidationError(
+                    "Budget should either have rates or be a volunteering shift"
+                )
 
-        if data["pay_calculation"] == "Actual hours":
-            if data["enable_late_deduction"] or data["enable_early_deduction"]:
+        if data.get("pay_calculation") == "Actual hours":
+            if data.get("enable_late_deduction") or data.get("enable_early_deduction"):
                 raise serializers.ValidationError(
                     "Cannot enable late or early deduction when pay calculation is Actual hours!"
                 )
