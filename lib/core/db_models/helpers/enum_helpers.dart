@@ -109,6 +109,7 @@ class EnumHelpers {
 
   static String getStringForFrequency({
     @required ShiftFrequencies shiftPatternFrequency,
+    bool forApi = false,
   }) {
     switch (shiftPatternFrequency) {
       case ShiftFrequencies.Daily:
@@ -116,13 +117,15 @@ class EnumHelpers {
       case ShiftFrequencies.None:
         return 'Does not repeat';
       case ShiftFrequencies.Weekly:
-        return 'Weekly';
+        return forApi ? 'Weekly' : 'Custom';
       case ShiftFrequencies.TwoWeeks:
-        return 'Every two weeks';
+        return forApi ? 'Weekly' : 'Every two weeks';
       case ShiftFrequencies.Weekdays:
-        return 'Week days (Mon-Fri)';
+        return forApi ? 'Weekly' : 'Week days (Mon-Fri)';
       case ShiftFrequencies.Weekends:
-        return 'Weekends (Sat-Sun)';
+        return forApi ? 'Weekly' : 'Weekends (Sat-Sun)';
+      case ShiftFrequencies.CustomDay:
+        return forApi ? 'Weekly' : 'Every ';
       default:
         return '';
     }
