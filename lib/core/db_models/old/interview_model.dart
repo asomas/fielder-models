@@ -21,6 +21,12 @@ class InterviewModel {
   DocumentReference organisationUserRef;
   String interviewSlotId;
 
+  CandidatesWorkerType workerType;
+  String workerFirstName;
+  String workerLastName;
+  String workerPhone;
+  String workerId;
+
   InterviewModel({
     @required this.interviewDuration,
     @required this.breakDuration,
@@ -34,6 +40,11 @@ class InterviewModel {
     this.organisationUserRef,
     this.interviewEndDateTime,
     this.interviewSlotId,
+    this.workerId,
+    this.workerFirstName,
+    this.workerLastName,
+    this.workerPhone,
+    this.workerType,
   });
 
   factory InterviewModel.fromMap(

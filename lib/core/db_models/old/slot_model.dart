@@ -43,6 +43,10 @@ class SlotModel {
 
   @override
   bool operator ==(other) {
+    if (interviewModel != null) {
+      return this.interviewModel.interviewSlotId ==
+          other.interviewModel.interviewSlotId;
+    }
     return "${this.shiftId}" == "${other.shiftId}" &&
         this.isHead == other.isHead &&
         this.isTail == other.isTail;

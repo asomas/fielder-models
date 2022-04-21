@@ -4,7 +4,6 @@ import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/interview_model.dart';
 import 'package:fielder_models/core/db_models/old/offers_model.dart';
-import 'package:fielder_models/core/db_models/old/on_boarding_docs_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/interviews_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/invite_staff_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
@@ -107,75 +106,91 @@ class InviteStatusModel {
   }
 
   factory InviteStatusModel.fromMap(Map data, {String invitationId}) {
-    InterviewType _interview = InterviewType.NoInterview;
-    DocumentReference _interviewRef;
-    InterviewModel _interviewModel;
-    AddressModel _addressModel;
-    List<CheckModel> _checks = [];
-    List<OnBoardingDocumentModel> _docsToSign = [];
-    if (data.containsKey(InviteStaffSchema.interview) &&
-        data[InviteStaffSchema.interview] != null) {
-      _interview = EnumHelpers.getInterviewType(
-          data[InviteStaffSchema.interview][InterviewsSchema.interviewType]);
-      _interviewRef =
-          data[InviteStaffSchema.interview][InviteStaffSchema.interviewSlotRef];
-      _interviewModel = InterviewModel.fromMap(
-          _interviewRef?.id,
-          data[InviteStaffSchema.interview]
-              [InviteStaffSchema.interviewSlotData]);
+    try {
+      InterviewType _interview = InterviewType.NoInterview;
+      DocumentReference _interviewRef;
+      InterviewModel _interviewModel;
+      AddressModel _addressModel;
+      List<CheckModel> _checks = [];
+      if (data.containsKey(InviteStaffSchema.interview) &&
+          data[InviteStaffSchema.interview] != null) {
+        _interview = EnumHelpers.getInterviewType(
+            data[InviteStaffSchema.interview][InterviewsSchema.interviewType]);
+        _interviewRef = data[InviteStaffSchema.interview]
+            [InviteStaffSchema.interviewSlotRef];
+        _interviewModel = InterviewModel.fromMap(
+            _interviewRef?.id,
+            data[InviteStaffSchema.interview]
+                [InviteStaffSchema.interviewSlotData]);
+        if (_interviewModel != null) {
+          _interviewModel.workerType =
+              EnumHelpers.candidatesWorkerTypeFromString(
+                  data[StaffStatusSchema.workerType]);
+          _interviewModel.workerId =
+              (data[StaffStatusSchema.workerRef] as DocumentReference)?.id;
+          _interviewModel.workerPhone = data[StaffStatusSchema.workerPhone];
+          _interviewModel.workerFirstName =
+              data[StaffStatusSchema.workerFirstName];
+          _interviewModel.workerLastName =
+              data[StaffStatusSchema.workerLastName];
+        }
+      }
+      if (data.containsKey(InviteStaffSchema.address) &&
+          data[InviteStaffSchema.address] != null) {
+        _addressModel = AddressModel.fromInvitationsMap(
+            map: data[InviteStaffSchema.address]);
+      }
+      if (data.containsKey(InviteStaffSchema.checks) &&
+          data[InviteStaffSchema.checks] != null) {
+        _checks = (data[InviteStaffSchema.checks] as List)
+            .map((e) => CheckModel.fromMap(
+                map: e, checkID: e[JobSummarySchema.checkRef]?.id))
+            .toList();
+      }
+      return InviteStatusModel(
+        invitationId: invitationId ?? "",
+        workerType: EnumHelpers.candidatesWorkerTypeFromString(
+            data[StaffStatusSchema.workerType]),
+        status: EnumHelpers.inviteStaffStatusFromString(
+            data[StaffStatusSchema.status]),
+        workerFirstName: data[StaffStatusSchema.workerFirstName],
+        workerLastName: data[StaffStatusSchema.workerLastName],
+        workerPhone: data[StaffStatusSchema.workerPhone],
+        workerRef: data[StaffStatusSchema.workerRef],
+        workerId: (data[StaffStatusSchema.workerRef] as DocumentReference)?.id,
+        shiftRef: data[StaffStatusSchema.shiftPatternRef],
+        createdAt: data[StaffStatusSchema.createdAt]?.toDate(),
+        requireInterview: data[InviteStaffSchema.requiresInterview] ?? false,
+        organisationRef: data[InviteStaffSchema.organisationRef],
+        organisationUserRef: data[InviteStaffSchema.organisationUserRef],
+        summaryInformation: data[InviteStaffSchema.summaryInformation] ?? "",
+        createdDate: data[InviteStaffSchema.createdAt]?.toDate(),
+        organisationName: data[OrganisationSchema.organisationData] != null
+            ? data[OrganisationSchema.organisationData]
+                [OrganisationSchema.organisationName]
+            : "",
+        brandBanner: data.containsKey(OrganisationSchema.organisationData)
+            ? data[OrganisationSchema.organisationData]
+                [OrganisationSchema.brandBanner]
+            : "",
+        brandLogo: data.containsKey(OrganisationSchema.organisationData)
+            ? data[OrganisationSchema.organisationData]
+                [OrganisationSchema.brandLogo]
+            : "",
+        brandColor: data.containsKey(OrganisationSchema.organisationData)
+            ? hexToColor(data[OrganisationSchema.organisationData]
+                [OrganisationSchema.brandColor])
+            : blue,
+        interviewType: _interview,
+        interviewRef: _interviewRef,
+        interviewModel: _interviewModel,
+        addressModel: _addressModel,
+        checkModels: _checks,
+      );
+    } catch (e, s) {
+      print('invite status catch____${e}_____$s');
+      return null;
     }
-    if (data.containsKey(InviteStaffSchema.address) &&
-        data[InviteStaffSchema.address] != null) {
-      _addressModel =
-          AddressModel.fromInvitationsMap(map: data[InviteStaffSchema.address]);
-    }
-    if (data.containsKey(InviteStaffSchema.checks) &&
-        data[InviteStaffSchema.checks] != null) {
-      _checks = (data[InviteStaffSchema.checks] as List)
-          .map((e) => CheckModel.fromMap(
-              map: e, checkID: e[JobSummarySchema.checkRef]?.id))
-          .toList();
-    }
-    return InviteStatusModel(
-      invitationId: invitationId ?? "",
-      workerType: EnumHelpers.candidatesWorkerTypeFromString(
-          data[StaffStatusSchema.workerType]),
-      status: EnumHelpers.inviteStaffStatusFromString(
-          data[StaffStatusSchema.status]),
-      workerFirstName: data[StaffStatusSchema.workerFirstName],
-      workerLastName: data[StaffStatusSchema.workerLastName],
-      workerPhone: data[StaffStatusSchema.workerPhone],
-      workerRef: data[StaffStatusSchema.workerRef],
-      workerId: (data[StaffStatusSchema.workerRef] as DocumentReference)?.id,
-      shiftRef: data[StaffStatusSchema.shiftPatternRef],
-      createdAt: data[StaffStatusSchema.createdAt]?.toDate(),
-      requireInterview: data[InviteStaffSchema.requiresInterview] ?? false,
-      organisationRef: data[InviteStaffSchema.organisationRef],
-      organisationUserRef: data[InviteStaffSchema.organisationUserRef],
-      summaryInformation: data[InviteStaffSchema.summaryInformation] ?? "",
-      createdDate: data[InviteStaffSchema.createdAt]?.toDate(),
-      organisationName: data[OrganisationSchema.organisationData] != null
-          ? data[OrganisationSchema.organisationData]
-              [OrganisationSchema.organisationName]
-          : "",
-      brandBanner: data.containsKey(OrganisationSchema.organisationData)
-          ? data[OrganisationSchema.organisationData]
-              [OrganisationSchema.brandBanner]
-          : "",
-      brandLogo: data.containsKey(OrganisationSchema.organisationData)
-          ? data[OrganisationSchema.organisationData]
-              [OrganisationSchema.brandLogo]
-          : "",
-      brandColor: data.containsKey(OrganisationSchema.organisationData)
-          ? hexToColor(data[OrganisationSchema.organisationData]
-              [OrganisationSchema.brandColor])
-          : blue,
-      interviewType: _interview,
-      interviewRef: _interviewRef,
-      interviewModel: _interviewModel,
-      addressModel: _addressModel,
-      checkModels: _checks,
-    );
   }
 
   Map<String, dynamic> toMap() {
