@@ -26,6 +26,7 @@ class InterviewModel {
   String workerLastName;
   String workerPhone;
   String workerId;
+  String invitationId;
 
   InterviewModel({
     @required this.interviewDuration,
@@ -45,6 +46,7 @@ class InterviewModel {
     this.workerLastName,
     this.workerPhone,
     this.workerType,
+    this.invitationId,
   });
 
   factory InterviewModel.fromMap(

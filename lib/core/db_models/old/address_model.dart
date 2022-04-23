@@ -71,6 +71,7 @@ class AddressModel {
 
   factory AddressModel.fromMap({
     @required Map<String, dynamic> map,
+    GeoPoint coords,
   }) {
     if (map.isNotEmpty) {
       try {
@@ -105,6 +106,7 @@ class AddressModel {
           flat: _flat,
           postalCode: _postalCode,
           fullAddress: _fullAddress,
+          coordinates: coords,
         );
       } catch (e) {
         print('AddressModel fromMap error: $e');

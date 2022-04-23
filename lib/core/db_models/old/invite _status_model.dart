@@ -133,6 +133,19 @@ class InviteStatusModel {
               data[StaffStatusSchema.workerFirstName];
           _interviewModel.workerLastName =
               data[StaffStatusSchema.workerLastName];
+          _interviewModel.invitationId = invitationId;
+          AddressModel _addressModel;
+          if (data[InviteStaffSchema.interview]
+                  [InterviewsSchema.interviewAddress] !=
+              null) {
+            _addressModel = AddressModel.fromMap(
+              map: data[InviteStaffSchema.interview]
+                  [InterviewsSchema.interviewAddress][InterviewsSchema.address],
+              coords: data[InviteStaffSchema.interview]
+                  [InterviewsSchema.interviewAddress][LocationSchema.coords],
+            );
+          }
+          _interviewModel.addressModel = _addressModel;
         }
       }
       if (data.containsKey(InviteStaffSchema.address) &&
