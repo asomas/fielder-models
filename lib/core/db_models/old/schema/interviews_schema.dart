@@ -11,4 +11,6 @@ class InterviewsSchema {
   static const String assigned = "assigned";
   static const String organisationRef = "organisation_ref";
   static const String organisationUserRef = "organisation_user_ref";
+  static const String address = "address";
+  static const String interviewAddress = "interview_address";
 }
