@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/schema/educationSchema.dart';
 
+import '../../helpers/helpers.dart';
+
 class Education {
   String docId;
   EducationInstitution educationInstitution;
@@ -30,14 +32,6 @@ class Education {
       this.knowledgeAreaList,
       this.summary,
       this.workerRef});
-
-  static DocumentReference documentReferenceFromString(
-      String stringDocumentReference) {
-    List<String> splitReference = stringDocumentReference.split("/");
-    return FirebaseFirestore.instance
-        .collection(splitReference[0])
-        .doc(splitReference[1]);
-  }
 
   bool checkAllFieldsNull() {
     if (endDate != null ||
@@ -99,7 +93,8 @@ class Education {
             : "",
         workerRef: json[EducationSchema.workerRef] != null
             ? json[EducationSchema.workerRef] is String
-                ? documentReferenceFromString(json[EducationSchema.workerRef])
+                ? Helpers.documentReferenceFromString(
+                    json[EducationSchema.workerRef])
                 : json[EducationSchema.workerRef]
             : null);
   }
@@ -115,7 +110,7 @@ class Course {
   factory Course.fromJson(Map<String, dynamic> json) => Course(
         courseRef: json[EducationSchema.courseRef] != null
             ? json[EducationSchema.courseRef] is String
-                ? Education.documentReferenceFromString(
+                ? Helpers.documentReferenceFromString(
                     json[EducationSchema.courseRef])
                 : json[EducationSchema.courseRef]
             : null,
@@ -140,7 +135,7 @@ class EducationInstitution {
       EducationInstitution(
         institutionRef: json[EducationSchema.institutionRef] != null
             ? json[EducationSchema.institutionRef] is String
-                ? Education.documentReferenceFromString(
+                ? Helpers.documentReferenceFromString(
                     json[EducationSchema.institutionRef])
                 : json[EducationSchema.institutionRef]
             : null,
@@ -165,7 +160,7 @@ class Level {
   factory Level.fromJson(Map<String, dynamic> json) => Level(
         levelRef: json[EducationSchema.levelRef] != null
             ? json[EducationSchema.levelRef] is String
-                ? Education.documentReferenceFromString(
+                ? Helpers.documentReferenceFromString(
                     json[EducationSchema.levelRef])
                 : json[EducationSchema.levelRef]
             : null,
@@ -190,7 +185,7 @@ class Grade {
   factory Grade.fromJson(Map<String, dynamic> json) => Grade(
         gradeRef: json[EducationSchema.gradeRef] != null
             ? json[EducationSchema.gradeRef] is String
-                ? Education.documentReferenceFromString(
+                ? Helpers.documentReferenceFromString(
                     json[EducationSchema.gradeRef])
                 : json[EducationSchema.gradeRef]
             : null,
@@ -214,7 +209,7 @@ class KnowledgeArea {
   factory KnowledgeArea.fromJson(Map<String, dynamic> json) => KnowledgeArea(
         knowledgeAreaRef: json[EducationSchema.knowledgeAreaRef] != null
             ? json[EducationSchema.knowledgeAreaRef] is String
-                ? Education.documentReferenceFromString(
+                ? Helpers.documentReferenceFromString(
                     json[EducationSchema.knowledgeAreaRef])
                 : json[EducationSchema.knowledgeAreaRef]
             : null,

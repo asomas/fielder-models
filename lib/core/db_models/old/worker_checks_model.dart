@@ -3,6 +3,8 @@ import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/old/schema/worker_checks_schema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 
+import '../helpers/helpers.dart';
+
 class WorkerChecksModel {
   String docId;
   DocumentReference checkRef;
@@ -23,23 +25,38 @@ class WorkerChecksModel {
   });
 
   factory WorkerChecksModel.fromMap(String docId, Map map) {
-    try {
-      return WorkerChecksModel(
-        docId: docId,
-        checkRef: map[WorkerChecksSchema.checkRef],
-        workerRef: map[WorkerChecksSchema.workerRef],
-        checkValue: map[WorkerChecksSchema.checkValue],
-        checkVerificationInfo: map[WorkerChecksSchema.verificationInfo] != null
-            ? CheckVerificationInfo.fromMap(
-                map[WorkerChecksSchema.verificationInfo])
-            : null,
-        checksType: EnumHelpers.getChecksTypeFromString(
-            map[WorkerChecksSchema.checkValue]),
-        status:
-            EnumHelpers.checkStatusFromString(map[WorkerChecksSchema.status]),
-      );
-    } catch (e, s) {
-      print('worker checks model catch___${e}____$s');
+    if (map != null && map.isNotEmpty) {
+      try {
+        return WorkerChecksModel(
+          docId: docId,
+          checkRef: map[WorkerChecksSchema.checkRef] != null
+              ? map[WorkerChecksSchema.checkRef] is String
+                  ? Helpers.documentReferenceFromString(
+                      map[WorkerChecksSchema.checkRef])
+                  : map[WorkerChecksSchema.checkRef]
+              : null,
+          workerRef: map[WorkerChecksSchema.workerRef] != null
+              ? map[WorkerChecksSchema.workerRef] is String
+                  ? Helpers.documentReferenceFromString(
+                      map[WorkerChecksSchema.workerRef])
+                  : map[WorkerChecksSchema.workerRef]
+              : null,
+          checkValue: map[WorkerChecksSchema.checkValue],
+          checkVerificationInfo:
+              map[WorkerChecksSchema.verificationInfo] != null
+                  ? CheckVerificationInfo.fromMap(
+                      map[WorkerChecksSchema.verificationInfo])
+                  : null,
+          checksType: EnumHelpers.getChecksTypeFromString(
+              map[WorkerChecksSchema.checkValue]),
+          status:
+              EnumHelpers.checkStatusFromString(map[WorkerChecksSchema.status]),
+        );
+      } catch (e, s) {
+        print('worker checks model catch___${e}____$s');
+        return null;
+      }
+    } else {
       return null;
     }
   }
@@ -56,8 +73,13 @@ class CheckVerificationInfo {
 
   factory CheckVerificationInfo.fromMap(Map map) {
     try {
+      var _dov = map[WorkerChecksSchema.dov];
+      if (_dov != null && _dov is String) {
+        String split = _dov.toString().split("T")[0];
+        _dov = Timestamp.fromDate(DateTime.parse(split));
+      }
       return CheckVerificationInfo(
-        dov: map[WorkerChecksSchema.dov]?.toDate(),
+        dov: _dov?.toDate(),
         isValid: map[WorkerChecksSchema.isValid] ?? false,
         source: map[WorkerChecksSchema.source],
         documentRef: map[WorkerChecksSchema.documentRef],
