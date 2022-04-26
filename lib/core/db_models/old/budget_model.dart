@@ -72,7 +72,8 @@ class BudgetModel {
             : null,
         enableUnpaidBreaks: data[JobSummarySchema.enableUnpaidBreaks],
         id: budgetId,
-        name: data[JobTemplateSchema.name],
+        name:
+            data[JobTemplateSchema.name] ?? data[JobTemplateSchema.budgetName],
         groupRef: data[JobTemplateSchema.groupRef],
         jobTemplateRef: data[JobTemplateSchema.jobTemplateRef],
         addressModel: data[JobTemplateSchema.location] != null

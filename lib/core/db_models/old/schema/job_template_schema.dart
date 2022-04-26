@@ -13,6 +13,7 @@ class JobTemplateSchema {
   static const String jobTitle = 'job_title';
   static const String location = 'location';
   static const String name = 'name';
+  static const String budgetName = 'budget_name';
   static const String jobReferenceId = 'job_reference_id';
   static const String qualifications = 'qualifications';
   static const String qualificationsIds = 'qualification_ids';
