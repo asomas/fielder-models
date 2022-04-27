@@ -624,6 +624,8 @@ class EnumHelpers {
     switch (string) {
       case ('CONFIRMED'):
         return CheckStatus.Confirmed;
+      case ('INVALIDATED'):
+        return CheckStatus.Invalidated;
       default:
         return null;
     }
