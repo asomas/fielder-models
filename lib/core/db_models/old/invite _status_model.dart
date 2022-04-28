@@ -134,6 +134,9 @@ class InviteStatusModel {
           _interviewModel.workerLastName =
               data[StaffStatusSchema.workerLastName];
           _interviewModel.invitationId = invitationId;
+          _interviewModel.invitationStatus =
+              EnumHelpers.inviteStaffStatusFromString(
+                  data[StaffStatusSchema.status]);
           AddressModel _addressModel;
           if (data[InviteStaffSchema.interview]
                   [InterviewsSchema.interviewAddress] !=
