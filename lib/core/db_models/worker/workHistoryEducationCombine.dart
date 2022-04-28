@@ -28,6 +28,7 @@ class WorkHistoryEducationCombine {
   Grade grade;
   bool award;
   bool hasAcceptableReference;
+  ApprovalData approvalData;
 
   WorkHistoryEducationCombine({
     this.docId,
@@ -52,6 +53,7 @@ class WorkHistoryEducationCombine {
     this.grade,
     this.award,
     this.hasAcceptableReference,
+    this.approvalData,
   });
 
   factory WorkHistoryEducationCombine.fromJson(Map<String, dynamic> json,
@@ -117,10 +119,35 @@ class WorkHistoryEducationCombine {
           award: json[EducationSchema.award] != null
               ? json[EducationSchema.award]
               : null,
-          hasAcceptableReference: json[WorkerHistorySchema.hasAcceptableReference]
+          hasAcceptableReference:
+              json[WorkerHistorySchema.hasAcceptableReference],
+          approvalData: json[WorkerHistorySchema.approvalData],
         );
       } catch (e, s) {
         print("worker experience model catch______${e}_____$s");
+        return null;
+      }
+    } else {
+      return null;
+    }
+  }
+}
+
+class ApprovalData {
+  String userName;
+  String approvalDate;
+
+  ApprovalData({this.userName, this.approvalDate});
+
+  factory ApprovalData.fromMap(Map map) {
+    if (map != null && map.isNotEmpty) {
+      try {
+        return ApprovalData(
+          userName: map[WorkerHistorySchema.userName],
+          approvalDate: map[WorkerHistorySchema.approvalDate],
+        );
+      } catch (e, s) {
+        print("approval data from map catch____${e}______$s");
         return null;
       }
     } else {

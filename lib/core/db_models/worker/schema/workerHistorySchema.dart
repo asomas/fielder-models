@@ -69,4 +69,8 @@ class WorkerHistorySchema {
   static const String contactPosition = "contact_position";
   static const String contactEmail = "contact_email";
   static const String contactRelationship = "contact_relationship";
+
+  static const String approvalData = "approval_data";
+  static const String userName = "user_name";
+  static const String approvalDate = "approval_date";
 }
