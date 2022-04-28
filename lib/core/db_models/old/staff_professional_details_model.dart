@@ -2,6 +2,7 @@ import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/qualification_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_professional_detail_schema.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
+import 'package:fielder_models/core/db_models/worker/schema/workerHistorySchema.dart';
 import 'package:fielder_models/core/db_models/worker/workHistoryEducationCombine.dart';
 
 class StaffProfessionalDetailModel {
@@ -48,7 +49,8 @@ class StaffProfessionalDetailModel {
                           ?.isNotEmpty ==
                       true
                   ? (map[StaffProfessionalDetailSchema.workHistories] as List)
-                      .map((e) => WorkHistoryEducationCombine.fromJson(e))
+                      .map((e) => WorkHistoryEducationCombine.fromJson(e,
+                          docId: e[WorkerHistorySchema.id]))
                       .toList()
                   : [],
         );
