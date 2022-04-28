@@ -121,7 +121,8 @@ class WorkHistoryEducationCombine {
               : null,
           hasAcceptableReference:
               json[WorkerHistorySchema.hasAcceptableReference],
-          approvalData: json[WorkerHistorySchema.approvalData],
+          approvalData:
+              ApprovalData.fromMap(json[WorkerHistorySchema.approvalData]),
         );
       } catch (e, s) {
         print("worker experience model catch______${e}_____$s");
@@ -135,16 +136,23 @@ class WorkHistoryEducationCombine {
 
 class ApprovalData {
   String userName;
-  String approvalDate;
+  DateTime approvalDate;
 
   ApprovalData({this.userName, this.approvalDate});
 
   factory ApprovalData.fromMap(Map map) {
     if (map != null && map.isNotEmpty) {
       try {
+        var _approvalDate;
+        _approvalDate = map[WorkerHistorySchema.approvalDate];
+        if (_approvalDate != null && _approvalDate is String) {
+          String split = _approvalDate.toString().split("T")[0];
+          _approvalDate = Timestamp.fromDate(DateTime.parse(split));
+        }
+
         return ApprovalData(
           userName: map[WorkerHistorySchema.userName],
-          approvalDate: map[WorkerHistorySchema.approvalDate],
+          approvalDate: _approvalDate,
         );
       } catch (e, s) {
         print("approval data from map catch____${e}______$s");
