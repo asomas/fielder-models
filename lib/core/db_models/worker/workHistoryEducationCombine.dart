@@ -28,6 +28,7 @@ class WorkHistoryEducationCombine {
   Grade grade;
   bool award;
   bool hasAcceptableReference;
+  ApprovalData approvalData;
 
   WorkHistoryEducationCombine({
     this.docId,
@@ -52,6 +53,7 @@ class WorkHistoryEducationCombine {
     this.grade,
     this.award,
     this.hasAcceptableReference,
+    this.approvalData,
   });
 
   factory WorkHistoryEducationCombine.fromJson(Map<String, dynamic> json,
@@ -117,10 +119,43 @@ class WorkHistoryEducationCombine {
           award: json[EducationSchema.award] != null
               ? json[EducationSchema.award]
               : null,
-          hasAcceptableReference: json[WorkerHistorySchema.hasAcceptableReference]
+          hasAcceptableReference:
+              json[WorkerHistorySchema.hasAcceptableReference],
+          approvalData:
+              ApprovalData.fromMap(json[WorkerHistorySchema.approvalData]),
         );
       } catch (e, s) {
         print("worker experience model catch______${e}_____$s");
+        return null;
+      }
+    } else {
+      return null;
+    }
+  }
+}
+
+class ApprovalData {
+  String userName;
+  DateTime approvalDate;
+
+  ApprovalData({this.userName, this.approvalDate});
+
+  factory ApprovalData.fromMap(Map map) {
+    if (map != null && map.isNotEmpty) {
+      try {
+        var _approvalDate;
+        _approvalDate = map[WorkerHistorySchema.approvalDate];
+        if (_approvalDate != null && _approvalDate is String) {
+          String split = _approvalDate.toString().split("T")[0];
+          _approvalDate = Timestamp.fromDate(DateTime.parse(split));
+        }
+
+        return ApprovalData(
+          userName: map[WorkerHistorySchema.userName],
+          approvalDate: _approvalDate?.toDate(),
+        );
+      } catch (e, s) {
+        print("approval data from map catch____${e}______$s");
         return null;
       }
     } else {
