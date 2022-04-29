@@ -152,7 +152,7 @@ class ApprovalData {
 
         return ApprovalData(
           userName: map[WorkerHistorySchema.userName],
-          approvalDate: _approvalDate,
+          approvalDate: _approvalDate?.toDate(),
         );
       } catch (e, s) {
         print("approval data from map catch____${e}______$s");

@@ -49,9 +49,10 @@ class StaffProfessionalDetailModel {
                           ?.isNotEmpty ==
                       true
                   ? (map[StaffProfessionalDetailSchema.workHistories] as List)
-                      .map((e) => WorkHistoryEducationCombine.fromJson(e,
-                          docId: e[WorkerHistorySchema.id]))
-                      .toList()
+                      .map((e) {
+                      return WorkHistoryEducationCombine.fromJson(e,
+                          docId: e[WorkerHistorySchema.id]);
+                    }).toList()
                   : [],
         );
       } catch (e, stacktrace) {
