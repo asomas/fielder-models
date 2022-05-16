@@ -202,6 +202,11 @@ class RTWSubColSerializer(serializers.Serializer):
     submitted_at = serializers.DateTimeField(allow_null=True)
 
 
+class WorkerDocumentSource(Enum):
+    SUMSUB = auto()
+    BIRTH_CERTIFICATE = auto()
+
+
 class WorkerDocumentDBSerializer(serializers.Serializer):
     class SumsubAddressSerializer(serializers.Serializer):
         building_number = serializers.CharField(
@@ -249,6 +254,12 @@ class WorkerDocumentDBSerializer(serializers.Serializer):
     address = SumsubAddressSerializer(required=False, allow_null=True)
     dob = serializers.CharField(required=False, allow_null=True, allow_blank=True)
     is_valid = serializers.BooleanField()
+    source = serializers.ChoiceField(
+        choices=WorkerDocumentSource._member_names_, allow_null=True, default=None
+    )
+    document_paths = serializers.ListField(
+        child=serializers.CharField(), allow_empty=True, default=[]
+    )
     worker_ref = DocumentReferenceField()
 
 
