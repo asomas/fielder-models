@@ -92,7 +92,7 @@ class LocationDBSerializer(serializers.Serializer):
         )
 
         # generate name if empty
-        if data["name"] is None or data["manual_entry"]:
+        if data.get("name") is None or data.get("manual_entry"):
             data["name"] = " ".join([v for _, v in data["address"].items() if v][:2])
 
         return super().to_internal_value(data)
