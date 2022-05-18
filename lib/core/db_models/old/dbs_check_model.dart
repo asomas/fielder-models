@@ -1,6 +1,7 @@
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/helpers/helpers.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
+import 'package:fielder_models/core/db_models/worker/schema/locationSchema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 
 import 'schema/dbs_check_model_schema.dart';
@@ -36,9 +37,10 @@ class DBSCheckModel {
               ? List<HistoricalName>.from(map[DBSCheckModelSchema.middleName]
                   .map((x) => HistoricalName.fromMap(x)))
               : [],
-          addresses: map[DBSCheckModelSchema.fullAddress] != null
-              ? List<AddressHistory>.from(map[DBSCheckModelSchema.fullAddress]
-                  .map((x) => AddressHistory.fromMap(x)))
+          addresses: map[DBSCheckModelSchema.historicalAddresses] != null
+              ? List<AddressHistory>.from(
+                  map[DBSCheckModelSchema.historicalAddresses]
+                      .map((x) => AddressHistory.fromMap(x)))
               : [],
           email: map[DBSCheckModelSchema.email],
           townOfBirth: map[DBSCheckModelSchema.townOfBirth],
@@ -136,10 +138,14 @@ class AddressHistory {
 
   factory AddressHistory.fromMap(Map map) {
     if (map != null && map.isNotEmpty) {
-      //Todo update fields
       try {
         return AddressHistory(
-          address: map[DBSCheckModelSchema.fullAddress],
+          address: map[DBSCheckModelSchema.fullAddress] != null
+              ? AddressModel.fromMap(
+                  map: map[DBSCheckModelSchema.fullAddress]
+                      [LocationSchema.address],
+                )
+              : null,
           dateMovedIn: DateTime.tryParse(map[DBSCheckModelSchema.dateMovedIn]),
           dateMovedOut:
               DateTime.tryParse(map[DBSCheckModelSchema.dateMovedOut]),
@@ -154,11 +160,12 @@ class AddressHistory {
   }
 
   Map<String, dynamic> toJson() {
-    Map addressMap = address.toJSON();
-    addressMap[DBSCheckModelSchema.dateMovedIn] =
-        Helpers.dateToString(dateMovedIn);
-    addressMap[DBSCheckModelSchema.dateMovedOut] =
-        Helpers.dateToString(dateMovedOut);
-    return addressMap;
+    return {
+      DBSCheckModelSchema.fullAddress: {
+        LocationSchema.address: address.toJSON()
+      },
+      DBSCheckModelSchema.dateMovedIn: Helpers.dateToString(dateMovedIn),
+      DBSCheckModelSchema.dateMovedOut: Helpers.dateToString(dateMovedOut),
+    };
   }
 }

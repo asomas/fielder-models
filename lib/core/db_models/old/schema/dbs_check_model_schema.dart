@@ -1,5 +1,6 @@
 class DBSCheckModelSchema {
   static const String historicalNames = 'historical_names';
+  static const String historicalAddresses = 'historical_addresses';
   static const String firstName = 'first_name';
   static const String middleName = 'middle_name';
   static const String surname = 'surname';
