@@ -204,7 +204,7 @@ class RTWSubColSerializer(serializers.Serializer):
 
 class WorkerDocumentSource(Enum):
     SUMSUB = auto()
-    BIRTH_CERTIFICATE = auto()
+    MANUAL = auto()
 
 
 class WorkerDocumentDBSerializer(serializers.Serializer):
