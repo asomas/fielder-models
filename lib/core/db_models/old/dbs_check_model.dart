@@ -14,6 +14,7 @@ class DBSCheckModel {
   String email;
   bool criminalRecord;
   bool trueInformationConfirmation;
+  String dbsProfileNumber;
 
   DBSCheckModel({
     this.historicalNames,
@@ -24,28 +25,31 @@ class DBSCheckModel {
     this.email,
     this.criminalRecord,
     this.trueInformationConfirmation,
+    this.dbsProfileNumber,
   });
 
   factory DBSCheckModel.fromMap(Map map) {
     if (map != null && map.isNotEmpty) {
       try {
         return DBSCheckModel(
-            historicalNames: map[DBSCheckModelSchema.historicalNames] != null
-                ? List<HistoricalName>.from(map[DBSCheckModelSchema.middleName]
-                    .map((x) => HistoricalName.fromMap(x)))
-                : [],
-            addresses: map[DBSCheckModelSchema.fullAddress] != null
-                ? List<AddressHistory>.from(map[DBSCheckModelSchema.fullAddress]
-                    .map((x) => AddressHistory.fromMap(x)))
-                : [],
-            email: map[DBSCheckModelSchema.email],
-            townOfBirth: map[DBSCheckModelSchema.townOfBirth],
-            countryOfBirth: map[DBSCheckModelSchema.countryOfBirth],
-            criminalRecord: map[DBSCheckModelSchema.criminalRecord],
-            trueInformationConfirmation:
-                map[DBSCheckModelSchema.trueInformationConfirmation],
-            checksType: EnumHelpers.getChecksTypeFromString(
-                map[DBSCheckModelSchema.checkType]));
+          historicalNames: map[DBSCheckModelSchema.historicalNames] != null
+              ? List<HistoricalName>.from(map[DBSCheckModelSchema.middleName]
+                  .map((x) => HistoricalName.fromMap(x)))
+              : [],
+          addresses: map[DBSCheckModelSchema.fullAddress] != null
+              ? List<AddressHistory>.from(map[DBSCheckModelSchema.fullAddress]
+                  .map((x) => AddressHistory.fromMap(x)))
+              : [],
+          email: map[DBSCheckModelSchema.email],
+          townOfBirth: map[DBSCheckModelSchema.townOfBirth],
+          countryOfBirth: map[DBSCheckModelSchema.countryOfBirth],
+          criminalRecord: map[DBSCheckModelSchema.criminalRecord],
+          trueInformationConfirmation:
+              map[DBSCheckModelSchema.trueInformationConfirmation],
+          checksType: EnumHelpers.getChecksTypeFromString(
+              map[DBSCheckModelSchema.checkType]),
+          dbsProfileNumber: map[DBSCheckModelSchema.dbsProfileNumber],
+        );
       } catch (e, s) {
         print('DBS historical name catch____${e}____$s');
         return null;
@@ -56,7 +60,7 @@ class DBSCheckModel {
   }
 
   Map<String, dynamic> toJson() {
-    return {
+    var map = {
       DBSCheckModelSchema.email: email,
       DBSCheckModelSchema.townOfBirth: townOfBirth,
       DBSCheckModelSchema.countryOfBirth: countryOfBirth,
@@ -66,6 +70,10 @@ class DBSCheckModel {
       DBSCheckModelSchema.checkType:
           EnumHelpers.getStringFromCheckType(checksType),
     };
+    if (dbsProfileNumber != null) {
+      map[DBSCheckModelSchema.dbsProfileNumber] = dbsProfileNumber;
+    }
+    return map;
   }
 }
 
