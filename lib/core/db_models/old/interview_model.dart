@@ -27,7 +27,7 @@ class InterviewModel {
   String workerPhone;
   String workerId;
   String invitationId;
-  InviteStaffStatus invitationStatus;
+  OfferStatus invitationStatus;
 
   InterviewModel({
     @required this.interviewDuration,

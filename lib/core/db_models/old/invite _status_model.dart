@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 
 class InviteStatusModel {
   CandidatesWorkerType workerType;
-  InviteStaffStatus status;
+  OfferStatus status;
   String workerFirstName;
   String workerLastName;
   String workerPhone;
@@ -135,7 +135,7 @@ class InviteStatusModel {
               data[StaffStatusSchema.workerLastName];
           _interviewModel.invitationId = invitationId;
           _interviewModel.invitationStatus =
-              EnumHelpers.inviteStaffStatusFromString(
+              EnumHelpers.getOfferStatusFromString(
                   data[StaffStatusSchema.status]);
           AddressModel _addressModel;
           if (data[InviteStaffSchema.interview]
@@ -167,7 +167,7 @@ class InviteStatusModel {
         invitationId: invitationId ?? "",
         workerType: EnumHelpers.candidatesWorkerTypeFromString(
             data[StaffStatusSchema.workerType]),
-        status: EnumHelpers.inviteStaffStatusFromString(
+        status: EnumHelpers.getOfferStatusFromString(
             data[StaffStatusSchema.status]),
         workerFirstName: data[StaffStatusSchema.workerFirstName],
         workerLastName: data[StaffStatusSchema.workerLastName],
@@ -253,7 +253,7 @@ class InviteStatusModel {
 
   clear() {
     workerType = null;
-    status = InviteStaffStatus.None;
+    status = OfferStatus.None;
     workerFirstName = "";
     workerLastName = "";
     workerPhone = "";

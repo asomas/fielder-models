@@ -118,7 +118,7 @@ enum NewsCardType { Mini, Medium }
 
 enum SalaryType { Hourly, Daily, Weekly, Monthly, Yearly }
 
-enum InviteStaffStatus { Pending, Accepted, Declined, None }
+//enum InviteStaffStatus { Pending, Accepted, Declined, None }
 
 enum CandidatesWorkerType { STAFF, FIELDER, NETWORK }
 

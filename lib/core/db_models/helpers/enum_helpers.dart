@@ -85,6 +85,31 @@ class EnumHelpers {
     }
   }
 
+  static String getStringFromOfferStatus(OfferStatus status) {
+    switch (status) {
+      case OfferStatus.PendingChecksBackOffice:
+        return OffersStatusString.pendingChecksBackoffice;
+      case OfferStatus.PendingChecksWorker:
+        return OffersStatusString.pendingChecksWorker;
+      case OfferStatus.PendingWorkerFinalConfirmation:
+        return OffersStatusString.pendingWorkerFinalConfirmation;
+      case OfferStatus.PendingWorkerResponse:
+        return OffersStatusString.pendingWorkerResponse;
+      case OfferStatus.Queued:
+        return OffersStatusString.queued;
+      case OfferStatus.Accepted:
+        return OffersStatusString.accepted;
+      case OfferStatus.Declined:
+        return OffersStatusString.declined;
+      case OfferStatus.Retracted:
+        return OffersStatusString.retracted;
+      case OfferStatus.Expired:
+        return OffersStatusString.expired;
+      default:
+        return OffersStatusString.none;
+    }
+  }
+
   static String getStringForPayType(CalculatePay calculatePay) {
     switch (calculatePay) {
       case CalculatePay.ClockedInHours:
@@ -318,31 +343,31 @@ class EnumHelpers {
     }
   }
 
-  static InviteStaffStatus inviteStaffStatusFromString(String status) {
-    switch (status) {
-      case 'Pending':
-        return InviteStaffStatus.Pending;
-      case 'Declined':
-        return InviteStaffStatus.Declined;
-      case 'Accepted':
-        return InviteStaffStatus.Accepted;
-      default:
-        return InviteStaffStatus.None;
-    }
-  }
+  // static InviteStaffStatus inviteStaffStatusFromString(String status) {
+  //   switch (status) {
+  //     case 'Pending':
+  //       return InviteStaffStatus.Pending;
+  //     case 'Declined':
+  //       return InviteStaffStatus.Declined;
+  //     case 'Accepted':
+  //       return InviteStaffStatus.Accepted;
+  //     default:
+  //       return InviteStaffStatus.None;
+  //   }
+  // }
 
-  static String stringFromInviteStaffStatus(InviteStaffStatus status) {
-    switch (status) {
-      case InviteStaffStatus.Pending:
-        return 'Pending';
-      case InviteStaffStatus.Declined:
-        return 'Declined';
-      case InviteStaffStatus.Accepted:
-        return 'Accepted';
-      default:
-        return null;
-    }
-  }
+  // static String stringFromInviteStaffStatus(InviteStaffStatus status) {
+  //   switch (status) {
+  //     case InviteStaffStatus.Pending:
+  //       return 'Pending';
+  //     case InviteStaffStatus.Declined:
+  //       return 'Declined';
+  //     case InviteStaffStatus.Accepted:
+  //       return 'Accepted';
+  //     default:
+  //       return null;
+  //   }
+  // }
 
   static String stringFromCandidatesWorkerType(
       CandidatesWorkerType workerType) {
@@ -412,18 +437,18 @@ class EnumHelpers {
     }
   }
 
-  static InviteStaffStatus offerStatusToInviteStatus(OfferStatus status) {
-    switch (status) {
-      case OfferStatus.None:
-        return InviteStaffStatus.None;
-      case OfferStatus.Declined:
-        return InviteStaffStatus.Declined;
-      case OfferStatus.Accepted:
-        return InviteStaffStatus.Accepted;
-      default:
-        return InviteStaffStatus.Pending;
-    }
-  }
+  // static InviteStaffStatus offerStatusToInviteStatus(OfferStatus status) {
+  //   switch (status) {
+  //     case OfferStatus.None:
+  //       return InviteStaffStatus.None;
+  //     case OfferStatus.Declined:
+  //       return InviteStaffStatus.Declined;
+  //     case OfferStatus.Accepted:
+  //       return InviteStaffStatus.Accepted;
+  //     default:
+  //       return InviteStaffStatus.Pending;
+  //   }
+  // }
 
   static String interviewTypeFromString(InterviewType interviewType) {
     switch (interviewType) {

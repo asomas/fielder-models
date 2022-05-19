@@ -35,6 +35,13 @@ class Offers {
     this.jobDataModel,
   });
 
+  static bool isPending(status) {
+    return status == OfferStatus.PendingWorkerFinalConfirmation ||
+        status == OfferStatus.PendingWorkerResponse ||
+        status == OfferStatus.PendingChecksWorker ||
+        status == OfferStatus.PendingChecksBackOffice;
+  }
+
   factory Offers.fromMap(String id, Map<String, dynamic> map,
       {CandidatesModel candidatesModel, WorkerModel workerModel}) {
     try {
@@ -74,8 +81,7 @@ class Offers {
   InviteStatusModel parseOffersToInviteStatusModel(Offers offer) {
     return InviteStatusModel(
       workerType: offer?.workerType,
-      status: EnumHelpers.offerStatusToInviteStatus(
-          EnumHelpers.getOfferStatusFromString(offer?.status)),
+      status: EnumHelpers.getOfferStatusFromString(offer?.status),
       workerFirstName: offer?.workerData?.firstName,
       workerLastName: offer?.workerData?.lastName,
       workerPhone: offer?.workerData?.phone,
