@@ -74,7 +74,7 @@ class DBSCheckModel {
       DBSCheckModelSchema.checkType:
           EnumHelpers.getStringFromCheckType(checksType),
     };
-    if (dbsProfileNumber != null) {
+    if (dbsProfileNumber != null && dbsProfileNumber.isNotEmpty) {
       map[DBSCheckModelSchema.dbsProfileNumber] = dbsProfileNumber;
     }
     return map;
@@ -145,6 +145,8 @@ class AddressHistory {
   factory AddressHistory.fromMap(Map map) {
     if (map != null && map.isNotEmpty) {
       try {
+        var start = map[DBSCheckModelSchema.dateMovedIn];
+        var end = map[DBSCheckModelSchema.dateMovedOut];
         return AddressHistory(
           address: map[DBSCheckModelSchema.fullAddress] != null
               ? AddressModel.fromMap(
@@ -152,9 +154,12 @@ class AddressHistory {
                       [LocationSchema.address],
                 )
               : null,
-          dateMovedIn: DateTime.tryParse(map[DBSCheckModelSchema.dateMovedIn]),
-          dateMovedOut:
-              DateTime.tryParse(map[DBSCheckModelSchema.dateMovedOut]),
+          dateMovedIn: start != null && start is Timestamp
+              ? start.toDate()
+              : DateTime.tryParse(start),
+          dateMovedOut: end != null && end is Timestamp
+              ? end.toDate()
+              : DateTime.tryParse(end),
         );
       } catch (e, s) {
         print('DBS historical address catch____${e}____$s');

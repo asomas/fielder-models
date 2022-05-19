@@ -52,7 +52,10 @@ class UserPrompt {
                   map[UserPromptSchema.readMoreActionUrl]
                       .toString()
                       .isNotEmpty),
-          openInBrowser: map[UserPromptSchema.openInBrowser] ?? false,
+          openInBrowser: map[UserPromptSchema.openInBrowser] != null &&
+                  map[UserPromptSchema.openInBrowser] == "True"
+              ? true
+              : false,
         );
       } catch (e, s) {
         print("user prompt catch_____${e}_____$s");
