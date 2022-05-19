@@ -641,6 +641,8 @@ class EnumHelpers {
         return CheckStatus.Confirmed;
       case ('INVALIDATED'):
         return CheckStatus.Invalidated;
+      case ('AWAITING_BACKOFFICE'):
+        return CheckStatus.AwaitingBackOffice;
       default:
         return null;
     }

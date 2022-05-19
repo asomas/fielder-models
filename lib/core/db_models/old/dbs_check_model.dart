@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/helpers/helpers.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
@@ -34,8 +35,9 @@ class DBSCheckModel {
       try {
         return DBSCheckModel(
           historicalNames: map[DBSCheckModelSchema.historicalNames] != null
-              ? List<HistoricalName>.from(map[DBSCheckModelSchema.middleName]
-                  .map((x) => HistoricalName.fromMap(x)))
+              ? List<HistoricalName>.from(
+                  map[DBSCheckModelSchema.historicalNames]
+                      .map((x) => HistoricalName.fromMap(x)))
               : [],
           addresses: map[DBSCheckModelSchema.historicalAddresses] != null
               ? List<AddressHistory>.from(
@@ -96,14 +98,18 @@ class HistoricalName {
   factory HistoricalName.fromMap(Map map) {
     if (map != null && map.isNotEmpty) {
       try {
+        var start = map[DBSCheckModelSchema.dateUsedFrom];
+        var end = map[DBSCheckModelSchema.dateUsedUntil];
         return HistoricalName(
           firstName: map[DBSCheckModelSchema.firstName],
           middleName: map[DBSCheckModelSchema.middleName],
           surname: map[DBSCheckModelSchema.surname],
-          dateUsedFrom:
-              DateTime.tryParse(map[DBSCheckModelSchema.dateUsedFrom]),
-          dateUsedUntil:
-              DateTime.tryParse(map[DBSCheckModelSchema.dateUsedUntil]),
+          dateUsedFrom: start != null && start is Timestamp
+              ? start.toDate()
+              : DateTime.tryParse(start),
+          dateUsedUntil: end != null && end is Timestamp
+              ? end.toDate()
+              : DateTime.tryParse(end),
         );
       } catch (e, s) {
         print('DBS historical name catch____${e}____$s');

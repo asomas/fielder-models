@@ -9,6 +9,7 @@ class UserPromptSchema {
   static const String readMoreButtonText = 'read_more_button_text';
   static const String readMoreActionUrl = 'read_more_action_url';
   static const String userPrompt = 'user_prompt';
+  static const String openInBrowser = 'open_in_browser';
 }
 
 class UserPrompt {
@@ -18,14 +19,17 @@ class UserPrompt {
   String readMoreButtonText;
   String readMoreActionUrl;
   bool showReadMore;
+  bool openInBrowser;
 
-  UserPrompt(
-      {this.title,
-      this.subTitle,
-      this.type,
-      this.readMoreButtonText,
-      this.readMoreActionUrl,
-      this.showReadMore = false});
+  UserPrompt({
+    this.title,
+    this.subTitle,
+    this.type,
+    this.readMoreButtonText,
+    this.readMoreActionUrl,
+    this.showReadMore = false,
+    this.openInBrowser = false,
+  });
 
   factory UserPrompt.fromMap(Map map) {
     if (map != null && map.isNotEmpty) {
@@ -48,6 +52,7 @@ class UserPrompt {
                   map[UserPromptSchema.readMoreActionUrl]
                       .toString()
                       .isNotEmpty),
+          openInBrowser: map[UserPromptSchema.openInBrowser] ?? false,
         );
       } catch (e, s) {
         print("user prompt catch_____${e}_____$s");
