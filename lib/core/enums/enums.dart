@@ -146,4 +146,4 @@ enum ScheduleShiftResultStatus { Success, Fail }
 
 enum OnBoardingDocumentSignStatus { Signed, Unsigned }
 
-enum CheckStatus { Confirmed, Invalidated }
+enum CheckStatus { Confirmed, Invalidated, AwaitingBackOffice }

@@ -466,7 +466,8 @@ class EnumHelpers {
     if (value != null) {
       if (value?.toUpperCase()?.startsWith('DBS'.toUpperCase()) == true) {
         return ChecksType.DBS;
-      } else if (value.toUpperCase().startsWith('Enhanced DBS'.toUpperCase())) {
+      } else if (value.toUpperCase().startsWith('Enhanced DBS'.toUpperCase()) ||
+          value.toUpperCase().startsWith('ENHANCED_DBS')) {
         return ChecksType.EnhancedDBS;
       } else if (value.toUpperCase().startsWith('Proof of ID'.toUpperCase())) {
         return ChecksType.ProofOfID;
@@ -476,6 +477,20 @@ class EnumHelpers {
         return ChecksType.ProofOfAddress;
       } else {
         return null;
+      }
+    }
+    return null;
+  }
+
+  static String getStringFromCheckType(ChecksType value) {
+    if (value != null) {
+      switch (value) {
+        case (ChecksType.DBS):
+          return 'DBS';
+        case (ChecksType.EnhancedDBS):
+          return 'ENHANCED_DBS';
+        default:
+          return null;
       }
     }
     return null;
@@ -626,6 +641,8 @@ class EnumHelpers {
         return CheckStatus.Confirmed;
       case ('INVALIDATED'):
         return CheckStatus.Invalidated;
+      case ('AWAITING_BACKOFFICE'):
+        return CheckStatus.AwaitingBackOffice;
       default:
         return null;
     }
