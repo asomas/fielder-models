@@ -8,6 +8,7 @@ import 'package:fielder_models/core/db_models/temp/common.dart';
 import 'package:fielder_models/core/db_models/worker/schema/newsNotificationSchema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:number_to_words/number_to_words.dart';
 
 class EnumHelpers {
@@ -85,28 +86,43 @@ class EnumHelpers {
     }
   }
 
-  static String getStringFromOfferStatus(OfferStatus status) {
+  static _enumToUIString(String str) {
+    return toBeginningOfSentenceCase(str.replaceAll("_", ' ')?.toLowerCase());
+  }
+
+  static String getStringFromOfferStatus(OfferStatus status,
+      {bool forUI = false}) {
     switch (status) {
       case OfferStatus.PendingChecksBackOffice:
-        return OffersStatusString.pendingChecksBackoffice;
+        String str = OffersStatusString.pendingChecksBackoffice;
+        return forUI ? _enumToUIString(str) : str;
       case OfferStatus.PendingChecksWorker:
-        return OffersStatusString.pendingChecksWorker;
+        String str = OffersStatusString.pendingChecksWorker;
+        return forUI ? _enumToUIString(str) : str;
       case OfferStatus.PendingWorkerFinalConfirmation:
-        return OffersStatusString.pendingWorkerFinalConfirmation;
+        String str = OffersStatusString.pendingWorkerFinalConfirmation;
+        return forUI ? _enumToUIString(str) : str;
       case OfferStatus.PendingWorkerResponse:
-        return OffersStatusString.pendingWorkerResponse;
+        String str = OffersStatusString.pendingWorkerResponse;
+        return forUI ? _enumToUIString(str) : str;
       case OfferStatus.Queued:
-        return OffersStatusString.queued;
+        String str = OffersStatusString.queued;
+        return forUI ? _enumToUIString(str) : str;
       case OfferStatus.Accepted:
-        return OffersStatusString.accepted;
+        String str = OffersStatusString.accepted;
+        return forUI ? _enumToUIString(str) : str;
       case OfferStatus.Declined:
-        return OffersStatusString.declined;
+        String str = OffersStatusString.declined;
+        return forUI ? _enumToUIString(str) : str;
       case OfferStatus.Retracted:
-        return OffersStatusString.retracted;
+        String str = OffersStatusString.retracted;
+        return forUI ? _enumToUIString(str) : str;
       case OfferStatus.Expired:
-        return OffersStatusString.expired;
+        String str = OffersStatusString.expired;
+        return forUI ? _enumToUIString(str) : str;
       default:
-        return OffersStatusString.none;
+        String str = OffersStatusString.none;
+        return forUI ? _enumToUIString(str) : str;
     }
   }
 
