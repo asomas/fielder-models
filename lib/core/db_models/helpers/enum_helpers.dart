@@ -8,6 +8,7 @@ import 'package:fielder_models/core/db_models/temp/common.dart';
 import 'package:fielder_models/core/db_models/worker/schema/newsNotificationSchema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:number_to_words/number_to_words.dart';
 
 class EnumHelpers {
@@ -82,6 +83,46 @@ class EnumHelpers {
         return OfferStatus.Expired;
       default:
         return OfferStatus.None;
+    }
+  }
+
+  static _enumToUIString(String str) {
+    return toBeginningOfSentenceCase(str.replaceAll("_", ' ')?.toLowerCase());
+  }
+
+  static String getStringFromOfferStatus(OfferStatus status,
+      {bool forUI = false}) {
+    switch (status) {
+      case OfferStatus.PendingChecksBackOffice:
+        String str = OffersStatusString.pendingChecksBackoffice;
+        return forUI ? _enumToUIString(str) : str;
+      case OfferStatus.PendingChecksWorker:
+        String str = OffersStatusString.pendingChecksWorker;
+        return forUI ? _enumToUIString(str) : str;
+      case OfferStatus.PendingWorkerFinalConfirmation:
+        String str = OffersStatusString.pendingWorkerFinalConfirmation;
+        return forUI ? _enumToUIString(str) : str;
+      case OfferStatus.PendingWorkerResponse:
+        String str = OffersStatusString.pendingWorkerResponse;
+        return forUI ? _enumToUIString(str) : str;
+      case OfferStatus.Queued:
+        String str = OffersStatusString.queued;
+        return forUI ? _enumToUIString(str) : str;
+      case OfferStatus.Accepted:
+        String str = OffersStatusString.accepted;
+        return forUI ? _enumToUIString(str) : str;
+      case OfferStatus.Declined:
+        String str = OffersStatusString.declined;
+        return forUI ? _enumToUIString(str) : str;
+      case OfferStatus.Retracted:
+        String str = OffersStatusString.retracted;
+        return forUI ? _enumToUIString(str) : str;
+      case OfferStatus.Expired:
+        String str = OffersStatusString.expired;
+        return forUI ? _enumToUIString(str) : str;
+      default:
+        String str = OffersStatusString.none;
+        return forUI ? _enumToUIString(str) : str;
     }
   }
 
@@ -318,31 +359,31 @@ class EnumHelpers {
     }
   }
 
-  static InviteStaffStatus inviteStaffStatusFromString(String status) {
-    switch (status) {
-      case 'Pending':
-        return InviteStaffStatus.Pending;
-      case 'Declined':
-        return InviteStaffStatus.Declined;
-      case 'Accepted':
-        return InviteStaffStatus.Accepted;
-      default:
-        return InviteStaffStatus.None;
-    }
-  }
+  // static InviteStaffStatus inviteStaffStatusFromString(String status) {
+  //   switch (status) {
+  //     case 'Pending':
+  //       return InviteStaffStatus.Pending;
+  //     case 'Declined':
+  //       return InviteStaffStatus.Declined;
+  //     case 'Accepted':
+  //       return InviteStaffStatus.Accepted;
+  //     default:
+  //       return InviteStaffStatus.None;
+  //   }
+  // }
 
-  static String stringFromInviteStaffStatus(InviteStaffStatus status) {
-    switch (status) {
-      case InviteStaffStatus.Pending:
-        return 'Pending';
-      case InviteStaffStatus.Declined:
-        return 'Declined';
-      case InviteStaffStatus.Accepted:
-        return 'Accepted';
-      default:
-        return null;
-    }
-  }
+  // static String stringFromInviteStaffStatus(InviteStaffStatus status) {
+  //   switch (status) {
+  //     case InviteStaffStatus.Pending:
+  //       return 'Pending';
+  //     case InviteStaffStatus.Declined:
+  //       return 'Declined';
+  //     case InviteStaffStatus.Accepted:
+  //       return 'Accepted';
+  //     default:
+  //       return null;
+  //   }
+  // }
 
   static String stringFromCandidatesWorkerType(
       CandidatesWorkerType workerType) {
@@ -412,18 +453,18 @@ class EnumHelpers {
     }
   }
 
-  static InviteStaffStatus offerStatusToInviteStatus(OfferStatus status) {
-    switch (status) {
-      case OfferStatus.None:
-        return InviteStaffStatus.None;
-      case OfferStatus.Declined:
-        return InviteStaffStatus.Declined;
-      case OfferStatus.Accepted:
-        return InviteStaffStatus.Accepted;
-      default:
-        return InviteStaffStatus.Pending;
-    }
-  }
+  // static InviteStaffStatus offerStatusToInviteStatus(OfferStatus status) {
+  //   switch (status) {
+  //     case OfferStatus.None:
+  //       return InviteStaffStatus.None;
+  //     case OfferStatus.Declined:
+  //       return InviteStaffStatus.Declined;
+  //     case OfferStatus.Accepted:
+  //       return InviteStaffStatus.Accepted;
+  //     default:
+  //       return InviteStaffStatus.Pending;
+  //   }
+  // }
 
   static String interviewTypeFromString(InterviewType interviewType) {
     switch (interviewType) {
