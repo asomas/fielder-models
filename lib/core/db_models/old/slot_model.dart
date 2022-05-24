@@ -2,6 +2,7 @@ import 'package:fielder_models/core/db_models/old/interview_model.dart';
 import 'package:fielder_models/core/db_models/old/shift_activities_model.dart';
 import 'package:fielder_models/core/db_models/old/shift_pattern_data_model.dart';
 import 'package:fielder_models/core/enums/slot_status_enums.dart';
+import 'package:flutter/material.dart';
 
 class SlotModel {
   final String shiftId;
@@ -20,6 +21,7 @@ class SlotModel {
   final bool isHead;
   final bool isTail;
   final InterviewModel interviewModel;
+  final Color slotColor;
   int timeRowIndex;
 
   SlotModel(
@@ -39,7 +41,8 @@ class SlotModel {
       this.isHead = false,
       this.isTail = false,
       this.interviewModel,
-      this.timeRowIndex = 1});
+      this.timeRowIndex = 1,
+      @required this.slotColor});
 
   @override
   bool operator ==(other) {
