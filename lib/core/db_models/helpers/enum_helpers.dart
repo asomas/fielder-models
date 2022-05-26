@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:number_to_words/number_to_words.dart';
 
+import '../../enums/slot_status_enums.dart';
+
 class EnumHelpers {
   static OrganisationContractStatus contractStatusTypeFromString(String type) {
     switch (type) {
@@ -707,6 +709,39 @@ class EnumHelpers {
         return OnBoardingDocumentSignStatus.Signed;
       default:
         return OnBoardingDocumentSignStatus.Unsigned;
+    }
+  }
+
+  static String stringFromSlotStatusIcon(SlotStatusIcon slotStatusIcon,
+      {bool fromInterview = false}) {
+    switch (slotStatusIcon) {
+      case (SlotStatusIcon.RecurringActive):
+      case (SlotStatusIcon.RecurringInactive):
+        return "Recurring Shift";
+      case (SlotStatusIcon.Active):
+        return fromInterview ? "Assigned Interview" : "Assigned Shift";
+      case (SlotStatusIcon.Inactive):
+        return fromInterview ? "Unassigned Interview" : "Unassigned Shift";
+      case (SlotStatusIcon.Missed):
+        return "Missed Shift";
+      case (SlotStatusIcon.Late):
+        return "Missed Shift";
+        break;
+      case (SlotStatusIcon.ClockedInLate):
+        return "Clocked In Late";
+      case (SlotStatusIcon.ClockedIn):
+        return "Clocked In";
+      case (SlotStatusIcon.ClockedOutLate):
+        return "Clocked Out Late";
+      case (SlotStatusIcon.ClockedOut):
+      case (SlotStatusIcon.ClockedOutEarly):
+        return "Clocked Out";
+      case (SlotStatusIcon.NotClockedOut):
+        return "Not Clocked Out";
+      case (SlotStatusIcon.Approved):
+        return "Approved";
+      default:
+        return fromInterview ? "Interview" : "Shift";
     }
   }
 }
