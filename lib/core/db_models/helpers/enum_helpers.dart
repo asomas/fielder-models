@@ -709,4 +709,23 @@ class EnumHelpers {
         return OnBoardingDocumentSignStatus.Unsigned;
     }
   }
+
+  static Trending trendingFromString(String string) {
+    string = string?.toLowerCase();
+    switch (string) {
+      case ('up'):
+        return Trending.Up;
+      default:
+        return Trending.Down;
+    }
+  }
+
+  static String stringFromTrending(Trending trending) {
+    switch (trending) {
+      case (Trending.Up):
+        return "Up";
+      default:
+        return "Down";
+    }
+  }
 }

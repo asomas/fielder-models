@@ -16,4 +16,7 @@ class Helpers {
     }
     return null;
   }
+
+  static DateTime getDate(DateTime dateTime) =>
+      DateTime(dateTime?.year, dateTime?.month, dateTime?.day);
 }
