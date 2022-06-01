@@ -1,6 +1,7 @@
 import 'package:fielder_models/core/constants/app_colors.dart';
 import 'package:fielder_models/core/constants/app_strings.dart';
 import 'package:fielder_models/core/db_models/old/schema/company_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/education_approval_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/offers_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/schedule_shift_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
@@ -761,6 +762,16 @@ class EnumHelpers {
         return "Up";
       default:
         return "Down";
+    }
+  }
+
+  static EducationApprovalStatus statusFromEducationApprovalString(String str) {
+    str = str?.toUpperCase();
+    switch (str) {
+      case (EducationApprovalSchema.signed):
+        return EducationApprovalStatus.Signed;
+      default:
+        return EducationApprovalStatus.Unsigned;
     }
   }
 }

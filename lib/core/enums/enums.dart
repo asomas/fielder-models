@@ -149,3 +149,5 @@ enum OnBoardingDocumentSignStatus { Signed, Unsigned }
 enum CheckStatus { Confirmed, Invalidated, AwaitingBackOffice }
 
 enum Trending { Up, Down }
+
+enum EducationApprovalStatus { Signed, Unsigned }
