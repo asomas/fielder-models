@@ -3,5 +3,5 @@ class EducationApprovalSchema {
   static const String status = 'status';
   static const String signed = 'SIGNED';
   static const String unsigned = 'UNSIGNED';
-  static const String document = 'document';
+  static const String approvalDocument = 'approval_document';
 }
