@@ -61,4 +61,5 @@ class FbCollections {
   static const String globalSpecs = 'global_specs';
   static const String minWageRate = 'min_wage_rate';
   static const String maxWageRate = 'max_wage_rate';
+  static const String educationApproval = 'education_approval';
 }
