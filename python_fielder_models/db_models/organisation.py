@@ -55,8 +55,7 @@ class OrganisationSerializer(serializers.Serializer):
 class BillingContact(ContactSerializer):
     """Document has fixed ID, billing_contact, inside Subcollection called company_info.  So the complete path to this document is  organisations/organisation_id/company_info/billing_contact"""
 
-    # note, inherits fields from contacts Serializer
-    pass
+    group_billing_enabled = serializers.BooleanField(required=False)
 
 
 class GeneralContact(ContactSerializer):
