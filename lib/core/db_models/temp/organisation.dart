@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
+import 'package:fielder_models/core/db_models/old/schema/groups_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/organisation_user_schema.dart';
 import 'package:fielder_models/core/db_models/temp/common.dart';
 
@@ -146,6 +147,7 @@ class Contact {
 }
 
 class BillingContact extends Contact {
+  bool groupBillingEnabled;
 // Document has fixed ID, billing_contact, inside Subcollection called company_info.  So the complete path to this
 // document is  organisations/organisation_id/company_info/billing_contact
 // note, inherits fields from contacts Serialiser
@@ -157,6 +159,8 @@ class BillingContact extends Contact {
     billingContact.name = map['name'];
     billingContact.email = map['email'];
     billingContact.phone = map['phone'];
+    billingContact.groupBillingEnabled =
+        map[GroupsSchema.groupBillingEnabled] ?? false;
 
     return billingContact;
   }

@@ -6,8 +6,9 @@ import 'package:fielder_models/core/enums/enums.dart';
 class Group {
   String groupId;
   String name;
+  String billingEmail;
 
-  Group({this.groupId, this.name});
+  Group({this.groupId, this.name, this.billingEmail});
 
   factory Group.fromMap(String id, Map map) {
     try {
@@ -15,6 +16,7 @@ class Group {
         return Group(
           groupId: id,
           name: map[GroupsSchema.name],
+          billingEmail: map[GroupsSchema.billingEmail],
         );
       }
       return null;

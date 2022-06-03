@@ -5,4 +5,7 @@ class GroupsSchema {
   static const String groupRole = "group_role";
   static const String organisationRef = "organisation_ref";
   static const String organisationUserRef = "organisation_user_ref";
+  static const String billingEmail = "billing_email";
+  static const String billingContact = "billing_contact";
+  static const String groupBillingEnabled = "group_billing_enabled";
 }
