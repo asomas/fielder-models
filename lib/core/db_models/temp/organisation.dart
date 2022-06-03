@@ -147,7 +147,7 @@ class Contact {
 }
 
 class BillingContact extends Contact {
-  String groupBillingEnabled;
+  bool groupBillingEnabled;
 // Document has fixed ID, billing_contact, inside Subcollection called company_info.  So the complete path to this
 // document is  organisations/organisation_id/company_info/billing_contact
 // note, inherits fields from contacts Serialiser
@@ -159,7 +159,8 @@ class BillingContact extends Contact {
     billingContact.name = map['name'];
     billingContact.email = map['email'];
     billingContact.phone = map['phone'];
-    billingContact.groupBillingEnabled = map[GroupsSchema.groupBillingEnabled];
+    billingContact.groupBillingEnabled =
+        map[GroupsSchema.groupBillingEnabled] ?? false;
 
     return billingContact;
   }
