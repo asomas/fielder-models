@@ -3,6 +3,7 @@ import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/old/schema/groups_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/organisation_user_schema.dart';
 import 'package:fielder_models/core/db_models/temp/common.dart';
+import 'package:fielder_models/core/enums/enums.dart';
 
 class OrganisationUserRelation {
   String docId;
@@ -409,6 +410,8 @@ class UserDetail {
     this.role,
     this.manager,
     this.groupCount,
+    this.canChangeGroupRole,
+    this.groupRole,
   });
 
   String id;
@@ -419,20 +422,25 @@ class UserDetail {
   Roles role;
   String manager;
   num groupCount;
+  bool canChangeGroupRole;
+  GroupRole groupRole;
 
   factory UserDetail.fromJson(Map<String, dynamic> json) => UserDetail(
-      id: json["id"],
-      name: json["name"] == null ? null : json["name"],
-      email: json["email"] == null ? null : json["email"],
-      dateCreated: json["date_created"] == null
-          ? null
-          : DateTime.parse(json["date_created"]),
-      status: json["status"] == null
-          ? null
-          : EnumHelpers.getAcceptanceStatus(json['status']),
-      role: json["role"] == null ? null : EnumHelpers.getRole(json["role"]),
-      manager: json["manager"] == null ? null : json["manager"],
-      groupCount: json['group_count']);
+        id: json["id"],
+        name: json["name"] == null ? null : json["name"],
+        email: json["email"] == null ? null : json["email"],
+        dateCreated: json["date_created"] == null
+            ? null
+            : DateTime.parse(json["date_created"]),
+        status: json["status"] == null
+            ? null
+            : EnumHelpers.getAcceptanceStatus(json['status']),
+        role: json["role"] == null ? null : EnumHelpers.getRole(json["role"]),
+        manager: json["manager"] == null ? null : json["manager"],
+        groupCount: json['group_count'],
+        canChangeGroupRole: json['can_change_group_role'] ?? false,
+        groupRole: EnumHelpers.groupRoleFromString(json['group_role']),
+      );
 
   Map<String, dynamic> toJson() => {
         "name": name == null ? null : name,
