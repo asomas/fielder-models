@@ -8,4 +8,5 @@ class GroupsSchema {
   static const String billingEmail = "billing_email";
   static const String billingContact = "billing_contact";
   static const String groupBillingEnabled = "group_billing_enabled";
+  static const String canChangeGroupRole = 'can_change_group_role';
 }

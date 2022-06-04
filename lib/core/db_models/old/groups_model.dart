@@ -33,6 +33,7 @@ class GroupOrgUserRelation {
   DocumentReference organisationUserRef;
   GroupRole groupRole;
   Group group;
+  bool canChangeGroupRole;
 
   GroupOrgUserRelation({
     this.groupRef,
@@ -40,6 +41,7 @@ class GroupOrgUserRelation {
     this.organisationUserRef,
     this.groupRole,
     this.group,
+    this.canChangeGroupRole,
   });
 
   factory GroupOrgUserRelation.fromMap(Map map) {
@@ -49,6 +51,7 @@ class GroupOrgUserRelation {
         organisationRef: map[GroupsSchema.organisationRef],
         organisationUserRef: map[GroupsSchema.organisationUserRef],
         groupRole: EnumHelpers.groupRoleFromString(map[GroupsSchema.groupRole]),
+        canChangeGroupRole: map[GroupsSchema.canChangeGroupRole] ?? false,
       );
     } catch (e, s) {
       print('group user relation catch___${e}____$s');
