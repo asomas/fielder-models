@@ -10,6 +10,12 @@ class Group {
 
   Group({this.groupId, this.name, this.billingEmail});
 
+  Group.clone(Group group)
+      : this(
+            groupId: group.groupId,
+            name: group.name,
+            billingEmail: group.billingEmail);
+
   factory Group.fromMap(String id, Map map) {
     try {
       if (map != null && map.isNotEmpty) {
