@@ -10,6 +10,8 @@ import 'job_location_data_model.dart';
 
 class JobDataModel {
   String docID;
+  String jobReferenceId;
+  DocumentReference groupRef;
   bool active;
   String jobTitle;
   DateTime startDate;
@@ -34,6 +36,8 @@ class JobDataModel {
 
   JobDataModel(
       {this.docID,
+      this.jobReferenceId,
+      this.groupRef,
       this.active,
       this.jobTitle,
       this.startDate,
@@ -63,10 +67,12 @@ class JobDataModel {
   }) {
     if (map.isNotEmpty) {
       try {
+        DocumentReference _groupRef = map[JobSummarySchema.groupRef];
         DocumentReference _organisationRef =
             map[JobSummarySchema.organisationRef];
         DocumentReference _supervisorRef = map[JobSummarySchema.supervisorRef];
         DocumentReference _managerRef = map[JobSummarySchema.managerRef];
+        final String _jobRefId = map[JobSummarySchema.jobReferenceId];
         final double _overTimeRate = map[JobSummarySchema.overTimeRate] != null
             ? (map[JobSummarySchema.overTimeRate] / 100)
             : 0;
@@ -159,6 +165,8 @@ class JobDataModel {
 
         return JobDataModel(
             docID: docID,
+            groupRef: _groupRef,
+            jobReferenceId: _jobRefId,
             startDate: _startDate,
             endDate: _endDate,
             active: _active,
