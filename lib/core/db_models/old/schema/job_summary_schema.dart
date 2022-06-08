@@ -8,6 +8,7 @@ class JobSummarySchema {
   static const String organisationRef = 'organisation_ref';
   static const String supervisorRef = 'supervisor_ref';
   static const String managerRef = 'manager_ref';
+  static const String groupRef = 'group_ref';
   static const String endDate = 'end_date';
   static const String firstName = 'first_name';
   static const String id = 'id';
