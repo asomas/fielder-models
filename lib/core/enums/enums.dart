@@ -81,7 +81,10 @@ enum OfferStatus {
   PendingChecksBackOffice,
   PendingChecksWorker,
   PendingWorkerFinalConfirmation,
-  PendingWorkerResponse
+  PendingWorkerResponse,
+  InvitedForInterview,
+  InterviewScheduled,
+  WorkerResponded,
 }
 
 enum GenericOverlayType { Jobs, AssignJob }

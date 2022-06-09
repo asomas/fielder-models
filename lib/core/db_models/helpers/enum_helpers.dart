@@ -84,6 +84,12 @@ class EnumHelpers {
         return OfferStatus.Retracted;
       case OffersStatusString.expired:
         return OfferStatus.Expired;
+      case OffersStatusUIString.invitedForInterview:
+        return OfferStatus.InvitedForInterview;
+      case OffersStatusUIString.interviewScheduled:
+        return OfferStatus.InterviewScheduled;
+      case OffersStatusUIString.workerResponded:
+        return OfferStatus.WorkerResponded;
       default:
         return OfferStatus.None;
     }
@@ -91,6 +97,27 @@ class EnumHelpers {
 
   static _enumToUIString(String str) {
     return toBeginningOfSentenceCase(str.replaceAll("_", ' ')?.toLowerCase());
+  }
+
+  static String getUIStringFromOfferStatus(OfferStatus status) {
+    switch (status) {
+      case OfferStatus.InvitedForInterview:
+        return OffersStatusUIString.invitedForInterview;
+      case OfferStatus.InterviewScheduled:
+        return OffersStatusUIString.interviewScheduled;
+      case OfferStatus.PendingWorkerResponse:
+        return OffersStatusUIString.pendingWorkerResponse;
+      case OfferStatus.PendingChecksWorker:
+        return OffersStatusUIString.pendingChecksWorker;
+      case OfferStatus.PendingChecksBackOffice:
+        return OffersStatusUIString.pendingChecksBackoffice;
+      case OfferStatus.PendingWorkerFinalConfirmation:
+        return OffersStatusUIString.pendingWorkerFinalConfirmation;
+      case OfferStatus.WorkerResponded:
+        return OffersStatusUIString.workerResponded;
+      default:
+        return '';
+    }
   }
 
   static String getStringFromOfferStatus(OfferStatus status,
