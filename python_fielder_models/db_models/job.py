@@ -1,9 +1,9 @@
-from datetime import datetime
 from enum import Enum, auto
 
 from fielder_backend_utils.rest_utils import DocumentReferenceField
 from python_fielder_models.api_models.matching import WorkerType
 from python_fielder_models.common.job import BaseJobSerializer
+from python_fielder_models.db_models import BaseDBSerializer
 from python_fielder_models.db_models.common import (
     AddressDBSerializer,
     RecurrenceSerializer,
@@ -67,19 +67,12 @@ class ShiftBudgetDBSerializer(ShiftBudgetSharedDBSerializer):
     budget_name = serializers.CharField(allow_null=True, default=None)
 
 
-class SharedJobShiftDBSerializer(BaseJobSerializer):
+class SharedJobShiftDBSerializer(BaseJobSerializer, BaseDBSerializer):
     end_date = serializers.DateTimeField(default=None, allow_null=True)
     job_reference_id = serializers.CharField()
     manager_ref = DocumentReferenceField(default=None, allow_null=True)
     supervisor_ref = DocumentReferenceField(default=None, allow_null=True)
     total_shift_count = serializers.IntegerField()
-
-    created_at = serializers.DateTimeField(default=datetime.now())
-    updated_at = serializers.DateTimeField(default=datetime.now())
-
-    def to_internal_value(self, data):
-        data["updated_at"] = datetime.now()
-        return super().to_internal_value(data)
 
 
 class ShiftPatternDBSerializer(
@@ -94,6 +87,7 @@ class ShiftPatternDBSerializer(
     location_ref = DocumentReferenceField(default=None, allow_null=True)
     location_data = OrganisationLocationDBSerializer()
     assigned = serializers.BooleanField(default=False)
+    assigned_at = serializers.DateTimeField(required=False, allow_null=True)
     geo_fence_distance = serializers.IntegerField(default=0)
     geo_fence_enabled = serializers.BooleanField(default=False)
     job_ref = DocumentReferenceField()
@@ -124,7 +118,7 @@ class JobTemplateDBSerializer(BaseJobSerializer):
     description = serializers.CharField(allow_null=True, default=None)
 
 
-class OfferDBSerializer(serializers.Serializer):
+class OfferDBSerializer(BaseDBSerializer):
     shift_pattern_ref = DocumentReferenceField()
     worker_ref = DocumentReferenceField()
     worker_type = serializers.ChoiceField(choices=WorkerType._member_names_)
@@ -135,13 +129,8 @@ class OfferDBSerializer(serializers.Serializer):
     expiry_time = serializers.DateTimeField(allow_null=True, default=None)
     sent_time = serializers.DateTimeField(allow_null=True, default=None)
     budget = serializers.DictField()
-
-    created_at = serializers.DateTimeField(default=datetime.now())
-    updated_at = serializers.DateTimeField(default=datetime.now())
-
-    def to_internal_value(self, data):
-        data["updated_at"] = datetime.now()
-        return super().to_internal_value(data)
+    responded_at = serializers.DateTimeField(required=False)
+    accepted_at = serializers.DateTimeField(required=False)
 
 
 class ShiftNoteDBSerializer(serializers.Serializer):
