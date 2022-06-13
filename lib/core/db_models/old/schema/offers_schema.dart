@@ -10,6 +10,19 @@ class OffersStatusString {
   static const String retracted = 'RETRACTED';
   static const String expired = 'EXPIRED';
   static const String none = 'NONE';
+  static const String invitedForInterview = 'INVITED_FOR_INTERVIEW';
+  static const String interviewScheduled = 'INTERVIEW_SCHEDULED';
+}
+
+class OffersStatusUIString {
+  static const String invitedForInterview = 'Invited to interview';
+  static const String interviewScheduled = 'Interview scheduled';
+  static const String pendingWorkerResponse = 'Invited to team';
+  static const String pendingChecksWorker = 'Worker completing checks';
+  static const String pendingChecksBackoffice = 'Awaiting fielder verification';
+  static const String pendingWorkerFinalConfirmation =
+      'Waiting for worker confirmation';
+  static const String workerResponded = 'Worker Responded';
 }
 
 class OffersSchema {
