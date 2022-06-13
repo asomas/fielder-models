@@ -19,7 +19,7 @@ class OffersStatusUIString {
   static const String interviewScheduled = 'Interview scheduled';
   static const String pendingWorkerResponse = 'Invited to team';
   static const String pendingChecksWorker = 'Worker completing checks';
-  static const String pendingChecksBackoffice = 'Fielder verifying checks';
+  static const String pendingChecksBackoffice = 'Awaiting fielder verification';
   static const String pendingWorkerFinalConfirmation =
       'Waiting for worker confirmation';
   static const String workerResponded = 'Worker Responded';
