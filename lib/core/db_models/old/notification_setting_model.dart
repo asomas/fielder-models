@@ -15,6 +15,16 @@ class NotificationSettingModel {
     this.offerStatusChanged,
   });
 
+  static NotificationSettingModel init() {
+    return NotificationSettingModel(
+      interviewCancelled: NotificationTypeModel(),
+      interviewScheduled: NotificationTypeModel(),
+      invitationStatusChanged: NotificationTypeModel(),
+      offerStatusChanged: NotificationTypeModel(),
+      completedShiftWaitingApproval: NotificationTypeModel(),
+    );
+  }
+
   factory NotificationSettingModel.fromMap(Map map) {
     try {
       return NotificationSettingModel(
