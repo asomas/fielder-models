@@ -1,44 +1,38 @@
 import 'package:fielder_models/core/db_models/old/schema/notification_setting_schema.dart';
 
 class NotificationSettingModel {
-  NotificationTypeModel interviewScheduled;
-  NotificationTypeModel interviewCancelled;
-  NotificationTypeModel invitationStatusChanged;
-  NotificationTypeModel offerStatusChanged;
-  NotificationTypeModel completedShiftWaitingApproval;
+  Map<String, NotificationTypeModel> notificationsType;
 
   NotificationSettingModel({
-    this.interviewScheduled,
-    this.completedShiftWaitingApproval,
-    this.interviewCancelled,
-    this.invitationStatusChanged,
-    this.offerStatusChanged,
+    this.notificationsType,
   });
 
   static NotificationSettingModel init() {
-    return NotificationSettingModel(
-      interviewCancelled: NotificationTypeModel(),
-      interviewScheduled: NotificationTypeModel(),
-      invitationStatusChanged: NotificationTypeModel(),
-      offerStatusChanged: NotificationTypeModel(),
-      completedShiftWaitingApproval: NotificationTypeModel(),
-    );
+    return NotificationSettingModel(notificationsType: {
+      NotificationSettingSchema.interviewCancelled: NotificationTypeModel(),
+      NotificationSettingSchema.interviewScheduled: NotificationTypeModel(),
+      NotificationSettingSchema.invitationStatusChanged:
+          NotificationTypeModel(),
+      NotificationSettingSchema.offerStatusChanged: NotificationTypeModel(),
+      NotificationSettingSchema.completedShiftWaitingApproval:
+          NotificationTypeModel(),
+    });
   }
 
   factory NotificationSettingModel.fromMap(Map map) {
     try {
-      return NotificationSettingModel(
-        interviewCancelled: NotificationTypeModel.fromMap(
-            map[NotificationSettingSchema.interviewCancelled]),
-        interviewScheduled: NotificationTypeModel.fromMap(
-            map[NotificationSettingSchema.interviewScheduled]),
-        invitationStatusChanged: NotificationTypeModel.fromMap(
-            map[NotificationSettingSchema.invitationStatusChanged]),
-        offerStatusChanged: NotificationTypeModel.fromMap(
-            map[NotificationSettingSchema.offerStatusChanged]),
-        completedShiftWaitingApproval: NotificationTypeModel.fromMap(
-            map[NotificationSettingSchema.completedShiftWaitingApproval]),
-      );
+      if (map.containsKey(NotificationSettingSchema.notifications)) {
+        return NotificationSettingModel(
+          notificationsType: map[NotificationSettingSchema.notifications]
+              ?.map<String, NotificationTypeModel>(
+            (String key, dynamic value) => MapEntry(
+              key,
+              NotificationTypeModel.fromMap(value),
+            ),
+          ) as Map<String, NotificationTypeModel>,
+        );
+      }
+      return null;
     } catch (e, s) {
       print("notification setting model ctach______${e},____$s");
       return null;
@@ -46,18 +40,8 @@ class NotificationSettingModel {
   }
 
   Map<String, dynamic> toJson() => {
-        NotificationSettingSchema.notifications: {
-          NotificationSettingSchema.interviewCancelled:
-              interviewCancelled.toJson(),
-          NotificationSettingSchema.interviewScheduled:
-              interviewScheduled.toJson(),
-          NotificationSettingSchema.invitationStatusChanged:
-              invitationStatusChanged.toJson(),
-          NotificationSettingSchema.offerStatusChanged:
-              offerStatusChanged.toJson(),
-          NotificationSettingSchema.completedShiftWaitingApproval:
-              completedShiftWaitingApproval.toJson(),
-        }
+        NotificationSettingSchema.notifications:
+            notificationsType.map((key, value) => MapEntry(key, value.toJson()))
       };
 }
 
