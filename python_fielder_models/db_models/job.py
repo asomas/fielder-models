@@ -15,14 +15,14 @@ from rest_framework import serializers
 
 
 class OfferStatus(Enum):
-    ACCEPTED = auto()
-    DECLINED = auto()
-    PENDING_CHECKS_BACKOFFICE = auto()
-    PENDING_CHECKS_WORKER = auto()
-    PENDING_WORKER_FINAL_CONFIRMATION = auto()
-    PENDING_WORKER_RESPONSE = auto()
+    ACCEPTED = "Worker accepted offer"
+    DECLINED = "Worker declined offer"
+    PENDING_CHECKS_BACKOFFICE = "Awaiting Fielder verification"
+    PENDING_CHECKS_WORKER = "Worker completing checks"
+    PENDING_WORKER_FINAL_CONFIRMATION = "Awaiting worker confirmation"
+    PENDING_WORKER_RESPONSE = "Offer sent"
     QUEUED = auto()
-    RETRACTED = auto()
+    RETRACTED = "Offer retracted"
 
 
 class PaymentDBSerializer(serializers.Serializer):

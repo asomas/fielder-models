@@ -277,6 +277,7 @@ class WorkerCheckRelationSerializer(BaseDBSerializer):
     verification_info = VerificationInfoSerializer(allow_null=True, default=None)
     status = serializers.ChoiceField(choices=WCRStatus._member_names_)
     check_type = serializers.ChoiceField(choices=CheckType._member_names_)
+    expected_completion_at = serializers.DateTimeField()
 
     def validate(self, attrs):
         if attrs.get("check_type", None) == CheckType.ORG_SPECIFIC.value:
