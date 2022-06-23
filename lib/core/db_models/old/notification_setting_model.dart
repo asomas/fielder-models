@@ -14,7 +14,7 @@ class NotificationSettingModel {
       NotificationSettingSchema.invitationStatusChanged:
           NotificationTypeModel(),
       NotificationSettingSchema.offerStatusChanged: NotificationTypeModel(),
-      NotificationSettingSchema.completedShiftWaitingApproval:
+      NotificationSettingSchema.completedShiftAwaitingApproval:
           NotificationTypeModel(),
     });
   }

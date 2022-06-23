@@ -7,6 +7,6 @@ class NotificationSettingSchema {
   static const String interviewCancelled = 'interview_cancelled';
   static const String invitationStatusChanged = 'invitation_status_changed';
   static const String offerStatusChanged = 'offer_status_changed';
-  static const String completedShiftWaitingApproval =
-      'completed_shift_waiting_approval';
+  static const String completedShiftAwaitingApproval =
+      'completed_shift_awaiting_approval';
 }
