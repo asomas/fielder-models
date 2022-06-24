@@ -23,6 +23,9 @@ class OffersStatusUIString {
   static const String pendingWorkerFinalConfirmation =
       'Waiting for worker confirmation';
   static const String workerResponded = 'Worker Responded';
+  static const String accepted = 'Accepted';
+  static const String declined = 'Declined';
+  static const String retracted = 'Retracted';
 }
 
 class OffersSchema {

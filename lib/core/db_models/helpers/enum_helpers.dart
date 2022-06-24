@@ -115,6 +115,12 @@ class EnumHelpers {
         return OffersStatusUIString.pendingWorkerFinalConfirmation;
       case OfferStatus.WorkerResponded:
         return OffersStatusUIString.workerResponded;
+      case OfferStatus.Accepted:
+        return OffersStatusUIString.accepted;
+      case OfferStatus.Declined:
+        return OffersStatusUIString.declined;
+      case OfferStatus.Retracted:
+        return OffersStatusUIString.retracted;
       default:
         return '';
     }
