@@ -1,5 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
+import 'package:fielder_models/core/db_models/helpers/helpers.dart';
+import 'package:fielder_models/core/db_models/old/schema/company_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/organisation_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/organisation_worker_relation_schema.dart';
+import 'package:fielder_models/core/enums/enums.dart';
 import 'package:flutter/cupertino.dart';
 
 class OrganisationWorkerRelation {
@@ -10,19 +15,24 @@ class OrganisationWorkerRelation {
   String workerFirstName;
   String workerLastName;
   String phone;
-  DateTime lastReview;
+  DateTime lastShiftsDate;
   String workerId;
+  OrganisationModel organisationModel;
+  String owrRefId;
 
-  OrganisationWorkerRelation(
-      {this.docId,
-      this.organisationID,
-      this.isStaff,
-      this.pictureUrl,
-      this.workerFirstName,
-      this.workerLastName,
-      this.phone,
-      this.lastReview,
-      this.workerId});
+  OrganisationWorkerRelation({
+    this.docId,
+    this.organisationID,
+    this.isStaff,
+    this.pictureUrl,
+    this.workerFirstName,
+    this.workerLastName,
+    this.phone,
+    this.lastShiftsDate,
+    this.workerId,
+    this.organisationModel,
+    this.owrRefId,
+  });
 
   factory OrganisationWorkerRelation.fromMap({
     @required Map<String, dynamic> map,
@@ -51,16 +61,18 @@ class OrganisationWorkerRelation {
         }
 
         return OrganisationWorkerRelation(
-          docId: docID,
-          organisationID: _organisationIdRef?.id,
-          isStaff: _isStaff,
-          pictureUrl: _pictureURL,
-          workerFirstName: _firstName,
-          workerLastName: _lastName,
-          phone: _phone,
-          lastReview: _lastReviewDate,
-          workerId: _workerIdRef?.id,
-        );
+            docId: docID,
+            organisationID: _organisationIdRef?.id,
+            isStaff: _isStaff,
+            pictureUrl: _pictureURL,
+            workerFirstName: _firstName,
+            workerLastName: _lastName,
+            phone: _phone,
+            lastShiftsDate: _lastReviewDate,
+            workerId: _workerIdRef?.id,
+            organisationModel: OrganisationModel.fromMap(
+                map[OrganisationWorkerRelationSchema.organisationData]),
+            owrRefId: map[OrganisationWorkerRelationSchema.owrRefId]);
       } catch (e, s) {
         print(
             "organisation_worker_relation.dart_____Model Catch_________${e}___$s");
@@ -72,5 +84,33 @@ class OrganisationWorkerRelation {
 
   String getName() {
     return '${workerFirstName ?? ''} ${workerLastName ?? ''}';
+  }
+}
+
+class OrganisationModel {
+  Color brandColor;
+  String companyName;
+  String organisationReferenceId;
+  OrganisationContractStatus contractsStatus;
+
+  OrganisationModel(
+      {this.brandColor,
+      this.companyName,
+      this.organisationReferenceId,
+      this.contractsStatus});
+
+  factory OrganisationModel.fromMap(Map map) {
+    try {
+      return OrganisationModel(
+        brandColor: Helpers.hexToColor(map[OrganisationSchema.brandColor]),
+        companyName: map[OrganisationSchema.companyName],
+        organisationReferenceId: map[OrganisationSchema.organisationRefId],
+        contractsStatus: EnumHelpers.contractStatusTypeFromString(
+            map[CompanySchema.signupStatus]),
+      );
+    } catch (e, s) {
+      print("organisation model catch_____${e}______$s");
+      return null;
+    }
   }
 }

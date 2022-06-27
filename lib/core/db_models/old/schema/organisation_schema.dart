@@ -12,4 +12,5 @@ class OrganisationSchema {
   static const String organisationData = "organisation_data";
   static const String organisationName = "company_name";
   static const String organisationRef = "organisation_ref";
+  static const String organisationRefId = "organisation_reference_id";
 }
