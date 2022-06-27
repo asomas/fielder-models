@@ -725,6 +725,19 @@ class EnumHelpers {
     }
   }
 
+  static String stringFromCheckStatus(CheckStatus status) {
+    switch (status) {
+      case (CheckStatus.Confirmed):
+        return 'CONFIRMED';
+      case (CheckStatus.Confirmed):
+        return 'INVALIDATED';
+      case (CheckStatus.AwaitingBackOffice):
+        return 'AWAITING_BACKOFFICE';
+      default:
+        return null;
+    }
+  }
+
   static String stringFromOnBoardingDocumentSignedStatus(
       OnBoardingDocumentSignStatus status) {
     switch (status) {

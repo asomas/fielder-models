@@ -1,4 +1,7 @@
+import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
+import 'package:fielder_models/core/db_models/helpers/helpers.dart';
 import 'package:fielder_models/core/db_models/old/schema/candidates_matching_schema.dart';
+import 'package:fielder_models/core/enums/enums.dart';
 
 class HoverMatchingModel {
   String id;
@@ -14,16 +17,21 @@ class HoverMatchingModel {
     try {
       return HoverMatchingModel(
         id: map[HoverMatchingSchema.id],
-        availability: (map[HoverMatchingSchema.availabilities] as List)
-            ?.map((e) => AvailabilityMatching.fromList(e))
-            ?.toList(),
-        skills: (map[HoverMatchingSchema.skills] as List)
+        availability:
+            (map[HoverMatchingSchema.availabilities] as Map<String, dynamic>)
+                ?.entries
+                ?.map((e) => AvailabilityMatching.fromList(e))
+                ?.toList(),
+        skills: (map[HoverMatchingSchema.skills] as Map<String, dynamic>)
+            ?.entries
             ?.map((e) => SkillsMatching.fromList(e))
             ?.toList(),
-        checks: (map[HoverMatchingSchema.checks] as List)
+        checks: (map[HoverMatchingSchema.checks] as Map<String, dynamic>)
+            ?.entries
             ?.map((e) => ChecksMatching.fromList(e))
             ?.toList(),
-        courses: (map[HoverMatchingSchema.courses] as List)
+        courses: (map[HoverMatchingSchema.courses] as Map<String, dynamic>)
+            ?.entries
             ?.map((e) => CoursesMatching.fromList(e))
             ?.toList(),
       );
@@ -40,8 +48,8 @@ class AvailabilityMatching {
 
   AvailabilityMatching({this.date, this.valid});
 
-  factory AvailabilityMatching.fromList(List list) {
-    return AvailabilityMatching(date: list[0], valid: list[1] ?? false);
+  factory AvailabilityMatching.fromList(MapEntry map) {
+    return AvailabilityMatching(date: map.key, valid: map.value ?? false);
   }
 }
 
@@ -52,20 +60,26 @@ class SkillsMatching {
 
   SkillsMatching({this.skillId, this.valid, this.value});
 
-  factory SkillsMatching.fromList(List list) {
-    return SkillsMatching(skillId: list[0], valid: list[1] ?? false);
+  factory SkillsMatching.fromList(MapEntry map) {
+    return SkillsMatching(skillId: map.key, valid: map.value ?? false);
   }
 }
 
 class ChecksMatching {
-  String checkId;
-  bool valid;
-  String value;
+  String checkName;
+  CheckStatus status;
+  DateTime expectedCompletionDate;
 
-  ChecksMatching({this.checkId, this.valid, this.value});
+  ChecksMatching({this.checkName, this.status, this.expectedCompletionDate});
 
-  factory ChecksMatching.fromList(List list) {
-    return ChecksMatching(checkId: list[0], valid: list[1] ?? false);
+  factory ChecksMatching.fromList(MapEntry map) {
+    Map<String, dynamic> value = map?.value;
+    return ChecksMatching(
+        checkName: map?.key,
+        status: EnumHelpers.checkStatusFromString(value['status']),
+        expectedCompletionDate:
+            Helpers.timeStampFromString(value['expected_completion_at'])
+                ?.toDate());
   }
 }
 
@@ -83,8 +97,11 @@ class CoursesMatching {
       this.courseValue,
       this.levelValue});
 
-  factory CoursesMatching.fromList(List list) {
+  factory CoursesMatching.fromList(MapEntry map) {
+    List<String> courseLevel = map?.key?.toString()?.split('_');
     return CoursesMatching(
-        courseId: list[0][0], levelId: list[0][1], valid: list[1] ?? false);
+        courseId: courseLevel[0],
+        levelId: courseLevel[1],
+        valid: map?.value ?? false);
   }
 }
