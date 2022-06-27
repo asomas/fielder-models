@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
+import 'package:fielder_models/core/db_models/helpers/helpers.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/interview_model.dart';
@@ -74,15 +75,6 @@ class InviteStatusModel {
     this.checkModels,
     this.offer,
   });
-
-  static const Color blue = Color(0xFF0288D1);
-
-  static Color hexToColor(String code) {
-    if (code?.isNotEmpty == true) {
-      return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
-    }
-    return blue;
-  }
 
   Map<String, dynamic> toJSON() {
     //print('AddJobModel toJSON invoked');
@@ -194,9 +186,9 @@ class InviteStatusModel {
                 [OrganisationSchema.brandLogo]
             : "",
         brandColor: data.containsKey(OrganisationSchema.organisationData)
-            ? hexToColor(data[OrganisationSchema.organisationData]
+            ? Helpers.hexToColor(data[OrganisationSchema.organisationData]
                 [OrganisationSchema.brandColor])
-            : blue,
+            : Color(0xFF0288D1), // blue;,
         interviewType: _interview,
         interviewRef: _interviewRef,
         interviewModel: _interviewModel,

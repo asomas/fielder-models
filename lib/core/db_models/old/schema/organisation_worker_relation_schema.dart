@@ -7,4 +7,6 @@ class OrganisationWorkerRelationSchema {
   static const String phone = "phone";
   static const String lastShiftDate = "last_shift_date";
   static const String workerRef = "worker_ref";
+  static const String organisationData = "organisation_data";
+  static const String owrRefId = "owr_reference_id";
 }
