@@ -27,4 +27,5 @@ class ShiftActivitiesSchema {
   static const String awaitingConfirmation = "awaiting_confirmation";
   static const String status = "status";
   static const String responseTime = "response_time";
+  static const String confirmationOverdue = "confirmation_overdue";
 }
