@@ -13,6 +13,7 @@ class WorkerChecksModel {
   CheckVerificationInfo checkVerificationInfo;
   ChecksType checksType;
   CheckStatus status;
+  DateTime expectedCompletionDate;
 
   WorkerChecksModel({
     this.docId,
@@ -22,6 +23,7 @@ class WorkerChecksModel {
     this.checkVerificationInfo,
     this.checksType,
     this.status,
+    this.expectedCompletionDate,
   });
 
   factory WorkerChecksModel.fromMap(String docId, Map map) {
@@ -51,6 +53,9 @@ class WorkerChecksModel {
               map[WorkerChecksSchema.checkValue]),
           status:
               EnumHelpers.checkStatusFromString(map[WorkerChecksSchema.status]),
+          expectedCompletionDate: Helpers.timeStampFromString(
+                  map[WorkerChecksSchema.expectedCompletionAt])
+              ?.toDate(),
         );
       } catch (e, s) {
         print('worker checks model catch___${e}____$s');
