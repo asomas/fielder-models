@@ -32,6 +32,7 @@ class ShiftActivitiesModel {
   int totalBreakMins;
   BreakModel breakModel;
   bool awaitingConfirmation;
+  bool confirmationOverdue;
 
   ShiftActivitiesModel({
     this.clockInTime,
@@ -61,6 +62,7 @@ class ShiftActivitiesModel {
     this.totalBreakMins,
     this.breakModel,
     this.awaitingConfirmation = false,
+    this.confirmationOverdue,
   });
 
   factory ShiftActivitiesModel.fromMap({
@@ -172,6 +174,8 @@ class ShiftActivitiesModel {
           totalBreakMins: map[ShiftActivitiesSchema.totalBreakMins] ?? 0,
           awaitingConfirmation:
               map[ShiftActivitiesSchema.awaitingConfirmation] ?? false,
+          confirmationOverdue:
+              map[ShiftActivitiesSchema.confirmationOverdue] ?? false,
         );
       } on Exception catch (e) {
         print("ShiftActivitiesModel.fromMap error $e");
@@ -209,6 +213,7 @@ class ShiftActivitiesModel {
       totalBreakMins: activity.totalBreakMins,
       breakModel: activity.breakModel,
       awaitingConfirmation: activity.awaitingConfirmation,
+      confirmationOverdue: activity.confirmationOverdue,
     );
   }
 }
