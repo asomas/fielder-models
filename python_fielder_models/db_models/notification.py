@@ -13,7 +13,7 @@ class MiniCardSerializer(serializers.Serializer):
     created_at = serializers.DateTimeField(default=datetime.now())
     expires_at = serializers.DateTimeField(default=datetime.now() + timedelta(days=365))
     dismissed = serializers.BooleanField(default=False)
-    non_dismissible = serializers.BooleanField(default=True)
+    non_dismissible = serializers.BooleanField(default=False)
     icon = serializers.CharField(allow_null=True, default=None)
     message_id = serializers.CharField()
     screen = serializers.CharField(required=False)
