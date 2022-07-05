@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/old/add_job_model.dart';
 import 'package:fielder_models/core/db_models/old/additional_info_model.dart';
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/courses_and_level_model.dart';
@@ -179,6 +180,20 @@ class JobTemplateModel {
           .doc(templateId);
       return ref;
     }
+  }
+
+  static convertToAddJobModel(JobTemplateModel model) {
+    return AddJobModel(
+      docId: model.id,
+      description: model.description,
+      title: model.jobTitle,
+      additionalReqsArray: model.additionalRequirements,
+      skillsArray: model.requiredSkill,
+      checksArray: model.checks,
+      checks: model.checks,
+      courses: model.courses,
+      occupationModel: model.occupationModel,
+    );
   }
 
 // Map<String, dynamic> toMap() {
