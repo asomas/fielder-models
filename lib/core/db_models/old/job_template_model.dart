@@ -182,7 +182,7 @@ class JobTemplateModel {
     }
   }
 
-  static convertToAddJobModel(JobTemplateModel model) {
+  static AddJobModel convertToAddJobModel(JobTemplateModel model) {
     return AddJobModel(
       docId: model.id,
       description: model.description,
