@@ -149,7 +149,7 @@ enum ScheduleShiftResultStatus { Success, Fail }
 
 enum OnBoardingDocumentSignStatus { Signed, Unsigned }
 
-enum CheckStatus { Confirmed, Invalidated, AwaitingBackOffice }
+enum CheckStatus { Confirmed, Invalidated, AwaitingBackOffice, NotStarted }
 
 enum Trending { Up, Down }
 
