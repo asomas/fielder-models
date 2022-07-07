@@ -74,14 +74,23 @@ class ChecksMatching {
   ChecksMatching({this.checkName, this.status, this.expectedCompletionDate});
 
   factory ChecksMatching.fromList(MapEntry map) {
-    Map<String, dynamic> value = map?.value;
-    return ChecksMatching(
+    if (map.value is Map) {
+      Map<String, dynamic> value = map?.value;
+      return ChecksMatching(
         checkName: map?.key,
         status:
             EnumHelpers.checkStatusFromString(value[WorkerChecksSchema.status]),
         expectedCompletionDate: Helpers.timeStampFromString(
                 value[WorkerChecksSchema.expectedCompletionAt])
-            ?.toDate());
+            ?.toDate(),
+      );
+    } else {
+      return ChecksMatching(
+        checkName: map?.key,
+        status: CheckStatus.NotStarted,
+        expectedCompletionDate: null,
+      );
+    }
   }
 }
 

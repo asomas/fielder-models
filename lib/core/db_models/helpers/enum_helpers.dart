@@ -733,6 +733,8 @@ class EnumHelpers {
         return 'INVALIDATED';
       case (CheckStatus.AwaitingBackOffice):
         return 'AWAITING_BACKOFFICE';
+      case (CheckStatus.NotStarted):
+        return 'NOT_STARTED';
       default:
         return null;
     }
