@@ -33,6 +33,7 @@ class InviteStatusModel {
   String workerId;
   bool requireInterview;
   DocumentReference organisationRef;
+  DocumentReference organisationGroupRef;
   DocumentReference organisationUserRef;
   String summaryInformation;
   DateTime createdDate;
@@ -64,6 +65,7 @@ class InviteStatusModel {
     this.requireInterview,
     this.organisationUserRef,
     this.organisationRef,
+    this.organisationGroupRef,
     this.organisationName,
     this.brandColor,
     this.createdDate,
@@ -170,6 +172,7 @@ class InviteStatusModel {
         createdAt: data[StaffStatusSchema.createdAt]?.toDate(),
         requireInterview: data[InviteStaffSchema.requiresInterview] ?? false,
         organisationRef: data[InviteStaffSchema.organisationRef],
+        organisationGroupRef: data[InviteStaffSchema.organisationGroupRef],
         organisationUserRef: data[InviteStaffSchema.organisationUserRef],
         summaryInformation: data[InviteStaffSchema.summaryInformation] ?? "",
         createdDate: data[InviteStaffSchema.createdAt]?.toDate(),
