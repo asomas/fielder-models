@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 class OrganisationWorkerRelation {
   String docId;
   String organisationID;
+  String organisationGroupID;
   bool isStaff;
   String pictureUrl;
   String workerFirstName;
@@ -23,6 +24,7 @@ class OrganisationWorkerRelation {
   OrganisationWorkerRelation({
     this.docId,
     this.organisationID,
+    this.organisationGroupID,
     this.isStaff,
     this.pictureUrl,
     this.workerFirstName,
@@ -42,6 +44,8 @@ class OrganisationWorkerRelation {
       try {
         final DocumentReference _organisationIdRef =
             map[OrganisationWorkerRelationSchema.organisationRef];
+        final DocumentReference _organisationGroupIdRef =
+            map[OrganisationWorkerRelationSchema.organisationGroupRef];
         final bool _isStaff =
             map[OrganisationWorkerRelationSchema.isStaff] ?? false;
         final String _pictureURL =
@@ -63,6 +67,7 @@ class OrganisationWorkerRelation {
         return OrganisationWorkerRelation(
             docId: docID,
             organisationID: _organisationIdRef?.id,
+            organisationGroupID: _organisationGroupIdRef.id,
             isStaff: _isStaff,
             pictureUrl: _pictureURL,
             workerFirstName: _firstName,
