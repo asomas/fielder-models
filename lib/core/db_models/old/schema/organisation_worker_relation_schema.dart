@@ -1,5 +1,6 @@
 class OrganisationWorkerRelationSchema {
   static const String organisationRef = "organisation_ref";
+  static const String organisationGroupRef = "group_ref";
   static const String isStaff = "is_staff";
   static const String pictureUrl = "picture_url";
   static const String workerFirstName = "worker_first_name";
