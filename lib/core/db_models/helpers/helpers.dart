@@ -28,11 +28,15 @@ class Helpers {
     return Color(0xFF0288D1); // blue;
   }
 
-  static Timestamp timeStampFromString(String date) {
-    if (date != null && date.isNotEmpty) {
-      String split = date.toString().split("T")[0];
-      return Timestamp.fromDate(DateTime.parse(split));
-    }
+  static Timestamp timeStampFromString(date) {
+   if(date is String) {
+      if (date != null && date.isNotEmpty) {
+        String split = date.toString().split("T")[0];
+        return Timestamp.fromDate(DateTime.parse(split));
+      }
+    }else if (date is Timestamp){
+     return date;
+   }
     return null;
   }
 }
