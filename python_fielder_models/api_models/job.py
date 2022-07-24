@@ -1,7 +1,8 @@
 from math import ceil, floor
 
 from fielder_backend_utils.rest_utils import DocumentReferenceField
-from lxml.html.clean import clean_html
+from lxml.html.clean import Cleaner
+from lxml.html.defs import safe_attrs
 from python_fielder_models.api_models.common import GooglePlaceDataSerializer
 from python_fielder_models.api_models.organisation import (
     OrganisationLocationAPISerializer,
@@ -174,7 +175,14 @@ class ShiftPatternAPISerializer(serializers.Serializer):
 
         shift_note_value = data.get("shift_note_value")
         if shift_note_value:
-            data.update({"shift_note_value": clean_html(shift_note_value)})
+            data.update(
+                {
+                    "shift_note_value": Cleaner(
+                        scripts=True,
+                        safe_attrs=safe_attrs | set(["style"]),
+                    ).clean_html(shift_note_value)
+                }
+            )
         return super().to_internal_value(data)
 
     def validate(self, data):
