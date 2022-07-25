@@ -1,8 +1,6 @@
 from math import ceil, floor
 
-from fielder_backend_utils.rest_utils import DocumentReferenceField
-from lxml.html.clean import Cleaner
-from lxml.html.defs import safe_attrs
+from fielder_backend_utils.rest_utils import CleanHTMLField, DocumentReferenceField
 from python_fielder_models.api_models.common import GooglePlaceDataSerializer
 from python_fielder_models.api_models.organisation import (
     OrganisationLocationAPISerializer,
@@ -162,7 +160,7 @@ class ShiftPatternAPISerializer(serializers.Serializer):
     existing_location_id = serializers.CharField(required=False)
     new_location_data = OrganisationLocationAPISerializer(required=False)
     google_place_data = GooglePlaceDataSerializer(required=False)
-    shift_note_value = serializers.CharField(
+    shift_note_value = CleanHTMLField(
         required=False,
         default=None,
         allow_null=True,
@@ -173,16 +171,6 @@ class ShiftPatternAPISerializer(serializers.Serializer):
         if "end_time" in data and data["end_time"] > 86400:
             data["multi_day_shift"] = True
 
-        shift_note_value = data.get("shift_note_value")
-        if shift_note_value:
-            data.update(
-                {
-                    "shift_note_value": Cleaner(
-                        scripts=True,
-                        safe_attrs=safe_attrs | set(["style"]),
-                    ).clean_html(shift_note_value)
-                }
-            )
         return super().to_internal_value(data)
 
     def validate(self, data):
