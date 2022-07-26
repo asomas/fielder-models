@@ -63,4 +63,5 @@ class FbCollections {
   static const String maxWageRate = 'max_wage_rate';
   static const String educationApproval = 'education_approval';
   static const String organisationUserSettings = 'organisation_user_settings';
+  static const String orgProfiles = 'org_profiles';
 }
