@@ -19,4 +19,9 @@ class OrganisationProfileModel {
       return null;
     }
   }
+
+  Map<String, dynamic> toJson() => {
+        OrganisationProfileSchema.title: title,
+        OrganisationProfileSchema.text: text,
+      };
 }
