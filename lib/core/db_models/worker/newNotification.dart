@@ -28,6 +28,7 @@ class NewsNotification {
   String actionButtonText;
   String icon;
   NewsCardType cardType;
+  List<NewsCardButton> cardButtons;
 
   NewsNotification({
     this.id,
@@ -50,6 +51,7 @@ class NewsNotification {
     this.actionButtonText,
     this.icon,
     this.cardType,
+    this.cardButtons = const [],
   });
 
   factory NewsNotification.fromJson(Map<String, dynamic> json, String docId) =>
@@ -100,9 +102,149 @@ class NewsNotification {
           icon: json[NewsNotificationSchema.icon],
           expanded: json[NewsNotificationSchema.expanded] ?? false,
           nonDismissible: json[NewsNotificationSchema.nonDismissible] ?? false,
-          withNotification: json[NewsNotificationSchema.withNotification] != null
-              ? json[NewsNotificationSchema.withNotification]
-              : false,
+          withNotification:
+              json[NewsNotificationSchema.withNotification] != null
+                  ? json[NewsNotificationSchema.withNotification]
+                  : false,
           cardType: EnumHelpers.newsCardTypeFomString(
-              json[NewsNotificationSchema.type]));
+            json[NewsNotificationSchema.type],
+          ),
+          cardButtons: json[NewsNotificationSchema.buttons] != null
+              ? List<NewsCardButton>.from(json[NewsNotificationSchema.buttons]
+                  .map((x) => NewsCardButton.fromMap(x)))
+              : []);
+}
+
+class NewsCardButton {
+  bool dismissOnPress;
+  String buttonText;
+  NewsCardAction cardAction;
+  CardAction action;
+
+  NewsCardButton(
+      {this.dismissOnPress, this.buttonText, this.cardAction, this.action});
+
+  factory NewsCardButton.fromMap(Map map) {
+    try {
+      NewsCardAction _cardAction;
+      CardAction _action;
+      if (map.containsKey(NewsNotificationSchema.action) &&
+          map[NewsNotificationSchema.action] != null) {
+        _cardAction = EnumHelpers.newsCardActionFromString(
+            map[NewsNotificationSchema.action]
+                [NewsNotificationSchema.actionName]);
+
+        if (_cardAction == NewsCardAction.PostRequest) {
+          _action = NewsCardPostRequestAction.fromMap(
+              map[NewsNotificationSchema.action]);
+        } else if (_cardAction == NewsCardAction.GetRequest) {
+          _action = NewsCardGetRequestAction.fromMap(
+              map[NewsNotificationSchema.action]);
+        } else if (_cardAction == NewsCardAction.NavigateScreen) {
+          _action = NewsCardNavigateScreenAction.fromMap(
+              map[NewsNotificationSchema.action]);
+        } else if (_cardAction == NewsCardAction.Browser) {
+          _action = NewsCardOpenBrowserAction.fromMap(
+              map[NewsNotificationSchema.action]);
+        }
+      }
+
+      return NewsCardButton(
+        dismissOnPress: map[NewsNotificationSchema.dismissOnPress],
+        buttonText: map[NewsNotificationSchema.buttonText],
+        cardAction: _cardAction,
+        action: _action,
+      );
+    } catch (e, s) {
+      print('card button catch____${e}____$s');
+      return null;
+    }
+  }
+}
+
+abstract class CardAction {
+  NewsCardAction get cardAction;
+}
+
+class NewsCardPostRequestAction extends CardAction {
+  String url;
+  Map<String, dynamic> payload;
+
+  NewsCardPostRequestAction({this.url, this.payload});
+
+  factory NewsCardPostRequestAction.fromMap(Map map) {
+    try {
+      return NewsCardPostRequestAction(
+        //cardAction: NewsCardAction.PostRequest,
+        payload: map[NewsNotificationSchema.payload],
+        url: map[NewsNotificationSchema.url],
+      );
+    } catch (e, s) {
+      print('post action button catch____${e}____$s');
+      return null;
+    }
+  }
+
+  @override
+  NewsCardAction get cardAction => NewsCardAction.PostRequest;
+}
+
+class NewsCardGetRequestAction extends CardAction {
+  String url;
+
+  NewsCardGetRequestAction({this.url});
+
+  factory NewsCardGetRequestAction.fromMap(Map map) {
+    try {
+      return NewsCardGetRequestAction(
+        url: map[NewsNotificationSchema.url],
+      );
+    } catch (e, s) {
+      print('get action button catch____${e}____$s');
+      return null;
+    }
+  }
+
+  @override
+  NewsCardAction get cardAction => NewsCardAction.GetRequest;
+}
+
+class NewsCardNavigateScreenAction extends CardAction {
+  String screenName;
+
+  NewsCardNavigateScreenAction({this.screenName});
+
+  factory NewsCardNavigateScreenAction.fromMap(Map map) {
+    try {
+      return NewsCardNavigateScreenAction(
+        screenName: map[NewsNotificationSchema.screenName],
+      );
+    } catch (e, s) {
+      print('screen action button catch____${e}____$s');
+      return null;
+    }
+  }
+
+  @override
+  NewsCardAction get cardAction => NewsCardAction.NavigateScreen;
+}
+
+class NewsCardOpenBrowserAction extends CardAction {
+  String url;
+
+  NewsCardOpenBrowserAction({this.url});
+
+  factory NewsCardOpenBrowserAction.fromMap(Map map) {
+    try {
+      return NewsCardOpenBrowserAction(
+        url: map[NewsNotificationSchema.url],
+      );
+    } catch (e, s) {
+      print('browser action button catch____${e}____$s');
+      return null;
+    }
+  }
+
+  @override
+  NewsCardAction get cardAction => NewsCardAction.Browser;
 }

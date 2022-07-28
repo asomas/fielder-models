@@ -20,4 +20,18 @@ class NewsNotificationSchema {
   static const String actionButtonText = "action_button_text";
   static const String mediumCard = "medium_card";
   static const String miniCard = "mini_card";
+
+  static const String buttonText = "button_text";
+  static const String action = "action";
+  static const String actionName = "action_name";
+  static const String url = "url";
+  static const String payload = "payload";
+  static const String screenName = "screen_name";
+  static const String buttons = "buttons";
+  static const String dismissOnPress = "dismiss_on_press";
+
+  static const String postRequest = "post_request";
+  static const String getRequest = "get_request";
+  static const String browser = "browser";
+  static const String navigateScreen = "navigate_screen";
 }
