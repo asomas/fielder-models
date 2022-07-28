@@ -729,7 +729,7 @@ class EnumHelpers {
     switch (status) {
       case (CheckStatus.Confirmed):
         return 'CONFIRMED';
-      case (CheckStatus.Confirmed):
+      case (CheckStatus.Invalidated):
         return 'INVALIDATED';
       case (CheckStatus.AwaitingBackOffice):
         return 'AWAITING_BACKOFFICE';
