@@ -185,7 +185,7 @@ class RTWShareCodeAPISerializer(serializers.Serializer):
 class BirthCertificateAPISerializer(serializers.Serializer):
     date_of_birth = serializers.RegexField(DATE_FIELD_REGEX)
     full_name = serializers.CharField()
-    status = serializers.ChoiceField(Status._member_names_)
+    status = serializers.ChoiceField([Status.VERIFIED.name, Status.REJECTED.name])
     worker_id = serializers.CharField()
 
 
