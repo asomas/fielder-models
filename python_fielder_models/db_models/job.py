@@ -122,6 +122,7 @@ class OfferDBSerializer(BaseDBSerializer):
     shift_pattern_ref = DocumentReferenceField()
     worker_ref = DocumentReferenceField()
     worker_type = serializers.ChoiceField(choices=WorkerType._member_names_)
+    org_profile_ref = DocumentReferenceField(allow_null=True, default=None)
     job_ref = DocumentReferenceField()
     shift_pattern_data = serializers.DictField()
     job_data = serializers.DictField()
