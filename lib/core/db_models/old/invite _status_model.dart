@@ -8,6 +8,7 @@ import 'package:fielder_models/core/db_models/old/offers_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/interviews_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/invite_staff_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/organisation_profile_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/organisation_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
@@ -45,6 +46,7 @@ class InviteStatusModel {
   InterviewModel interviewModel;
   List<CheckModel> checkModels;
   Offers offer;
+  DocumentReference orgProfileRef;
 
   InviteStatusModel({
     this.workerType,
@@ -76,6 +78,7 @@ class InviteStatusModel {
     this.interviewModel,
     this.checkModels,
     this.offer,
+    this.orgProfileRef,
   });
 
   Map<String, dynamic> toJSON() {
@@ -90,6 +93,7 @@ class InviteStatusModel {
         StaffStatusSchema.workerFirstName: workerFirstName,
         StaffStatusSchema.workerLastName: workerLastName,
         StaffStatusSchema.status: status,
+        OrganisationProfileSchema.orfProfileRef: orgProfileRef?.path,
       };
 
       print("InviteStaffModel map -> $_map");
@@ -197,6 +201,7 @@ class InviteStatusModel {
         interviewModel: _interviewModel,
         addressModel: _addressModel,
         checkModels: _checks,
+        orgProfileRef: data[OrganisationProfileSchema.orfProfileRef],
       );
     } catch (e, s) {
       print('invite status catch____${e}_____$s');
