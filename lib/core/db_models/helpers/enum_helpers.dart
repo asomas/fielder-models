@@ -822,4 +822,19 @@ class EnumHelpers {
         return EducationApprovalStatus.Unsigned;
     }
   }
+
+  static NewsCardAction newsCardActionFromString(String str) {
+    switch (str) {
+      case NewsNotificationSchema.postRequest:
+        return NewsCardAction.PostRequest;
+      case NewsNotificationSchema.getRequest:
+        return NewsCardAction.GetRequest;
+      case NewsNotificationSchema.browser:
+        return NewsCardAction.Browser;
+      case NewsNotificationSchema.navigateScreen:
+        return NewsCardAction.NavigateScreen;
+      default:
+        return null;
+    }
+  }
 }
