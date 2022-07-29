@@ -67,7 +67,7 @@ class OrganisationWorkerRelation {
         return OrganisationWorkerRelation(
             docId: docID,
             organisationID: _organisationIdRef?.id,
-            organisationGroupID: _organisationGroupIdRef.id,
+            organisationGroupID: _organisationGroupIdRef?.id,
             isStaff: _isStaff,
             pictureUrl: _pictureURL,
             workerFirstName: _firstName,
