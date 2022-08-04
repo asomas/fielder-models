@@ -71,19 +71,22 @@ class InterestCardWorkerResponse(Enum):
 
 class JobInterestCardDBSerialzier(BaseDBSerializer):
     class JobPostSerializer(serializers.Serializer):
-        job_title = serializers.CharField(allow_null=True, default=None)
+        job_title = serializers.CharField()
+        job_description = serializers.CharField(allow_null=True, default=None)
         job_location_raw = serializers.CharField(allow_null=True, default=None)
         job_location_parsed = LocationDBSerializer(allow_null=True, default=None)
         job_link = serializers.CharField(allow_null=True, default=None)
+        organisation_name = serializers.CharField()
         contact_person = serializers.CharField(allow_null=True, default=None)
         contact_phone = serializers.CharField(allow_null=True, default=None)
         contact_email = serializers.CharField(allow_null=True, default=None)
         tk_occupation = serializers.CharField(allow_null=True, default=None)
-        job_description = serializers.CharField(allow_null=True, default=None)
         occupation = OccupationSerializer(allow_null=True, default=None)
         skills = serializers.ListField(
             allow_null=True, default=None, allow_empty=True, child=SkillSerializer()
         )
+        advertiser_type = serializers.CharField(allow_null=True, default=None)
+        job_link = serializers.CharField(allow_null=True, default=None)
 
     class MatchScoreSerializer(serializers.Serializer):
         skills_score = serializers.IntegerField(min_value=0, max_value=100)
