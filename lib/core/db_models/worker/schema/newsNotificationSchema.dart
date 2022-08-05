@@ -30,8 +30,8 @@ class NewsNotificationSchema {
   static const String buttons = "buttons";
   static const String dismissOnPress = "dismiss_on_press";
 
-  static const String postRequest = "post_request";
-  static const String getRequest = "get_request";
-  static const String browser = "browser";
-  static const String navigateScreen = "navigate_screen";
+  static const String postRequest = "POST_REQUEST";
+  static const String getRequest = "GET_REQUEST";
+  static const String browser = "BROWSER";
+  static const String navigateScreen = "NAVIGATE_SCREEN";
 }

@@ -824,7 +824,7 @@ class EnumHelpers {
   }
 
   static NewsCardAction newsCardActionFromString(String str) {
-    switch (str) {
+    switch (str?.toUpperCase()) {
       case NewsNotificationSchema.postRequest:
         return NewsCardAction.PostRequest;
       case NewsNotificationSchema.getRequest:
