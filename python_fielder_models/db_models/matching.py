@@ -90,7 +90,7 @@ class JobInterestCardDBSerialzier(BaseDBSerializer):
 
     class MatchScoreSerializer(serializers.Serializer):
         skills_score = serializers.IntegerField(min_value=0, max_value=100)
-        overall_score = serializers.IntegerField(min_value=0, max_value=100)
+        overall_score = serializers.IntegerField(min_value=0)
         distance_score = serializers.IntegerField(min_value=0, max_value=100)
         number_matched_skills = serializers.IntegerField(min_value=0)
         distance = serializers.FloatField(min_value=0)
