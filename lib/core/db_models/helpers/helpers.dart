@@ -29,14 +29,36 @@ class Helpers {
   }
 
   static Timestamp timeStampFromString(date) {
-   if(date is String) {
+    if (date is String) {
       if (date != null && date.isNotEmpty) {
         String split = date.toString().split("T")[0];
         return Timestamp.fromDate(DateTime.parse(split));
       }
-    }else if (date is Timestamp){
-     return date;
-   }
+    } else if (date is Timestamp) {
+      return date;
+    }
     return null;
+  }
+
+  static bool isUrl(String url) {
+    String pattern =
+        r"^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$";
+    RegExp regExp = new RegExp(pattern);
+    if (regExp.hasMatch(url)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static bool isYoutubeLink(String link) {
+    String pattern =
+        r"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$";
+    RegExp regExp = new RegExp(pattern);
+    if (regExp.hasMatch(link)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
