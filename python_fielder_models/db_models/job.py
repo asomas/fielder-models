@@ -132,6 +132,7 @@ class OfferDBSerializer(BaseDBSerializer):
     budget = serializers.DictField()
     responded_at = serializers.DateTimeField(required=False)
     accepted_at = serializers.DateTimeField(required=False)
+    personalised_message = serializers.CharField(required=False)
 
 
 class ShiftNoteDBSerializer(serializers.Serializer):
