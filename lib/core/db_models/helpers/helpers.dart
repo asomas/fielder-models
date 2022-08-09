@@ -44,10 +44,10 @@ class Helpers {
     String pattern =
         r"^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$";
     RegExp regExp = new RegExp(pattern);
-    if (!regExp.hasMatch(url)) {
+    if (regExp.hasMatch(url)) {
       return true;
     } else {
-      return null;
+      return false;
     }
   }
 
@@ -55,10 +55,10 @@ class Helpers {
     String pattern =
         r"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$";
     RegExp regExp = new RegExp(pattern);
-    if (!regExp.hasMatch(link)) {
+    if (regExp.hasMatch(link)) {
       return true;
     } else {
-      return null;
+      return false;
     }
   }
 }
