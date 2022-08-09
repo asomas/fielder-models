@@ -145,7 +145,7 @@ enum ScheduleShiftStatus {
   Failed,
   Cancelled
 }
-enum WelcomeCarouselItemType { Image, Video, YoutubeVideo }
+enum MediaType { Image, Video, YoutubeVideo }
 
 enum ScheduleShiftResultStatus { Success, Fail }
 
