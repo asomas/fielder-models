@@ -30,4 +30,5 @@ class OffersStatusUIString {
 
 class OffersSchema {
   static const String status = 'status';
+  static const String personalisedMessage = 'personalised_message';
 }
