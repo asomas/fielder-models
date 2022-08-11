@@ -102,3 +102,4 @@ class JobInterestCardDBSerialzier(BaseDBSerializer):
         default=InterestCardWorkerResponse.NO_RESPONSE.name,
     )
     match_scores = MatchScoreSerializer()
+    card_dispatched = serializers.BooleanField(default=False)
