@@ -20,4 +20,5 @@ class CometChatSchema {
   static const String file = "file";
   static const String conversationWith = "conversationWith";
   static const String data = "data";
+  static const String sentAt = "sentAt";
 }
