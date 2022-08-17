@@ -20,6 +20,7 @@ class Offers {
   DateTime updatedAt;
   BudgetModel budgetModel;
   JobDataModel jobDataModel;
+  DateTime sentTime;
 
   Offers({
     this.shiftPatternData,
@@ -33,6 +34,7 @@ class Offers {
     this.shiftPatternRef,
     this.budgetModel,
     this.jobDataModel,
+    this.sentTime,
   });
 
   static bool isPending(status) {
@@ -71,6 +73,7 @@ class Offers {
                 docID: map['job_ref']?.id,
               )
             : null,
+        sentTime: map['sent_time'],
       );
     } catch (e, s) {
       print('offers model catch____${e}_____$s');
@@ -91,6 +94,7 @@ class Offers {
       shiftRef: shiftPatternRef,
       fromOffer: true,
       offer: offer,
+      sentAt: sentTime,
     );
   }
 }
