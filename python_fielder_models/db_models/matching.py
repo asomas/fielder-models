@@ -72,7 +72,7 @@ class InterestCardWorkerResponse(Enum):
 class JobInterestCardDBSerialzier(BaseDBSerializer):
     class JobPostSerializer(serializers.Serializer):
         job_title = serializers.CharField()
-        job_description = serializers.CharField(allow_null=True, default=None)
+        job_description = serializers.CharField(allow_null=True, default=None, allow_blank=True)
         job_location_raw = serializers.CharField(allow_null=True, default=None)
         job_location_parsed = LocationDBSerializer(allow_null=True, default=None)
         job_link = serializers.CharField(allow_null=True, default=None)
