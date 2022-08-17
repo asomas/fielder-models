@@ -47,6 +47,7 @@ class InviteStatusModel {
   List<CheckModel> checkModels;
   Offers offer;
   DocumentReference orgProfileRef;
+  DateTime sentAt;
 
   InviteStatusModel({
     this.workerType,
@@ -79,6 +80,7 @@ class InviteStatusModel {
     this.checkModels,
     this.offer,
     this.orgProfileRef,
+    this.sentAt,
   });
 
   Map<String, dynamic> toJSON() {
@@ -162,47 +164,48 @@ class InviteStatusModel {
             .toList();
       }
       return InviteStatusModel(
-        invitationId: invitationId ?? "",
-        workerType: EnumHelpers.candidatesWorkerTypeFromString(
-            data[StaffStatusSchema.workerType]),
-        status: EnumHelpers.getOfferStatusFromString(
-            data[StaffStatusSchema.status]),
-        workerFirstName: data[StaffStatusSchema.workerFirstName],
-        workerLastName: data[StaffStatusSchema.workerLastName],
-        workerPhone: data[StaffStatusSchema.workerPhone],
-        workerRef: data[StaffStatusSchema.workerRef],
-        workerId: (data[StaffStatusSchema.workerRef] as DocumentReference)?.id,
-        shiftRef: data[StaffStatusSchema.shiftPatternRef],
-        createdAt: data[StaffStatusSchema.createdAt]?.toDate(),
-        requireInterview: data[InviteStaffSchema.requiresInterview] ?? false,
-        organisationRef: data[InviteStaffSchema.organisationRef],
-        organisationGroupRef: data[InviteStaffSchema.organisationGroupRef],
-        organisationUserRef: data[InviteStaffSchema.organisationUserRef],
-        summaryInformation: data[InviteStaffSchema.summaryInformation] ?? "",
-        createdDate: data[InviteStaffSchema.createdAt]?.toDate(),
-        organisationName: data[OrganisationSchema.organisationData] != null
-            ? data[OrganisationSchema.organisationData]
-                [OrganisationSchema.organisationName]
-            : "",
-        brandBanner: data.containsKey(OrganisationSchema.organisationData)
-            ? data[OrganisationSchema.organisationData]
-                [OrganisationSchema.brandBanner]
-            : "",
-        brandLogo: data.containsKey(OrganisationSchema.organisationData)
-            ? data[OrganisationSchema.organisationData]
-                [OrganisationSchema.brandLogo]
-            : "",
-        brandColor: data.containsKey(OrganisationSchema.organisationData)
-            ? Helpers.hexToColor(data[OrganisationSchema.organisationData]
-                [OrganisationSchema.brandColor])
-            : Color(0xFF0288D1), // blue;,
-        interviewType: _interview,
-        interviewRef: _interviewRef,
-        interviewModel: _interviewModel,
-        addressModel: _addressModel,
-        checkModels: _checks,
-        orgProfileRef: data[OrganisationProfileSchema.orfProfileRef],
-      );
+          invitationId: invitationId ?? "",
+          workerType: EnumHelpers.candidatesWorkerTypeFromString(
+              data[StaffStatusSchema.workerType]),
+          status: EnumHelpers.getOfferStatusFromString(
+              data[StaffStatusSchema.status]),
+          workerFirstName: data[StaffStatusSchema.workerFirstName],
+          workerLastName: data[StaffStatusSchema.workerLastName],
+          workerPhone: data[StaffStatusSchema.workerPhone],
+          workerRef: data[StaffStatusSchema.workerRef],
+          workerId:
+              (data[StaffStatusSchema.workerRef] as DocumentReference)?.id,
+          shiftRef: data[StaffStatusSchema.shiftPatternRef],
+          createdAt: data[StaffStatusSchema.createdAt]?.toDate(),
+          requireInterview: data[InviteStaffSchema.requiresInterview] ?? false,
+          organisationRef: data[InviteStaffSchema.organisationRef],
+          organisationGroupRef: data[InviteStaffSchema.organisationGroupRef],
+          organisationUserRef: data[InviteStaffSchema.organisationUserRef],
+          summaryInformation: data[InviteStaffSchema.summaryInformation] ?? "",
+          createdDate: data[InviteStaffSchema.createdAt]?.toDate(),
+          organisationName: data[OrganisationSchema.organisationData] != null
+              ? data[OrganisationSchema.organisationData]
+                  [OrganisationSchema.organisationName]
+              : "",
+          brandBanner: data.containsKey(OrganisationSchema.organisationData)
+              ? data[OrganisationSchema.organisationData]
+                  [OrganisationSchema.brandBanner]
+              : "",
+          brandLogo: data.containsKey(OrganisationSchema.organisationData)
+              ? data[OrganisationSchema.organisationData]
+                  [OrganisationSchema.brandLogo]
+              : "",
+          brandColor: data.containsKey(OrganisationSchema.organisationData)
+              ? Helpers.hexToColor(data[OrganisationSchema.organisationData]
+                  [OrganisationSchema.brandColor])
+              : Color(0xFF0288D1), // blue;,
+          interviewType: _interview,
+          interviewRef: _interviewRef,
+          interviewModel: _interviewModel,
+          addressModel: _addressModel,
+          checkModels: _checks,
+          orgProfileRef: data[OrganisationProfileSchema.orfProfileRef],
+          sentAt: data[InviteStaffSchema.sentAt]);
     } catch (e, s) {
       print('invite status catch____${e}_____$s');
       return null;
