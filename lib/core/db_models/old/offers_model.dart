@@ -73,7 +73,7 @@ class Offers {
                 docID: map['job_ref']?.id,
               )
             : null,
-        sentTime: map['sent_time'],
+        sentTime: (map['sent_time'] as Timestamp)?.toDate(),
       );
     } catch (e, s) {
       print('offers model catch____${e}_____$s');
