@@ -27,16 +27,21 @@ class AvailabilityScoreRequestSerializer(BaseMatchingShiftRequestSerializer):
 
 
 class MatchingShiftRequestSerializer(BaseMatchingShiftRequestSerializer):
-    class CourseLevelSerializer(serializers.Serializer):
+    class CourseLevelGradeSerializer(serializers.Serializer):
         course_id = serializers.CharField()
         level_id = serializers.CharField(allow_null=True, default="0")
         level_number = serializers.IntegerField(allow_null=True, default=0)
+        grade_id = serializers.CharField(allow_null=True, default="0")
+        grade_number = serializers.IntegerField(allow_null=True, default=0)
 
     skills = serializers.ListField(
         required=False, allow_null=True, allow_empty=True, child=serializers.CharField()
     )
     courses = serializers.ListField(
-        required=False, allow_null=True, allow_empty=True, child=CourseLevelSerializer()
+        required=False,
+        allow_null=True,
+        allow_empty=True,
+        child=CourseLevelGradeSerializer(),
     )
     checks = serializers.ListField(
         required=False, allow_null=True, allow_empty=True, child=serializers.CharField()
@@ -50,11 +55,17 @@ class MatchingShiftRequestSerializer(BaseMatchingShiftRequestSerializer):
             for course in data["courses"]:
                 level_id = course.get("level_id") or "0"
                 level_number = course.get("level_number") or 0
+
+                grade_id = course.get("grade_id") or "0"
+                grade_number = course.get("grade_number") or 0
+
                 courses.append(
                     {
                         "course_id": course["course_id"],
                         "level_id": level_id,
                         "level_number": level_number,
+                        "grade_id": grade_id,
+                        "grade_number": grade_number,
                     }
                 )
             data["courses"] = courses

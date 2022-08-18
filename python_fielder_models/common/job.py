@@ -27,17 +27,22 @@ class AdditionalRequirementSerializer(serializers.Serializer):
     additional_requirement_value = serializers.CharField()
 
 
-class CourseLevelSerializer(serializers.Serializer):
+class CourseLevelGradeSerializer(serializers.Serializer):
     class CourseDataSerializer(ValueSerializer):
         pass
 
     class LevelDataSerializer(ValueSerializer):
         level_number = serializers.IntegerField()
 
+    class GradeDataSerializer(ValueSerializer):
+        grade_number = serializers.IntegerField()
+
     course_ref = DocumentReferenceField()
     course_data = CourseDataSerializer()
     level_ref = DocumentReferenceField(allow_null=True, default=None)
     level_data = LevelDataSerializer(allow_null=True, default=None)
+    grade_ref = DocumentReferenceField(allow_null=True, default=None)
+    grade_data = GradeDataSerializer(allow_null=True, default=None)
 
 
 class BaseJobSerializer(serializers.Serializer):
@@ -50,7 +55,7 @@ class BaseJobSerializer(serializers.Serializer):
         child=AdditionalRequirementSerializer(),
         default=[],
     )
-    courses = serializers.ListField(child=CourseLevelSerializer(), default=[])
+    courses = serializers.ListField(child=CourseLevelGradeSerializer(), default=[])
     organisation_data = serializers.DictField()
     organisation_ref = DocumentReferenceField()
     group_ref = DocumentReferenceField()
