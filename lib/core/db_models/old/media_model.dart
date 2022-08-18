@@ -13,7 +13,7 @@ class MediaModel {
   const MediaModel({
     @required this.path,
     @required this.type,
-    @required this.updatedAt,
+    this.updatedAt,
   });
 
   bool get isValid => path?.isNotEmpty ?? false;
@@ -29,7 +29,6 @@ class MediaModel {
       return MediaModel(
         path: url,
         type: _getUrlType(url),
-        updatedAt: null,
       );
     } catch (e, s) {
       print('media model url catch____${e}____$s');
@@ -40,8 +39,8 @@ class MediaModel {
   factory MediaModel.fromMap(Map data) {
     try {
       return MediaModel(
-        path: data[WelcomeCarouselSchema.media],
-        type: _getUrlType(data[WelcomeCarouselSchema.media]),
+        path: data[WelcomeCarouselSchema.url],
+        type: _getUrlType(data[WelcomeCarouselSchema.url]),
         updatedAt:
             (data[WelcomeCarouselSchema.updatedAt] as Timestamp)?.toDate(),
       );
