@@ -198,7 +198,7 @@ class WorkHistory {
     );
   }
 
-  Map<String, dynamic> toJson(AddressModel addressModel) {
+  Map<String, dynamic> toJson(AddressModel addressModel, String companyNumber) {
     return {
       WorkerHistorySchema.checks: checks?.map((e) => e?.toJson())?.toList(),
       WorkerHistorySchema.jobTitle: jobTitle,
@@ -207,12 +207,13 @@ class WorkHistory {
       WorkerHistorySchema.locationData: {
         LocationSchema.address: addressModel.toJSON()
       },
-      WorkerHistorySchema.occupation: occupation.toJson(),
+      WorkerHistorySchema.occupation: occupation?.toJson(),
       WorkerHistorySchema.organisationName: organisationName,
+      WorkerHistorySchema.companyNumber: companyNumber,
       WorkerHistorySchema.qualifications:
           qualifications?.map((e) => e?.toJson())?.toList(),
       WorkerHistorySchema.skills: skills?.map((e) => e?.toJson())?.toList(),
-      WorkerHistorySchema.summary: summary,
+      WorkerHistorySchema.summary: summary ?? '',
       WorkerHistorySchema.referencingData: refereeModel?.toMap(),
     };
   }
@@ -291,7 +292,7 @@ class Occupation {
   }
 
   Map<String, dynamic> toJson() => {
-        WorkerHistorySchema.occupationRef: occupationRef,
+        WorkerHistorySchema.occupationRef: occupationRef?.path,
         WorkerHistorySchema.value: value,
       };
 
@@ -328,7 +329,7 @@ class Check {
   }
 
   Map<String, dynamic> toJson() => {
-        WorkerHistorySchema.checkRef: checkRef,
+        WorkerHistorySchema.checkRef: checkRef?.path,
         WorkerHistorySchema.value: value,
       };
 }
@@ -360,7 +361,7 @@ class Qualification {
   }
 
   Map<String, dynamic> toJson() => {
-        WorkerHistorySchema.qualificationRef: qualificationRef,
+        WorkerHistorySchema.qualificationRef: qualificationRef?.path,
         WorkerHistorySchema.value: value,
       };
 }
@@ -424,7 +425,7 @@ class Skill {
       );
 
   Map<String, dynamic> toJson() => {
-        WorkerHistorySchema.occupationRef: skillRef,
+        WorkerHistorySchema.skillRef: skillRef?.path,
         WorkerHistorySchema.value: value,
       };
 }

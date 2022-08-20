@@ -16,6 +16,12 @@ class OccupationModel {
       DocumentReference _occupationRef =
           json[OccupationSchema.occupationRef] as DocumentReference;
 
+      if (_occupationRef == null) {
+        _occupationRef = FirebaseFirestore.instance
+            .collection(FbCollections.occupations)
+            .doc(json[OccupationSchema.occupationId]);
+      }
+
       return OccupationModel(
         occupationId: json[OccupationSchema.occupationId] ?? _occupationRef?.id,
         occupationRef: _occupationRef,
@@ -28,8 +34,8 @@ class OccupationModel {
 
   Map<String, dynamic> toJson() => {
         OccupationSchema.occupationId: occupationId,
-        OccupationSchema.occupationRef: occupationRef?.path ??
-            "${FbCollections.occupations}/$occupationId",
+        OccupationSchema.occupationRef:
+            occupationRef?.path ?? "${FbCollections.occupations}/$occupationId",
         OccupationSchema.value: value,
         OccupationSchema.description: description
       };
