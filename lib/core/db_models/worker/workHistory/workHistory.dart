@@ -205,7 +205,7 @@ class WorkHistory {
       WorkerHistorySchema.startDate: Helpers.dateToString(startDate?.toDate()),
       WorkerHistorySchema.endDate: Helpers.dateToString(endDate?.toDate()),
       WorkerHistorySchema.locationData: {
-        LocationSchema.address: addressModel.toJSON()
+        LocationSchema.address: addressModel?.toJSON()
       },
       WorkerHistorySchema.occupation: occupation?.toJson(),
       WorkerHistorySchema.organisationName: organisationName,

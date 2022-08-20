@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/schema/educationSchema.dart';
 
 import '../../helpers/helpers.dart';
+import '../schema/locationSchema.dart';
 
 class Education {
   String docId;
@@ -98,6 +100,24 @@ class Education {
                 : json[EducationSchema.workerRef]
             : null);
   }
+
+  Map<String, dynamic> toJson(AddressModel addressModel) {
+    return {
+      EducationSchema.institution: educationInstitution?.toJson(),
+      EducationSchema.startDate: Helpers.dateToString(startDate?.toDate()),
+      EducationSchema.endDate: Helpers.dateToString(endDate?.toDate()),
+      EducationSchema.award: award,
+      EducationSchema.locationData: {
+        LocationSchema.address: addressModel?.toJSON()
+      },
+      EducationSchema.course: course?.toJson(),
+      EducationSchema.level: level?.toJson(),
+      EducationSchema.grade: grade?.toJson(),
+      EducationSchema.knowledgeAreas:
+          knowledgeAreaList?.map((e) => e?.toJson())?.toList(),
+      EducationSchema.summary: summary ?? '',
+    };
+  }
 }
 
 class Course {
@@ -119,7 +139,7 @@ class Course {
       );
 
   Map<String, dynamic> toJson() => {
-        EducationSchema.courseRef: courseRef,
+        EducationSchema.courseRef: courseRef?.path,
         EducationSchema.value: value,
       };
 }
@@ -144,7 +164,7 @@ class EducationInstitution {
       );
 
   Map<String, dynamic> toJson() => {
-        EducationSchema.institutionRef: institutionRef,
+        EducationSchema.institutionRef: institutionRef?.path,
         EducationSchema.value: value,
       };
 }
@@ -170,7 +190,7 @@ class Level {
       );
 
   Map<String, dynamic> toJson() => {
-        EducationSchema.levelRef: levelRef,
+        EducationSchema.levelRef: levelRef?.path,
         EducationSchema.value: value,
       };
 }
@@ -194,7 +214,7 @@ class Grade {
       );
 
   Map<String, dynamic> toJson() => {
-        EducationSchema.gradeRef: gradeRef,
+        EducationSchema.gradeRef: gradeRef?.path,
         EducationSchema.value: value,
       };
 }
@@ -218,7 +238,7 @@ class KnowledgeArea {
       );
 
   Map<String, dynamic> toJson() => {
-        EducationSchema.knowledgeAreaRef: knowledgeAreaRef,
+        EducationSchema.knowledgeAreaRef: knowledgeAreaRef?.path,
         EducationSchema.value: value,
       };
 }
