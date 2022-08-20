@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
+import 'package:fielder_models/core/db_models/old/schema/table_collection_schema.dart';
 import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/schema/educationSchema.dart';
 
@@ -133,7 +134,9 @@ class Course {
                 ? Helpers.documentReferenceFromString(
                     json[EducationSchema.courseRef])
                 : json[EducationSchema.courseRef]
-            : null,
+            : FirebaseFirestore.instance
+                .collection(FbCollections.courses)
+                .doc(json[EducationSchema.courseId]),
         value: json[EducationSchema.value] ?? "",
         courseId: json[EducationSchema.courseId] ?? "",
       );
@@ -158,7 +161,9 @@ class EducationInstitution {
                 ? Helpers.documentReferenceFromString(
                     json[EducationSchema.institutionRef])
                 : json[EducationSchema.institutionRef]
-            : null,
+            : FirebaseFirestore.instance
+                .collection(FbCollections.institutions)
+                .doc(json[EducationSchema.institutionId]),
         value: json[EducationSchema.value] ?? "",
         institutionId: json[EducationSchema.institutionId] ?? "",
       );
@@ -183,7 +188,9 @@ class Level {
                 ? Helpers.documentReferenceFromString(
                     json[EducationSchema.levelRef])
                 : json[EducationSchema.levelRef]
-            : null,
+            : FirebaseFirestore.instance
+                .collection(FbCollections.levels)
+                .doc(json[EducationSchema.levelId]),
         value: json[EducationSchema.value] ?? "",
         levelId: json[EducationSchema.levelId] ?? "",
         levelNumber: json[EducationSchema.levelNumber],
@@ -208,7 +215,9 @@ class Grade {
                 ? Helpers.documentReferenceFromString(
                     json[EducationSchema.gradeRef])
                 : json[EducationSchema.gradeRef]
-            : null,
+            : FirebaseFirestore.instance
+                .collection(FbCollections.grades)
+                .doc(json[EducationSchema.gradeId]),
         value: json[EducationSchema.value] ?? "",
         gradeId: json[EducationSchema.gradeId] ?? "",
       );
