@@ -119,6 +119,7 @@ class EducationSerializer(BaseWorkExperienceSerializer):
 
     class GradeSerializer(ReferenceSerializer):
         grade_ref = DocumentReferenceField()
+        grade_number = serializers.IntegerField()
 
     class KnowledgeAreaSerializer(ReferenceSerializer):
         knowledge_area_ref = DocumentReferenceField()
