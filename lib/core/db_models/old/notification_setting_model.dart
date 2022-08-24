@@ -16,13 +16,15 @@ class NotificationSettingModel {
       NotificationSettingSchema.offerStatusChanged: NotificationTypeModel(),
       NotificationSettingSchema.completedShiftAwaitingApproval:
           NotificationTypeModel(),
+      NotificationSettingSchema.lateShiftClockin: NotificationTypeModel(),
     });
   }
 
   factory NotificationSettingModel.fromMap(Map map) {
     try {
+      Map<String, NotificationTypeModel> initMap = init().notificationsType;
       if (map.containsKey(NotificationSettingSchema.notifications)) {
-        return NotificationSettingModel(
+        NotificationSettingModel model = NotificationSettingModel(
           notificationsType: map[NotificationSettingSchema.notifications]
               ?.map<String, NotificationTypeModel>(
             (String key, dynamic value) => MapEntry(
@@ -31,6 +33,10 @@ class NotificationSettingModel {
             ),
           ) as Map<String, NotificationTypeModel>,
         );
+        initMap.entries.forEach((element) {
+          model.notificationsType.putIfAbsent(element.key, () => element.value);
+        });
+        return model;
       }
       return null;
     } catch (e, s) {
