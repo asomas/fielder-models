@@ -20,6 +20,7 @@ class EducationSchema {
   static const String courseId = "course_id";
   static const String levelId = "level_id";
   static const String gradeId = "grade_id";
+  static const String gradeNumber = "grade_number";
   static const String knowledgeAreaId = "knowledge_area_id";
   static const String hits = "hits";
   static const String levelNumber = "level_number";

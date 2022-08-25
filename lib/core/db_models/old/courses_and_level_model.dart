@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/old/qualification_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/qualifications_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/table_collection_schema.dart';
 import 'package:fielder_models/core/db_models/worker/education/education.dart';
 import 'package:fielder_models/core/db_models/worker/schema/educationSchema.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,13 +10,15 @@ import 'package:flutter/cupertino.dart';
 class CoursesAndLevelModel {
   QualificationModel course;
   Level level;
+  Grade grade;
 
-  CoursesAndLevelModel({@required this.course, @required this.level});
+  CoursesAndLevelModel(
+      {@required this.course, @required this.level, @required this.grade});
 
   factory CoursesAndLevelModel.fromMap(Map map) {
     if (map != null && map.isNotEmpty) {
-      num _levelNumber;
-      String _levelValue, _courseValue;
+      num _levelNumber, _gradeNumber;
+      String _levelValue, _courseValue, _gradeValue;
       if (map.containsKey(JobSummarySchema.courseData) &&
           map[JobSummarySchema.courseData] != null) {
         _courseValue =
@@ -27,6 +30,12 @@ class CoursesAndLevelModel {
         _levelNumber =
             map[JobSummarySchema.levelData][EducationSchema.levelNumber];
       }
+      if (map.containsKey(JobSummarySchema.gradeData) &&
+          map[JobSummarySchema.gradeData] != null) {
+        _gradeValue = map[JobSummarySchema.gradeData][EducationSchema.value];
+        _gradeNumber =
+            map[JobSummarySchema.gradeData][EducationSchema.gradeNumber];
+      }
       try {
         return CoursesAndLevelModel(
           course: QualificationModel(
@@ -34,10 +43,18 @@ class CoursesAndLevelModel {
             value: _courseValue ?? '',
           ),
           level: Level(
-              levelId: (map[EducationSchema.levelRef] as DocumentReference)?.id,
-              levelRef: (map[EducationSchema.levelRef] as DocumentReference),
-              levelNumber: _levelNumber,
-              value: _levelValue ?? ''),
+            levelId: (map[EducationSchema.levelRef] as DocumentReference)?.id,
+            levelRef: (map[EducationSchema.levelRef] as DocumentReference),
+            levelNumber: _levelNumber,
+            value: _levelValue ?? '',
+          ),
+          grade: Grade(
+            gradeId: (map[EducationSchema.gradeRef] as DocumentReference)?.id,
+            gradeRef: (map[EducationSchema.gradeRef] as DocumentReference),
+            gradeNumber: _gradeNumber,
+            value: _gradeValue,
+            //gradeNumber:
+          ),
         );
       } catch (e, s) {
         print("courses level model catch___${e}____$s");
@@ -54,6 +71,9 @@ class CoursesAndLevelModel {
       JobSummarySchema.levelRef: level?.levelRef ?? level?.levelId != null
           ? _getLevelRef(level?.levelId)
           : null,
+      JobSummarySchema.gradeRef: grade?.gradeRef ?? grade?.gradeId != null
+          ? _getGradeRef(grade?.gradeId)
+          : null,
     };
   }
 
@@ -66,6 +86,10 @@ class CoursesAndLevelModel {
     if (level?.levelId != null) {
       dataMap[JobSummarySchema.levelRef] =
           "${JobSummarySchema.levels}/${level.levelId}";
+    }
+    if (grade?.gradeId != null) {
+      dataMap[JobSummarySchema.gradeRef] =
+          "${FbCollections.grades}/${grade.gradeId}";
     }
     return dataMap;
   }
@@ -81,14 +105,24 @@ class CoursesAndLevelModel {
     if (level?.levelNumber != null) {
       dataMap[EducationSchema.levelNumber] = level.levelNumber;
     }
+    if (grade?.gradeId != null) {
+      dataMap[EducationSchema.gradeId] = grade.gradeId;
+    }
+    if (grade?.gradeNumber != null) {
+      dataMap[EducationSchema.gradeNumber] = grade.gradeNumber;
+    }
     return dataMap;
   }
 
   DocumentReference _getCourseRef(String id) {
-    return FirebaseFirestore.instance.collection('courses').doc(id);
+    return FirebaseFirestore.instance.collection(FbCollections.courses).doc(id);
   }
 
   DocumentReference _getLevelRef(String id) {
-    return FirebaseFirestore.instance.collection('levels').doc(id);
+    return FirebaseFirestore.instance.collection(FbCollections.levels).doc(id);
+  }
+
+  DocumentReference _getGradeRef(String id) {
+    return FirebaseFirestore.instance.collection(FbCollections.grades).doc(id);
   }
 }
