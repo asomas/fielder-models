@@ -206,8 +206,9 @@ class Grade {
   DocumentReference gradeRef;
   String value;
   String gradeId;
+  num gradeNumber;
 
-  Grade({this.gradeRef, this.value, this.gradeId});
+  Grade({this.gradeRef, this.value, this.gradeId, this.gradeNumber});
 
   factory Grade.fromJson(Map<String, dynamic> json) => Grade(
         gradeRef: json[EducationSchema.gradeRef] != null
@@ -220,6 +221,7 @@ class Grade {
                 .doc(json[EducationSchema.gradeId]),
         value: json[EducationSchema.value] ?? "",
         gradeId: json[EducationSchema.gradeId] ?? "",
+        gradeNumber: json[EducationSchema.gradeNumber],
       );
 
   Map<String, dynamic> toJson() => {

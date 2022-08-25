@@ -50,9 +50,11 @@ class JobSummarySchema {
   static const String courses = "courses";
   static const String courseRef = "course_ref";
   static const String levelRef = "level_ref";
+  static const String gradeRef = "grade_ref";
   static const String levels = "levels";
   static const String courseData = "course_data";
   static const String levelData = "level_data";
+  static const String gradeData = "grade_data";
   static const String jobTitleNormalised = "job_title_normalised";
   static const String enableUnpaidBreaks = "enable_unpaid_breaks";
 }

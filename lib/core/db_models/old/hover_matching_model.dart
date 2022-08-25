@@ -97,22 +97,29 @@ class ChecksMatching {
 class CoursesMatching {
   String courseId;
   String levelId;
+  String gradeId;
   bool valid;
   String courseValue;
   String levelValue;
+  String gradeValue;
 
-  CoursesMatching(
-      {this.courseId,
-      this.levelId,
-      this.valid,
-      this.courseValue,
-      this.levelValue});
+  CoursesMatching({
+    this.courseId,
+    this.levelId,
+    this.gradeId,
+    this.valid,
+    this.courseValue,
+    this.levelValue,
+    this.gradeValue,
+  });
 
   factory CoursesMatching.fromList(MapEntry map) {
     List<String> courseLevel = map?.key?.toString()?.split('_');
     return CoursesMatching(
-        courseId: courseLevel[0],
-        levelId: courseLevel[1],
-        valid: map?.value ?? false);
+      courseId: courseLevel[0],
+      levelId: courseLevel[1],
+      gradeId: courseLevel[2],
+      valid: map?.value ?? false,
+    );
   }
 }
