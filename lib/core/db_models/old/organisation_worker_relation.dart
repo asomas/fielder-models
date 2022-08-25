@@ -20,6 +20,7 @@ class OrganisationWorkerRelation {
   String workerId;
   OrganisationModel organisationModel;
   String owrRefId;
+  bool tempToPermRequested;
 
   OrganisationWorkerRelation({
     this.docId,
@@ -34,6 +35,7 @@ class OrganisationWorkerRelation {
     this.workerId,
     this.organisationModel,
     this.owrRefId,
+    this.tempToPermRequested,
   });
 
   factory OrganisationWorkerRelation.fromMap({
@@ -75,6 +77,9 @@ class OrganisationWorkerRelation {
             phone: _phone,
             lastShiftsDate: _lastReviewDate,
             workerId: _workerIdRef?.id,
+            tempToPermRequested:
+                map[OrganisationWorkerRelationSchema.tempToPermRequested] ??
+                    false,
             organisationModel: OrganisationModel.fromMap(
                 map[OrganisationWorkerRelationSchema.organisationData]),
             owrRefId: map[OrganisationWorkerRelationSchema.owrRefId]);
