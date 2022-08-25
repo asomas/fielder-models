@@ -57,7 +57,7 @@ class AddressModel {
   }
 
   factory AddressModel.fromObject(LocationModelDetail location) {
-    return AddressModel(
+    AddressModel model = AddressModel(
       coordinates: location.coordinates,
       county: location.address?.county,
       country: location.address?.country,
@@ -67,6 +67,23 @@ class AddressModel {
       street: location.address?.street,
       postalCode: location.address?.postalCode,
     );
+    model.fullAddress = getFullAddress(model);
+    return model;
+  }
+
+  static String getFullAddress(AddressModel model) {
+    final List<String> fullAddressMap = [
+      model?.building,
+      model?.street,
+      model?.county,
+      model?.country,
+      model?.city,
+      model?.flat,
+      model?.postalCode
+    ];
+    fullAddressMap.removeWhere((element) => element == null || element.isEmpty);
+    final String _fullAddress = fullAddressMap.join(',');
+    return _fullAddress;
   }
 
   factory AddressModel.fromMap({
@@ -84,20 +101,7 @@ class AddressModel {
         final String _postalCode =
             map[DefaultLocationDataSchema.postalCode] ?? '';
 
-        final List<String> fullAddressMap = [
-          _building,
-          _street,
-          _county,
-          _country,
-          _city,
-          _flat,
-          _postalCode
-        ];
-        fullAddressMap
-            .removeWhere((element) => element == null || element.isEmpty);
-        final String _fullAddress = fullAddressMap.join(',');
-
-        return AddressModel(
+        AddressModel model = AddressModel(
           building: _building,
           street: _street,
           county: _county,
@@ -105,9 +109,10 @@ class AddressModel {
           city: _city,
           flat: _flat,
           postalCode: _postalCode,
-          fullAddress: _fullAddress,
           coordinates: coords,
         );
+        model.fullAddress = getFullAddress(model);
+        return model;
       } catch (e) {
         print('AddressModel fromMap error: $e');
       }

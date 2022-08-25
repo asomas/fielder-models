@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/old/address_model.dart';
+import 'package:fielder_models/core/db_models/old/schema/table_collection_schema.dart';
 import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/schema/educationSchema.dart';
 
 import '../../helpers/helpers.dart';
+import '../schema/locationSchema.dart';
 
 class Education {
   String docId;
@@ -98,6 +101,24 @@ class Education {
                 : json[EducationSchema.workerRef]
             : null);
   }
+
+  Map<String, dynamic> toJson(AddressModel addressModel) {
+    return {
+      EducationSchema.institution: educationInstitution?.toJson(),
+      EducationSchema.startDate: Helpers.dateToString(startDate?.toDate()),
+      EducationSchema.endDate: Helpers.dateToString(endDate?.toDate()),
+      EducationSchema.award: award,
+      EducationSchema.locationData: {
+        LocationSchema.address: addressModel?.toJSON()
+      },
+      EducationSchema.course: course?.toJson(),
+      EducationSchema.level: level?.toJson(),
+      EducationSchema.grade: grade?.toJson(),
+      EducationSchema.knowledgeAreas:
+          knowledgeAreaList?.map((e) => e?.toJson())?.toList(),
+      EducationSchema.summary: summary ?? '',
+    };
+  }
 }
 
 class Course {
@@ -113,13 +134,15 @@ class Course {
                 ? Helpers.documentReferenceFromString(
                     json[EducationSchema.courseRef])
                 : json[EducationSchema.courseRef]
-            : null,
+            : FirebaseFirestore.instance
+                .collection(FbCollections.courses)
+                .doc(json[EducationSchema.courseId]),
         value: json[EducationSchema.value] ?? "",
         courseId: json[EducationSchema.courseId] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
-        EducationSchema.courseRef: courseRef,
+        EducationSchema.courseRef: courseRef?.path,
         EducationSchema.value: value,
       };
 }
@@ -138,13 +161,15 @@ class EducationInstitution {
                 ? Helpers.documentReferenceFromString(
                     json[EducationSchema.institutionRef])
                 : json[EducationSchema.institutionRef]
-            : null,
+            : FirebaseFirestore.instance
+                .collection(FbCollections.institutions)
+                .doc(json[EducationSchema.institutionId]),
         value: json[EducationSchema.value] ?? "",
         institutionId: json[EducationSchema.institutionId] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
-        EducationSchema.institutionRef: institutionRef,
+        EducationSchema.institutionRef: institutionRef?.path,
         EducationSchema.value: value,
       };
 }
@@ -163,14 +188,16 @@ class Level {
                 ? Helpers.documentReferenceFromString(
                     json[EducationSchema.levelRef])
                 : json[EducationSchema.levelRef]
-            : null,
+            : FirebaseFirestore.instance
+                .collection(FbCollections.levels)
+                .doc(json[EducationSchema.levelId]),
         value: json[EducationSchema.value] ?? "",
         levelId: json[EducationSchema.levelId] ?? "",
         levelNumber: json[EducationSchema.levelNumber],
       );
 
   Map<String, dynamic> toJson() => {
-        EducationSchema.levelRef: levelRef,
+        EducationSchema.levelRef: levelRef?.path,
         EducationSchema.value: value,
       };
 }
@@ -189,14 +216,16 @@ class Grade {
                 ? Helpers.documentReferenceFromString(
                     json[EducationSchema.gradeRef])
                 : json[EducationSchema.gradeRef]
-            : null,
+            : FirebaseFirestore.instance
+                .collection(FbCollections.grades)
+                .doc(json[EducationSchema.gradeId]),
         value: json[EducationSchema.value] ?? "",
         gradeId: json[EducationSchema.gradeId] ?? "",
         gradeNumber: json[EducationSchema.gradeNumber],
       );
 
   Map<String, dynamic> toJson() => {
-        EducationSchema.gradeRef: gradeRef,
+        EducationSchema.gradeRef: gradeRef?.path,
         EducationSchema.value: value,
       };
 }
@@ -220,7 +249,7 @@ class KnowledgeArea {
       );
 
   Map<String, dynamic> toJson() => {
-        EducationSchema.knowledgeAreaRef: knowledgeAreaRef,
+        EducationSchema.knowledgeAreaRef: knowledgeAreaRef?.path,
         EducationSchema.value: value,
       };
 }

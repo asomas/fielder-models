@@ -1,6 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/helpers/helpers.dart';
+import 'package:fielder_models/core/db_models/old/address_model.dart';
+import 'package:fielder_models/core/db_models/old/schema/table_collection_schema.dart';
+import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'package:fielder_models/core/db_models/worker/locationModel.dart';
+import 'package:fielder_models/core/db_models/worker/occupation.dart';
 import 'package:fielder_models/core/db_models/worker/schema/workerHistorySchema.dart';
+
+import '../schema/locationSchema.dart';
 
 enum ExperienceType { EXTERNAL, FIELDER, EDUCATION, GAP }
 
@@ -41,6 +48,18 @@ class RefereeModel {
       print("RefereeModelCatch______${e}____$s");
       return null;
     }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {
+      WorkerHistorySchema.contactPhone: phone,
+      WorkerHistorySchema.contactName: name,
+      WorkerHistorySchema.contactPosition: position,
+      WorkerHistorySchema.contactEmail: email,
+      WorkerHistorySchema.contactRelationship: relationship,
+    };
+    map?.removeWhere((key, value) => value == null || value.isEmpty);
+    return map;
   }
 }
 
@@ -178,6 +197,27 @@ class WorkHistory {
           RefereeModel.fromMap(json[WorkerHistorySchema.referencingData]),
     );
   }
+
+  Map<String, dynamic> toJson(AddressModel addressModel, String companyNumber) {
+    return {
+      WorkerHistorySchema.checks: checks?.map((e) => e?.toJson())?.toList(),
+      WorkerHistorySchema.jobTitle: jobTitle,
+      WorkerHistorySchema.startDate: Helpers.dateToString(startDate?.toDate()),
+      WorkerHistorySchema.endDate: Helpers.dateToString(endDate?.toDate()),
+      WorkerHistorySchema.locationData: {
+        LocationSchema.address: addressModel?.toJSON()
+      },
+      WorkerHistorySchema.occupation: occupation?.toJson(),
+      WorkerHistorySchema.organisationName: organisationName,
+      WorkerHistorySchema.companyNumber: companyNumber,
+      WorkerHistorySchema.qualifications:
+          qualifications?.map((e) => e?.toJson())?.toList(),
+      WorkerHistorySchema.skills: skills?.map((e) => e?.toJson())?.toList(),
+      WorkerHistorySchema.summary: summary ?? '',
+      WorkerHistorySchema.referencingData: refereeModel?.toMap(),
+    };
+  }
+
   static ExperienceType getWorkerType(String type) {
     ExperienceType workerType = ExperienceType.EXTERNAL;
     if (type == WorkerHistorySchema.external) {
@@ -252,9 +292,14 @@ class Occupation {
   }
 
   Map<String, dynamic> toJson() => {
-        WorkerHistorySchema.occupationRef: occupationRef,
+        WorkerHistorySchema.occupationRef: occupationRef?.path,
         WorkerHistorySchema.value: value,
       };
+
+  factory Occupation.fromModel(OccupationModel model) => Occupation(
+        occupationRef: model?.occupationRef,
+        value: model?.value,
+      );
 }
 
 class Check {
@@ -284,7 +329,7 @@ class Check {
   }
 
   Map<String, dynamic> toJson() => {
-        WorkerHistorySchema.checkRef: checkRef,
+        WorkerHistorySchema.checkRef: checkRef?.path,
         WorkerHistorySchema.value: value,
       };
 }
@@ -316,7 +361,7 @@ class Qualification {
   }
 
   Map<String, dynamic> toJson() => {
-        WorkerHistorySchema.qualificationRef: qualificationRef,
+        WorkerHistorySchema.qualificationRef: qualificationRef?.path,
         WorkerHistorySchema.value: value,
       };
 }
@@ -372,8 +417,15 @@ class Skill {
     return null;
   }
 
+  factory Skill.fromModel(SkillsModel model) => Skill(
+        skillRef: FirebaseFirestore.instance
+            .collection(FbCollections.skills)
+            .doc(model?.docID),
+        value: model?.value,
+      );
+
   Map<String, dynamic> toJson() => {
-        WorkerHistorySchema.occupationRef: skillRef,
+        WorkerHistorySchema.skillRef: skillRef?.path,
         WorkerHistorySchema.value: value,
       };
 }
