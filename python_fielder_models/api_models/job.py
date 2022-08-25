@@ -233,3 +233,8 @@ class AddShiftPatternRequestSerializer(serializers.Serializer):
 
 class ShiftActivityRequestSerializer(serializers.Serializer):
     needs_attention = serializers.BooleanField()
+
+
+class EditShiftPatternRequestSerializer(serializers.Serializer):
+    range = serializers.ChoiceField(("current", "future", "all"))
+    shift_pattern_data = ShiftPatternAPISerializer()
