@@ -10,4 +10,5 @@ class OrganisationWorkerRelationSchema {
   static const String workerRef = "worker_ref";
   static const String organisationData = "organisation_data";
   static const String owrRefId = "owr_reference_id";
+  static const String tempToPermRequested = "temp_to_perm_requested";
 }
