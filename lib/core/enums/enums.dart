@@ -156,3 +156,13 @@ enum CheckStatus { Confirmed, Invalidated, AwaitingBackOffice, NotStarted }
 enum Trending { Up, Down }
 
 enum EducationApprovalStatus { Signed, Unsigned }
+
+enum SupportVideosEnums {
+  JobSummary,
+  StaffSummary,
+  NotificationsSummary,
+  CreateShift,
+  AssignShift,
+  GetHelp,
+  OrganisationSetup
+}
