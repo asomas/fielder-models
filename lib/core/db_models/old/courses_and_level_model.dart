@@ -17,8 +17,8 @@ class CoursesAndLevelModel {
 
   factory CoursesAndLevelModel.fromMap(Map map) {
     if (map != null && map.isNotEmpty) {
-      num _levelNumber;
-      String _levelValue, _courseValue;
+      num _levelNumber, _gradeNumber;
+      String _levelValue, _courseValue, _gradeValue;
       if (map.containsKey(JobSummarySchema.courseData) &&
           map[JobSummarySchema.courseData] != null) {
         _courseValue =
@@ -29,6 +29,12 @@ class CoursesAndLevelModel {
         _levelValue = map[JobSummarySchema.levelData][EducationSchema.value];
         _levelNumber =
             map[JobSummarySchema.levelData][EducationSchema.levelNumber];
+      }
+      if (map.containsKey(JobSummarySchema.gradeData) &&
+          map[JobSummarySchema.gradeData] != null) {
+        _gradeValue = map[JobSummarySchema.gradeData][EducationSchema.value];
+        _gradeNumber =
+            map[JobSummarySchema.gradeData][EducationSchema.gradeNumber];
       }
       try {
         return CoursesAndLevelModel(
@@ -45,6 +51,8 @@ class CoursesAndLevelModel {
           grade: Grade(
             gradeId: (map[EducationSchema.gradeRef] as DocumentReference)?.id,
             gradeRef: (map[EducationSchema.gradeRef] as DocumentReference),
+            gradeNumber: _gradeNumber,
+            value: _gradeValue,
             //gradeNumber:
           ),
         );
