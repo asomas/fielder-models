@@ -237,7 +237,5 @@ class ShiftActivityRequestSerializer(serializers.Serializer):
 
 class EditShiftPatternRequestSerializer(serializers.Serializer):
     range = serializers.ChoiceField(("current", "future", "all"))
-    shift_date = serializers.DateField(
-        format="%Y-%m-%d", input_formats=["%Y-%m-%d"], required=False
-    )
+    shift_date = serializers.DateField(format="%Y-%m-%d", input_formats=["%Y-%m-%d"])
     shift_pattern_data = ShiftPatternAPISerializer()
