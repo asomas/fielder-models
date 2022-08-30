@@ -89,6 +89,7 @@ class Offers {
       workerLastName: offer?.workerData?.lastName,
       workerPhone: offer?.workerData?.phone,
       workerRef: offer?.workerRef,
+      workerId: offer?.workerRef?.id,
       invitationId: offer?.offerID,
       createdAt: offer?.updatedAt,
       shiftRef: shiftPatternRef,
