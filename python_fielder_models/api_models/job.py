@@ -236,6 +236,83 @@ class ShiftActivityRequestSerializer(serializers.Serializer):
 
 
 class EditShiftPatternRequestSerializer(serializers.Serializer):
+    class PartialShiftPatternAPISerializer(ShiftPatternAPISerializer):
+        start_date = serializers.DateField(required=False)
+        end_date = serializers.DateField(required=False)
+        start_time = serializers.IntegerField(
+            min_value=0, max_value=86400, required=False
+        )
+        end_time = serializers.IntegerField(
+            min_value=0, max_value=172800, required=False
+        )
+        recurrence = RecurrenceSerializer(required=False)
+        shift_note_value = CleanHTMLField(required=False)
+        multi_day_shift = serializers.BooleanField(required=False)
+        geo_fence_enabled = serializers.BooleanField(required=False)
+
+        def validate(self, data):
+            # this validation will run after RecurrenceSerializer's validation
+            if (
+                data.get("geo_fence_enabled", False) == True
+                and "geo_fence_distance" not in data
+            ):
+                raise serializers.ValidationError(
+                    detail={
+                        "geo_fence_distance": [
+                            "This field is required when geo_fence_enabled is true."
+                        ]
+                    }
+                )
+
+            # so in case of non-recurring, the repeat_interval_type = "None" should have been converted
+            # to repeat_interval_type = None
+            if "recurrence" in data:
+                if (
+                    data["recurrence"]["repeat_interval_type"] is not None
+                    and "end_date" not in data
+                ):
+                    raise serializers.ValidationError(
+                        "recurring shift should have an end_date."
+                    )
+                if data["recurrence"]["repeat_interval_type"] is None:
+                    if "end_date" in data:
+                        raise serializers.ValidationError(
+                            "Non-recurring shift should have no end date. "
+                        )
+                    else:
+                        data["end_date"] = data["start_date"]
+
+            if bool(data.get("start_date")) != bool(data.get("end_date")):
+                raise serializers.ValidationError(
+                    "both start_date and end_date should be supplied together"
+                )
+            elif "start_date" in data:
+                if data["start_date"] > data["end_date"]:
+                    raise serializers.ValidationError(
+                        "start_date must be before end_date"
+                    )
+                if data["start_time"] > data["end_time"]:
+                    raise serializers.ValidationError(
+                        "start_time must be before end_time"
+                    )
+
+            # check if one and only one from ["google_place_data", "new_location_data", "existing_location_id"] exist in data dict
+            if (
+                sum(
+                    [
+                        "google_place_data" in data,
+                        "new_location_data" in data,
+                        "existing_location_id" in data,
+                    ]
+                )
+                > 1
+            ):
+                raise serializers.ValidationError(
+                    "One and only one of google_place_data, new_location_data, existing_location_id must be provided"
+                )
+
+            return data
+
     range = serializers.ChoiceField(("current", "future", "all"))
     shift_date = serializers.DateField(format="%Y-%m-%d", input_formats=["%Y-%m-%d"])
-    shift_pattern_data = ShiftPatternAPISerializer()
+    shift_pattern_data = PartialShiftPatternAPISerializer()
