@@ -62,7 +62,7 @@ class Helpers {
     }
   }
 
-  DateTime convertToLocalTime(DateTime dateTime) {
+  static DateTime convertToLocalTime(DateTime dateTime) {
     try {
       if (dateTime != null) {
         return dateTime.subtract(DateTime.now().timeZoneOffset);
