@@ -61,4 +61,15 @@ class Helpers {
       return false;
     }
   }
+
+  static DateTime convertToLocalTime(DateTime dateTime) {
+    try {
+      if (dateTime != null) {
+        return dateTime.subtract(DateTime.now().timeZoneOffset);
+      }
+      return null;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
+import 'package:fielder_models/core/db_models/helpers/helpers.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/interviews_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
@@ -57,10 +58,10 @@ class InterviewModel {
       try {
         InterviewType _interview =
             EnumHelpers.getInterviewType(map[InterviewsSchema.interviewType]);
-        DateTime _startTime =
-            (map[InterviewsSchema.startTime] as Timestamp)?.toDate();
-        DateTime _endTime =
-            (map[InterviewsSchema.endTime] as Timestamp)?.toDate();
+        DateTime _startTime = Helpers.convertToLocalTime(
+            (map[InterviewsSchema.startTime] as Timestamp)?.toDate());
+        DateTime _endTime = Helpers.convertToLocalTime(
+            (map[InterviewsSchema.endTime] as Timestamp)?.toDate());
         int duration;
         if (_startTime != null && _endTime != null) {
           duration = _endTime.difference(_startTime).inMinutes;
