@@ -286,11 +286,17 @@ class EditShiftPatternRequestSerializer(serializers.Serializer):
                 raise serializers.ValidationError(
                     "both start_date and end_date should be supplied together"
                 )
-            elif "start_date" in data:
+            if "start_date" and "end_date" in data:
                 if data["start_date"] > data["end_date"]:
                     raise serializers.ValidationError(
                         "start_date must be before end_date"
                     )
+
+            if bool(data.get("start_time")) != bool(data.get("end_time")):
+                raise serializers.ValidationError(
+                    "both start_time and end_time should be supplied together"
+                )
+            if "start_time" and "end_time" in data:
                 if data["start_time"] > data["end_time"]:
                     raise serializers.ValidationError(
                         "start_time must be before end_time"
