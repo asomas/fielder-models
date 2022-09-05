@@ -16,6 +16,7 @@ dependencies:
   intl: ^0.17.0
   tuple: ^2.0.0
   number_to_words: ^1.0.0
+  timezone: ^0.8.0
 
 flutter: 
 

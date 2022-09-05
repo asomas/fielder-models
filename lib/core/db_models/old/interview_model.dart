@@ -58,9 +58,9 @@ class InterviewModel {
       try {
         InterviewType _interview =
             EnumHelpers.getInterviewType(map[InterviewsSchema.interviewType]);
-        DateTime _startTime = Helpers.convertToLocalTime(
+        DateTime _startTime = Helpers.convertToUKTime(
             (map[InterviewsSchema.startTime] as Timestamp)?.toDate());
-        DateTime _endTime = Helpers.convertToLocalTime(
+        DateTime _endTime = Helpers.convertToUKTime(
             (map[InterviewsSchema.endTime] as Timestamp)?.toDate());
         int duration;
         if (_startTime != null && _endTime != null) {
