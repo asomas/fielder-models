@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 class Helpers {
   static DocumentReference documentReferenceFromString(
@@ -62,10 +64,12 @@ class Helpers {
     }
   }
 
-  static DateTime convertToLocalTime(DateTime dateTime) {
+  static DateTime convertToUKTime(DateTime dateTime) {
     try {
       if (dateTime != null) {
-        return dateTime.subtract(DateTime.now().timeZoneOffset);
+        tz.initializeTimeZones();
+        var detroit = tz.getLocation('Europe/London');
+        return tz.TZDateTime.from(dateTime, detroit);
       }
       return null;
     } catch (e) {
