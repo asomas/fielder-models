@@ -1,8 +1,9 @@
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
-import 'package:fielder_models/core/db_models/helpers/helpers.dart';
 import 'package:fielder_models/core/db_models/old/schema/candidates_matching_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/worker_checks_schema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
+
+import '../helpers/date_time_helper.dart';
 
 class HoverMatchingModel {
   String id;
@@ -80,7 +81,7 @@ class ChecksMatching {
         checkName: map?.key,
         status:
             EnumHelpers.checkStatusFromString(value[WorkerChecksSchema.status]),
-        expectedCompletionDate: Helpers.timeStampFromString(
+        expectedCompletionDate: DateTimeHelper.timeStampFromString(
                 value[WorkerChecksSchema.expectedCompletionAt])
             ?.toDate(),
       );

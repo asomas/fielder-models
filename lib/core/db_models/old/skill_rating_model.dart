@@ -7,7 +7,6 @@ class SkillRatingModel {
   SkillRatingModel({this.transferable, this.specialized});
 
   factory SkillRatingModel.fromMap(Map map) {
-    print("MAP______${map}");
     if (map != null && map.isNotEmpty) {
       try {
         return SkillRatingModel(

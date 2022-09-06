@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/helpers/date_time_helper.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
-import 'package:fielder_models/core/db_models/helpers/helpers.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/interviews_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
@@ -54,13 +54,14 @@ class InterviewModel {
 
   factory InterviewModel.fromMap(
       String interviewDocId, Map<String, dynamic> map) {
+    final DateTimeHelper _dateTimeHelper = DateTimeHelper();
     if (map != null && map.isNotEmpty) {
       try {
         InterviewType _interview =
             EnumHelpers.getInterviewType(map[InterviewsSchema.interviewType]);
-        DateTime _startTime = Helpers.convertToUKTime(
+        DateTime _startTime = _dateTimeHelper.convertToUKTime(
             (map[InterviewsSchema.startTime] as Timestamp)?.toDate());
-        DateTime _endTime = Helpers.convertToUKTime(
+        DateTime _endTime = _dateTimeHelper.convertToUKTime(
             (map[InterviewsSchema.endTime] as Timestamp)?.toDate());
         int duration;
         if (_startTime != null && _endTime != null) {

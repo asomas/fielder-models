@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/helpers/date_time_helper.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
-import 'package:fielder_models/core/db_models/helpers/helpers.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/worker/schema/locationSchema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
@@ -125,8 +125,10 @@ class HistoricalName {
       DBSCheckModelSchema.firstName: firstName,
       DBSCheckModelSchema.middleName: middleName,
       DBSCheckModelSchema.surname: surname,
-      DBSCheckModelSchema.dateUsedFrom: Helpers.dateToString(dateUsedFrom),
-      DBSCheckModelSchema.dateUsedUntil: Helpers.dateToString(dateUsedUntil),
+      DBSCheckModelSchema.dateUsedFrom:
+          DateTimeHelper.dateToString(dateUsedFrom),
+      DBSCheckModelSchema.dateUsedUntil:
+          DateTimeHelper.dateToString(dateUsedUntil),
     };
   }
 }
@@ -175,8 +177,9 @@ class AddressHistory {
       DBSCheckModelSchema.fullAddress: {
         LocationSchema.address: address.toJSON()
       },
-      DBSCheckModelSchema.dateMovedIn: Helpers.dateToString(dateMovedIn),
-      DBSCheckModelSchema.dateMovedOut: Helpers.dateToString(dateMovedOut),
+      DBSCheckModelSchema.dateMovedIn: DateTimeHelper.dateToString(dateMovedIn),
+      DBSCheckModelSchema.dateMovedOut:
+          DateTimeHelper.dateToString(dateMovedOut),
     };
   }
 }

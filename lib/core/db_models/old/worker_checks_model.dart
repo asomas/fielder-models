@@ -3,6 +3,7 @@ import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/old/schema/worker_checks_schema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 
+import '../helpers/date_time_helper.dart';
 import '../helpers/helpers.dart';
 
 class WorkerChecksModel {
@@ -53,7 +54,7 @@ class WorkerChecksModel {
               map[WorkerChecksSchema.checkValue]),
           status:
               EnumHelpers.checkStatusFromString(map[WorkerChecksSchema.status]),
-          expectedCompletionDate: Helpers.timeStampFromString(
+          expectedCompletionDate: DateTimeHelper.timeStampFromString(
                   map[WorkerChecksSchema.expectedCompletionAt])
               ?.toDate(),
         );

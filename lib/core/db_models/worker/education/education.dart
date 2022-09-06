@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/helpers/date_time_helper.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/table_collection_schema.dart';
 import 'package:fielder_models/core/db_models/worker/locationModel.dart';
@@ -105,8 +106,9 @@ class Education {
   Map<String, dynamic> toJson(AddressModel addressModel) {
     return {
       EducationSchema.institution: educationInstitution?.toJson(),
-      EducationSchema.startDate: Helpers.dateToString(startDate?.toDate()),
-      EducationSchema.endDate: Helpers.dateToString(endDate?.toDate()),
+      EducationSchema.startDate:
+          DateTimeHelper.dateToString(startDate?.toDate()),
+      EducationSchema.endDate: DateTimeHelper.dateToString(endDate?.toDate()),
       EducationSchema.award: award,
       EducationSchema.locationData: {
         LocationSchema.address: addressModel?.toJSON()
