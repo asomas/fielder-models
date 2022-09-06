@@ -88,6 +88,7 @@ class OrganisationUser {
       return organisationUser;
     } catch (e, s) {
       print('create organisation user catch_____${e}____$s');
+      return null;
     }
   }
 

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fielder_models/core/db_models/helpers/helpers.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/table_collection_schema.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
@@ -7,6 +6,7 @@ import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/occupation.dart';
 import 'package:fielder_models/core/db_models/worker/schema/workerHistorySchema.dart';
 
+import '../../helpers/date_time_helper.dart';
 import '../schema/locationSchema.dart';
 
 enum ExperienceType { EXTERNAL, FIELDER, EDUCATION, GAP }
@@ -202,8 +202,10 @@ class WorkHistory {
     return {
       WorkerHistorySchema.checks: checks?.map((e) => e?.toJson())?.toList(),
       WorkerHistorySchema.jobTitle: jobTitle,
-      WorkerHistorySchema.startDate: Helpers.dateToString(startDate?.toDate()),
-      WorkerHistorySchema.endDate: Helpers.dateToString(endDate?.toDate()),
+      WorkerHistorySchema.startDate:
+          DateTimeHelper.dateToString(startDate?.toDate()),
+      WorkerHistorySchema.endDate:
+          DateTimeHelper.dateToString(endDate?.toDate()),
       WorkerHistorySchema.locationData: {
         LocationSchema.address: addressModel?.toJSON()
       },

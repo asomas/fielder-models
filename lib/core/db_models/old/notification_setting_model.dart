@@ -40,7 +40,7 @@ class NotificationSettingModel {
       }
       return null;
     } catch (e, s) {
-      print("notification setting model ctach______${e},____$s");
+      print("notification setting model ctach______$e,____$s");
       return null;
     }
   }
@@ -67,7 +67,7 @@ class NotificationTypeModel {
         push: type[NotificationSettingSchema.push] ?? false,
       );
     } catch (e, s) {
-      print("notification type model ctach______${e},____$s");
+      print("notification type model ctach______$e,____$s");
       return null;
     }
   }
