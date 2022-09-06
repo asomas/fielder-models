@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/google_place_model.dart';
+import 'package:fielder_models/core/db_models/old/shift_pattern_data_model.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
 import 'package:fielder_models/core/db_models/worker/schema/locationSchema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
@@ -86,20 +87,26 @@ class PatternDataModel {
   Map<String, dynamic> toJSON() {
     Map<String, dynamic> jsonMap = {};
     try {
+      String _startDateString;
+      if (startDate != null) {
+        DateFormat('yyyy-MM-dd').format(startDate);
+      }
       jsonMap = {
-        ShiftDataSchema.startDate: DateFormat('yyyy-MM-dd').format(startDate),
+        ShiftDataSchema.startDate: _startDateString,
         ShiftDataSchema.startTime: startTimeInt,
         ShiftDataSchema.endTime: endTimeInt,
         ShiftDataSchema.geoFenceEnabled: isGeoFencingEnabled,
         ShiftDataSchema.geoFenceDistance: geoFenceRadius,
         //  ShiftDataSchema.intervalAmount: intervalAmount,
         // ShiftDataSchema.repeatIntervalType: intervalType,
-        ShiftDataSchema.recurrence: recurrence.toJSON(),
       };
+      if (recurrence != null) {
+        jsonMap[ShiftDataSchema.recurrence] = recurrence?.toJSON();
+      }
       if (existingLocationId != null) {
         jsonMap[ShiftDataSchema.existingLocationId] = existingLocationId;
       } else if (googlePlaceModel != null) {
-        jsonMap[ShiftDataSchema.googlePlaceData] = googlePlaceModel.toJson();
+        jsonMap[ShiftDataSchema.googlePlaceData] = googlePlaceModel?.toJson();
       } else if (addressModel != null) {
         jsonMap[ShiftDataSchema.newLocationData] = {
           ShiftDataSchema.address: addressModel.toJSON(),
@@ -109,8 +116,8 @@ class PatternDataModel {
           }
         };
       }
-      if (recurrence.repeatIntervalType != ShiftFrequencies.None &&
-          endDate != null) {
+      if (endDate != null &&
+          recurrence?.repeatIntervalType != ShiftFrequencies.None) {
         final String _endDateString = DateFormat('yyyy-MM-dd').format(endDate);
         if (_endDateString != null) {
           if (intervalType != "None")
@@ -120,11 +127,34 @@ class PatternDataModel {
       if (shiftNoteValue != null && shiftNoteValue.isNotEmpty) {
         jsonMap[ShiftDataSchema.shiftNoteValue] = shiftNoteValue;
       }
+      jsonMap.removeWhere((key, value) => value == null);
       return jsonMap;
-    } catch (e) {
-      print('ShiftDataModel toJSON error: $e');
+    } catch (e, s) {
+      print('ShiftDataModel toJSON error: ${e}_____$s');
       return {};
     }
+  }
+
+  static PatternDataModel patternDataModelFromShiftPattersModel(
+      ShiftPatternDataModel shiftPatternDataModel) {
+    return PatternDataModel(
+      docID: shiftPatternDataModel?.docID,
+      startDate: shiftPatternDataModel?.startDate,
+      endDate: shiftPatternDataModel?.endDate,
+      startTimeInt: shiftPatternDataModel?.startTimeInt,
+      endTimeInt: shiftPatternDataModel?.endTimeInt,
+      intervalAmount: shiftPatternDataModel?.recurrence?.intervalAmount,
+      intervalType: EnumHelpers.getStringForFrequency(
+          shiftPatternFrequency:
+              shiftPatternDataModel?.recurrence?.repeatIntervalType),
+      recurrence: shiftPatternDataModel?.recurrence,
+      existingLocationId: shiftPatternDataModel?.locationRef?.id,
+      addressModel: AddressModel.fromObject(
+          shiftPatternDataModel?.shiftLocationDataModel),
+      title: shiftPatternDataModel?.jobTitle,
+      isGeoFencingEnabled: shiftPatternDataModel?.isGeoFencingEnabled,
+      geoFenceRadius: shiftPatternDataModel?.geoFenceRadius,
+    );
   }
 }
 
