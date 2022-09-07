@@ -15,6 +15,7 @@ class OccupationSerializer(ValueSerializer):
 class SkillSerializer(serializers.Serializer):
     skill_ref = DocumentReferenceField()
     skill_value = serializers.CharField()
+    relevancy_score = serializers.FloatField()
 
 
 class CheckSerializer(serializers.Serializer):
