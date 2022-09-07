@@ -1,11 +1,12 @@
-from email.policy import default
 from enum import Enum, auto
 
 from fielder_backend_utils.rest_utils import DocumentReferenceField
+from python_fielder_models.common.taxonomy import OccupationSerializer, SkillSerializer
 from rest_framework import serializers
 
 from ..common.worker import (
     CheckType,
+    ExperienceType,
     ReferencingDataSerializer,
     VerificationPath,
     WCRStatus,
@@ -22,7 +23,7 @@ class STATUS(Enum):
     REJECTED = 4
 
 
-class BaseExperienceSerializer(serializers.Serializer):
+class BaseExperienceSerializer(BaseDBSerializer):
     start_date = serializers.DateTimeField(
         allow_null=True, default=None, input_formats=["%Y-%m-%d"]
     )
@@ -31,16 +32,9 @@ class BaseExperienceSerializer(serializers.Serializer):
     )
     summary = serializers.CharField(allow_null=True, default=None, allow_blank=True)
     worker_ref = DocumentReferenceField()
-    type = serializers.ChoiceField(
-        (
-            ("External"),
-            ("Fielder"),
-            ("Education"),
-            ("Gap"),
-        ),
-    )
+    type = serializers.ChoiceField([t.value for t in ExperienceType])
     status = serializers.ChoiceField(
-        choices=STATUS._member_names_, default=STATUS.UNCHECKED.name, required=False
+        choices=STATUS._member_names_, default=STATUS.CHECKED.name
     )
 
 
@@ -50,21 +44,17 @@ class WorkExperienceGapSerializer(BaseExperienceSerializer):
         required=False, allow_null=True, default=None
     )
 
+    def to_internal_value(self, data):
+        if "type" not in data:
+            data["type"] = ExperienceType.GAP.value
+        return super().to_internal_value(data)
+
 
 class BaseWorkExperienceSerializer(BaseExperienceSerializer):
     location_data = LocationDBSerializer(allow_null=True, default=None)
 
 
 class WorkExperienceSerializer(BaseWorkExperienceSerializer):
-    class ReferenceSerializer(serializers.Serializer):
-        value = serializers.CharField(allow_null=True)
-
-    class OccupationSerializer(ReferenceSerializer):
-        occupation_ref = DocumentReferenceField()
-
-    class SkillSerializer(ReferenceSerializer):
-        skill_ref = DocumentReferenceField()
-
     organisation_name = serializers.CharField(
         allow_blank=True, allow_null=True, default=None
     )
@@ -86,7 +76,7 @@ class WorkExperienceSerializer(BaseWorkExperienceSerializer):
 
     def to_internal_value(self, data):
         if "type" not in data:
-            data["type"] = "External"
+            data["type"] = ExperienceType.EXTERNAL.value
         return super().to_internal_value(data)
 
 
@@ -97,7 +87,7 @@ class FielderWorkExperienceSerializer(WorkExperienceSerializer):
 
     def to_internal_value(self, data):
         if "type" not in data:
-            data["type"] = "Fielder"
+            data["type"] = ExperienceType.FIELDER.value
 
         data["status"] = STATUS.VERIFIED.name
         return super().to_internal_value(data)
@@ -136,11 +126,11 @@ class EducationSerializer(BaseWorkExperienceSerializer):
 
     def to_internal_value(self, data):
         if "type" not in data:
-            data["type"] = "Education"
+            data["type"] = ExperienceType.EDUCATION.value
         return super().to_internal_value(data)
 
 
-class WorkerSkillRelationSerializer(serializers.Serializer):
+class WorkerSkillRelationSerializer(BaseDBSerializer):
     worker_ref = DocumentReferenceField()
     skill_ref = DocumentReferenceField()
     skill_value = serializers.CharField()

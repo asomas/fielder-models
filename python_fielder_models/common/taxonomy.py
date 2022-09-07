@@ -5,7 +5,7 @@ from rest_framework import serializers
 class SkillSerializer(serializers.Serializer):
     skill_ref = DocumentReferenceField()
     skill_value = serializers.CharField()
-    relevancy_score = serializers.IntegerField(required=False)
+    relevancy_score = serializers.FloatField(required=False)
     category = serializers.CharField(required=False)
 
 

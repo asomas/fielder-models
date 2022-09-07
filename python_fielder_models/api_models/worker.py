@@ -1,24 +1,34 @@
 from fielder_backend_utils.rest_utils import DocumentReferenceField
+from python_fielder_models.api_models.common import (
+    AddressAPISerializer,
+    GooglePlaceDataSerializer,
+    LocationAPISerializer,
+)
+from python_fielder_models.common.taxonomy import OccupationSerializer, SkillSerializer
+from python_fielder_models.common.worker import ReferencingDataSerializer
+from python_fielder_models.db_models.common import (
+    DATE_FIELD_REGEX,
+    FULL_NAME_MAX_LENGTH,
+)
+from python_fielder_models.db_models.worker import (
+    STATUS,
+    EducationSerializer,
+    FielderWorkExperienceSerializer,
+    Status,
+)
 from rest_framework import serializers
-from rest_framework.exceptions import ValidationError
-
-from ..api_models.common import *
-from ..common.worker import ReferencingDataSerializer
-from ..db_models.worker import *
 
 
 class BaseExperienceAPISerializer(serializers.Serializer):
     start_date = serializers.RegexField(DATE_FIELD_REGEX)
-    end_date = serializers.RegexField(DATE_FIELD_REGEX)
-    summary = serializers.CharField(allow_blank=True, default="")
+    end_date = serializers.RegexField(DATE_FIELD_REGEX, required=False)
+    summary = serializers.CharField(allow_blank=True, required=False)
     status = serializers.ChoiceField(choices=STATUS._member_names_, required=False)
 
 
 class WorkExperienceGapAPISerializer(BaseExperienceAPISerializer):
     has_acceptable_reference = serializers.BooleanField(default=True)
-    referencing_data = ReferencingDataSerializer(
-        required=False, allow_null=True, default=None
-    )
+    referencing_data = ReferencingDataSerializer(required=False, allow_null=True)
 
 
 class BaseWorkExperienceAPISerializer(BaseExperienceAPISerializer):
@@ -40,12 +50,6 @@ class WorkExperienceAPISerializer(BaseWorkExperienceAPISerializer):
     class SICCodeSerializer(ReferenceSerializer):
         sic_code_ref = DocumentReferenceField()
 
-    class OccupationSerializer(ReferenceSerializer):
-        occupation_ref = DocumentReferenceField()
-
-    class SkillSerializer(ReferenceSerializer):
-        skill_ref = DocumentReferenceField()
-
     company_number = serializers.CharField(
         allow_blank=True, required=False, allow_null=True, min_length=8, max_length=8
     )
@@ -58,9 +62,7 @@ class WorkExperienceAPISerializer(BaseWorkExperienceAPISerializer):
     sic_codes = serializers.ListField(
         required=False, allow_null=True, child=SICCodeSerializer()
     )
-    referencing_data = ReferencingDataSerializer(
-        required=False, allow_null=True, default=None
-    )
+    referencing_data = ReferencingDataSerializer(required=False, allow_null=True)
 
 
 class FielderWorkExperienceRequestSerializer(serializers.Serializer):

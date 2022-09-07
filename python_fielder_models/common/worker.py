@@ -11,12 +11,20 @@ class VerificationPath(Enum):
     SHARE_CODE = auto()
 
 
+class ExperienceType(Enum):
+    EXTERNAL = "External"
+    FIELDER = "Fielder"
+    EDUCATION = "Education"
+    GAP = "Gap"
+
+
 class ReferencingDataSerializer(Serializer):
     contact_name = CharField(allow_null=True, required=False)
     contact_phone = CharField(allow_null=True, required=False)
     contact_position = CharField(allow_null=True, required=False)
     contact_email = CharField(allow_null=True, required=False)
     contact_relationship = CharField(allow_null=True, required=False)
+
 
 class WCRStatus(Enum):
     AWAITING_BACKOFFICE = auto()
@@ -27,4 +35,3 @@ class WCRStatus(Enum):
 class CheckType(Enum):
     GLOBAL = auto()
     ORG_SPECIFIC = auto()
-
