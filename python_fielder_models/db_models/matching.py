@@ -3,7 +3,7 @@ from enum import Enum, auto
 
 from fielder_backend_utils.rest_utils import DocumentReferenceField
 from python_fielder_models.api_models.matching import SchedulerRequestSerializer
-from python_fielder_models.common.job import OccupationSerializer, SkillSerializer
+from python_fielder_models.common.taxonomy import OccupationSerializer, SkillSerializer
 from python_fielder_models.db_models import BaseDBSerializer
 from python_fielder_models.db_models.common import LocationDBSerializer
 from rest_framework import serializers
@@ -72,7 +72,9 @@ class InterestCardWorkerResponse(Enum):
 class JobInterestCardDBSerialzier(BaseDBSerializer):
     class JobPostSerializer(serializers.Serializer):
         job_title = serializers.CharField()
-        job_description = serializers.CharField(allow_null=True, default=None, allow_blank=True)
+        job_description = serializers.CharField(
+            allow_null=True, default=None, allow_blank=True
+        )
         job_location_raw = serializers.CharField(allow_null=True, default=None)
         job_location_parsed = LocationDBSerializer(allow_null=True, default=None)
         job_link = serializers.CharField(allow_null=True, default=None)

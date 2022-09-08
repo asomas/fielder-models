@@ -1,16 +1,10 @@
 from fielder_backend_utils.rest_utils import DocumentReferenceField
-from python_fielder_models.common.taxonomy import OccupationSerializer
+from python_fielder_models.common.taxonomy import OccupationSerializer, SkillSerializer
 from rest_framework import serializers
 
 
 class ValueSerializer(serializers.Serializer):
     value = serializers.CharField()
-
-
-class SkillSerializer(serializers.Serializer):
-    skill_ref = DocumentReferenceField()
-    skill_value = serializers.CharField()
-    relevancy_score = serializers.FloatField()
 
 
 class CheckSerializer(serializers.Serializer):
