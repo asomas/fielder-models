@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'package:fielder_models/core/db_models/worker/education/education.dart';
 import 'package:fielder_models/core/db_models/worker/locationModel.dart';
+import 'package:fielder_models/core/db_models/worker/occupation.dart';
 import 'package:fielder_models/core/db_models/worker/schema/educationSchema.dart';
 import 'package:fielder_models/core/db_models/worker/schema/workerHistorySchema.dart';
 import 'package:fielder_models/core/db_models/worker/workHistory/workHistory.dart';
@@ -13,10 +15,10 @@ class WorkHistoryEducationCombine {
   LocationModelDetail location;
   String organisationName;
   String jobTitle;
-  List<Skill> skills;
+  List<SkillsModel> skills;
   List<KnowledgeArea> knowledgeAreaList;
   List<SicCode> sicCode;
-  Occupation occupation;
+  OccupationModel occupation;
   EducationInstitution educationInstitution;
   Course course;
   bool expanded;
@@ -84,8 +86,8 @@ class WorkHistoryEducationCombine {
           jobTitle: json[WorkerHistorySchema.jobTitle] ?? "",
           expanded: json[WorkerHistorySchema.expanded] ?? false,
           skills: json[WorkerHistorySchema.skills] != null
-              ? List<Skill>.from(json[WorkerHistorySchema.skills]
-                  .map((x) => Skill.fromJson(x)))
+              ? List<SkillsModel>.from(json[WorkerHistorySchema.skills]
+                  .map((x) => SkillsModel.fromMap(map: x)))
               : [],
           knowledgeAreaList: json[EducationSchema.knowledgeAreas] != null
               ? List<KnowledgeArea>.from(json[EducationSchema.knowledgeAreas]
@@ -96,7 +98,7 @@ class WorkHistoryEducationCombine {
                   .map((x) => SicCode.fromJson(x)))
               : [],
           occupation: json[WorkerHistorySchema.occupation] != null
-              ? Occupation.fromJson(json[WorkerHistorySchema.occupation])
+              ? OccupationModel.fromJson(json[WorkerHistorySchema.occupation])
               : null,
           educationInstitution: json[EducationSchema.institution] != null
               ? EducationInstitution.fromJson(json[EducationSchema.institution])

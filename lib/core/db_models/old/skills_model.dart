@@ -1,37 +1,50 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/skills_table_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/table_collection_schema.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../helpers/helpers.dart';
 
 class SkillsModel {
   String docID;
   String value;
+  DocumentReference skillRef;
+  String category;
+  num relevancyScore;
 
   SkillsModel({
     this.docID,
     this.value,
+    this.category,
+    this.skillRef,
+    this.relevancyScore,
   });
 
   factory SkillsModel.fromMap({
     @required Map<String, dynamic> map,
-    @required String docID,
+    String docID,
   }) {
     if (map.isNotEmpty) {
-      String _value;
-      if (map.containsKey("value")) {
-        _value = map['value'] ?? '';
-      } else if (map.containsKey(JobTemplateSchema.skillValue)) {
-        _value = map[JobTemplateSchema.skillValue] ?? '';
+      DocumentReference _skillsRef;
+      var _skillsRefTemp = map[SkillsSchema.skillRef];
+      if (_skillsRefTemp is String) {
+        _skillsRef = Helpers.documentReferenceFromString(_skillsRefTemp);
+      } else {
+        _skillsRef = _skillsRefTemp;
       }
 
-      if (docID == null || docID.isEmpty) {
-        docID = (map[JobTemplateSchema.skillRef] as DocumentReference)?.id;
+      if (_skillsRef == null && docID != null) {
+        _skillsRef = FirebaseFirestore.instance
+            .collection(FbCollections.skills)
+            .doc(docID);
       }
-      if (_value.isNotEmpty) {
-        return SkillsModel(
-          docID: docID,
-          value: _value,
-        );
-      }
+
+      return SkillsModel(
+          docID: docID ?? _skillsRef?.id,
+          skillRef: _skillsRef,
+          value: map[SkillsSchema.skillValue],
+          relevancyScore: map[SkillsSchema.relevancyScore] ?? 0,
+          category: map[SkillsSchema.category]);
     }
     return null;
   }
@@ -45,7 +58,15 @@ class SkillsModel {
     return null;
   }
 
-  List<String> toJSON() {
-    return [];
+  Map<String, dynamic> toJSON() {
+    Map<String, dynamic> json = {
+      SkillsSchema.skillId: docID,
+      SkillsSchema.skillRef: skillRef?.path ?? "${FbCollections.skills}/$docID",
+      SkillsSchema.skillValue: value,
+      SkillsSchema.relevancyScore: relevancyScore,
+      SkillsSchema.category: category,
+    };
+    json.removeWhere((key, value) => value == null || value.toString().isEmpty);
+    return json;
   }
 }
