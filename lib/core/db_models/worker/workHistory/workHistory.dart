@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
-import 'package:fielder_models/core/db_models/old/schema/table_collection_schema.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/occupation.dart';
@@ -68,10 +67,10 @@ class WorkHistory {
   Timestamp endDate;
   Timestamp startDate;
   LocationModelDetail location;
-  Occupation occupation;
+  OccupationModel occupation;
   String organisationName;
   List<Qualification> qualifications;
-  List<Skill> skills;
+  List<SkillsModel> skills;
   List<SicCode> sicCode;
   String summary;
   DocumentReference workerRef;
@@ -156,7 +155,7 @@ class WorkHistory {
           ? LocationModelDetail.fromJson(json[WorkerHistorySchema.locationData])
           : null,
       occupation: json[WorkerHistorySchema.occupation] != null
-          ? Occupation.fromJson(json[WorkerHistorySchema.occupation])
+          ? OccupationModel.fromJson(json[WorkerHistorySchema.occupation])
           : null,
       organisationName: json[WorkerHistorySchema.organisationName] != null
           ? json[WorkerHistorySchema.organisationName]
@@ -170,8 +169,8 @@ class WorkHistory {
               json[WorkerHistorySchema.sicCode].map((x) => SicCode.fromJson(x)))
           : [],
       skills: json[WorkerHistorySchema.skills] != null
-          ? List<Skill>.from(
-              json[WorkerHistorySchema.skills].map((x) => Skill.fromJson(x)))
+          ? List<SkillsModel>.from(json[WorkerHistorySchema.skills]
+              .map((x) => SkillsModel.fromMap(map: x)))
           : [],
       summary: json[WorkerHistorySchema.summary] != null
           ? json[WorkerHistorySchema.summary]
@@ -214,7 +213,7 @@ class WorkHistory {
       WorkerHistorySchema.companyNumber: companyNumber,
       WorkerHistorySchema.qualifications:
           qualifications?.map((e) => e?.toJson())?.toList(),
-      WorkerHistorySchema.skills: skills?.map((e) => e?.toJson())?.toList(),
+      WorkerHistorySchema.skills: skills?.map((e) => e?.toJSON())?.toList(),
       WorkerHistorySchema.summary: summary ?? '',
       WorkerHistorySchema.referencingData: refereeModel?.toMap(),
     };
@@ -268,41 +267,41 @@ class WorkHistory {
   }
 }
 
-class Occupation {
-  DocumentReference occupationRef;
-  String value;
-
-  Occupation({
-    this.occupationRef,
-    this.value,
-  });
-
-  factory Occupation.fromJson(Map<String, dynamic> json) {
-    if (json != null && json.isNotEmpty) {
-      DocumentReference documentReference;
-      if (json[WorkerHistorySchema.occupationRef] is String) {
-        documentReference = WorkHistory.documentReferenceFromString(
-            json[WorkerHistorySchema.occupationRef]);
-      } else {
-        documentReference = json[WorkerHistorySchema.occupationRef];
-      }
-      return Occupation(
-          occupationRef: documentReference,
-          value: json[WorkerHistorySchema.value] ?? "");
-    }
-    return null;
-  }
-
-  Map<String, dynamic> toJson() => {
-        WorkerHistorySchema.occupationRef: occupationRef?.path,
-        WorkerHistorySchema.value: value,
-      };
-
-  factory Occupation.fromModel(OccupationModel model) => Occupation(
-        occupationRef: model?.occupationRef,
-        value: model?.value,
-      );
-}
+// class Occupation {
+//   DocumentReference occupationRef;
+//   String value;
+//
+//   Occupation({
+//     this.occupationRef,
+//     this.value,
+//   });
+//
+//   factory Occupation.fromJson(Map<String, dynamic> json) {
+//     if (json != null && json.isNotEmpty) {
+//       DocumentReference documentReference;
+//       if (json[WorkerHistorySchema.occupationRef] is String) {
+//         documentReference = WorkHistory.documentReferenceFromString(
+//             json[WorkerHistorySchema.occupationRef]);
+//       } else {
+//         documentReference = json[WorkerHistorySchema.occupationRef];
+//       }
+//       return Occupation(
+//           occupationRef: documentReference,
+//           value: json[WorkerHistorySchema.value] ?? "");
+//     }
+//     return null;
+//   }
+//
+//   Map<String, dynamic> toJson() => {
+//         WorkerHistorySchema.occupationRef: occupationRef?.path,
+//         WorkerHistorySchema.value: value,
+//       };
+//
+//   factory Occupation.fromModel(OccupationModel model) => Occupation(
+//         occupationRef: model?.occupationRef,
+//         value: model?.value,
+//       );
+// }
 
 class Check {
   DocumentReference checkRef;
@@ -393,41 +392,41 @@ class SicCode {
       };
 }
 
-class Skill {
-  DocumentReference skillRef;
-  String value;
-
-  Skill({
-    this.skillRef,
-    this.value,
-  });
-
-  factory Skill.fromJson(Map<String, dynamic> json) {
-    if (json != null && json.isNotEmpty) {
-      DocumentReference documentReference;
-      if (json[WorkerHistorySchema.skillRef] is String) {
-        documentReference = WorkHistory.documentReferenceFromString(
-            json[WorkerHistorySchema.skillRef]);
-      } else {
-        documentReference = json[WorkerHistorySchema.skillRef];
-      }
-      return Skill(
-        skillRef: documentReference,
-        value: json[WorkerHistorySchema.value],
-      );
-    }
-    return null;
-  }
-
-  factory Skill.fromModel(SkillsModel model) => Skill(
-        skillRef: FirebaseFirestore.instance
-            .collection(FbCollections.skills)
-            .doc(model?.docID),
-        value: model?.value,
-      );
-
-  Map<String, dynamic> toJson() => {
-        WorkerHistorySchema.skillRef: skillRef?.path,
-        WorkerHistorySchema.value: value,
-      };
-}
+// class Skill {
+//   DocumentReference skillRef;
+//   String value;
+//
+//   Skill({
+//     this.skillRef,
+//     this.value,
+//   });
+//
+//   factory Skill.fromJson(Map<String, dynamic> json) {
+//     if (json != null && json.isNotEmpty) {
+//       DocumentReference documentReference;
+//       if (json[WorkerHistorySchema.skillRef] is String) {
+//         documentReference = WorkHistory.documentReferenceFromString(
+//             json[WorkerHistorySchema.skillRef]);
+//       } else {
+//         documentReference = json[WorkerHistorySchema.skillRef];
+//       }
+//       return Skill(
+//         skillRef: documentReference,
+//         value: json[WorkerHistorySchema.value],
+//       );
+//     }
+//     return null;
+//   }
+//
+//   factory Skill.fromModel(SkillsModel model) => Skill(
+//         skillRef: FirebaseFirestore.instance
+//             .collection(FbCollections.skills)
+//             .doc(model?.docID),
+//         value: model?.value,
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         WorkerHistorySchema.skillRef: skillRef?.path,
+//         WorkerHistorySchema.value: value,
+//       };
+// }

@@ -51,8 +51,8 @@ class AddJobModel {
         JobTemplateSchema.description: description,
         JobTemplateSchema.jobTitle: title,
         JobTemplateSchema.occupation: occupationModel.toJson(),
-        JobTemplateSchema.skillsIds: (skillsArray?.isNotEmpty == true)
-            ? skillsArray.map((e) => e.docID).toList() ?? []
+        JobTemplateSchema.skills: (skillsArray?.isNotEmpty == true)
+            ? skillsArray.map((e) => e.toJSON()).toList() ?? []
             : [],
         JobTemplateSchema.additionalRequirements:
             (additionalReqsArray?.isNotEmpty == true)
