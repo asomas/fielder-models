@@ -1,15 +1,10 @@
-from datetime import datetime
-
 from fielder_backend_utils.rest_utils import DocumentReferenceField
+from python_fielder_models.common.taxonomy import OccupationSerializer
 from rest_framework import serializers
 
 
 class ValueSerializer(serializers.Serializer):
     value = serializers.CharField()
-
-
-class OccupationSerializer(ValueSerializer):
-    occupation_ref = DocumentReferenceField()
 
 
 class SkillSerializer(serializers.Serializer):
