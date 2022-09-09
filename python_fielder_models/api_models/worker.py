@@ -140,7 +140,7 @@ class EducationAPISerializer(BaseWorkExperienceAPISerializer):
         value = serializers.CharField(allow_null=True)
 
     class EducationInstitutionSerializer(ValueSerializer):
-        education_institution_ref = DocumentReferenceField()
+        institution_ref = DocumentReferenceField()
 
     class CourseSerializer(ValueSerializer):
         course_ref = DocumentReferenceField()
@@ -151,19 +151,11 @@ class EducationAPISerializer(BaseWorkExperienceAPISerializer):
     class GradeSerializer(ValueSerializer):
         grade_ref = DocumentReferenceField()
 
-    class KnowledgeAreaSerializer(ValueSerializer):
-        knowledge_area_ref = DocumentReferenceField()
-
-    education_institution = EducationInstitutionSerializer(
-        required=False, allow_null=True
-    )
+    institution = EducationInstitutionSerializer(required=False, allow_null=True)
     course = CourseSerializer(required=False, allow_null=True)
     level = LevelSerializer(required=False, allow_null=True)
     grade = GradeSerializer(required=False, allow_null=True)
     award = serializers.BooleanField(required=False, allow_null=True)
-    knowledge_areas = serializers.ListField(
-        required=False, allow_null=True, child=KnowledgeAreaSerializer()
-    )
 
 
 class NewsFeedDismissAPIRequestSerializer(serializers.Serializer):

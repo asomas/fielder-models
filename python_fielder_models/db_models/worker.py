@@ -111,18 +111,12 @@ class EducationSerializer(BaseWorkExperienceSerializer):
         grade_ref = DocumentReferenceField()
         grade_number = serializers.IntegerField()
 
-    class KnowledgeAreaSerializer(ReferenceSerializer):
-        knowledge_area_ref = DocumentReferenceField()
-
     institution = InstitutionSerializer(allow_null=True, default=None)
     location_data = LocationDBSerializer(allow_null=True, default=None)
     course = CourseSerializer(allow_null=True, default=None)
     level = LevelSerializer(allow_null=True, default=None)
     grade = GradeSerializer(allow_null=True, default=None)
     award = serializers.BooleanField(allow_null=True, default=None)
-    knowledge_areas = serializers.ListField(
-        allow_null=True, default=None, child=KnowledgeAreaSerializer()
-    )
 
     def to_internal_value(self, data):
         if "type" not in data:
