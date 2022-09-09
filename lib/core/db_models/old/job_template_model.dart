@@ -75,24 +75,10 @@ class JobTemplateModel {
       });
 
       //Skills
-      final List<dynamic> skills = map['skills'] ?? [];
-      List<SkillsModel> _allSkillsArray = [];
-      skills.forEach((element) {
-        final DocumentReference dr = element['skill_ref'];
-        final Map<String, dynamic> map = {
-          'value': element['skill_value'],
-        };
-        if (dr != null) {
-          final SkillsModel _skill = SkillsModel.fromMap(
-            map: map,
-            docID: dr.id,
-          );
-
-          if (_skill != null) {
-            _allSkillsArray.add(_skill);
-          }
-        }
-      });
+      List<SkillsModel> _allSkillsArray = map[JobTemplateSchema.skills] != null
+          ? List<SkillsModel>.from(map[JobTemplateSchema.skills]
+              .map((x) => SkillsModel.fromMap(map: x)))
+          : [];
 
       //Qualifications
       final List<dynamic> _qualifications = map['qualifications'] ?? [];

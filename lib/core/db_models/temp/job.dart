@@ -3,15 +3,15 @@ import 'package:fielder_models/core/db_models/old/additional_info_model.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/default_location_data_model.dart';
 import 'package:fielder_models/core/db_models/old/organisation_model.dart';
+import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
 import 'package:fielder_models/core/db_models/old/qualification_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
 import 'package:fielder_models/core/db_models/old/shift_activities_model.dart';
-import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
+import 'package:flutter/cupertino.dart';
 
 class JobDataModel {
   String docID;
@@ -392,24 +392,10 @@ class JobTemplateModel {
       });
 
       //Skills
-      final List<dynamic> skills = map['skills'] ?? [];
-      List<SkillsModel> _allSkillsArray = [];
-      skills.forEach((element) {
-        final DocumentReference dr = element['skill_ref'];
-        final Map<String, dynamic> map = {
-          'value': element['skill_value'],
-        };
-        if (dr != null) {
-          final SkillsModel _skill = SkillsModel.fromMap(
-            map: map,
-            docID: dr.id,
-          );
-
-          if (_skill != null) {
-            _allSkillsArray.add(_skill);
-          }
-        }
-      });
+      List<SkillsModel> _allSkillsArray = map[JobTemplateSchema.skills] != null
+          ? List<SkillsModel>.from(map[JobTemplateSchema.skills]
+              .map((x) => SkillsModel.fromMap(map: x)))
+          : [];
 
       //Qualifications
       final List<dynamic> _qualifications = map['qualifications'] ?? [];
