@@ -5,6 +5,7 @@ import 'package:fielder_models/core/db_models/old/job_data_model.dart';
 import 'package:fielder_models/core/db_models/old/organisation_model.dart';
 import 'package:fielder_models/core/db_models/old/pattern_data_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/candidates_matching_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/groups_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/schedule_shift_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
@@ -51,6 +52,7 @@ class ShiftPatternDataModel {
   bool isTailOFTheShift;
   bool enableUnpaidBreaks;
   BudgetModel budget;
+  DocumentReference groupRef;
 
   ShiftPatternDataModel({
     this.docID,
@@ -86,6 +88,7 @@ class ShiftPatternDataModel {
     this.isTailOFTheShift,
     this.enableUnpaidBreaks,
     this.budget,
+    this.groupRef,
   });
 
   static const String dateFormatWithHyphen = "yyyy-MM-dd";
@@ -202,42 +205,43 @@ class ShiftPatternDataModel {
             map[ShiftDataSchema.shiftNoteRef];
 
         return ShiftPatternDataModel(
-          docID: docID,
-          shiftPatternRefId: _shiftPatternRef,
-          startDate: _startDate,
-          endDate: _endDate,
-          startTimeInt: _startTimeInt,
-          endTimeInt: _endTimeInt,
-          startTimeString: _startTimeStr,
-          endTimeString: _endTimeStr,
-          recurrence: _recurrence,
-          jobTitle: _jobTitle,
-          jobID: _jobRef?.id,
-          jobRefId: _jobRefId,
-          role: _role,
-          isUnavailableForOrganisation: isUnavailable,
-          organisation: _organisation,
-          supervisorRef: _supervisorRef,
-          managerRef: _managerRef,
-          shiftLocationDataModel: _shiftLocationDataModel,
-          locationRef: _locationRef,
-          shiftActivitiesModel: null,
-          isRecurring: _isRecurring,
-          assigned: _assigned,
-          isGeoFencingEnabled: _geoFenceEnabled,
-          geoFenceRadius: _geoFenceDistance,
-          //_shiftActivitiesModel,
-          workerId: _workerRef?.id,
-          workerModel: map.containsKey(ShiftDataSchema.workerData)
-              ? WorkerModel.fromMap(
-                  map: map[ShiftDataSchema.workerData],
-                  docID: map[ShiftDataSchema.workerRef]?.id)
-              : null,
-          occupationModel: _occupationModel,
-          shiftNoteRef: _shiftNoteRef,
-          multiDayShift: map[ShiftDataSchema.multiDayShift] ?? false,
-          enableUnpaidBreaks: map[JobSummarySchema.enableUnpaidBreaks] ?? false,
-        );
+            docID: docID,
+            shiftPatternRefId: _shiftPatternRef,
+            startDate: _startDate,
+            endDate: _endDate,
+            startTimeInt: _startTimeInt,
+            endTimeInt: _endTimeInt,
+            startTimeString: _startTimeStr,
+            endTimeString: _endTimeStr,
+            recurrence: _recurrence,
+            jobTitle: _jobTitle,
+            jobID: _jobRef?.id,
+            jobRefId: _jobRefId,
+            role: _role,
+            isUnavailableForOrganisation: isUnavailable,
+            organisation: _organisation,
+            supervisorRef: _supervisorRef,
+            managerRef: _managerRef,
+            shiftLocationDataModel: _shiftLocationDataModel,
+            locationRef: _locationRef,
+            shiftActivitiesModel: null,
+            isRecurring: _isRecurring,
+            assigned: _assigned,
+            isGeoFencingEnabled: _geoFenceEnabled,
+            geoFenceRadius: _geoFenceDistance,
+            //_shiftActivitiesModel,
+            workerId: _workerRef?.id,
+            workerModel: map.containsKey(ShiftDataSchema.workerData)
+                ? WorkerModel.fromMap(
+                    map: map[ShiftDataSchema.workerData],
+                    docID: map[ShiftDataSchema.workerRef]?.id)
+                : null,
+            occupationModel: _occupationModel,
+            shiftNoteRef: _shiftNoteRef,
+            multiDayShift: map[ShiftDataSchema.multiDayShift] ?? false,
+            enableUnpaidBreaks:
+                map[JobSummarySchema.enableUnpaidBreaks] ?? false,
+            groupRef: map[GroupsSchema.groupRef]);
       } catch (e) {
         print('ShiftPatternDataModel fromMap error: $e');
       }
@@ -278,6 +282,7 @@ class ShiftPatternDataModel {
       endTimeString: shiftPatternDataModel.endTimeString,
       isRecurring: shiftPatternDataModel.isRecurring,
       enableUnpaidBreaks: shiftPatternDataModel.enableUnpaidBreaks,
+      groupRef: shiftPatternDataModel?.groupRef,
     );
   }
 
