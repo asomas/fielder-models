@@ -96,6 +96,7 @@ class Offers {
       fromOffer: true,
       offer: offer,
       sentAt: sentTime,
+      organisationGroupRef: offer?.shiftPatternData?.groupRef,
     );
   }
 }
