@@ -6,4 +6,5 @@ class SupportVideoOrganisationSchema {
   static const String createShift = "create_shift";
   static const String getHelp = "get_help";
   static const String organisation_setup = "organisation_setup";
+  static const String manageStaff = "manage_staff";
 }

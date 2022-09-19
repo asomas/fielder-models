@@ -164,5 +164,6 @@ enum SupportVideosEnums {
   CreateShift,
   AssignShift,
   GetHelp,
-  OrganisationSetup
+  OrganisationSetup,
+  ManageStaff,
 }
