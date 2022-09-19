@@ -11,6 +11,7 @@ class SupportVideoOrganisation {
     this.assignShift,
     this.getHelp,
     this.organisationSetup,
+    this.manageStaff,
   });
 
   String jobSummary;
@@ -20,6 +21,7 @@ class SupportVideoOrganisation {
   String assignShift;
   String getHelp;
   String organisationSetup;
+  String manageStaff;
 
   factory SupportVideoOrganisation.fromJson(Map<String, dynamic> json) =>
       SupportVideoOrganisation(
@@ -32,6 +34,7 @@ class SupportVideoOrganisation {
         getHelp: json[SupportVideoOrganisationSchema.getHelp] ?? "",
         organisationSetup:
             json[SupportVideoOrganisationSchema.organisation_setup] ?? "",
+        manageStaff: json[SupportVideoOrganisationSchema.manageStaff] ?? "",
       );
 
   String urlFromEnum(SupportVideosEnums enums) {
@@ -48,6 +51,8 @@ class SupportVideoOrganisation {
         return getHelp;
       case SupportVideosEnums.OrganisationSetup:
         return organisationSetup;
+      case SupportVideosEnums.ManageStaff:
+        return manageStaff;
       default:
         return null;
     }
