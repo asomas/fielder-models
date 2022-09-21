@@ -58,16 +58,16 @@ class AddressModel {
 
   factory AddressModel.fromObject(LocationModelDetail location) {
     AddressModel model = AddressModel(
-      coordinates: location.coordinates,
-      county: location.address?.county,
-      country: location.address?.country,
-      city: location.address?.city,
-      building: location.address?.building,
-      flat: location.address?.flat,
-      street: location.address?.street,
-      postalCode: location.address?.postalCode,
+      coordinates: location?.coordinates,
+      county: location?.address?.county,
+      country: location?.address?.country,
+      city: location?.address?.city,
+      building: location?.address?.building,
+      flat: location?.address?.flat,
+      street: location?.address?.street,
+      postalCode: location?.address?.postalCode,
     );
-    model.fullAddress = getFullAddress(model);
+    model?.fullAddress = getFullAddress(model);
     return model;
   }
 
