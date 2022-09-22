@@ -10,20 +10,23 @@ class JobSummaryDataModel {
   String jobId;
   List<WorkerModel> workersArray;
   bool isArchived;
+  String jobFilterType;
 
-  JobSummaryDataModel(
-      {this.organisationId,
-      this.jobDataModel,
-      this.jobId,
-      this.workersArray,
-      this.isArchived = false})
-      : assert(
+  JobSummaryDataModel({
+    this.organisationId,
+    this.jobDataModel,
+    this.jobId,
+    this.workersArray,
+    this.isArchived = false,
+    this.jobFilterType,
+  }) : assert(
           jobDataModel != null && jobId != null,
         );
 
   factory JobSummaryDataModel.fromMap({
     @required Map<String, dynamic> map,
     @required String docId,
+    String jobType,
   }) {
     if (map.isNotEmpty) {
       try {
@@ -53,11 +56,13 @@ class JobSummaryDataModel {
 
           if (_jobId.isNotEmpty) {
             return JobSummaryDataModel(
-                organisationId: _organisationId,
-                jobDataModel: _jobDataModel,
-                jobId: _jobId,
-                workersArray: _allWorkerArray,
-                isArchived: map[JobSummarySchema.isArchived] ?? false);
+              organisationId: _organisationId,
+              jobDataModel: _jobDataModel,
+              jobId: _jobId,
+              workersArray: _allWorkerArray,
+              isArchived: map[JobSummarySchema.isArchived] ?? false,
+              jobFilterType: jobType,
+            );
           }
         }
       } catch (e) {
