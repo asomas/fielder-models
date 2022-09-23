@@ -5,6 +5,7 @@ import 'package:fielder_models/core/db_models/old/schema/education_approval_sche
 import 'package:fielder_models/core/db_models/old/schema/offers_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/schedule_shift_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/worker_account_deletion_schema.dart';
 import 'package:fielder_models/core/db_models/temp/common.dart';
 import 'package:fielder_models/core/db_models/worker/schema/newsNotificationSchema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
@@ -835,6 +836,46 @@ class EnumHelpers {
         return NewsCardAction.NavigateScreen;
       default:
         return null;
+    }
+  }
+
+  static String stringFromReasonForLeaving(
+      ReasonForLeavingApp reasonForLeavingApp) {
+    switch (reasonForLeavingApp) {
+      case (ReasonForLeavingApp.AppConfusing):
+        return WorkerAccountDeletionSchema.appConfusing;
+      case (ReasonForLeavingApp.FoundOtherWork):
+        return WorkerAccountDeletionSchema.foundOtherWork;
+      case (ReasonForLeavingApp.NotHappySupport):
+        return WorkerAccountDeletionSchema.notHappySupport;
+      case (ReasonForLeavingApp.AppNotTrustworthy):
+        return WorkerAccountDeletionSchema.appNotTrustWorthy;
+      case (ReasonForLeavingApp.NotOfferedJob):
+        return WorkerAccountDeletionSchema.notOfferedJob;
+      case (ReasonForLeavingApp.Other):
+        return WorkerAccountDeletionSchema.other;
+      default:
+        return "";
+    }
+  }
+
+  static String descriptionFromReasonForLeaving(
+      ReasonForLeavingApp reasonForLeavingApp) {
+    switch (reasonForLeavingApp) {
+      case (ReasonForLeavingApp.AppConfusing):
+        return WorkerAccountDeletionSchema.appConfusingDesc;
+      case (ReasonForLeavingApp.FoundOtherWork):
+        return WorkerAccountDeletionSchema.foundOtherWorkDesc;
+      case (ReasonForLeavingApp.NotHappySupport):
+        return WorkerAccountDeletionSchema.notHappySupportDesc;
+      case (ReasonForLeavingApp.AppNotTrustworthy):
+        return WorkerAccountDeletionSchema.appNotTrustWorthyDesc;
+      case (ReasonForLeavingApp.NotOfferedJob):
+        return WorkerAccountDeletionSchema.notOfferedJobDesc;
+      case (ReasonForLeavingApp.Other):
+        return WorkerAccountDeletionSchema.otherDesc;
+      default:
+        return "";
     }
   }
 }

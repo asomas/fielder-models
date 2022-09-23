@@ -167,3 +167,12 @@ enum SupportVideosEnums {
   OrganisationSetup,
   ManageStaff,
 }
+
+enum ReasonForLeavingApp {
+  FoundOtherWork,
+  AppConfusing,
+  NotOfferedJob,
+  NotHappySupport,
+  AppNotTrustworthy,
+  Other,
+}
