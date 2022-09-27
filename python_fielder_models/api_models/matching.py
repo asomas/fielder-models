@@ -112,6 +112,7 @@ class MatchingResponseSerializer(serializers.Serializer):
 
 
 class WorkerUnavailabilitySerializer(serializers.Serializer):
+    worker_id = serializers.CharField()
     date = serializers.DateField()
     end_time = serializers.IntegerField(min_value=0, max_value=172800)
     start_time = serializers.IntegerField(min_value=0, max_value=86400)
@@ -124,7 +125,9 @@ class UnavailabilitiesResponse(serializers.Serializer):
 
 
 class UnavailabilitiesRequest(serializers.Serializer):
-    worker_id = serializers.CharField()
+    workers_ids = serializers.ListField(
+        child=serializers.CharField(), allow_empty=True, default=[]
+    )
     organisation_id = serializers.CharField()
     group_id = serializers.CharField()
     start_date = serializers.DateField(format="%Y-%m-%d")
