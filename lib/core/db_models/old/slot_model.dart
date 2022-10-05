@@ -25,6 +25,7 @@ class SlotModel {
   int timeRowIndex;
   bool allDay;
   bool isLastInList;
+  bool calculateRecurrence;
   //List<String> resourceIds;
 
   SlotModel({
@@ -48,6 +49,7 @@ class SlotModel {
     @required this.slotColor,
     this.allDay = false,
     this.isLastInList = false,
+    this.calculateRecurrence = false,
     //this.resourceIds,
   });
 
