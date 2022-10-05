@@ -1,5 +1,5 @@
 from django.utils import timezone
-from fielder_backend_utils.rest_utils import DocumentReferenceField
+from fielder_backend_utils.rest_utils import DocumentReferenceField, LowercaseEmailField
 from rest_framework import serializers
 
 from .common import *
@@ -25,7 +25,7 @@ class OrganisationUserSerializer(serializers.Serializer):
     """collection with name organisation_users"""
 
     name = serializers.CharField()
-    email = serializers.EmailField()
+    email = LowercaseEmailField()
     organisation_user_reference_id = serializers.CharField()
     organisations = serializers.DictField(
         child=OrganisationSubscriptionSerializer(), allow_empty=True
@@ -38,7 +38,7 @@ class ContactSerializer(serializers.Serializer):
         max_length=FULL_NAME_MAX_LENGTH, required=False, allow_null=True
     )
     phone = serializers.RegexField(PHONE_FIELD_REGEX, required=False, allow_null=True)
-    email = serializers.EmailField(required=False, allow_null=True)
+    email = LowercaseEmailField(required=False, allow_null=True)
 
 
 class OrganisationSerializer(serializers.Serializer):
