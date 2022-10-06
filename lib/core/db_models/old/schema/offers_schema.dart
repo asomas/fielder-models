@@ -26,6 +26,8 @@ class OffersStatusUIString {
   static const String accepted = 'Accepted';
   static const String declined = 'Declined';
   static const String retracted = 'Retracted';
+  static const String pendingOffer = 'Pending Offer';
+  static const String pendingInvite = 'Pending Invite';
 }
 
 class OffersSchema {

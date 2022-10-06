@@ -100,7 +100,32 @@ class EnumHelpers {
     return toBeginningOfSentenceCase(str.replaceAll("_", ' ')?.toLowerCase());
   }
 
-  static String getUIStringFromOfferStatus(OfferStatus status) {
+  static String getUIStringFromOfferStatus(OfferStatus status,
+      {groupPending = false, isInvite = false}) {
+    if (groupPending)
+      switch (status) {
+        case OfferStatus.InvitedForInterview:
+          return OffersStatusUIString.invitedForInterview;
+        case OfferStatus.InterviewScheduled:
+          return OffersStatusUIString.interviewScheduled;
+        case OfferStatus.PendingWorkerResponse:
+        case OfferStatus.PendingChecksWorker:
+        case OfferStatus.PendingChecksBackOffice:
+        case OfferStatus.PendingWorkerFinalConfirmation:
+          return isInvite
+              ? OffersStatusUIString.pendingInvite
+              : OffersStatusUIString.pendingOffer;
+        case OfferStatus.WorkerResponded:
+          return OffersStatusUIString.workerResponded;
+        case OfferStatus.Accepted:
+          return OffersStatusUIString.accepted;
+        case OfferStatus.Declined:
+          return OffersStatusUIString.declined;
+        case OfferStatus.Retracted:
+          return OffersStatusUIString.retracted;
+        default:
+          return '';
+      }
     switch (status) {
       case OfferStatus.InvitedForInterview:
         return OffersStatusUIString.invitedForInterview;
