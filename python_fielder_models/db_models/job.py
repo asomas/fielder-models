@@ -133,6 +133,7 @@ class OfferDBSerializer(BaseDBSerializer):
     responded_at = serializers.DateTimeField(required=False)
     accepted_at = serializers.DateTimeField(required=False)
     personalised_message = serializers.CharField(required=False)
+    internally_declined = serializers.BooleanField(default=False)
 
 
 class ShiftNoteDBSerializer(serializers.Serializer):
