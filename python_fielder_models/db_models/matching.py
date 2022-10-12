@@ -24,6 +24,7 @@ class ScheduleTaskResultStatus(Enum):
 
 class ScheduleTaskDBSerializer(BaseDBSerializer):
     organisation_ref = DocumentReferenceField()
+    group_ref = DocumentReferenceField()
     organisation_user_ref = DocumentReferenceField()
     progress_percent = serializers.IntegerField(min_value=0, max_value=100, default=0)
     status = serializers.ChoiceField(

@@ -1,3 +1,4 @@
+from fielder_backend_utils.rest_utils import LowercaseEmailField
 from python_fielder_models.api_models.common import (
     GooglePlaceDataSerializer,
     LocationAPISerializer,
@@ -9,7 +10,7 @@ from ..db_models.organisation import BillingContact, GeneralContact
 
 
 class EmailExistsRequest(serializers.Serializer):
-    email = serializers.EmailField()
+    email = LowercaseEmailField()
 
 
 class EmailExistsResponse(serializers.Serializer):
@@ -30,7 +31,7 @@ class BrandingRequest(serializers.Serializer):
 class InviteUsersRequest(serializers.Serializer):
     organisation_id = serializers.CharField()
     name = serializers.CharField(max_length=75)
-    email = serializers.EmailField()
+    email = LowercaseEmailField()
     role = serializers.ChoiceField(
         choices=["owner", "admin", "hr", "manager", "supervisor"]
     )
@@ -62,7 +63,7 @@ class UsersListRequest(serializers.Serializer):
 class UserResponse(serializers.Serializer):
     id = serializers.CharField()
     name = serializers.CharField(max_length=COMPANY_NAME_MAX_LENGTH)
-    email = serializers.EmailField()
+    email = LowercaseEmailField()
     date_created = serializers.DateTimeField()
     status = serializers.ChoiceField(choices=["accepted", "declined", "pending"])
     role = serializers.ChoiceField(
