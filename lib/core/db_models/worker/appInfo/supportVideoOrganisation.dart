@@ -43,6 +43,8 @@ class SupportVideoOrganisation {
         return assignShift;
       case SupportVideosEnums.JobSummary:
         return jobSummary;
+      case SupportVideosEnums.StaffSummary:
+        return staffSummary;
       case SupportVideosEnums.NotificationsSummary:
         return notificationsSummary;
       case SupportVideosEnums.CreateShift:
