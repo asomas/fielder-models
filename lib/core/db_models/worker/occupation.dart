@@ -20,6 +20,14 @@ class OccupationModel {
   factory OccupationModel.fromJson(Map<String, dynamic> json) {
     if (json != null && json.isNotEmpty) {
       DocumentReference _occupationRef;
+      String occupationValue = json[OccupationSchema.occupationValue];
+      if (json[OccupationSchema.occupationValue]
+              ?.toString()
+              ?.toLowerCase()
+              ?.endsWith("(m/f)") ==
+          true) {
+        occupationValue = occupationValue.replaceAll("(m/f)", '');
+      }
       var _occupationRefTemp = json[OccupationSchema.occupationRef];
       if (_occupationRefTemp is String) {
         _occupationRef =
@@ -37,7 +45,7 @@ class OccupationModel {
       return OccupationModel(
         occupationId: json[OccupationSchema.occupationId] ?? _occupationRef?.id,
         occupationRef: _occupationRef,
-        value: json[OccupationSchema.occupationValue],
+        value: occupationValue,
         description: json[OccupationSchema.description],
         category: json[OccupationSchema.category],
       );
