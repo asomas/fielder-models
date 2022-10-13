@@ -17,6 +17,7 @@ class NotificationSettingModel {
       NotificationSettingSchema.completedShiftAwaitingApproval:
           NotificationTypeModel(),
       NotificationSettingSchema.lateShiftClockin: NotificationTypeModel(),
+      NotificationSettingSchema.upcomingInterview: NotificationTypeModel(),
     });
   }
 
