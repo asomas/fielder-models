@@ -58,28 +58,28 @@ class SlotModel {
 
   SlotModel.clone(SlotModel slot)
       : this(
-            shiftId: slot.shiftId,
-            startAt: slot.startAt,
-            endAt: slot.endAt,
-            slotText: slot.slotText,
-            workerAvatarUrl: slot.workerAvatarUrl,
-            workerId: slot.workerId,
-            workerName: slot.workerName,
-            weekDay: slot.weekDay,
-            slotStatusIcon: slot.slotStatusIcon,
-            shiftPatternDataModel: slot.shiftPatternDataModel,
-            shiftActivitiesModel: slot.shiftActivitiesModel,
-            isUnavailable: slot.isUnavailable,
-            spanMultipleDays: slot.spanMultipleDays,
-            isHead: slot.isHead,
-            isTail: slot.isTail,
-            interviewModel: slot.interviewModel,
-            slotColor: slot.slotColor,
-            timeRowIndex: slot.timeRowIndex,
-            allDay: slot.allDay,
-            isLastInList: slot.isLastInList,
-            calculateRecurrence: slot.calculateRecurrence,
-            uniqueSlotId: slot.uniqueSlotId);
+            shiftId: slot?.shiftId,
+            startAt: slot?.startAt,
+            endAt: slot?.endAt,
+            slotText: slot?.slotText,
+            workerAvatarUrl: slot?.workerAvatarUrl,
+            workerId: slot?.workerId,
+            workerName: slot?.workerName,
+            weekDay: slot?.weekDay,
+            slotStatusIcon: slot?.slotStatusIcon,
+            shiftPatternDataModel: slot?.shiftPatternDataModel,
+            shiftActivitiesModel: slot?.shiftActivitiesModel,
+            isUnavailable: slot?.isUnavailable,
+            spanMultipleDays: slot?.spanMultipleDays,
+            isHead: slot?.isHead,
+            isTail: slot?.isTail,
+            interviewModel: slot?.interviewModel,
+            slotColor: slot?.slotColor,
+            timeRowIndex: slot?.timeRowIndex,
+            allDay: slot?.allDay,
+            isLastInList: slot?.isLastInList,
+            calculateRecurrence: slot?.calculateRecurrence,
+            uniqueSlotId: slot?.uniqueSlotId);
 
   @override
   bool operator ==(other) {
@@ -87,9 +87,9 @@ class SlotModel {
       return this.interviewModel.interviewSlotId ==
           other.interviewModel.interviewSlotId;
     }
-    return "${this.shiftId}" == "${other.shiftId}" &&
-        this.isHead == other.isHead &&
-        this.isTail == other.isTail;
+    return "${this.shiftId}" == "${other?.shiftId}" &&
+        this.isHead == other?.isHead &&
+        this.isTail == other?.isTail;
   }
 
   @override

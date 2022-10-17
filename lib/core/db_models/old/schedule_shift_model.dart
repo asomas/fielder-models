@@ -89,17 +89,19 @@ class ScheduleShiftResultModel {
 
 class SchedulerAssignmentModel {
   DocumentReference shiftPatternRef;
-  DocumentReference workerRef;
+  String workerId;
   DateTime startDate;
   DateTime endDate;
   WorkerModel workerModel;
+  String shiftPatternId;
 
   SchedulerAssignmentModel({
     this.shiftPatternRef,
-    this.workerRef,
+    this.workerId,
     this.startDate,
     this.endDate,
     this.workerModel,
+    this.shiftPatternId,
   });
 
   factory SchedulerAssignmentModel.fromMap(Map map) {
@@ -109,9 +111,11 @@ class SchedulerAssignmentModel {
           matchingRequestId: map[ScheduleShiftSchema.shiftPatternId],
         )?.shiftPatternIdFromMatchingId;
         return SchedulerAssignmentModel(
+          shiftPatternId: map[ScheduleShiftSchema.shiftPatternId],
           shiftPatternRef: Helpers.documentReferenceFromString(
               "${FbCollections.jobShifts}/$shiftId"),
-          workerRef: map[ScheduleShiftSchema.workerRef],
+          workerId:
+              (map[ScheduleShiftSchema.workerRef] as DocumentReference)?.id,
           startDate:
               (map[ScheduleShiftSchema.startDate] as Timestamp)?.toDate(),
           endDate: (map[ScheduleShiftSchema.endDate] as Timestamp)?.toDate(),
@@ -132,8 +136,8 @@ class SchedulerAssignmentModel {
 
   Map<String, dynamic> toJson() {
     return {
-      ScheduleShiftSchema.workerId: workerRef?.id,
-      ScheduleShiftSchema.shiftPatternId: shiftPatternRef?.id,
+      ScheduleShiftSchema.workerId: workerId,
+      ScheduleShiftSchema.shiftPatternId: shiftPatternId,
       ScheduleShiftSchema.startDate: yearMonthDay(startDate),
       ScheduleShiftSchema.endDate: yearMonthDay(endDate),
     };
