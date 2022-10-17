@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
+import 'package:fielder_models/core/db_models/helpers/helpers.dart';
 import 'package:fielder_models/core/db_models/old/schema/schedule_shift_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/table_collection_schema.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 import 'package:intl/intl.dart';
@@ -103,8 +105,12 @@ class SchedulerAssignmentModel {
   factory SchedulerAssignmentModel.fromMap(Map map) {
     try {
       if (map != null && map.isNotEmpty) {
+        String shiftId = ShiftPeriod(
+          matchingRequestId: map[ScheduleShiftSchema.shiftPatternId],
+        )?.shiftPatternIdFromMatchingId;
         return SchedulerAssignmentModel(
-          shiftPatternRef: map[ScheduleShiftSchema.shiftPatternRef],
+          shiftPatternRef: Helpers.documentReferenceFromString(
+              "${FbCollections.jobShifts}/$shiftId"),
           workerRef: map[ScheduleShiftSchema.workerRef],
           startDate:
               (map[ScheduleShiftSchema.startDate] as Timestamp)?.toDate(),
@@ -136,5 +142,38 @@ class SchedulerAssignmentModel {
   static String yearMonthDay(DateTime dateTime) {
     if (dateTime != null) return DateFormat("yyyy-MM-dd").format(dateTime);
     return null;
+  }
+}
+
+class ShiftPeriod {
+  String shiftPatternId;
+  String matchingRequestId;
+  DateTime startDate;
+  DateTime endDate;
+  String workerId;
+
+  ShiftPeriod(
+      {this.shiftPatternId,
+      this.matchingRequestId,
+      this.startDate,
+      this.endDate,
+      this.workerId});
+
+  Map<String, dynamic> toJson() => {
+        'shift_pattern_id': shiftPatternId,
+        'matching_request_id': matchingRequestId,
+        'start_date': startDate,
+        'end_date': endDate,
+        'worker_id': workerId,
+      };
+
+  String get shiftPatternIdFromMatchingId {
+    try {
+      List<String> splitIds = matchingRequestId?.split('_');
+      return splitIds?.first;
+    } catch (e, s) {
+      print("schedule matching id get error_____${e}____$s");
+      return '';
+    }
   }
 }
