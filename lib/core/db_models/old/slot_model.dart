@@ -3,6 +3,7 @@ import 'package:fielder_models/core/db_models/old/shift_activities_model.dart';
 import 'package:fielder_models/core/db_models/old/shift_pattern_data_model.dart';
 import 'package:fielder_models/core/enums/slot_status_enums.dart';
 import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
 
 class SlotModel {
   final String shiftId;
@@ -25,6 +26,8 @@ class SlotModel {
   int timeRowIndex;
   bool allDay;
   bool isLastInList;
+  bool calculateRecurrence;
+  Tuple2<String, DateTime> uniqueSlotId; // shift_pattern_id, shift_date
   //List<String> resourceIds;
 
   SlotModel({
@@ -48,32 +51,35 @@ class SlotModel {
     @required this.slotColor,
     this.allDay = false,
     this.isLastInList = false,
+    this.calculateRecurrence = false,
+    this.uniqueSlotId,
     //this.resourceIds,
   });
 
   SlotModel.clone(SlotModel slot)
       : this(
-          shiftId: slot.shiftId,
-          startAt: slot.startAt,
-          endAt: slot.endAt,
-          slotText: slot.slotText,
-          workerAvatarUrl: slot.workerAvatarUrl,
-          workerId: slot.workerId,
-          workerName: slot.workerName,
-          weekDay: slot.weekDay,
-          slotStatusIcon: slot.slotStatusIcon,
-          shiftPatternDataModel: slot.shiftPatternDataModel,
-          shiftActivitiesModel: slot.shiftActivitiesModel,
-          isUnavailable: slot.isUnavailable,
-          spanMultipleDays: slot.spanMultipleDays,
-          isHead: slot.isHead,
-          isTail: slot.isTail,
-          interviewModel: slot.interviewModel,
-          slotColor: slot.slotColor,
-          timeRowIndex: slot.timeRowIndex,
-          allDay: slot.allDay,
-          isLastInList: slot.isLastInList,
-        );
+            shiftId: slot?.shiftId,
+            startAt: slot?.startAt,
+            endAt: slot?.endAt,
+            slotText: slot?.slotText,
+            workerAvatarUrl: slot?.workerAvatarUrl,
+            workerId: slot?.workerId,
+            workerName: slot?.workerName,
+            weekDay: slot?.weekDay,
+            slotStatusIcon: slot?.slotStatusIcon,
+            shiftPatternDataModel: slot?.shiftPatternDataModel,
+            shiftActivitiesModel: slot?.shiftActivitiesModel,
+            isUnavailable: slot?.isUnavailable,
+            spanMultipleDays: slot?.spanMultipleDays,
+            isHead: slot?.isHead,
+            isTail: slot?.isTail,
+            interviewModel: slot?.interviewModel,
+            slotColor: slot?.slotColor,
+            timeRowIndex: slot?.timeRowIndex,
+            allDay: slot?.allDay,
+            isLastInList: slot?.isLastInList,
+            calculateRecurrence: slot?.calculateRecurrence,
+            uniqueSlotId: slot?.uniqueSlotId);
 
   @override
   bool operator ==(other) {
@@ -81,9 +87,9 @@ class SlotModel {
       return this.interviewModel.interviewSlotId ==
           other.interviewModel.interviewSlotId;
     }
-    return "${this.shiftId}" == "${other.shiftId}" &&
-        this.isHead == other.isHead &&
-        this.isTail == other.isTail;
+    return "${this.shiftId}" == "${other?.shiftId}" &&
+        this.isHead == other?.isHead &&
+        this.isTail == other?.isTail;
   }
 
   @override
