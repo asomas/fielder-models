@@ -1,3 +1,4 @@
+from email.policy import default
 from enum import Enum, auto
 
 from fielder_backend_utils.rest_utils import DocumentReferenceField
@@ -111,6 +112,8 @@ class JobDBSerializer(SharedJobShiftDBSerializer):
     workers = serializers.DictField(default={})
     is_archived = serializers.BooleanField(default=False)
     active = serializers.BooleanField(default=True)
+    number_hiring_requests = serializers.IntegerField(default=0)
+    have_hiring_requests = serializers.BooleanField(default=False)
 
 
 class JobTemplateDBSerializer(BaseJobSerializer):
