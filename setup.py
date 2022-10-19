@@ -3,10 +3,10 @@ from setuptools import find_packages, setup
 from python_fielder_models import __version__
 
 install_requires = [
-    "django==4.1.2",
-    "djangorestframework==3.12.4",
-    "lxml==4.9.1",
-    "wheel==0.37.1",
+    "black==20.8b1",
+    "djangorestframework>=3.11.0",
+    "lxml==4.6.4",
+    "wheel==0.36.2",
 ]
 
 setup(
