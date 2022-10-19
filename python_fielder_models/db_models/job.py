@@ -6,7 +6,7 @@ from python_fielder_models.api_models.matching import WorkerType
 from python_fielder_models.common.job import BaseJobSerializer
 from python_fielder_models.db_models import BaseDBSerializer
 from python_fielder_models.db_models.common import (
-    AddressDBSerializer,
+    LocationDBSerializer,
     RecurrenceSerializer,
 )
 from python_fielder_models.db_models.organisation import (
@@ -73,7 +73,7 @@ class SharedJobShiftDBSerializer(BaseJobSerializer, BaseDBSerializer):
     job_reference_id = serializers.CharField()
     manager_ref = DocumentReferenceField(default=None, allow_null=True)
     supervisor_ref = DocumentReferenceField(default=None, allow_null=True)
-    total_shift_count = serializers.IntegerField()
+    total_shift_count = serializers.IntegerField(default=0)
 
 
 class ShiftPatternDBSerializer(
@@ -108,7 +108,7 @@ class JobDBSerializer(SharedJobShiftDBSerializer):
     start_date = serializers.DateTimeField(default=None, allow_null=True)
     description = serializers.CharField(allow_null=True, default=None)
     total_hours = serializers.FloatField(default=0.0)
-    locations = serializers.DictField(child=AddressDBSerializer(), default={})
+    locations = serializers.DictField(child=LocationDBSerializer(), default={})
     workers = serializers.DictField(default={})
     is_archived = serializers.BooleanField(default=False)
     active = serializers.BooleanField(default=True)
