@@ -34,6 +34,8 @@ class JobDataModel {
   int lateArrival;
   double overTimeRate;
   bool isArchived;
+  bool haveHiringRequests;
+  int numberHiringRequests;
 
   JobDataModel({
     this.docID,
@@ -61,6 +63,8 @@ class JobDataModel {
     this.lateArrival,
     this.overTimeRate,
     this.isArchived,
+    this.haveHiringRequests = false,
+    this.numberHiringRequests = 0,
   }) : assert(docID != null);
 
   factory JobDataModel.fromMap({
@@ -191,6 +195,8 @@ class JobDataModel {
           lateArrival: _lateArrival,
           isPayDeductionEnabled: _isPayDeductionEnabled,
           isArchived: map[JobSummarySchema.isArchived],
+          haveHiringRequests: map[JobSummarySchema.haveHiringRequests] ?? false,
+          numberHiringRequests: map[JobSummarySchema.numberHiringRequests] ?? 0,
         );
       } catch (e) {
         print('JobDataModel fromMap error: $e');

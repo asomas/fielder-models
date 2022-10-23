@@ -67,4 +67,5 @@ class FbCollections {
   static const String announcements = 'announcements';
   static const String grades = 'grades';
   static const String institutions = 'institutions';
+  static const String hiringRequests = 'hiring_requests';
 }
