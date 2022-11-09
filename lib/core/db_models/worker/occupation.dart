@@ -26,7 +26,7 @@ class OccupationModel {
               ?.toLowerCase()
               ?.endsWith("(m/f)") ==
           true) {
-        occupationValue = occupationValue.replaceAll("(m/f)", '');
+        occupationValue = occupationValue.replaceAll("(m/f)", '').trim();
       }
       var _occupationRefTemp = json[OccupationSchema.occupationRef];
       if (_occupationRefTemp is String) {
