@@ -57,4 +57,6 @@ class JobSummarySchema {
   static const String gradeData = "grade_data";
   static const String jobTitleNormalised = "job_title_normalised";
   static const String enableUnpaidBreaks = "enable_unpaid_breaks";
+  static const String numberHiringRequests = "number_hiring_requests";
+  static const String haveHiringRequests = "have_hiring_requests";
 }
