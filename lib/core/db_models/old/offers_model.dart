@@ -95,6 +95,7 @@ class Offers {
       shiftRef: shiftPatternRef,
       fromOffer: true,
       offer: offer,
+      shiftId: offer.shiftPatternRef?.id,
       sentAt: sentTime,
       organisationGroupRef: offer?.shiftPatternData?.groupRef,
     );
