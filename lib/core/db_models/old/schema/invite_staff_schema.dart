@@ -22,4 +22,6 @@ class InviteStaffSchema {
   static const String checkIds = "check_ids";
   static const String checks = "checks";
   static const String sentAt = "sent_at";
+  static const String locationData = "location_data";
+  static const String jobData = "job_data";
 }
