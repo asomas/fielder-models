@@ -25,26 +25,30 @@ class SkillsModel {
     String docID,
   }) {
     if (map.isNotEmpty) {
-      DocumentReference _skillsRef;
-      var _skillsRefTemp = map[SkillsSchema.skillRef];
-      if (_skillsRefTemp is String) {
-        _skillsRef = Helpers.documentReferenceFromString(_skillsRefTemp);
-      } else {
-        _skillsRef = _skillsRefTemp;
-      }
+      try {
+        DocumentReference _skillsRef;
+        var _skillsRefTemp = map[SkillsSchema.skillRef];
+        if (_skillsRefTemp is String) {
+          _skillsRef = Helpers.documentReferenceFromString(_skillsRefTemp);
+        } else {
+          _skillsRef = _skillsRefTemp;
+        }
 
-      if (_skillsRef == null && docID != null) {
-        _skillsRef = FirebaseFirestore.instance
-            .collection(FbCollections.skills)
-            .doc(docID);
-      }
+        if (_skillsRef == null && docID != null) {
+          _skillsRef = FirebaseFirestore.instance
+              .collection(FbCollections.skills)
+              .doc(docID);
+        }
 
-      return SkillsModel(
-          docID: docID ?? _skillsRef?.id,
-          skillRef: _skillsRef,
-          value: map[SkillsSchema.skillValue],
-          relevancyScore: map[SkillsSchema.relevancyScore] ?? 0,
-          category: map[SkillsSchema.category]);
+        return SkillsModel(
+            docID: docID ?? _skillsRef?.id,
+            skillRef: _skillsRef,
+            value: map[SkillsSchema.skillValue],
+            relevancyScore: map[SkillsSchema.relevancyScore] ?? 0,
+            category: map[SkillsSchema.category]);
+      } catch (e, s) {
+        print("skills model catch____${e}____$s");
+      }
     }
     return null;
   }

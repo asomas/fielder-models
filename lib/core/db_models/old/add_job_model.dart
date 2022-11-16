@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/helpers/helpers.dart';
 import 'package:fielder_models/core/db_models/old/additional_info_model.dart';
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/courses_and_level_model.dart';
@@ -50,7 +52,7 @@ class AddJobModel {
         JobTemplateSchema.name: templateName,
         JobTemplateSchema.description: description,
         JobTemplateSchema.jobTitle: title,
-        JobTemplateSchema.occupation: occupationModel.toJson(),
+        JobTemplateSchema.occupation: occupationModel?.toJson(),
         JobTemplateSchema.skills: (skillsArray?.isNotEmpty == true)
             ? skillsArray.map((e) => e.toJSON()).toList() ?? []
             : [],
@@ -76,10 +78,7 @@ class AddJobModel {
 
   factory AddJobModel.fromMap(Map data, {String docId}) {
     AddJobModel addJobModel;
-
-    print("checks are ${data[JobTemplateSchema.checks]}");
-
-    if (data[JobTemplateSchema.jobReferenceId] != null) {
+    try {
       addJobModel = AddJobModel(
         docId: docId,
         title: data[JobTemplateSchema.jobTitle] ?? "",
@@ -97,29 +96,47 @@ class AddJobModel {
                         map: e, checkID: e[JobTemplateSchema.checksRef]?.id))
                     .toList()
                 : [],
-        skillsArray:
-            (data[JobTemplateSchema.skills] as List)?.isNotEmpty == true
-                ? (data[JobTemplateSchema.skills] as List)
-                    .map((e) => SkillsModel.fromMap(
-                        map: e, docID: e[JobTemplateSchema.skillRef]?.id))
-                    .toList()
-                : [],
-        additionalReqsArray: (data[JobTemplateSchema.additionalRequirement]
-                        as List)
-                    ?.isNotEmpty ==
+        skillsArray: (data[JobTemplateSchema.skills] as List)?.isNotEmpty ==
                 true
-            ? (data[JobTemplateSchema.additionalRequirement] as List)
-                .map((e) => AdditionalInfoModel.fromMap(
+            ? (data[JobTemplateSchema.skills] as List).map(
+                (e) {
+                  String skillId = e[JobTemplateSchema.skillId];
+                  if (skillId == null || skillId.isEmpty) {
+                    if (e[JobTemplateSchema.skillRef] is DocumentReference) {
+                      skillId =
+                          (e[JobTemplateSchema.skillRef] as DocumentReference)
+                              ?.id;
+                    } else if (e[JobTemplateSchema.skillRef] is String) {
+                      skillId = (Helpers.documentReferenceFromString(
+                              e[JobTemplateSchema.skillRef]))
+                          ?.id;
+                    }
+                  }
+                  return SkillsModel.fromMap(
                     map: e,
-                    docID: e[JobTemplateSchema.additionalRequirementRef]?.id))
-                .toList()
+                    docID: skillId,
+                  );
+                },
+              ).toList()
             : [],
+        // additionalReqsArray: (data[JobTemplateSchema.additionalRequirement]
+        //                 as List)
+        //             ?.isNotEmpty ==
+        //         true
+        //     ? (data[JobTemplateSchema.additionalRequirement] as List)
+        //         .map((e) => AdditionalInfoModel.fromMap(
+        //             map: e,
+        //             docID: e[JobTemplateSchema.additionalRequirementRef]?.id))
+        //         .toList()
+        //     : [],
         courses: (data[JobSummarySchema.courses] as List)?.isNotEmpty == true
             ? (data[JobSummarySchema.courses] as List)
                 .map((e) => CoursesAndLevelModel.fromMap(e))
                 .toList()
             : [],
       );
+    } catch (e, s) {
+      print("job model catch____${e}____$s");
     }
     return addJobModel;
   }
