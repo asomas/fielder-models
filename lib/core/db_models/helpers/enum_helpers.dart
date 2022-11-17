@@ -132,7 +132,9 @@ class EnumHelpers {
       case OfferStatus.InterviewScheduled:
         return OffersStatusUIString.interviewScheduled;
       case OfferStatus.PendingWorkerResponse:
-        return OffersStatusUIString.pendingWorkerResponse;
+        return isInvite
+            ? OffersStatusUIString.pendingWorkerResponse
+            : OffersStatusUIString.pendingOffer;
       case OfferStatus.PendingChecksWorker:
         return OffersStatusUIString.pendingChecksWorker;
       case OfferStatus.PendingChecksBackOffice:
