@@ -52,6 +52,8 @@ class InviteStatusModel {
   DateTime sentAt;
   LocationModelDetail locationData;
   JobDataModel jobData;
+  DocumentReference shiftPatternRef;
+  DocumentReference hiringRequestRef;
 
   InviteStatusModel({
     this.workerType,
@@ -87,7 +89,12 @@ class InviteStatusModel {
     this.sentAt,
     this.locationData,
     this.jobData,
+    this.shiftPatternRef,
+    this.hiringRequestRef,
   });
+
+  bool get inviteSentFromHiring => hiringRequestRef != null;
+  bool get inviteSentFromShift => shiftPatternRef != null;
 
   Map<String, dynamic> toJSON() {
     //print('AddJobModel toJSON invoked');
@@ -129,6 +136,10 @@ class InviteStatusModel {
             data[InviteStaffSchema.interview]
                 [InviteStaffSchema.interviewSlotData]);
         if (_interviewModel != null) {
+          _interviewModel.shiftPatternRef =
+              data[InviteStaffSchema.shiftPatternRef];
+          _interviewModel.hiringRequestRef =
+              data[InviteStaffSchema.hiringRequestRef];
           _interviewModel.workerType =
               EnumHelpers.candidatesWorkerTypeFromString(
                   data[StaffStatusSchema.workerType]);
@@ -211,6 +222,8 @@ class InviteStatusModel {
         checkModels: _checks,
         orgProfileRef: data[OrganisationProfileSchema.orfProfileRef],
         sentAt: (data[InviteStaffSchema.sentAt] as Timestamp)?.toDate(),
+        shiftPatternRef: data[InviteStaffSchema.shiftPatternRef],
+        hiringRequestRef: data[InviteStaffSchema.hiringRequestRef],
         locationData: data.containsKey(InviteStaffSchema.locationData) &&
                 data[InviteStaffSchema.locationData] != null
             ? LocationModelDetail.fromJson(data[InviteStaffSchema.locationData])
@@ -244,14 +257,15 @@ class InviteStatusModel {
       if (workerPhone != null && workerPhone.isNotEmpty) {
         _map[InviteStaffSchema.workerPhone] = workerPhone;
       }
-      if (shiftId != null && shiftId.isNotEmpty) {
-        _map[InviteStaffSchema.shiftPatternId] = shiftId;
-      } else if (shiftRef != null) {
-        _map[InviteStaffSchema.shiftPatternId] = shiftRef.id;
-      }
       if (checkModels != null && checkModels.isNotEmpty) {
         _map[InviteStaffSchema.checkIds] =
             checkModels.map((e) => e?.checkID).toList();
+      }
+      if (hiringRequestRef != null) {
+        _map[InviteStaffSchema.hiringRequestRef] = hiringRequestRef.path;
+      }
+      if (shiftPatternRef != null) {
+        _map[InviteStaffSchema.shiftPatternRef] = shiftPatternRef.path;
       }
       if (addressModel != null) {
         _map[ShiftDataSchema.address] = {
