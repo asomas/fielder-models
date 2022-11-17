@@ -1,11 +1,16 @@
 from fielder_backend_utils.rest_utils import DocumentReferenceField
+from rest_framework import serializers
+
 from python_fielder_models.api_models.common import (
     AddressAPISerializer,
     GooglePlaceDataSerializer,
     LocationAPISerializer,
 )
 from python_fielder_models.common.taxonomy import OccupationSerializer, SkillSerializer
-from python_fielder_models.common.worker import ReferencingDataSerializer
+from python_fielder_models.common.worker import (
+    ReferencingDataSerializer,
+    SICCodeSerializer,
+)
 from python_fielder_models.db_models.common import (
     DATE_FIELD_REGEX,
     FULL_NAME_MAX_LENGTH,
@@ -16,7 +21,6 @@ from python_fielder_models.db_models.worker import (
     FielderWorkExperienceSerializer,
     Status,
 )
-from rest_framework import serializers
 
 
 class BaseExperienceAPISerializer(serializers.Serializer):
@@ -44,12 +48,6 @@ class BaseWorkExperienceAPISerializer(BaseExperienceAPISerializer):
 
 
 class WorkExperienceAPISerializer(BaseWorkExperienceAPISerializer):
-    class ReferenceSerializer(serializers.Serializer):
-        value = serializers.CharField(allow_null=True)
-
-    class SICCodeSerializer(ReferenceSerializer):
-        sic_code_ref = DocumentReferenceField()
-
     company_number = serializers.CharField(
         allow_blank=True, required=False, allow_null=True, min_length=8, max_length=8
     )

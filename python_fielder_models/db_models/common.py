@@ -96,8 +96,3 @@ class LocationDBSerializer(serializers.Serializer):
             data["name"] = " ".join([v for _, v in data["address"].items() if v][:2])
 
         return super().to_internal_value(data)
-
-
-class SICCodeSerializer(serializers.Serializer):
-    code = serializers.CharField()
-    description = serializers.CharField(max_length=200, allow_null=True)
