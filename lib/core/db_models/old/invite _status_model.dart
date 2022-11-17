@@ -4,6 +4,7 @@ import 'package:fielder_models/core/db_models/helpers/helpers.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/interview_model.dart';
+import 'package:fielder_models/core/db_models/old/job_data_model.dart';
 import 'package:fielder_models/core/db_models/old/offers_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/interviews_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/invite_staff_schema.dart';
@@ -12,6 +13,7 @@ import 'package:fielder_models/core/db_models/old/schema/organisation_profile_sc
 import 'package:fielder_models/core/db_models/old/schema/organisation_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
+import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/schema/locationSchema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +50,8 @@ class InviteStatusModel {
   Offers offer;
   DocumentReference orgProfileRef;
   DateTime sentAt;
+  LocationModelDetail locationData;
+  JobDataModel jobData;
 
   InviteStatusModel({
     this.workerType,
@@ -81,6 +85,8 @@ class InviteStatusModel {
     this.offer,
     this.orgProfileRef,
     this.sentAt,
+    this.locationData,
+    this.jobData,
   });
 
   Map<String, dynamic> toJSON() {
@@ -205,6 +211,15 @@ class InviteStatusModel {
         checkModels: _checks,
         orgProfileRef: data[OrganisationProfileSchema.orfProfileRef],
         sentAt: (data[InviteStaffSchema.sentAt] as Timestamp)?.toDate(),
+        locationData: data.containsKey(InviteStaffSchema.locationData) &&
+                data[InviteStaffSchema.locationData] != null
+            ? LocationModelDetail.fromJson(data[InviteStaffSchema.locationData])
+            : null,
+        jobData: data.containsKey(InviteStaffSchema.jobData) &&
+                data[InviteStaffSchema.jobData] != null
+            ? JobDataModel.fromMap(
+                map: data[InviteStaffSchema.jobData], docID: '')
+            : null,
       );
     } catch (e, s) {
       print('invite status catch____${e}_____$s');
