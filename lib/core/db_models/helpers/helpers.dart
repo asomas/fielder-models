@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 class Helpers {
   static DocumentReference documentReferenceFromString(
       String stringDocumentReference) {
-    List<String> splitReference = stringDocumentReference.split("/");
-    return FirebaseFirestore.instance
-        .collection(splitReference[0])
-        .doc(splitReference[1]);
+    if (stringDocumentReference != null && stringDocumentReference.isNotEmpty) {
+      List<String> splitReference = stringDocumentReference.split("/");
+      return FirebaseFirestore.instance
+          .collection(splitReference[0])
+          .doc(splitReference[1]);
+    }
+    return null;
   }
 
   static Color hexToColor(String code) {

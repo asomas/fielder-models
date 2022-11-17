@@ -29,6 +29,8 @@ class InterviewModel {
   String workerId;
   String invitationId;
   OfferStatus invitationStatus;
+  DocumentReference shiftPatternRef;
+  DocumentReference hiringRequestRef;
 
   InterviewModel({
     @required this.interviewDuration,
@@ -50,6 +52,8 @@ class InterviewModel {
     this.workerType,
     this.invitationId,
     this.invitationStatus,
+    this.hiringRequestRef,
+    this.shiftPatternRef,
   });
 
   factory InterviewModel.fromMap(
