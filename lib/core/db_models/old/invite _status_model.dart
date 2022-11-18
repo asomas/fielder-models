@@ -263,8 +263,7 @@ class InviteStatusModel {
       }
       if (hiringRequestRef != null) {
         _map[InviteStaffSchema.hiringRequestRef] = hiringRequestRef.path;
-      }
-      if (shiftPatternRef != null) {
+      } else if (shiftPatternRef != null) {
         _map[InviteStaffSchema.shiftPatternRef] = shiftPatternRef.path;
       }
       if (addressModel != null) {
