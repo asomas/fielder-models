@@ -20,6 +20,7 @@ class InterviewModel {
   bool assigned;
   DocumentReference organisationRef;
   DocumentReference organisationUserRef;
+  DocumentReference groupRef;
   String interviewSlotId;
 
   CandidatesWorkerType workerType;
@@ -29,6 +30,8 @@ class InterviewModel {
   String workerId;
   String invitationId;
   OfferStatus invitationStatus;
+  DocumentReference shiftPatternRef;
+  DocumentReference hiringRequestRef;
 
   InterviewModel({
     @required this.interviewDuration,
@@ -37,6 +40,7 @@ class InterviewModel {
     @required this.interviewType,
     @required this.organisationId,
     @required this.interviewStartDateTime,
+    this.groupRef,
     this.addressModel,
     this.assigned = false,
     this.organisationRef,
@@ -50,6 +54,8 @@ class InterviewModel {
     this.workerType,
     this.invitationId,
     this.invitationStatus,
+    this.hiringRequestRef,
+    this.shiftPatternRef,
   });
 
   factory InterviewModel.fromMap(
@@ -79,6 +85,7 @@ class InterviewModel {
           organisationUserRef: map[InterviewsSchema.organisationUserRef],
           assigned: map[InterviewsSchema.assigned],
           interviewSlotId: interviewDocId,
+          groupRef: map[InterviewsSchema.groupRef],
         );
       } catch (e, s) {
         print("interview model to map catch___${e}____$s");

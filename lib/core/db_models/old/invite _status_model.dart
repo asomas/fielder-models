@@ -4,6 +4,7 @@ import 'package:fielder_models/core/db_models/helpers/helpers.dart';
 import 'package:fielder_models/core/db_models/old/address_model.dart';
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/interview_model.dart';
+import 'package:fielder_models/core/db_models/old/job_data_model.dart';
 import 'package:fielder_models/core/db_models/old/offers_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/interviews_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/invite_staff_schema.dart';
@@ -12,6 +13,7 @@ import 'package:fielder_models/core/db_models/old/schema/organisation_profile_sc
 import 'package:fielder_models/core/db_models/old/schema/organisation_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
+import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/schema/locationSchema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +50,10 @@ class InviteStatusModel {
   Offers offer;
   DocumentReference orgProfileRef;
   DateTime sentAt;
+  LocationModelDetail locationData;
+  JobDataModel jobData;
+  DocumentReference shiftPatternRef;
+  DocumentReference hiringRequestRef;
 
   InviteStatusModel({
     this.workerType,
@@ -81,7 +87,14 @@ class InviteStatusModel {
     this.offer,
     this.orgProfileRef,
     this.sentAt,
+    this.locationData,
+    this.jobData,
+    this.shiftPatternRef,
+    this.hiringRequestRef,
   });
+
+  bool get inviteSentFromHiring => hiringRequestRef != null;
+  bool get inviteSentFromShift => shiftPatternRef != null;
 
   Map<String, dynamic> toJSON() {
     //print('AddJobModel toJSON invoked');
@@ -123,6 +136,10 @@ class InviteStatusModel {
             data[InviteStaffSchema.interview]
                 [InviteStaffSchema.interviewSlotData]);
         if (_interviewModel != null) {
+          _interviewModel.shiftPatternRef =
+              data[InviteStaffSchema.shiftPatternRef];
+          _interviewModel.hiringRequestRef =
+              data[InviteStaffSchema.hiringRequestRef];
           _interviewModel.workerType =
               EnumHelpers.candidatesWorkerTypeFromString(
                   data[StaffStatusSchema.workerType]);
@@ -205,6 +222,17 @@ class InviteStatusModel {
         checkModels: _checks,
         orgProfileRef: data[OrganisationProfileSchema.orfProfileRef],
         sentAt: (data[InviteStaffSchema.sentAt] as Timestamp)?.toDate(),
+        shiftPatternRef: data[InviteStaffSchema.shiftPatternRef],
+        hiringRequestRef: data[InviteStaffSchema.hiringRequestRef],
+        locationData: data.containsKey(InviteStaffSchema.locationData) &&
+                data[InviteStaffSchema.locationData] != null
+            ? LocationModelDetail.fromJson(data[InviteStaffSchema.locationData])
+            : null,
+        jobData: data.containsKey(InviteStaffSchema.jobData) &&
+                data[InviteStaffSchema.jobData] != null
+            ? JobDataModel.fromMap(
+                map: data[InviteStaffSchema.jobData], docID: '')
+            : null,
       );
     } catch (e, s) {
       print('invite status catch____${e}_____$s');
@@ -229,14 +257,14 @@ class InviteStatusModel {
       if (workerPhone != null && workerPhone.isNotEmpty) {
         _map[InviteStaffSchema.workerPhone] = workerPhone;
       }
-      if (shiftId != null && shiftId.isNotEmpty) {
-        _map[InviteStaffSchema.shiftPatternId] = shiftId;
-      } else if (shiftRef != null) {
-        _map[InviteStaffSchema.shiftPatternId] = shiftRef.id;
-      }
       if (checkModels != null && checkModels.isNotEmpty) {
         _map[InviteStaffSchema.checkIds] =
             checkModels.map((e) => e?.checkID).toList();
+      }
+      if (hiringRequestRef != null) {
+        _map[InviteStaffSchema.hiringRequestRef] = hiringRequestRef.path;
+      } else if (shiftPatternRef != null) {
+        _map[InviteStaffSchema.shiftPatternRef] = shiftPatternRef.path;
       }
       if (addressModel != null) {
         _map[ShiftDataSchema.address] = {

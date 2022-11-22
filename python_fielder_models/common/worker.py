@@ -35,3 +35,8 @@ class WCRStatus(Enum):
 class CheckType(Enum):
     GLOBAL = auto()
     ORG_SPECIFIC = auto()
+
+
+class SICCodeSerializer(Serializer):
+    code = CharField()
+    description = CharField(max_length=200, allow_null=True)

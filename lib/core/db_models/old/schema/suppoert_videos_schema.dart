@@ -5,4 +5,6 @@ class SupportVideosSchema {
   static const String growth = 'growth';
   static const String home = 'home';
   static const String shifts = 'shifts';
+  static const String profileOverview = 'profile_overview';
+  static const String help = 'help';
 }

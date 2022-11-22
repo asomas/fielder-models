@@ -1,13 +1,15 @@
 from enum import Enum, auto
 
 from fielder_backend_utils.rest_utils import DocumentReferenceField
-from python_fielder_models.common.taxonomy import OccupationSerializer, SkillSerializer
 from rest_framework import serializers
+
+from python_fielder_models.common.taxonomy import OccupationSerializer, SkillSerializer
 
 from ..common.worker import (
     CheckType,
     ExperienceType,
     ReferencingDataSerializer,
+    SICCodeSerializer,
     VerificationPath,
     WCRStatus,
 )
