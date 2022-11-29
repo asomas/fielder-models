@@ -580,6 +580,12 @@ class EnumHelpers {
           .toUpperCase()
           .startsWith('Proof of Address'.toUpperCase())) {
         return ChecksType.ProofOfAddress;
+      } else if (value
+          .toUpperCase()
+          .startsWith('All Experiences Referenced'.toUpperCase())) {
+        return ChecksType.ExperiencesReferenced;
+      } else if (value.toUpperCase().startsWith('Work History'.toUpperCase())) {
+        return ChecksType.WorkHistory;
       } else {
         return null;
       }
