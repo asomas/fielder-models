@@ -7,7 +7,6 @@ import 'package:fielder_models/core/db_models/old/job_template_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
-import 'package:fielder_models/core/db_models/worker/occupation.dart';
 
 class AddJobModel {
   String docId;
@@ -22,7 +21,6 @@ class AddJobModel {
   List<dynamic> checks;
   bool isDBSRequired;
   bool isEnhancedDBSRequired;
-  OccupationModel occupationModel;
   bool isArchived;
   List<CoursesAndLevelModel> courses;
 
@@ -39,7 +37,6 @@ class AddJobModel {
     this.skillsArray,
     this.checksArray,
     this.checks,
-    this.occupationModel,
     this.courses,
     this.isArchived = false,
   });
@@ -52,7 +49,6 @@ class AddJobModel {
         JobTemplateSchema.name: templateName,
         JobTemplateSchema.description: description,
         JobTemplateSchema.jobTitle: title,
-        JobTemplateSchema.occupation: occupationModel?.toJson(),
         JobTemplateSchema.skills: (skillsArray?.isNotEmpty == true)
             ? skillsArray.map((e) => e.toJSON()).toList() ?? []
             : [],
@@ -86,9 +82,6 @@ class AddJobModel {
         description: data[JobTemplateSchema.description] ?? "",
         templateName: data[JobTemplateSchema.name] ?? "",
         isArchived: data[JobSummarySchema.isArchived] ?? false,
-        occupationModel: data[JobTemplateSchema.occupation] != null
-            ? OccupationModel.fromJson(data[JobTemplateSchema.occupation])
-            : null,
         checksArray:
             (data[JobTemplateSchema.checks] as List)?.isNotEmpty == true
                 ? (data[JobTemplateSchema.checks] as List)
@@ -152,6 +145,5 @@ class AddJobModel {
     skillsArray = [];
     checks = [];
     checksArray = [];
-    occupationModel = null;
   }
 }

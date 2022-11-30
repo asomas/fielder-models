@@ -4,7 +4,6 @@ import 'package:fielder_models/core/db_models/old/courses_and_level_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
-import 'package:fielder_models/core/db_models/worker/occupation.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'job_location_data_model.dart';
@@ -38,7 +37,6 @@ class JobDataModel {
   bool haveHiringRequests;
   int numberHiringRequests;
   String description;
-  OccupationModel occupationModel;
 
   JobDataModel({
     this.docID,
@@ -69,7 +67,6 @@ class JobDataModel {
     this.haveHiringRequests = false,
     this.numberHiringRequests = 0,
     this.description,
-    this.occupationModel,
   }) : assert(docID != null);
 
   factory JobDataModel.fromMap({
@@ -202,9 +199,6 @@ class JobDataModel {
           isArchived: map[JobSummarySchema.isArchived],
           haveHiringRequests: map[JobSummarySchema.haveHiringRequests] ?? false,
           numberHiringRequests: map[JobSummarySchema.numberHiringRequests] ?? 0,
-          occupationModel: map[JobSummarySchema.occupation] != null
-              ? OccupationModel.fromJson(map[JobSummarySchema.occupation])
-              : null,
           description: map[JobSummarySchema.description] ?? "",
         );
       } catch (e) {
