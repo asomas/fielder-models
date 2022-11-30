@@ -176,6 +176,8 @@ class WorkerDBSerializer(serializers.Serializer):
     full_name = VerifiedStringSerializer()
     first_name = serializers.CharField()
     last_name = serializers.CharField()
+    preferred_name = serializers.CharField(required=False, allow_null=True)
+    address = LocationDBSerializer(required=False)
 
 
 class RTWSubColSerializer(serializers.Serializer):
