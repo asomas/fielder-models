@@ -10,4 +10,6 @@ class WorkerChecksSchema {
   static const String checkType = 'check_type';
   static const String status = 'status';
   static const String expectedCompletionAt = 'expected_completion_at';
+  static const String organisationRef = 'organisation_ref';
+  static const String workerAppScreen = 'worker_app_screen';
 }
