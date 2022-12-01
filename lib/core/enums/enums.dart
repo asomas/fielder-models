@@ -133,13 +133,19 @@ enum RightToWorkVerificationStatus { UnderReview, Verified, Rejected, None }
 
 enum InterviewType { Video, InPerson, NoInterview }
 
-enum ChecksType {
+enum CheckTypeFromValue {
   DBS,
   EnhancedDBS,
   ProofOfID,
   ProofOfAddress,
   ExperiencesReferenced,
-  WorkHistory
+  WorkHistory,
+  RightToWork
+}
+
+enum CheckType {
+  Global,
+  OrgSpecific,
 }
 
 enum MatchingHoverType { Availability, Skills, Checks, Courses, Location }

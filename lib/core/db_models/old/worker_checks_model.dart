@@ -12,9 +12,11 @@ class WorkerChecksModel {
   String checkValue;
   DocumentReference workerRef;
   CheckVerificationInfo checkVerificationInfo;
-  ChecksType checksType;
+  CheckTypeFromValue checkTypeFromValue;
+  CheckType checkType;
   CheckStatus status;
   DateTime expectedCompletionDate;
+  DocumentReference organisationRef;
 
   WorkerChecksModel({
     this.docId,
@@ -22,9 +24,11 @@ class WorkerChecksModel {
     this.checkValue,
     this.workerRef,
     this.checkVerificationInfo,
-    this.checksType,
+    this.checkTypeFromValue,
     this.status,
     this.expectedCompletionDate,
+    this.organisationRef,
+    this.checkType,
   });
 
   factory WorkerChecksModel.fromMap(String docId, Map map) {
@@ -50,13 +54,16 @@ class WorkerChecksModel {
                   ? CheckVerificationInfo.fromMap(
                       map[WorkerChecksSchema.verificationInfo])
                   : null,
-          checksType: EnumHelpers.getChecksTypeFromString(
+          checkTypeFromValue: EnumHelpers.getCheckTypeFromValueFromString(
               map[WorkerChecksSchema.checkValue]),
           status:
               EnumHelpers.checkStatusFromString(map[WorkerChecksSchema.status]),
           expectedCompletionDate: DateTimeHelper.timeStampFromString(
                   map[WorkerChecksSchema.expectedCompletionAt])
               ?.toDate(),
+          organisationRef: map[WorkerChecksSchema.organisationRef],
+          checkType: EnumHelpers.getCheckTypeFromString(
+              map[WorkerChecksSchema.checkType]),
         );
       } catch (e, s) {
         print('worker checks model catch___${e}____$s');

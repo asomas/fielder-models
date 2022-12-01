@@ -567,25 +567,27 @@ class EnumHelpers {
     }
   }
 
-  static ChecksType getChecksTypeFromString(String value) {
+  static CheckTypeFromValue getCheckTypeFromValueFromString(String value) {
     if (value != null) {
       if (value?.toUpperCase()?.startsWith('DBS'.toUpperCase()) == true) {
-        return ChecksType.DBS;
+        return CheckTypeFromValue.DBS;
       } else if (value.toUpperCase().startsWith('Enhanced DBS'.toUpperCase()) ||
           value.toUpperCase().startsWith('ENHANCED_DBS')) {
-        return ChecksType.EnhancedDBS;
+        return CheckTypeFromValue.EnhancedDBS;
       } else if (value.toUpperCase().startsWith('Proof of ID'.toUpperCase())) {
-        return ChecksType.ProofOfID;
+        return CheckTypeFromValue.ProofOfID;
       } else if (value
           .toUpperCase()
           .startsWith('Proof of Address'.toUpperCase())) {
-        return ChecksType.ProofOfAddress;
+        return CheckTypeFromValue.ProofOfAddress;
       } else if (value
           .toUpperCase()
           .startsWith('All Experiences Referenced'.toUpperCase())) {
-        return ChecksType.ExperiencesReferenced;
+        return CheckTypeFromValue.ExperiencesReferenced;
       } else if (value.toUpperCase().startsWith('Work History'.toUpperCase())) {
-        return ChecksType.WorkHistory;
+        return CheckTypeFromValue.WorkHistory;
+      } else if (value.toUpperCase().startsWith('RTW'.toUpperCase())) {
+        return CheckTypeFromValue.RightToWork;
       } else {
         return null;
       }
@@ -593,12 +595,24 @@ class EnumHelpers {
     return null;
   }
 
-  static String getStringFromCheckType(ChecksType value) {
+  static CheckType getCheckTypeFromString(String value) {
+    if (value != null) {
+      if (value?.toUpperCase()?.startsWith('ORG_SPECIFIC'.toUpperCase()) ==
+          true) {
+        return CheckType.OrgSpecific;
+      } else {
+        return CheckType.Global;
+      }
+    }
+    return null;
+  }
+
+  static String getStringFromCheckType(CheckTypeFromValue value) {
     if (value != null) {
       switch (value) {
-        case (ChecksType.DBS):
+        case (CheckTypeFromValue.DBS):
           return 'DBS';
-        case (ChecksType.EnhancedDBS):
+        case (CheckTypeFromValue.EnhancedDBS):
           return 'ENHANCED_DBS';
         default:
           return null;
