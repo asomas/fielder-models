@@ -11,4 +11,5 @@ class NotificationSettingSchema {
       'completed_shift_awaiting_approval';
   static const String lateShiftClockin = 'late_shift_clockin';
   static const String upcomingInterview = 'upcoming_interview';
+  static const String unreadMessages = 'unread_message_notification';
 }
