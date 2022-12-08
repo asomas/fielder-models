@@ -76,22 +76,15 @@ class JobDataModel {
     if (map.isNotEmpty) {
       try {
         DocumentReference _groupRef = map[JobSummarySchema.groupRef];
-        DocumentReference _organisationRef =
-            map[JobSummarySchema.organisationRef];
+        DocumentReference _organisationRef = map[JobSummarySchema.organisationRef];
         DocumentReference _supervisorRef = map[JobSummarySchema.supervisorRef];
         DocumentReference _managerRef = map[JobSummarySchema.managerRef];
         final String _jobRefId = map[JobSummarySchema.jobReferenceId];
-        final double _overTimeRate = map[JobSummarySchema.overTimeRate] != null
-            ? (map[JobSummarySchema.overTimeRate] / 100)
-            : 0;
-        final int _earlyLeaver = map[JobSummarySchema.earlyLeaver] != null
-            ? map[JobSummarySchema.earlyLeaver]
-            : 0;
-        final int _lateArrival = map[JobSummarySchema.lateArrival] != null
-            ? map[JobSummarySchema.lateArrival]
-            : 0;
-        final bool _isPayDeductionEnabled =
-            map[JobSummarySchema.enablePayDeduction] ?? false;
+        final double _overTimeRate =
+            map[JobSummarySchema.overTimeRate] != null ? (map[JobSummarySchema.overTimeRate] / 100) : 0;
+        final int _earlyLeaver = map[JobSummarySchema.earlyLeaver] != null ? map[JobSummarySchema.earlyLeaver] : 0;
+        final int _lateArrival = map[JobSummarySchema.lateArrival] != null ? map[JobSummarySchema.lateArrival] : 0;
+        final bool _isPayDeductionEnabled = map[JobSummarySchema.enablePayDeduction] ?? false;
         final Timestamp _startTimeStamp = map[JobSummarySchema.startDate];
         DateTime _startDate;
         if (_startTimeStamp != null) {
@@ -110,10 +103,8 @@ class JobDataModel {
         final String _jobTitle = map[JobSummarySchema.jobTitle] ?? '';
         final double _totalHours = map[JobSummarySchema.totalHours] ?? 0;
         final int _rate = map[JobSummarySchema.rate] ?? 0;
-        final String _payCalculation =
-            map[JobSummarySchema.payCalculation] ?? "";
-        final Map<String, dynamic> workers =
-            map[JobSummarySchema.workers] ?? {};
+        final String _payCalculation = map[JobSummarySchema.payCalculation] ?? "";
+        final Map<String, dynamic> workers = map[JobSummarySchema.workers] ?? {};
         List<WorkerModel> _allWorkerArray = [];
         workers.forEach((key, element) {
           final WorkerModel _worker = WorkerModel.fromMap(
@@ -126,8 +117,7 @@ class JobDataModel {
           }
         });
 
-        final Map<String, dynamic> locations =
-            map[JobSummarySchema.locations] ?? {};
+        final Map<String, dynamic> locations = map[JobSummarySchema.locations] ?? {};
         List<JobLocationDataModel> _allLocationArray = [];
         locations.forEach((key, element) {
           final JobLocationDataModel _location = JobLocationDataModel.fromMap(
@@ -148,28 +138,21 @@ class JobDataModel {
           }
         });
 
-        final List<SkillsModel> _skills =
-            (map[JobSummarySchema.skills] as List)?.isNotEmpty == true
-                ? (map[JobSummarySchema.skills] as List)
-                    .map((e) => SkillsModel.fromMap(
-                        map: e, docID: e[JobSummarySchema.skillRef]?.id))
-                    .toList()
-                : [];
+        final List<SkillsModel> _skills = (map[JobSummarySchema.skills] as List)?.isNotEmpty == true
+            ? (map[JobSummarySchema.skills] as List)
+                .map((e) => SkillsModel.fromMap(map: e, docID: e[JobSummarySchema.skillRef]?.id))
+                .toList()
+            : [];
 
-        final List<CoursesAndLevelModel> _courses =
-            (map[JobSummarySchema.courses] as List)?.isNotEmpty == true
-                ? (map[JobSummarySchema.courses] as List)
-                    .map((e) => CoursesAndLevelModel.fromMap(e))
-                    .toList()
-                : [];
+        final List<CoursesAndLevelModel> _courses = (map[JobSummarySchema.courses] as List)?.isNotEmpty == true
+            ? (map[JobSummarySchema.courses] as List).map((e) => CoursesAndLevelModel.fromMap(e)).toList()
+            : [];
 
-        final List<CheckModel> _checks =
-            (map[JobSummarySchema.checks] as List)?.isNotEmpty == true
-                ? (map[JobSummarySchema.checks] as List)
-                    .map((e) => CheckModel.fromMap(
-                        map: e, checkID: e[JobSummarySchema.checkRef]?.id))
-                    .toList()
-                : [];
+        final List<CheckModel> _checks = (map[JobSummarySchema.checks] as List)?.isNotEmpty == true
+            ? (map[JobSummarySchema.checks] as List)
+                .map((e) => CheckModel.fromMap(map: e, checkID: e[JobSummarySchema.checkRef]?.id))
+                .toList()
+            : [];
 
         return JobDataModel(
           docID: docID,
@@ -201,8 +184,8 @@ class JobDataModel {
           numberHiringRequests: map[JobSummarySchema.numberHiringRequests] ?? 0,
           description: map[JobSummarySchema.description] ?? "",
         );
-      } catch (e) {
-        print('JobDataModel fromMap error: $e');
+      } catch (e, s) {
+        print('JobDataModel fromMap error: $e\nstackTrack: ${s.toString()}');
       }
     }
     return null;

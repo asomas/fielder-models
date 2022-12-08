@@ -37,7 +37,7 @@ class CheckModel {
       }
       final _label = map[CheckModelSchema.checkInstructionText];
       final List<DocumentReference> _dependentIds =
-          (map[CheckModelSchema.checkDependsOn] as List).map((e) => e as DocumentReference).toList();
+          ((map[CheckModelSchema.checkDependsOn] ?? []) as List).map((e) => e as DocumentReference).toList();
       if (_value.isNotEmpty) {
         return CheckModel(
           checkID: checkID,
