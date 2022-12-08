@@ -128,11 +128,25 @@ enum SalaryType { Hourly, Daily, Weekly, Monthly, Yearly }
 enum CandidatesWorkerType { STAFF, FIELDER, NETWORK }
 
 enum RightToWorkFlow { Passport, BirthCertificate, BRP, ShareCode, None }
+
 enum RightToWorkVerificationStatus { UnderReview, Verified, Rejected, None }
 
 enum InterviewType { Video, InPerson, NoInterview }
 
-enum ChecksType { DBS, EnhancedDBS, ProofOfID, ProofOfAddress }
+enum CheckTypeFromValue {
+  DBS,
+  EnhancedDBS,
+  ProofOfID,
+  ProofOfAddress,
+  ExperiencesReferenced,
+  WorkHistory,
+  RightToWork
+}
+
+enum CheckType {
+  Global,
+  OrgSpecific,
+}
 
 enum MatchingHoverType { Availability, Skills, Checks, Courses, Location }
 
@@ -145,6 +159,7 @@ enum ScheduleShiftStatus {
   Failed,
   Cancelled
 }
+
 enum MediaType { Image, Video, YoutubeVideo }
 
 enum ScheduleShiftResultStatus { Success, Fail }

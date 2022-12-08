@@ -12,7 +12,7 @@ class DBSCheckModel {
   List<AddressHistory> addresses;
   String townOfBirth;
   String countryOfBirth;
-  ChecksType checksType;
+  CheckTypeFromValue checksType;
   String email;
   bool criminalRecord;
   bool trueInformationConfirmation;
@@ -50,7 +50,7 @@ class DBSCheckModel {
           criminalRecord: map[DBSCheckModelSchema.criminalRecord],
           trueInformationConfirmation:
               map[DBSCheckModelSchema.trueInformationConfirmation],
-          checksType: EnumHelpers.getChecksTypeFromString(
+          checksType: EnumHelpers.getCheckTypeFromValueFromString(
               map[DBSCheckModelSchema.checkType]),
           dbsProfileNumber: map[DBSCheckModelSchema.dbsProfileNumber],
         );

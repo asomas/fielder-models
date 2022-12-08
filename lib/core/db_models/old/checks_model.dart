@@ -2,18 +2,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/old/schema/check_model_schema.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/worker_checks_schema.dart';
+
+import '../../enums/enums.dart';
+import '../helpers/enum_helpers.dart';
 
 class CheckModel {
   String checkID;
   String value;
   String label;
   List<DocumentReference> dependsOn;
+  CheckType checkType;
+  String workerAppScreenName;
 
   CheckModel({
     this.checkID,
     this.value,
     this.label,
     this.dependsOn,
+    this.checkType,
+    this.workerAppScreenName,
   });
 
   factory CheckModel.fromMap({
@@ -36,6 +44,10 @@ class CheckModel {
           value: _value,
           label: _label,
           dependsOn: _dependentIds,
+          checkType: EnumHelpers.getCheckTypeFromString(
+            map[WorkerChecksSchema.checkType],
+          ),
+          workerAppScreenName: map[WorkerChecksSchema.workerAppScreen],
         );
       }
     }
