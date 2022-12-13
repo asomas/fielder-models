@@ -10,7 +10,7 @@ import '../helpers/enum_helpers.dart';
 class CheckModel {
   String checkID;
   String value;
-  String label;
+  String instructionText;
   List<DocumentReference> dependsOn;
   CheckType checkType;
   String workerAppScreenName;
@@ -18,7 +18,7 @@ class CheckModel {
   CheckModel({
     this.checkID,
     this.value,
-    this.label,
+    this.instructionText,
     this.dependsOn,
     this.checkType,
     this.workerAppScreenName,
@@ -35,14 +35,14 @@ class CheckModel {
       } else if (map.containsKey(JobTemplateSchema.checkValue)) {
         _value = map[JobTemplateSchema.checkValue] ?? '';
       }
-      final _label = map[CheckModelSchema.checkInstructionText];
+      final _instructionText = map[CheckModelSchema.checkInstructionText];
       final List<DocumentReference> _dependentIds =
           ((map[CheckModelSchema.checkDependsOn] ?? []) as List).map((e) => e as DocumentReference).toList();
       if (_value.isNotEmpty) {
         return CheckModel(
           checkID: checkID,
           value: _value,
-          label: _label,
+          instructionText: _instructionText,
           dependsOn: _dependentIds,
           checkType: EnumHelpers.getCheckTypeFromString(
             map[WorkerChecksSchema.checkType],
