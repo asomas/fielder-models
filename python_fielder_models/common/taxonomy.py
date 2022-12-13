@@ -6,6 +6,7 @@ class SkillSerializer(serializers.Serializer):
     skill_ref = DocumentReferenceField()
     skill_value = serializers.CharField()
     relevancy_score = serializers.FloatField(required=False)
+    important = serializers.IntegerField(min_value=0, max_value=1, default=0)
     category = serializers.CharField(required=False)
 
 
