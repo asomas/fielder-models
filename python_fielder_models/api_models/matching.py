@@ -1,8 +1,9 @@
 from enum import Enum, auto
 
+from rest_framework import serializers
+
 from python_fielder_models.api_models.common import LocationAPISerializer
 from python_fielder_models.db_models.common import RecurrenceSerializer
-from rest_framework import serializers
 
 
 class WorkerType(Enum):
@@ -80,7 +81,7 @@ class MatchingRequestSerializer(MatchingShiftRequestSerializer):
     worker_id = serializers.CharField(required=False, allow_blank=True)
     organisation_id = serializers.CharField()
     skip = serializers.IntegerField(min_value=0, default=0)
-    limit = serializers.IntegerField(min_value=0, max_value=10, default=5)
+    limit = serializers.IntegerField(min_value=0, max_value=50, default=5)
     worker_type = serializers.ChoiceField(choices=WorkerType._member_names_)
 
 

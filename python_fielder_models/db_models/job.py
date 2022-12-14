@@ -1,7 +1,7 @@
 from email.policy import default
 from enum import Enum, auto
 
-from fielder_backend_utils.rest_utils import DocumentReferenceField
+from fielder_backend_utils.rest_utils import DocumentReferenceField, CleanHTMLField
 from python_fielder_models.api_models.matching import WorkerType
 from python_fielder_models.common.job import BaseJobSerializer
 from python_fielder_models.db_models import BaseDBSerializer
@@ -107,6 +107,7 @@ class ShiftPatternDBSerializer(
 class JobDBSerializer(SharedJobShiftDBSerializer):
     start_date = serializers.DateTimeField(default=None, allow_null=True)
     description = serializers.CharField(allow_null=True, default=None)
+    description_rich = CleanHTMLField(allow_null=True, default=None)
     total_hours = serializers.FloatField(default=0.0)
     locations = serializers.DictField(child=LocationDBSerializer(), default={})
     workers = serializers.DictField(default={})
@@ -119,6 +120,7 @@ class JobDBSerializer(SharedJobShiftDBSerializer):
 class JobTemplateDBSerializer(BaseJobSerializer):
     name = serializers.CharField()
     description = serializers.CharField(allow_null=True, default=None)
+    description_rich = CleanHTMLField(allow_null=True, default=None)
 
 
 class OfferDBSerializer(BaseDBSerializer):
