@@ -39,6 +39,7 @@ class JobSummarySchema {
   static const String checks = "checks";
   static const String checkRef = "check_ref";
   static const String description = "description";
+  static const String descriptionRich = "description_rich";
   static const String earlyLeaver = "early_leaver";
   static const String enablePayDeduction = "enable_pay_deduction";
   static const String lateArrival = "late_arrival";

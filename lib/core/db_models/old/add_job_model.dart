@@ -11,6 +11,7 @@ import 'package:fielder_models/core/db_models/old/skills_model.dart';
 class AddJobModel {
   String docId;
   String description;
+  String richDescription;
   String title;
   String templateName;
   String jobReferenceId;
@@ -27,6 +28,7 @@ class AddJobModel {
   AddJobModel({
     this.docId,
     this.description = '',
+    this.richDescription,
     this.templateName = '',
     this.title = '',
     this.jobReferenceId = '',
@@ -48,6 +50,7 @@ class AddJobModel {
       _map = {
         JobTemplateSchema.name: templateName,
         JobTemplateSchema.description: description,
+        JobTemplateSchema.descriptionRich: richDescription,
         JobTemplateSchema.jobTitle: title,
         JobTemplateSchema.skills: (skillsArray?.isNotEmpty == true)
             ? skillsArray.map((e) => e.toJSON()).toList() ?? []
@@ -80,6 +83,7 @@ class AddJobModel {
         title: data[JobTemplateSchema.jobTitle] ?? "",
         jobReferenceId: data[JobTemplateSchema.jobReferenceId],
         description: data[JobTemplateSchema.description] ?? "",
+        richDescription: data[JobTemplateSchema.descriptionRich],
         templateName: data[JobTemplateSchema.name] ?? "",
         isArchived: data[JobSummarySchema.isArchived] ?? false,
         checksArray:
@@ -136,6 +140,7 @@ class AddJobModel {
 
   clear() {
     description = '';
+    richDescription = null;
     templateName = '';
     title = '';
     selTemplate = null;

@@ -7,6 +7,7 @@ class JobTemplateSchema {
       'additional_requirement_value';
   static const String defaultLocationRef = 'default_location_ref';
   static const String description = 'description';
+  static const String descriptionRich = 'description_rich';
   static const String organisationData = 'organisation_data';
   static const String emplayerDataName = 'name';
   static const String organisationRef = 'organisation_ref';

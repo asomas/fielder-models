@@ -37,6 +37,7 @@ class JobDataModel {
   bool haveHiringRequests;
   int numberHiringRequests;
   String description;
+  String richDescription;
 
   JobDataModel({
     this.docID,
@@ -67,6 +68,7 @@ class JobDataModel {
     this.haveHiringRequests = false,
     this.numberHiringRequests = 0,
     this.description,
+    this.richDescription,
   }) : assert(docID != null);
 
   factory JobDataModel.fromMap({
@@ -183,6 +185,7 @@ class JobDataModel {
           haveHiringRequests: map[JobSummarySchema.haveHiringRequests] ?? false,
           numberHiringRequests: map[JobSummarySchema.numberHiringRequests] ?? 0,
           description: map[JobSummarySchema.description] ?? "",
+          richDescription: map[JobSummarySchema.descriptionRich],
         );
       } catch (e, s) {
         print('JobDataModel fromMap error: $e\nstackTrack: ${s.toString()}');
