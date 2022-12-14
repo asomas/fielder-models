@@ -14,6 +14,8 @@ class CheckModel {
   List<DocumentReference> dependsOn;
   CheckType checkType;
   String workerAppScreenName;
+  bool isSelected = false;
+  bool isDisabled = false;
 
   CheckModel({
     this.checkID,
