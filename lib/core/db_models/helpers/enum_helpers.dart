@@ -925,4 +925,21 @@ class EnumHelpers {
         return "";
     }
   }
+  static SkillPriority skillPriorityFromInt(int important) {
+    switch (important) {
+      case (1):
+        return SkillPriority.important;
+      default:
+        return SkillPriority.none;
+    }
+  }
+
+  static int intFromSkillPriority(SkillPriority priority) {
+    switch (priority) {
+      case (SkillPriority.important):
+        return 1;
+      default:
+        return 0;
+    }
+  }
 }

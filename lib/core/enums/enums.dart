@@ -148,6 +148,8 @@ enum CheckType {
   OrgSpecific,
 }
 
+enum SkillPriority { important, none }
+
 enum MatchingHoverType { Availability, Skills, Checks, Courses, Location }
 
 enum GroupRole { Manager, Supervisor }
