@@ -5,4 +5,5 @@ class SkillsSchema {
   static const String skillValue = 'skill_value';
   static const String relevancyScore = 'relevancy_score';
   static const String category = 'category';
+  static const String important = 'important';
 }
