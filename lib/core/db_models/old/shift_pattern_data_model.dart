@@ -12,7 +12,6 @@ import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_sche
 import 'package:fielder_models/core/db_models/old/shift_activities_model.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
 import 'package:fielder_models/core/db_models/worker/locationModel.dart';
-import 'package:fielder_models/core/db_models/worker/occupation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -38,7 +37,6 @@ class ShiftPatternDataModel {
   WorkerModel workerModel;
   LocationModelDetail shiftLocationDataModel;
   DocumentReference locationRef;
-  OccupationModel occupationModel;
   bool isUnavailableForOrganisation;
   bool isRecurring;
   bool assigned;
@@ -74,7 +72,6 @@ class ShiftPatternDataModel {
     this.supervisorRef,
     this.jobRefId,
     this.managerRef,
-    this.occupationModel,
     this.isUnavailableForOrganisation = false,
     this.isRecurring,
     this.assigned = false,
@@ -168,7 +165,6 @@ class ShiftPatternDataModel {
         final String _role = map['role'] ?? '';
         OrganisationModel _organisation;
         LocationModelDetail _shiftLocationDataModel;
-        OccupationModel _occupationModel;
         final DocumentReference _organisationRef = map['organisation_ref'];
         final DocumentReference _locationRef = map['location_ref'];
         final DocumentReference _supervisorRef = map['supervisor_ref'];
@@ -195,9 +191,6 @@ class ShiftPatternDataModel {
         if (map.containsKey("location_data")) {
           _shiftLocationDataModel =
               LocationModelDetail.fromJson(map["location_data"]);
-        }
-        if (_occupationRef != null) {
-          _occupationModel = OccupationModel.fromJson(map["occupation"]);
         }
 
         final DocumentReference _workerRef = map['worker_ref'];
@@ -236,7 +229,6 @@ class ShiftPatternDataModel {
                     map: map[ShiftDataSchema.workerData],
                     docID: map[ShiftDataSchema.workerRef]?.id)
                 : null,
-            occupationModel: _occupationModel,
             shiftNoteRef: _shiftNoteRef,
             multiDayShift: map[ShiftDataSchema.multiDayShift] ?? false,
             enableUnpaidBreaks:
@@ -273,7 +265,6 @@ class ShiftPatternDataModel {
       isUnavailableForOrganisation:
           shiftPatternDataModel.isUnavailableForOrganisation,
       shiftPatternRefId: shiftPatternDataModel.shiftPatternRefId,
-      occupationModel: shiftPatternDataModel.occupationModel,
       geoFenceRadius: shiftPatternDataModel.geoFenceRadius,
       isGeoFencingEnabled: shiftPatternDataModel.isGeoFencingEnabled,
       shiftNoteRef: shiftPatternDataModel.shiftNoteRef,

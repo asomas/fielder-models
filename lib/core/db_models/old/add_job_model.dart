@@ -7,11 +7,11 @@ import 'package:fielder_models/core/db_models/old/job_template_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
-import 'package:fielder_models/core/db_models/worker/occupation.dart';
 
 class AddJobModel {
   String docId;
   String description;
+  String richDescription;
   String title;
   String templateName;
   String jobReferenceId;
@@ -22,13 +22,13 @@ class AddJobModel {
   List<dynamic> checks;
   bool isDBSRequired;
   bool isEnhancedDBSRequired;
-  OccupationModel occupationModel;
   bool isArchived;
   List<CoursesAndLevelModel> courses;
 
   AddJobModel({
     this.docId,
     this.description = '',
+    this.richDescription,
     this.templateName = '',
     this.title = '',
     this.jobReferenceId = '',
@@ -39,7 +39,6 @@ class AddJobModel {
     this.skillsArray,
     this.checksArray,
     this.checks,
-    this.occupationModel,
     this.courses,
     this.isArchived = false,
   });
@@ -51,8 +50,8 @@ class AddJobModel {
       _map = {
         JobTemplateSchema.name: templateName,
         JobTemplateSchema.description: description,
+        JobTemplateSchema.descriptionRich: richDescription,
         JobTemplateSchema.jobTitle: title,
-        JobTemplateSchema.occupation: occupationModel?.toJson(),
         JobTemplateSchema.skills: (skillsArray?.isNotEmpty == true)
             ? skillsArray.map((e) => e.toJSON()).toList() ?? []
             : [],
@@ -84,11 +83,9 @@ class AddJobModel {
         title: data[JobTemplateSchema.jobTitle] ?? "",
         jobReferenceId: data[JobTemplateSchema.jobReferenceId],
         description: data[JobTemplateSchema.description] ?? "",
+        richDescription: data[JobTemplateSchema.descriptionRich],
         templateName: data[JobTemplateSchema.name] ?? "",
         isArchived: data[JobSummarySchema.isArchived] ?? false,
-        occupationModel: data[JobTemplateSchema.occupation] != null
-            ? OccupationModel.fromJson(data[JobTemplateSchema.occupation])
-            : null,
         checksArray:
             (data[JobTemplateSchema.checks] as List)?.isNotEmpty == true
                 ? (data[JobTemplateSchema.checks] as List)
@@ -143,6 +140,7 @@ class AddJobModel {
 
   clear() {
     description = '';
+    richDescription = null;
     templateName = '';
     title = '';
     selTemplate = null;
@@ -152,6 +150,5 @@ class AddJobModel {
     skillsArray = [];
     checks = [];
     checksArray = [];
-    occupationModel = null;
   }
 }
