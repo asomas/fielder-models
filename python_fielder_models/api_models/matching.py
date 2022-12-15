@@ -11,6 +11,7 @@ class WorkerType(Enum):
     STAFF = auto()
     NETWORK = auto()
     STAFF_FIELDER = auto()
+    ANY = auto()
 
 
 class BaseMatchingShiftRequestSerializer(serializers.Serializer):
