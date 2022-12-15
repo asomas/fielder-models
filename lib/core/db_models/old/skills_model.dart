@@ -50,7 +50,7 @@ class SkillsModel {
           value: map[SkillsSchema.skillValue],
           relevancyScore: map[SkillsSchema.relevancyScore] ?? 0,
           category: map[SkillsSchema.category],
-          priority: EnumHelpers.skillPriorityFromInt(map[SkillsSchema.important]),
+          priority: EnumHelpers.skillPriorityFromInt(map[SkillsSchema.importance]),
         );
       } catch (e, s) {
         print("skills model catch____${e}____$s");
@@ -75,7 +75,7 @@ class SkillsModel {
       SkillsSchema.skillValue: value,
       SkillsSchema.relevancyScore: relevancyScore,
       SkillsSchema.category: category,
-      SkillsSchema.important: EnumHelpers.intFromSkillPriority(priority),
+      SkillsSchema.importance: EnumHelpers.intFromSkillPriority(priority),
     };
     json.removeWhere((key, value) => value == null || value.toString().isEmpty);
     return json;
