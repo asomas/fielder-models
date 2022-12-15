@@ -3,6 +3,7 @@ from enum import Enum, auto
 from rest_framework import serializers
 
 from python_fielder_models.api_models.common import LocationAPISerializer
+from python_fielder_models.common.taxonomy import SkillSerializer
 from python_fielder_models.db_models.common import RecurrenceSerializer
 
 
@@ -37,7 +38,7 @@ class MatchingShiftRequestSerializer(BaseMatchingShiftRequestSerializer):
         grade_number = serializers.IntegerField(allow_null=True, default=0)
 
     skills = serializers.ListField(
-        required=False, allow_null=True, allow_empty=True, child=serializers.CharField()
+        allow_empty=True, default=[], child=SkillSerializer()
     )
     courses = serializers.ListField(
         required=False,
