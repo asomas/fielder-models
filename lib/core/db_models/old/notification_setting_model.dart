@@ -18,6 +18,7 @@ class NotificationSettingModel {
           NotificationTypeModel(),
       NotificationSettingSchema.lateShiftClockin: NotificationTypeModel(),
       NotificationSettingSchema.upcomingInterview: NotificationTypeModel(),
+      NotificationSettingSchema.unreadMessages: NotificationTypeModel(),
     });
   }
 
