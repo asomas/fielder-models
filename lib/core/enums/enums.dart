@@ -148,8 +148,6 @@ enum CheckType {
   OrgSpecific,
 }
 
-enum SkillPriority { important, none }
-
 enum SkillPriority { important, desirable, none }
 
 enum MatchingHoverType { Availability, Skills, Checks, Courses, Location }
