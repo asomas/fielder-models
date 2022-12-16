@@ -286,7 +286,7 @@ class ShiftPatternDataModel {
         CandidatesMatchingRequestSchema.endDate: yearMonthDay(endDate),
         CandidatesMatchingRequestSchema.recurrence: recurrence.toJSON(),
         CandidatesMatchingRequestSchema.skills:
-            jobDataModel?.skills?.map((e) => e?.docID)?.toList() ?? [],
+            jobDataModel?.skills?.map((e) => e?.toJSON())?.toList() ?? [],
         CandidatesMatchingRequestSchema.courses: jobDataModel?.courses
                 ?.map((e) => e?.toJsonForMatching())
                 ?.toList() ??
