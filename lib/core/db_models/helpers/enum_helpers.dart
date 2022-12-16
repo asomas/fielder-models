@@ -925,10 +925,13 @@ class EnumHelpers {
         return "";
     }
   }
+
   static SkillPriority skillPriorityFromInt(int important) {
     switch (important) {
       case (1):
         return SkillPriority.important;
+      case (0):
+        return SkillPriority.desirable;
       default:
         return SkillPriority.none;
     }
@@ -938,8 +941,10 @@ class EnumHelpers {
     switch (priority) {
       case (SkillPriority.important):
         return 1;
-      default:
+      case (SkillPriority.desirable):
         return 0;
+      default:
+        return null;
     }
   }
 }
