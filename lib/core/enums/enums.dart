@@ -150,6 +150,8 @@ enum CheckType {
 
 enum SkillPriority { important, none }
 
+enum SkillPriority { important, desirable, none }
+
 enum MatchingHoverType { Availability, Skills, Checks, Courses, Location }
 
 enum GroupRole { Manager, Supervisor }
