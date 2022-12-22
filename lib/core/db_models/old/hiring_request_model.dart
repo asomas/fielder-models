@@ -42,7 +42,7 @@ class HiringRequestModel {
         AddressModel _locationData = AddressModel.fromHiringRequestMap(
             map: map[HiringRequestSchema.locationData]);
         List<CandidatesModel> _matchingWorkers = [];
-        final List _workerList = (map[HiringRequestSchema.matchingWorker]).values.cast<Map>();
+        final List _workerList = List.from((map[HiringRequestSchema.matchingWorker]).values.cast<Map>());
         (_workerList).forEach((element) {
           _matchingWorkers.add(CandidatesModel.forFielderNetwork(
             element,
