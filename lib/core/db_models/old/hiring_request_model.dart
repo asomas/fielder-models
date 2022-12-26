@@ -42,19 +42,19 @@ class HiringRequestModel {
         AddressModel _locationData = AddressModel.fromHiringRequestMap(
             map: map[HiringRequestSchema.locationData]);
         List<CandidatesModel> _matchingWorkers = [];
-        final List _workerList = List.from((map[HiringRequestSchema.matchingWorker]).values.cast<Map>());
-        (_workerList).forEach((element) {
-          _matchingWorkers.add(CandidatesModel.forFielderNetwork(
-            element,
-            false,
-            '',
-            '',
-            null,
-            '',
-            isGhostUser: null,
-            hasLoggedIn: null,
-          ));
-        });
+        // final List _workerList = List.from((map[HiringRequestSchema.matchingWorker]).values.cast<Map>());
+        // (_workerList).forEach((element) {
+        //   _matchingWorkers.add(CandidatesModel.forFielderNetwork(
+        //     element,
+        //     false,
+        //     '',
+        //     '',
+        //     null,
+        //     '',
+        //     isGhostUser: null,
+        //     hasLoggedIn: null,
+        //   ));
+        // });
         AddressModel.fromHiringRequestMap(
             map: map[HiringRequestSchema.locationData]);
 
@@ -70,8 +70,8 @@ class HiringRequestModel {
               map[HiringRequestSchema.hiringRequestReferenceId],
           isArchived: map[HiringRequestSchema.archived],
         );
-      } catch (e) {
-        print('HiringRequestModel fromMap error: $e');
+      } catch (e, s) {
+        print('HiringRequestModel fromMap error: ${e}______STACK: $s');
       }
     }
     return null;

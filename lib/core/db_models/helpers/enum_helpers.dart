@@ -944,7 +944,7 @@ class EnumHelpers {
       case (SkillPriority.desirable):
         return 0;
       default:
-        return null;
+        return 0;
     }
   }
 }
