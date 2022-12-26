@@ -35,6 +35,10 @@ class CandidatesMatchingRequestSchema {
   static const String fielders = 'fielders';
   static const String network = 'network';
   static const String activeRequest = 'active_request';
+  static const String workerIdFilter = 'worker_id_filter';
+  static const String distanceFilter = 'distance_filter';
+  static const String skillsFilter = 'skills_filter';
+  static const String sortBy = 'sort_by';
 }
 
 class HoverMatchingSchema {
