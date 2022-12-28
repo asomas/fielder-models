@@ -51,10 +51,10 @@ class AddressModel {
     Map<String, dynamic> coordsMap = Map();
     coordsMap[DefaultLocationDataSchema.lat] = coordinates?.latitude;
     coordsMap[DefaultLocationDataSchema.lng] = coordinates?.longitude;
-    return {
-      DefaultLocationDataSchema.address: addressMap,
-      DefaultLocationDataSchema.coordinates: coordsMap,
-    };
+    Map<String, dynamic> locationMap = Map();
+    locationMap[DefaultLocationDataSchema.address] = addressMap;
+    if (coordinates != null) locationMap[DefaultLocationDataSchema.coordinates] = coordsMap;
+    return locationMap;
   }
 
   factory AddressModel.fromObject(LocationModelDetail location) {
@@ -99,8 +99,7 @@ class AddressModel {
         final String _country = map[DefaultLocationDataSchema.country] ?? '';
         final String _city = map[DefaultLocationDataSchema.city] ?? '';
         final String _flat = map[DefaultLocationDataSchema.flat] ?? '';
-        final String _postalCode =
-            map[DefaultLocationDataSchema.postalCode] ?? '';
+        final String _postalCode = map[DefaultLocationDataSchema.postalCode] ?? '';
 
         AddressModel model = AddressModel(
           building: _building,
@@ -121,35 +120,17 @@ class AddressModel {
     return null;
   }
 
-  factory AddressModel.fromInvitationsMap(
-      {@required Map<String, dynamic> map}) {
-    if (map.isNotEmpty &&
-        map.containsKey(InviteStaffSchema.address) &&
-        map[InviteStaffSchema.address] != null) {
+  factory AddressModel.fromInvitationsMap({@required Map<String, dynamic> map}) {
+    if (map.isNotEmpty && map.containsKey(InviteStaffSchema.address) && map[InviteStaffSchema.address] != null) {
       try {
-        final String _building = map[InviteStaffSchema.address]
-                [DefaultLocationDataSchema.building] ??
-            '';
-        final String _street = map[InviteStaffSchema.address]
-                [DefaultLocationDataSchema.street] ??
-            '';
-        final String _county = map[InviteStaffSchema.address]
-                [DefaultLocationDataSchema.county] ??
-            '';
-        final String _country = map[InviteStaffSchema.address]
-                [DefaultLocationDataSchema.country] ??
-            '';
-        final String _city = map[InviteStaffSchema.address]
-                [DefaultLocationDataSchema.city] ??
-            '';
-        final String _flat = map[InviteStaffSchema.address]
-                [DefaultLocationDataSchema.flat] ??
-            '';
-        final String _postalCode = map[InviteStaffSchema.address]
-                [DefaultLocationDataSchema.postalCode] ??
-            '';
-        final String _formattedAddress =
-            map[DefaultLocationDataSchema.formatted_address] ?? '';
+        final String _building = map[InviteStaffSchema.address][DefaultLocationDataSchema.building] ?? '';
+        final String _street = map[InviteStaffSchema.address][DefaultLocationDataSchema.street] ?? '';
+        final String _county = map[InviteStaffSchema.address][DefaultLocationDataSchema.county] ?? '';
+        final String _country = map[InviteStaffSchema.address][DefaultLocationDataSchema.country] ?? '';
+        final String _city = map[InviteStaffSchema.address][DefaultLocationDataSchema.city] ?? '';
+        final String _flat = map[InviteStaffSchema.address][DefaultLocationDataSchema.flat] ?? '';
+        final String _postalCode = map[InviteStaffSchema.address][DefaultLocationDataSchema.postalCode] ?? '';
+        final String _formattedAddress = map[DefaultLocationDataSchema.formatted_address] ?? '';
         final GeoPoint _coords = map[DefaultLocationDataSchema.coordinates];
 
         return AddressModel(
@@ -169,35 +150,17 @@ class AddressModel {
     return null;
   }
 
-  factory AddressModel.fromHiringRequestMap(
-      {@required Map<String, dynamic> map}) {
-    if (map.isNotEmpty &&
-        map.containsKey(HiringRequestSchema.address) &&
-        map[HiringRequestSchema.address] != null) {
+  factory AddressModel.fromHiringRequestMap({@required Map<String, dynamic> map}) {
+    if (map.isNotEmpty && map.containsKey(HiringRequestSchema.address) && map[HiringRequestSchema.address] != null) {
       try {
-        final String _building = map[InviteStaffSchema.address]
-                [DefaultLocationDataSchema.building] ??
-            '';
-        final String _street = map[InviteStaffSchema.address]
-                [DefaultLocationDataSchema.street] ??
-            '';
-        final String _county = map[InviteStaffSchema.address]
-                [DefaultLocationDataSchema.county] ??
-            '';
-        final String _country = map[InviteStaffSchema.address]
-                [DefaultLocationDataSchema.country] ??
-            '';
-        final String _city = map[InviteStaffSchema.address]
-                [DefaultLocationDataSchema.city] ??
-            '';
-        final String _flat = map[InviteStaffSchema.address]
-                [DefaultLocationDataSchema.flat] ??
-            '';
-        final String _postalCode = map[InviteStaffSchema.address]
-                [DefaultLocationDataSchema.postalCode] ??
-            '';
-        final String _formattedAddress =
-            map[DefaultLocationDataSchema.formatted_address] ?? '';
+        final String _building = map[InviteStaffSchema.address][DefaultLocationDataSchema.building] ?? '';
+        final String _street = map[InviteStaffSchema.address][DefaultLocationDataSchema.street] ?? '';
+        final String _county = map[InviteStaffSchema.address][DefaultLocationDataSchema.county] ?? '';
+        final String _country = map[InviteStaffSchema.address][DefaultLocationDataSchema.country] ?? '';
+        final String _city = map[InviteStaffSchema.address][DefaultLocationDataSchema.city] ?? '';
+        final String _flat = map[InviteStaffSchema.address][DefaultLocationDataSchema.flat] ?? '';
+        final String _postalCode = map[InviteStaffSchema.address][DefaultLocationDataSchema.postalCode] ?? '';
+        final String _formattedAddress = map[DefaultLocationDataSchema.formatted_address] ?? '';
         final GeoPoint _coords = map[DefaultLocationDataSchema.coordinates];
 
         return AddressModel(
