@@ -11,6 +11,7 @@ class CandidatesMatchingSchema {
   static const String availabilityScore = "availability_score";
   static const String overallScore = "overall_score";
   static const String distance = "distance";
+  static const String updatedAt = "updated_at";
 }
 
 class CandidatesMatchingRequestSchema {
