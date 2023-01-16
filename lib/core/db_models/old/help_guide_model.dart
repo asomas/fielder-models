@@ -31,7 +31,8 @@ class HelpStepsModel {
   String subtitle;
   String videoUrl;
 
-  HelpStepsModel({@required this.title, @required this.subtitle, videoUrl});
+  HelpStepsModel(
+      {@required this.title, @required this.subtitle, this.videoUrl});
 
   factory HelpStepsModel.fromJson(Map json) {
     try {
