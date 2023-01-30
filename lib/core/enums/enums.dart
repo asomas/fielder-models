@@ -140,7 +140,9 @@ enum CheckTypeFromValue {
   ProofOfAddress,
   ExperiencesReferenced,
   WorkHistory,
-  RightToWork
+  RightToWork,
+  OnBoarding,
+  ApprovedGaps,
 }
 
 enum CheckType {
