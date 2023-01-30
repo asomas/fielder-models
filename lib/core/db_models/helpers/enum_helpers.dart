@@ -588,6 +588,14 @@ class EnumHelpers {
         return CheckTypeFromValue.WorkHistory;
       } else if (value.toUpperCase().startsWith('RTW'.toUpperCase())) {
         return CheckTypeFromValue.RightToWork;
+      } else if (value
+          .toUpperCase()
+          .startsWith('Let’s get started with Fielder'.toUpperCase())) {
+        return CheckTypeFromValue.OnBoarding;
+      } else if (value
+          .toUpperCase()
+          .startsWith('Approved Gaps'.toUpperCase())) {
+        return CheckTypeFromValue.ApprovedGaps;
       } else {
         return null;
       }
