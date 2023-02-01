@@ -6,6 +6,7 @@ import 'package:fielder_models/core/db_models/old/schema/offers_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/schedule_shift_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/worker_account_deletion_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/worker_checks_schema.dart';
 import 'package:fielder_models/core/db_models/temp/common.dart';
 import 'package:fielder_models/core/db_models/worker/schema/newsNotificationSchema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
@@ -569,32 +570,49 @@ class EnumHelpers {
 
   static CheckTypeFromValue getCheckTypeFromValueFromString(String value) {
     if (value != null) {
-      if (value?.toUpperCase()?.startsWith('DBS'.toUpperCase()) == true) {
+      if (value
+                  ?.toUpperCase()
+                  ?.startsWith(WorkerChecksSchema.dbsValue.toUpperCase()) ==
+              true ||
+          value.startsWith(WorkerChecksSchema.dbsId)) {
         return CheckTypeFromValue.DBS;
-      } else if (value.toUpperCase().startsWith('Enhanced DBS'.toUpperCase()) ||
-          value.toUpperCase().startsWith('ENHANCED_DBS')) {
+      } else if (value
+              .toUpperCase()
+              .startsWith(WorkerChecksSchema.enhancedDbsValue.toUpperCase()) ||
+          value.toUpperCase().startsWith('ENHANCED_DBS') ||
+          value.startsWith(WorkerChecksSchema.enhancedDbsId)) {
         return CheckTypeFromValue.EnhancedDBS;
-      } else if (value.toUpperCase().startsWith('Proof of ID'.toUpperCase())) {
+      } else if (value
+              .toUpperCase()
+              .startsWith(WorkerChecksSchema.proofOfIDValue.toUpperCase()) ||
+          value.startsWith(WorkerChecksSchema.proofOfIdId)) {
         return CheckTypeFromValue.ProofOfID;
-      } else if (value
-          .toUpperCase()
-          .startsWith('Proof of Address'.toUpperCase())) {
+      } else if (value.toUpperCase().startsWith(
+              WorkerChecksSchema.proofOfAddressValue.toUpperCase()) ||
+          value.startsWith(WorkerChecksSchema.proofOfAddressId)) {
         return CheckTypeFromValue.ProofOfAddress;
-      } else if (value
-          .toUpperCase()
-          .startsWith('All Experiences Referenced'.toUpperCase())) {
+      } else if (value.toUpperCase().startsWith(
+              WorkerChecksSchema.experiencedReferencedValue.toUpperCase()) ||
+          value.startsWith(WorkerChecksSchema.experiencedReferencedId)) {
         return CheckTypeFromValue.ExperiencesReferenced;
-      } else if (value.toUpperCase().startsWith('Work History'.toUpperCase())) {
+      } else if (value.toUpperCase().startsWith(
+              WorkerChecksSchema.fiveYearWorkHistoryValue.toUpperCase()) ||
+          value.startsWith(WorkerChecksSchema.fiveYearWorkHistoryId)) {
         return CheckTypeFromValue.WorkHistory;
-      } else if (value.toUpperCase().startsWith('RTW'.toUpperCase())) {
+      } else if (value
+              .toUpperCase()
+              .startsWith(WorkerChecksSchema.RTWValue.toUpperCase()) ||
+          value.startsWith(WorkerChecksSchema.RTWId)) {
         return CheckTypeFromValue.RightToWork;
       } else if (value
-          .toUpperCase()
-          .startsWith('Let’s get started with Fielder'.toUpperCase())) {
+              .toUpperCase()
+              .startsWith(WorkerChecksSchema.onBoardingValue.toUpperCase()) ||
+          value.startsWith(WorkerChecksSchema.onBoardingId)) {
         return CheckTypeFromValue.OnBoarding;
       } else if (value
-          .toUpperCase()
-          .startsWith('Approved Gaps'.toUpperCase())) {
+              .toUpperCase()
+              .startsWith(WorkerChecksSchema.approvedGapsValue.toUpperCase()) ||
+          value.startsWith(WorkerChecksSchema.approvedGapsId)) {
         return CheckTypeFromValue.ApprovedGaps;
       } else {
         return null;
