@@ -60,4 +60,5 @@ class JobSummarySchema {
   static const String enableUnpaidBreaks = "enable_unpaid_breaks";
   static const String numberHiringRequests = "number_hiring_requests";
   static const String haveHiringRequests = "have_hiring_requests";
+  static const String organisationData = "organisation_data";
 }
