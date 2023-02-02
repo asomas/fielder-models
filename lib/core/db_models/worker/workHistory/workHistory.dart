@@ -198,16 +198,13 @@ class WorkHistory {
   }
 
   Map<String, dynamic> toJson(AddressModel addressModel, String companyNumber) {
-    return {
+    Map<String, dynamic> map = {
       WorkerHistorySchema.checks: checks?.map((e) => e?.toJson())?.toList(),
       WorkerHistorySchema.jobTitle: jobTitle,
       WorkerHistorySchema.startDate:
           DateTimeHelper.dateToString(startDate?.toDate()),
       WorkerHistorySchema.endDate:
           DateTimeHelper.dateToString(endDate?.toDate()),
-      WorkerHistorySchema.locationData: {
-        LocationSchema.address: addressModel?.toJSON()
-      },
       WorkerHistorySchema.occupation: occupation?.toJson(),
       WorkerHistorySchema.organisationName: organisationName,
       WorkerHistorySchema.companyNumber: companyNumber,
@@ -217,6 +214,12 @@ class WorkHistory {
       WorkerHistorySchema.summary: summary ?? '',
       WorkerHistorySchema.referencingData: refereeModel?.toMap(),
     };
+    if (addressModel != null) {
+      map[WorkerHistorySchema.locationData] = {
+        LocationSchema.address: addressModel?.toJSON()
+      };
+    }
+    return map;
   }
 
   static ExperienceType getWorkerType(String type) {

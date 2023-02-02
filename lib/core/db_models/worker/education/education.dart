@@ -104,15 +104,12 @@ class Education {
   }
 
   Map<String, dynamic> toJson(AddressModel addressModel) {
-    return {
+    Map<String, dynamic> map = {
       EducationSchema.institution: educationInstitution?.toJson(),
       EducationSchema.startDate:
           DateTimeHelper.dateToString(startDate?.toDate()),
       EducationSchema.endDate: DateTimeHelper.dateToString(endDate?.toDate()),
       EducationSchema.award: award,
-      EducationSchema.locationData: {
-        LocationSchema.address: addressModel?.toJSON()
-      },
       EducationSchema.course: course?.toJson(),
       EducationSchema.level: level?.toJson(),
       EducationSchema.grade: grade?.toJson(),
@@ -120,6 +117,12 @@ class Education {
           knowledgeAreaList?.map((e) => e?.toJson())?.toList(),
       EducationSchema.summary: summary ?? '',
     };
+    if (addressModel != null) {
+      map[EducationSchema.locationData] = {
+        LocationSchema.address: addressModel?.toJSON()
+      };
+    }
+    return map;
   }
 }
 
