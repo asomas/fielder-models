@@ -14,7 +14,7 @@ class WorkerChecksSchema {
   static const String workerAppScreen = 'worker_app_screen';
 
   //--------------On Boarding-------------------------
-  static const String onBoardingValue = 'Let’s get started with Fielder';
+  static const String onBoardingValue = 'Build Your Profile';
   static const String onBoardingId = 'on_boarding';
 
   //--------------Approved Gaps-------------------------
