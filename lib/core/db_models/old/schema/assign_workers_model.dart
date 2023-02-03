@@ -9,14 +9,14 @@ class CandidatesModel {
   String phoneNumber;
   String pictureUrl;
   bool isStaff;
-  double skillScore;
-  double coursesScore;
-  double checkScore;
-  double availabilityScore;
-  double totalScore;
+  num skillScore;
+  num coursesScore;
+  num checkScore;
+  num availabilityScore;
+  num totalScore;
   InviteStatusModel fielderNetworkInvite;
   bool isGhostUser;
-  double distance;
+  num distance;
   bool hasLoggedIn;
 
   CandidatesModel({
