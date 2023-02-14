@@ -37,4 +37,16 @@ class RightToWork {
       return null;
     }
   }
+
+  Map<String, dynamic> rightToWorkJson() {
+    return {
+      RightToWorkSchema.verificationPath:
+          EnumHelpers.rightToWorkFlowFromEnums(verificationFlow),
+      RightToWorkSchema.status:
+          EnumHelpers.rightToWorkVerificationStatusFromEnum(verificationStatus),
+      RightToWorkSchema.submitted: submitted,
+      RightToWorkSchema.shareCode: shareCode,
+      RightToWorkSchema.submittedAt: submittedAt,
+    };
+  }
 }

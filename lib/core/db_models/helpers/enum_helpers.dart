@@ -493,6 +493,21 @@ class EnumHelpers {
     }
   }
 
+  static String rightToWorkFlowFromEnums(RightToWorkFlow flowName) {
+    switch (flowName) {
+      case RightToWorkFlow.Passport:
+        return 'PASSPORT';
+      case RightToWorkFlow.BirthCertificate:
+        return 'BIRTH_CERTIFICATE';
+      case RightToWorkFlow.BRP:
+        return 'BRP';
+      case RightToWorkFlow.ShareCode:
+        return 'SHARE_CODE';
+      default:
+        return null;
+    }
+  }
+
   static RightToWorkVerificationStatus rightToWorkVerificationStatusFromString(
       String status) {
     switch (status) {
@@ -504,6 +519,20 @@ class EnumHelpers {
         return RightToWorkVerificationStatus.Rejected;
       default:
         return RightToWorkVerificationStatus.None;
+    }
+  }
+
+  static String rightToWorkVerificationStatusFromEnum(
+      RightToWorkVerificationStatus status) {
+    switch (status) {
+      case RightToWorkVerificationStatus.UnderReview:
+        return 'UNDER_REVIEW';
+      case RightToWorkVerificationStatus.Verified:
+        return 'VERIFIED';
+      case RightToWorkVerificationStatus.Rejected:
+        return 'REJECTED';
+      default:
+        return null;
     }
   }
 
