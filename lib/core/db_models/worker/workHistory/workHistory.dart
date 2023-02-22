@@ -205,7 +205,6 @@ class WorkHistory {
           DateTimeHelper.dateToString(startDate?.toDate()),
       WorkerHistorySchema.endDate:
           DateTimeHelper.dateToString(endDate?.toDate()),
-      WorkerHistorySchema.occupation: occupation?.toJson(),
       WorkerHistorySchema.organisationName: organisationName,
       WorkerHistorySchema.companyNumber: companyNumber,
       WorkerHistorySchema.qualifications:
@@ -218,6 +217,9 @@ class WorkHistory {
       map[WorkerHistorySchema.locationData] = {
         LocationSchema.address: addressModel?.toJSON()
       };
+    }
+    if (occupation != null) {
+      map[WorkerHistorySchema.occupation] = occupation?.toJson();
     }
     return map;
   }
