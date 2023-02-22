@@ -199,18 +199,13 @@ class WorkHistory {
 
   Map<String, dynamic> toJson(AddressModel addressModel, String companyNumber) {
     Map<String, dynamic> map = {
-      WorkerHistorySchema.checks: checks?.map((e) => e?.toJson())?.toList(),
       WorkerHistorySchema.jobTitle: jobTitle,
       WorkerHistorySchema.startDate:
           DateTimeHelper.dateToString(startDate?.toDate()),
       WorkerHistorySchema.endDate:
           DateTimeHelper.dateToString(endDate?.toDate()),
-      WorkerHistorySchema.occupation: occupation?.toJson(),
       WorkerHistorySchema.organisationName: organisationName,
       WorkerHistorySchema.companyNumber: companyNumber,
-      WorkerHistorySchema.qualifications:
-          qualifications?.map((e) => e?.toJson())?.toList(),
-      WorkerHistorySchema.skills: skills?.map((e) => e?.toJSON())?.toList(),
       WorkerHistorySchema.summary: summary ?? '',
       WorkerHistorySchema.referencingData: refereeModel?.toMap(),
     };
@@ -218,6 +213,21 @@ class WorkHistory {
       map[WorkerHistorySchema.locationData] = {
         LocationSchema.address: addressModel?.toJSON()
       };
+    }
+    if (occupation != null) {
+      map[WorkerHistorySchema.occupation] = occupation?.toJson();
+    }
+    if (qualifications != null) {
+      map[WorkerHistorySchema.qualifications] =
+          qualifications?.map((e) => e?.toJson())?.toList();
+    }
+    if (skills != null) {
+      map[WorkerHistorySchema.skills] =
+          skills?.map((e) => e?.toJSON())?.toList();
+    }
+    if (checks != null) {
+      map[WorkerHistorySchema.checks] =
+          checks?.map((e) => e?.toJson())?.toList();
     }
     return map;
   }
