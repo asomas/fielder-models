@@ -11,6 +11,7 @@ import 'package:fielder_models/core/db_models/old/schema/shift_pattern_data_sche
 import 'package:fielder_models/core/db_models/old/shift_activities_model.dart';
 import 'package:fielder_models/core/db_models/old/skills_model.dart';
 import 'package:fielder_models/core/db_models/old/workers_model.dart';
+import 'package:fielder_models/core/db_models/temp/organisation.dart' as org;
 import 'package:flutter/cupertino.dart';
 
 class JobDataModel {
@@ -24,6 +25,7 @@ class JobDataModel {
   List<String> issuesArray;
   List<WorkerModel> workersArray;
   List<JobLocationDataModel> locationsArray;
+  org.Organisation organisation;
 
   JobDataModel({
     this.docID,
@@ -36,6 +38,7 @@ class JobDataModel {
     this.workersArray,
     this.locationsArray,
     this.totalShiftsCount = 0,
+    this.organisation,
   }) : assert(docID != null);
 
   factory JobDataModel.fromMap({
@@ -98,16 +101,20 @@ class JobDataModel {
         });
 
         return JobDataModel(
-            docID: docID,
-            startDate: _startDate,
-            endDate: _endDate,
-            active: _active,
-            totalHours: _totalHours,
-            jobTitle: _jobTitle,
-            workersArray: _allWorkerArray,
-            locationsArray: _allLocationArray,
-            issuesArray: _allIssuesArray,
-            totalShiftsCount: map[JobSummarySchema.totalShiftsCount]);
+          docID: docID,
+          startDate: _startDate,
+          endDate: _endDate,
+          active: _active,
+          totalHours: _totalHours,
+          jobTitle: _jobTitle,
+          workersArray: _allWorkerArray,
+          locationsArray: _allLocationArray,
+          issuesArray: _allIssuesArray,
+          totalShiftsCount: map[JobSummarySchema.totalShiftsCount],
+          organisation: map[JobSummarySchema.organisationData] != null
+              ? org.Organisation.fromMap(map[JobSummarySchema.organisationData])
+              : null,
+        );
       } catch (e) {
         print('JobDataModel fromMap error: $e');
       }
