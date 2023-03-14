@@ -26,6 +26,16 @@ class SkillsModel {
     this.priority,
   });
 
+  SkillsModel.clone(SkillsModel s)
+      : this(
+          docID: s?.docID,
+          value: s?.value,
+          category: s?.category,
+          skillRef: s?.skillRef,
+          relevancyScore: s?.relevancyScore,
+          priority: s?.priority,
+        );
+
   factory SkillsModel.fromMap({
     @required Map<String, dynamic> map,
     String docID,
@@ -41,7 +51,9 @@ class SkillsModel {
         }
 
         if (_skillsRef == null && docID != null) {
-          _skillsRef = FirebaseFirestore.instance.collection(FbCollections.skills).doc(docID);
+          _skillsRef = FirebaseFirestore.instance
+              .collection(FbCollections.skills)
+              .doc(docID);
         }
 
         return SkillsModel(
@@ -50,7 +62,8 @@ class SkillsModel {
           value: map[SkillsSchema.skillValue],
           relevancyScore: map[SkillsSchema.relevancyScore] ?? 0,
           category: map[SkillsSchema.category],
-          priority: EnumHelpers.skillPriorityFromInt(map[SkillsSchema.importance]),
+          priority:
+              EnumHelpers.skillPriorityFromInt(map[SkillsSchema.importance]),
         );
       } catch (e, s) {
         print("skills model catch____${e}____$s");
