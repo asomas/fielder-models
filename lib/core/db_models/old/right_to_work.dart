@@ -1,18 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
+import 'package:fielder_models/core/db_models/helpers/helpers.dart';
 import 'package:fielder_models/core/db_models/old/schema/right_to_work_schema.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 
 class RightToWork {
-  RightToWorkFlow verificationFlow;
-  RightToWorkVerificationStatus verificationStatus;
+  VerificationStatus verificationStatus;
   bool submitted;
   String shareCode;
   DateTime submittedAt;
 
   RightToWork(
-      {this.verificationFlow,
-      this.verificationStatus,
+      {this.verificationStatus,
       this.submitted,
       this.shareCode,
       this.submittedAt});
@@ -20,14 +19,10 @@ class RightToWork {
   factory RightToWork.fromMap(Map map) {
     try {
       return RightToWork(
-          verificationFlow: map.containsKey(RightToWorkSchema.verificationPath)
-              ? EnumHelpers.rightToWorkFlowFromString(
-                  map[RightToWorkSchema.verificationPath])
-              : RightToWorkFlow.None,
           verificationStatus: map.containsKey(RightToWorkSchema.status)
               ? EnumHelpers.rightToWorkVerificationStatusFromString(
                   map[RightToWorkSchema.status])
-              : RightToWorkVerificationStatus.None,
+              : VerificationStatus.None,
           submitted: map[RightToWorkSchema.submitted] ?? false,
           shareCode: map[RightToWorkSchema.shareCode],
           submittedAt:
@@ -38,15 +33,38 @@ class RightToWork {
     }
   }
 
-  Map<String, dynamic> rightToWorkJson() {
-    return {
-      RightToWorkSchema.verificationPath:
-          EnumHelpers.rightToWorkFlowFromEnums(verificationFlow),
-      RightToWorkSchema.status:
-          EnumHelpers.rightToWorkVerificationStatusFromEnum(verificationStatus),
-      RightToWorkSchema.submitted: submitted,
-      RightToWorkSchema.shareCode: shareCode,
-      RightToWorkSchema.submittedAt: submittedAt,
-    };
+  // Map<String, dynamic> rightToWorkJson() {
+  //   return {
+  //     RightToWorkSchema.verificationPath:
+  //         EnumHelpers.rightToWorkFlowFromEnums(verificationFlow),
+  //     RightToWorkSchema.status:
+  //         EnumHelpers.rightToWorkVerificationStatusFromEnum(verificationStatus),
+  //     RightToWorkSchema.submitted: submitted,
+  //     RightToWorkSchema.shareCode: shareCode,
+  //     RightToWorkSchema.submittedAt: submittedAt,
+  //   };
+  // }
+}
+
+class RightToWorkDocumentTypeModel {
+  final String stepName;
+  final DocumentReference workerDocumentRef;
+  final String idDocLevel;
+
+  RightToWorkDocumentTypeModel(
+      {this.stepName, this.workerDocumentRef, this.idDocLevel});
+
+  factory RightToWorkDocumentTypeModel.fromMap(Map map) {
+    try {
+      return RightToWorkDocumentTypeModel(
+        stepName: map[RightToWorkSchema.stepName],
+        workerDocumentRef: Helpers.documentReferenceFromString(
+            map[RightToWorkSchema.workerDocumentRef]),
+        idDocLevel: map[RightToWorkSchema.idDocLevel],
+      );
+    } catch (e, s) {
+      print('right to work document parsing catch____${e}____$s');
+      return null;
+    }
   }
 }

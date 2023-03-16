@@ -478,58 +478,75 @@ class EnumHelpers {
     }
   }
 
-  static RightToWorkFlow rightToWorkFlowFromString(String flowName) {
+  static RightToWorkVerificationPath rightToWorkFlowFromString(
+      String flowName) {
     switch (flowName) {
       case 'PASSPORT':
-        return RightToWorkFlow.Passport;
+        return RightToWorkVerificationPath.Passport;
       case 'BIRTH_CERTIFICATE':
-        return RightToWorkFlow.BirthCertificate;
+        return RightToWorkVerificationPath.BirthCertificate;
       case 'BRP':
-        return RightToWorkFlow.BRP;
+        return RightToWorkVerificationPath.BRP;
       case 'SHARE_CODE':
-        return RightToWorkFlow.ShareCode;
+        return RightToWorkVerificationPath.ShareCode;
       default:
-        return RightToWorkFlow.None;
+        return RightToWorkVerificationPath.Passport;
     }
   }
 
-  static String rightToWorkFlowFromEnums(RightToWorkFlow flowName) {
+  static String rightToWorkFlowFromEnums(RightToWorkVerificationPath flowName) {
     switch (flowName) {
-      case RightToWorkFlow.Passport:
+      case RightToWorkVerificationPath.Passport:
         return 'PASSPORT';
-      case RightToWorkFlow.BirthCertificate:
+      case RightToWorkVerificationPath.BirthCertificate:
         return 'BIRTH_CERTIFICATE';
-      case RightToWorkFlow.BRP:
+      case RightToWorkVerificationPath.BRP:
         return 'BRP';
-      case RightToWorkFlow.ShareCode:
+      case RightToWorkVerificationPath.ShareCode:
         return 'SHARE_CODE';
       default:
         return null;
     }
   }
 
-  static RightToWorkVerificationStatus rightToWorkVerificationStatusFromString(
+  static String rightToWorkDocumentFromVerificationPath(
+      RightToWorkVerificationPath flowName) {
+    switch (flowName) {
+      case RightToWorkVerificationPath.Passport:
+        return 'CITIZEN_WITH_PASSPORT';
+      case RightToWorkVerificationPath.BirthCertificate:
+        return 'CITIZEN_WITHOUT_PASSPORT';
+      case RightToWorkVerificationPath.BRP:
+        return 'NOT_CITIZEN_WITH_BRP';
+      case RightToWorkVerificationPath.ShareCode:
+        return 'NOT_CITIZEN_WITHOUT_BRP';
+      default:
+        return null;
+    }
+  }
+
+  static VerificationStatus rightToWorkVerificationStatusFromString(
       String status) {
     switch (status) {
       case 'UNDER_REVIEW':
-        return RightToWorkVerificationStatus.UnderReview;
+        return VerificationStatus.UnderReview;
       case 'VERIFIED':
-        return RightToWorkVerificationStatus.Verified;
+        return VerificationStatus.Verified;
       case 'REJECTED':
-        return RightToWorkVerificationStatus.Rejected;
+        return VerificationStatus.Rejected;
       default:
-        return RightToWorkVerificationStatus.None;
+        return VerificationStatus.None;
     }
   }
 
   static String rightToWorkVerificationStatusFromEnum(
-      RightToWorkVerificationStatus status) {
+      VerificationStatus status) {
     switch (status) {
-      case RightToWorkVerificationStatus.UnderReview:
+      case VerificationStatus.UnderReview:
         return 'UNDER_REVIEW';
-      case RightToWorkVerificationStatus.Verified:
+      case VerificationStatus.Verified:
         return 'VERIFIED';
-      case RightToWorkVerificationStatus.Rejected:
+      case VerificationStatus.Rejected:
         return 'REJECTED';
       default:
         return null;
