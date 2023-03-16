@@ -509,6 +509,22 @@ class EnumHelpers {
     }
   }
 
+  static VerificationStatus verificationStatusFromCheckStatus(
+      CheckStatus checkStatus) {
+    switch (checkStatus) {
+      case CheckStatus.Confirmed:
+        return VerificationStatus.Verified;
+      case CheckStatus.AwaitingBackOffice:
+        return VerificationStatus.UnderReview;
+      case CheckStatus.Invalidated:
+        return VerificationStatus.Rejected;
+      case CheckStatus.NotStarted:
+        return VerificationStatus.None;
+      default:
+        return VerificationStatus.None;
+    }
+  }
+
   static String rightToWorkDocumentFromVerificationPath(
       RightToWorkVerificationPath flowName) {
     switch (flowName) {

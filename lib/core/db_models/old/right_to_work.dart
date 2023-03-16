@@ -1,17 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
 import 'package:fielder_models/core/db_models/helpers/helpers.dart';
 import 'package:fielder_models/core/db_models/old/schema/right_to_work_schema.dart';
-import 'package:fielder_models/core/enums/enums.dart';
 
 class RightToWork {
-  VerificationStatus verificationStatus;
+  //VerificationStatus verificationStatus;
   bool submitted;
   String shareCode;
   DateTime submittedAt;
 
   RightToWork(
-      {this.verificationStatus,
+      {
+      //this.verificationStatus,
       this.submitted,
       this.shareCode,
       this.submittedAt});
@@ -19,10 +18,10 @@ class RightToWork {
   factory RightToWork.fromMap(Map map) {
     try {
       return RightToWork(
-          verificationStatus: map.containsKey(RightToWorkSchema.status)
-              ? EnumHelpers.rightToWorkVerificationStatusFromString(
-                  map[RightToWorkSchema.status])
-              : VerificationStatus.None,
+          // verificationStatus: map.containsKey(RightToWorkSchema.status)
+          //     ? EnumHelpers.rightToWorkVerificationStatusFromString(
+          //         map[RightToWorkSchema.status])
+          //     : VerificationStatus.None,
           submitted: map[RightToWorkSchema.submitted] ?? false,
           shareCode: map[RightToWorkSchema.shareCode],
           submittedAt:
