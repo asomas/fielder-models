@@ -20,9 +20,11 @@ class BudgetModel {
   bool enableUnpaidBreaks;
   String id;
   String name;
+  DocumentReference organisationRef;
   DocumentReference groupRef;
   DocumentReference jobTemplateRef;
   AddressModel addressModel;
+  BudgetServiceType budgetType;
 
   BudgetModel({
     this.payCalculation = CalculatePay.ShiftHours,
@@ -40,6 +42,8 @@ class BudgetModel {
     this.groupRef,
     this.jobTemplateRef,
     this.addressModel,
+    this.budgetType,
+    this.organisationRef,
   });
 
   factory BudgetModel.fromMap(Map data, {String id}) {
@@ -76,11 +80,15 @@ class BudgetModel {
             data[JobTemplateSchema.name] ?? data[JobTemplateSchema.budgetName],
         groupRef: data[JobTemplateSchema.groupRef],
         jobTemplateRef: data[JobTemplateSchema.jobTemplateRef],
-        addressModel: data[JobTemplateSchema.location] != null
+        addressModel: data[BudgetSchema.locationData] != null
             ? AddressModel.fromMap(
-                map: data[JobTemplateSchema.location]
-                    [JobTemplateSchema.address])
+                map: data[BudgetSchema.locationData][JobTemplateSchema.address])
             : null,
+        budgetType: data[BudgetSchema.selectedService] != null
+            ? EnumHelpers.budgetTypeFromString(
+                data[BudgetSchema.selectedService])
+            : null,
+        organisationRef: data[JobTemplateSchema.organisationRef],
       );
     } catch (e, s) {
       print("Budget Model catch_____${e}____$s");
@@ -107,6 +115,8 @@ class BudgetModel {
         JobTemplateSchema.enableLateDeduction: enableLateDeduction,
         JobSummarySchema.overtimeThreshold: overTimeThreshHold,
         JobSummarySchema.enableUnpaidBreaks: enableUnpaidBreaks,
+        BudgetSchema.selectedService:
+            EnumHelpers.stringFromBudgetType(budgetType),
       };
       // if (volunteer) {
       //   _map.remove(JobTemplateSchema.payment);
@@ -122,10 +132,17 @@ class BudgetModel {
         _map[JobTemplateSchema.jobTemplateRef] = "${jobTemplateRef.path}";
       }
       if (addressModel != null) {
-        _map[JobTemplateSchema.location] = {
+        _map[BudgetSchema.locationData] = {
           ShiftDataSchema.address: addressModel.toJSON(),
         };
       }
+
+      if (paymentModel.totalCost != null) {
+        _map[PaymentModelSchema.totalCost] = paymentModel?.totalCost;
+      } else if (paymentModel.workerRate == null) {
+        _map[PaymentModelSchema.workerRate] = paymentModel?.workerRate;
+      }
+
       print("Budget Model map -> $_map");
     } catch (e) {
       print('Budget Model toJSON error: $e');
