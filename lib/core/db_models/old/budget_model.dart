@@ -101,9 +101,6 @@ class BudgetModel {
     try {
       _map = {
         JobTemplateSchema.volunteer: volunteer ?? false,
-        JobTemplateSchema.payment:
-            PaymentModel(totalCost: paymentModel?.totalCost)
-                .paymentMapForCreateJob(),
         JobTemplateSchema.payCalculation:
             EnumHelpers.getStringForPayType(payCalculation),
         JobTemplateSchema.lateArrival: lateArrival,
@@ -138,9 +135,11 @@ class BudgetModel {
       }
 
       if (paymentModel.totalCost != null) {
-        _map[PaymentModelSchema.totalCost] = paymentModel?.totalCost;
+        _map[PaymentModelSchema.totalCost] =
+            paymentModel.convertToPence(paymentModel?.totalCost);
       } else if (paymentModel.workerRate == null) {
-        _map[PaymentModelSchema.workerRate] = paymentModel?.workerRate;
+        _map[PaymentModelSchema.workerRate] =
+            paymentModel.convertToPence(paymentModel?.workerRate);
       }
 
       print("Budget Model map -> $_map");
@@ -212,11 +211,10 @@ class PaymentModel {
 
   Map paymentMapForCreateJob() {
     if (totalCost != null) {
-      return {
-        PaymentModelSchema.totalStaffingServiceCost:
-            (totalCost * onePence).round()
-      };
+      return {PaymentModelSchema.totalCost: (totalCost * onePence).round()};
     }
     return {};
   }
+
+  int convertToPence(num amount) => (amount * onePence).round();
 }
