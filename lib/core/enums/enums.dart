@@ -195,3 +195,8 @@ enum ReasonForLeavingApp {
   AppNotTrustworthy,
   Other,
 }
+
+enum BudgetServiceType {
+  FielderHire,
+  FielderPayroll,
+}

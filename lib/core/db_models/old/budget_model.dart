@@ -20,9 +20,12 @@ class BudgetModel {
   bool enableUnpaidBreaks;
   String id;
   String name;
+  DocumentReference organisationRef;
   DocumentReference groupRef;
   DocumentReference jobTemplateRef;
   AddressModel addressModel;
+  BudgetServiceType serviceType;
+  final String serviceTypeString;
 
   BudgetModel({
     this.payCalculation = CalculatePay.ShiftHours,
@@ -40,6 +43,9 @@ class BudgetModel {
     this.groupRef,
     this.jobTemplateRef,
     this.addressModel,
+    this.serviceType,
+    this.organisationRef,
+    this.serviceTypeString,
   });
 
   factory BudgetModel.fromMap(Map data, {String id}) {
@@ -50,6 +56,11 @@ class BudgetModel {
           data[JobTemplateSchema.budgetRef] != null) {
         budgetId = (data[JobTemplateSchema.budgetRef] as DocumentReference)?.id;
       }
+      final BudgetServiceType budgetServiceType =
+          data[BudgetSchema.selectedService] != null
+              ? EnumHelpers.budgetTypeFromString(
+                  data[BudgetSchema.selectedService])
+              : null;
       return BudgetModel(
         volunteer: data[JobTemplateSchema.volunteer] ?? false,
         payCalculation: data[JobTemplateSchema.payCalculation] != null
@@ -76,11 +87,15 @@ class BudgetModel {
             data[JobTemplateSchema.name] ?? data[JobTemplateSchema.budgetName],
         groupRef: data[JobTemplateSchema.groupRef],
         jobTemplateRef: data[JobTemplateSchema.jobTemplateRef],
-        addressModel: data[JobTemplateSchema.location] != null
+        addressModel: data[BudgetSchema.locationData] != null
             ? AddressModel.fromMap(
-                map: data[JobTemplateSchema.location]
-                    [JobTemplateSchema.address])
+                map: data[BudgetSchema.locationData][JobTemplateSchema.address])
             : null,
+        serviceType: budgetServiceType,
+        serviceTypeString: budgetServiceType != null
+            ? EnumHelpers.stringFromBudgetTypeUI(budgetServiceType)
+            : null,
+        organisationRef: data[JobTemplateSchema.organisationRef],
       );
     } catch (e, s) {
       print("Budget Model catch_____${e}____$s");
@@ -93,9 +108,6 @@ class BudgetModel {
     try {
       _map = {
         JobTemplateSchema.volunteer: volunteer ?? false,
-        JobTemplateSchema.payment:
-            PaymentModel(totalCost: paymentModel?.totalCost)
-                .paymentMapForCreateJob(),
         JobTemplateSchema.payCalculation:
             EnumHelpers.getStringForPayType(payCalculation),
         JobTemplateSchema.lateArrival: lateArrival,
@@ -107,6 +119,8 @@ class BudgetModel {
         JobTemplateSchema.enableLateDeduction: enableLateDeduction,
         JobSummarySchema.overtimeThreshold: overTimeThreshHold,
         JobSummarySchema.enableUnpaidBreaks: enableUnpaidBreaks,
+        BudgetSchema.selectedService:
+            EnumHelpers.stringFromBudgetType(serviceType),
       };
       // if (volunteer) {
       //   _map.remove(JobTemplateSchema.payment);
@@ -122,10 +136,19 @@ class BudgetModel {
         _map[JobTemplateSchema.jobTemplateRef] = "${jobTemplateRef.path}";
       }
       if (addressModel != null) {
-        _map[JobTemplateSchema.location] = {
+        _map[BudgetSchema.locationData] = {
           ShiftDataSchema.address: addressModel.toJSON(),
         };
       }
+
+      if (paymentModel.totalCost != null) {
+        _map[PaymentModelSchema.totalCost] =
+            paymentModel.convertToPence(paymentModel?.totalCost);
+      } else if (paymentModel.workerRate == null) {
+        _map[PaymentModelSchema.workerRate] =
+            paymentModel.convertToPence(paymentModel?.workerRate);
+      }
+
       print("Budget Model map -> $_map");
     } catch (e) {
       print('Budget Model toJSON error: $e');
@@ -195,11 +218,10 @@ class PaymentModel {
 
   Map paymentMapForCreateJob() {
     if (totalCost != null) {
-      return {
-        PaymentModelSchema.totalStaffingServiceCost:
-            (totalCost * onePence).round()
-      };
+      return {PaymentModelSchema.totalCost: (totalCost * onePence).round()};
     }
     return {};
   }
+
+  int convertToPence(num amount) => (amount * onePence).round();
 }

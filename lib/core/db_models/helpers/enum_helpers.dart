@@ -2,6 +2,7 @@ import 'package:fielder_models/core/constants/app_colors.dart';
 import 'package:fielder_models/core/constants/app_strings.dart';
 import 'package:fielder_models/core/db_models/old/schema/company_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/education_approval_schema.dart';
+import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/offers_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/schedule_shift_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/staff_status_schema.dart';
@@ -971,6 +972,39 @@ class EnumHelpers {
         return 0;
       default:
         return 0;
+    }
+  }
+
+  static BudgetServiceType budgetTypeFromString(String type) {
+    switch (type) {
+      case BudgetSchema.umbrella:
+        return BudgetServiceType.FielderPayroll;
+      case BudgetSchema.staffing:
+        return BudgetServiceType.FielderHire;
+      default:
+        return null;
+    }
+  }
+
+  static String stringFromBudgetType(BudgetServiceType type) {
+    switch (type) {
+      case BudgetServiceType.FielderPayroll:
+        return BudgetSchema.umbrella;
+      case BudgetServiceType.FielderHire:
+        return BudgetSchema.staffing;
+      default:
+        return "";
+    }
+  }
+
+  static String stringFromBudgetTypeUI(BudgetServiceType type) {
+    switch (type) {
+      case BudgetServiceType.FielderPayroll:
+        return BudgetSchema.fielderPayroll;
+      case BudgetServiceType.FielderHire:
+        return BudgetSchema.fielderHire;
+      default:
+        return "";
     }
   }
 }
