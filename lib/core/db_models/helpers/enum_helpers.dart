@@ -996,4 +996,15 @@ class EnumHelpers {
         return "";
     }
   }
+
+  static String stringFromBudgetTypeUI(BudgetServiceType type) {
+    switch (type) {
+      case BudgetServiceType.FielderPayroll:
+        return BudgetSchema.fielderPayroll;
+      case BudgetServiceType.FielderHire:
+        return BudgetSchema.fielderHire;
+      default:
+        return "";
+    }
+  }
 }

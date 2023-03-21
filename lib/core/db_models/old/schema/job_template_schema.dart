@@ -64,4 +64,7 @@ class BudgetSchema {
   static const String selectedService = 'selected_service';
   static const String umbrella = "UMBRELLA";
   static const String staffing = "STAFFING";
+
+  static const String fielderPayroll = "Fielder Payroll";
+  static const String fielderHire = "Fielder Hire";
 }

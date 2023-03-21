@@ -24,7 +24,8 @@ class BudgetModel {
   DocumentReference groupRef;
   DocumentReference jobTemplateRef;
   AddressModel addressModel;
-  BudgetServiceType budgetType;
+  BudgetServiceType serviceType;
+  final String serviceTypeString;
 
   BudgetModel({
     this.payCalculation = CalculatePay.ShiftHours,
@@ -42,8 +43,9 @@ class BudgetModel {
     this.groupRef,
     this.jobTemplateRef,
     this.addressModel,
-    this.budgetType,
+    this.serviceType,
     this.organisationRef,
+    this.serviceTypeString,
   });
 
   factory BudgetModel.fromMap(Map data, {String id}) {
@@ -54,6 +56,11 @@ class BudgetModel {
           data[JobTemplateSchema.budgetRef] != null) {
         budgetId = (data[JobTemplateSchema.budgetRef] as DocumentReference)?.id;
       }
+      final BudgetServiceType budgetServiceType =
+          data[BudgetSchema.selectedService] != null
+              ? EnumHelpers.budgetTypeFromString(
+                  data[BudgetSchema.selectedService])
+              : null;
       return BudgetModel(
         volunteer: data[JobTemplateSchema.volunteer] ?? false,
         payCalculation: data[JobTemplateSchema.payCalculation] != null
@@ -84,9 +91,9 @@ class BudgetModel {
             ? AddressModel.fromMap(
                 map: data[BudgetSchema.locationData][JobTemplateSchema.address])
             : null,
-        budgetType: data[BudgetSchema.selectedService] != null
-            ? EnumHelpers.budgetTypeFromString(
-                data[BudgetSchema.selectedService])
+        serviceType: budgetServiceType,
+        serviceTypeString: budgetServiceType != null
+            ? EnumHelpers.stringFromBudgetTypeUI(budgetServiceType)
             : null,
         organisationRef: data[JobTemplateSchema.organisationRef],
       );
@@ -113,7 +120,7 @@ class BudgetModel {
         JobSummarySchema.overtimeThreshold: overTimeThreshHold,
         JobSummarySchema.enableUnpaidBreaks: enableUnpaidBreaks,
         BudgetSchema.selectedService:
-            EnumHelpers.stringFromBudgetType(budgetType),
+            EnumHelpers.stringFromBudgetType(serviceType),
       };
       // if (volunteer) {
       //   _map.remove(JobTemplateSchema.payment);
