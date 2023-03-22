@@ -168,7 +168,7 @@ class PaymentModel {
   double fielderMargin;
   double fielderDiscount;
   double totalCost;
-  double discountCost;
+  double payrollCost;
   double workerRate;
   double statuaryCost;
   double holidayPay;
@@ -179,7 +179,7 @@ class PaymentModel {
       {this.fielderMargin,
       this.fielderDiscount,
       this.totalCost,
-      this.discountCost,
+      this.payrollCost,
       this.workerRate,
       this.statuaryCost,
       this.holidayPay});
@@ -192,7 +192,7 @@ class PaymentModel {
       double _fielderDiscount = map[PaymentModelSchema.findersFee] / onePence;
       double _totalCost =
           map[PaymentModelSchema.totalStaffingServiceCost] / onePence;
-      double _discountCost =
+      double _payrollCost =
           map[PaymentModelSchema.totalUmbrellaServiceCost] / onePence;
       double _workerRate = map[PaymentModelSchema.workerRate] / onePence;
       double _holidayPay = map[PaymentModelSchema.holidayPay] / onePence;
@@ -207,7 +207,7 @@ class PaymentModel {
           fielderDiscount: _fielderDiscount,
           fielderMargin: _fielderMargin,
           totalCost: _totalCost,
-          discountCost: _discountCost,
+          payrollCost: _payrollCost,
           holidayPay: _holidayPay,
           statuaryCost: _statuaryCost);
     } catch (e, s) {
