@@ -11,7 +11,7 @@ class WorkerChecksModel {
   DocumentReference checkRef;
   String checkValue;
   DocumentReference workerRef;
-  CheckVerificationInfo checkVerificationInfo;
+  List<CheckVerificationInfo> checkVerificationInfo;
   CheckTypeFromValue checkTypeFromValue;
   CheckType checkType;
   CheckStatus status;
@@ -51,9 +51,10 @@ class WorkerChecksModel {
           checkValue: map[WorkerChecksSchema.checkValue],
           checkVerificationInfo:
               map[WorkerChecksSchema.verificationInfo] != null
-                  ? CheckVerificationInfo.fromMap(
-                      map[WorkerChecksSchema.verificationInfo])
-                  : null,
+                  ? (map[WorkerChecksSchema.verificationInfo] as List)
+                      .map((e) => CheckVerificationInfo.fromMap(e))
+                      .toList()
+                  : [],
           checkTypeFromValue: EnumHelpers.getCheckTypeFromValueFromString(
               map[WorkerChecksSchema.checkValue]),
           status:
