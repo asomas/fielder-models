@@ -479,32 +479,93 @@ class EnumHelpers {
     }
   }
 
-  static RightToWorkFlow rightToWorkFlowFromString(String flowName) {
+  static RightToWorkVerificationPath rightToWorkFlowFromString(
+      String flowName) {
     switch (flowName) {
       case 'PASSPORT':
-        return RightToWorkFlow.Passport;
+        return RightToWorkVerificationPath.Passport;
       case 'BIRTH_CERTIFICATE':
-        return RightToWorkFlow.BirthCertificate;
+        return RightToWorkVerificationPath.BirthCertificate;
       case 'BRP':
-        return RightToWorkFlow.BRP;
+        return RightToWorkVerificationPath.BRP;
       case 'SHARE_CODE':
-        return RightToWorkFlow.ShareCode;
+        return RightToWorkVerificationPath.ShareCode;
       default:
-        return RightToWorkFlow.None;
+        return RightToWorkVerificationPath.Passport;
     }
   }
 
-  static RightToWorkVerificationStatus rightToWorkVerificationStatusFromString(
-      String status) {
+  static String rightToWorkFlowFromEnums(RightToWorkVerificationPath flowName) {
+    switch (flowName) {
+      case RightToWorkVerificationPath.Passport:
+        return 'PASSPORT';
+      case RightToWorkVerificationPath.BirthCertificate:
+        return 'BIRTH_CERTIFICATE';
+      case RightToWorkVerificationPath.BRP:
+        return 'BRP';
+      case RightToWorkVerificationPath.ShareCode:
+        return 'SHARE_CODE';
+      default:
+        return null;
+    }
+  }
+
+  static VerificationStatus verificationStatusFromCheckStatus(
+      CheckStatus checkStatus) {
+    switch (checkStatus) {
+      case CheckStatus.Confirmed:
+        return VerificationStatus.Verified;
+      case CheckStatus.AwaitingBackOffice:
+        return VerificationStatus.UnderReview;
+      case CheckStatus.Invalidated:
+        return VerificationStatus.Rejected;
+      case CheckStatus.NotStarted:
+        return VerificationStatus.None;
+      default:
+        return VerificationStatus.None;
+    }
+  }
+
+  static String rightToWorkDocumentFromVerificationPath(
+      RightToWorkVerificationPath flowName) {
+    switch (flowName) {
+      case RightToWorkVerificationPath.Passport:
+        return 'CITIZEN_WITH_PASSPORT';
+      case RightToWorkVerificationPath.BirthCertificate:
+        return 'CITIZEN_WITHOUT_PASSPORT';
+      case RightToWorkVerificationPath.BRP:
+        return 'NOT_CITIZEN_WITH_BRP';
+      case RightToWorkVerificationPath.ShareCode:
+        return 'NOT_CITIZEN_WITHOUT_BRP';
+      default:
+        return null;
+    }
+  }
+
+  static VerificationStatus verificationStatusFromString(String status) {
     switch (status) {
       case 'UNDER_REVIEW':
-        return RightToWorkVerificationStatus.UnderReview;
+        return VerificationStatus.UnderReview;
+      case 'ACCEPTED':
       case 'VERIFIED':
-        return RightToWorkVerificationStatus.Verified;
+        return VerificationStatus.Verified;
       case 'REJECTED':
-        return RightToWorkVerificationStatus.Rejected;
+        return VerificationStatus.Rejected;
       default:
-        return RightToWorkVerificationStatus.None;
+        return VerificationStatus.None;
+    }
+  }
+
+  static String verificationStatusFromEnum(VerificationStatus status) {
+    switch (status) {
+      case VerificationStatus.UnderReview:
+        return 'UNDER_REVIEW';
+      case VerificationStatus.Verified:
+        return 'ACCEPTED';
+      case VerificationStatus.Rejected:
+        return 'REJECTED';
+      default:
+        return null;
     }
   }
 
@@ -615,6 +676,11 @@ class EnumHelpers {
               .startsWith(WorkerChecksSchema.approvedGapsValue.toUpperCase()) ||
           value.startsWith(WorkerChecksSchema.approvedGapsId)) {
         return CheckTypeFromValue.ApprovedGaps;
+      } else if (value
+              .toUpperCase()
+              .startsWith(WorkerChecksSchema.loggedInValue.toUpperCase()) ||
+          value.startsWith(WorkerChecksSchema.loggedInId)) {
+        return CheckTypeFromValue.LoggedIn;
       } else {
         return null;
       }

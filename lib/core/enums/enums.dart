@@ -127,9 +127,21 @@ enum SalaryType { Hourly, Daily, Weekly, Monthly, Yearly }
 
 enum CandidatesWorkerType { STAFF, FIELDER, NETWORK }
 
-enum RightToWorkFlow { Passport, BirthCertificate, BRP, ShareCode, None }
+enum RightToWorkVerificationPath {
+  Passport,
+  BirthCertificate,
+  BRP,
+  ShareCode,
+}
 
-enum RightToWorkVerificationStatus { UnderReview, Verified, Rejected, None }
+enum RTWCheckDocumentsEnum {
+  CitizenWithPassport,
+  CitizenWithoutPassport,
+  NotCitizenWithBRP,
+  NotCitizenWithoutBRP,
+}
+
+enum VerificationStatus { UnderReview, Verified, Rejected, None }
 
 enum InterviewType { Video, InPerson, NoInterview }
 
@@ -143,6 +155,7 @@ enum CheckTypeFromValue {
   RightToWork,
   OnBoarding,
   ApprovedGaps,
+  LoggedIn
 }
 
 enum CheckType {
@@ -195,6 +208,18 @@ enum ReasonForLeavingApp {
   AppNotTrustworthy,
   Other,
 }
+
+enum ExperienceType { EXTERNAL, FIELDER, EDUCATION, GAP }
+
+enum ExperienceVerificationStatus {
+  Unchecked,
+  Checked,
+  AwaitingVerification,
+  Verified,
+  Rejected
+}
+
+enum RefereeFields { Name, Phone, Position }
 
 enum BudgetServiceType {
   FielderHire,

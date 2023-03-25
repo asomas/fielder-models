@@ -4,7 +4,6 @@ class WorkerChecksSchema {
   static const String workerRef = 'worker_ref';
   static const String verificationInfo = 'verification_info';
   static const String dov = 'dov';
-  static const String isValid = 'is_valid';
   static const String source = 'source';
   static const String documentRef = 'document_ref';
   static const String checkType = 'check_type';

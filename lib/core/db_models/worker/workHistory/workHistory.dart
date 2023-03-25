@@ -5,20 +5,9 @@ import 'package:fielder_models/core/db_models/worker/locationModel.dart';
 import 'package:fielder_models/core/db_models/worker/occupation.dart';
 import 'package:fielder_models/core/db_models/worker/schema/workerHistorySchema.dart';
 
+import '../../../enums/enums.dart';
 import '../../helpers/date_time_helper.dart';
 import '../schema/locationSchema.dart';
-
-enum ExperienceType { EXTERNAL, FIELDER, EDUCATION, GAP }
-
-enum VerificationStatus {
-  Unchecked,
-  Checked,
-  AwaitingVerification,
-  Verified,
-  Rejected
-}
-
-enum RefereeFields { Name, Phone, Position }
 
 class RefereeModel {
   String phone;
@@ -246,34 +235,37 @@ class WorkHistory {
     return workerType;
   }
 
-  static VerificationStatus verificationStatusFromString(String type) {
-    VerificationStatus verificationStatus = VerificationStatus.Unchecked;
+  static ExperienceVerificationStatus verificationStatusFromString(
+      String type) {
+    ExperienceVerificationStatus verificationStatus =
+        ExperienceVerificationStatus.Unchecked;
     if (type == WorkerHistorySchema.unchecked) {
-      verificationStatus = VerificationStatus.Unchecked;
+      verificationStatus = ExperienceVerificationStatus.Unchecked;
     } else if (type == WorkerHistorySchema.checked) {
-      verificationStatus = VerificationStatus.Checked;
+      verificationStatus = ExperienceVerificationStatus.Checked;
     } else if (type == WorkerHistorySchema.awaitingVerification) {
-      verificationStatus = VerificationStatus.AwaitingVerification;
+      verificationStatus = ExperienceVerificationStatus.AwaitingVerification;
     } else if (type == WorkerHistorySchema.verified) {
-      verificationStatus = VerificationStatus.Verified;
+      verificationStatus = ExperienceVerificationStatus.Verified;
     } else if (type == WorkerHistorySchema.rejected) {
-      verificationStatus = VerificationStatus.Rejected;
+      verificationStatus = ExperienceVerificationStatus.Rejected;
     }
     return verificationStatus;
   }
 
   static String stringFromVerificationStatus(
-      VerificationStatus verificationStatus) {
+      ExperienceVerificationStatus verificationStatus) {
     String status = WorkerHistorySchema.unchecked;
-    if (verificationStatus == VerificationStatus.Unchecked) {
+    if (verificationStatus == ExperienceVerificationStatus.Unchecked) {
       status = WorkerHistorySchema.unchecked;
-    } else if (verificationStatus == VerificationStatus.Checked) {
+    } else if (verificationStatus == ExperienceVerificationStatus.Checked) {
       status = WorkerHistorySchema.checked;
-    } else if (verificationStatus == VerificationStatus.AwaitingVerification) {
+    } else if (verificationStatus ==
+        ExperienceVerificationStatus.AwaitingVerification) {
       status = WorkerHistorySchema.awaitingVerification;
-    } else if (verificationStatus == VerificationStatus.Verified) {
+    } else if (verificationStatus == ExperienceVerificationStatus.Verified) {
       status = WorkerHistorySchema.verified;
-    } else if (verificationStatus == VerificationStatus.Rejected) {
+    } else if (verificationStatus == ExperienceVerificationStatus.Rejected) {
       status = WorkerHistorySchema.rejected;
     }
     return status;

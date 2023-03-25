@@ -7,6 +7,8 @@ import 'package:fielder_models/core/db_models/worker/schema/educationSchema.dart
 import 'package:fielder_models/core/db_models/worker/schema/workerHistorySchema.dart';
 import 'package:fielder_models/core/db_models/worker/workHistory/workHistory.dart';
 
+import '../../enums/enums.dart';
+
 class WorkHistoryEducationCombine {
   String docId;
   ExperienceType workerType;
@@ -22,7 +24,7 @@ class WorkHistoryEducationCombine {
   EducationInstitution educationInstitution;
   Course course;
   bool expanded;
-  VerificationStatus verificationStatus;
+  ExperienceVerificationStatus verificationStatus;
   String companyLogo;
   RefereeModel refereeModel;
   String summary;
