@@ -220,3 +220,8 @@ enum ExperienceVerificationStatus {
 }
 
 enum RefereeFields { Name, Phone, Position }
+
+enum BudgetServiceType {
+  FielderHire,
+  FielderPayroll,
+}

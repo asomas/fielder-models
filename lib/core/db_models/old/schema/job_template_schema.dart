@@ -58,3 +58,13 @@ class JobTemplateSchema {
   static const String address = "address";
   static const String budgetRef = "budget_ref";
 }
+
+class BudgetSchema {
+  static const String locationData = 'location_data';
+  static const String selectedService = 'selected_service';
+  static const String umbrella = "UMBRELLA";
+  static const String staffing = "STAFFING";
+
+  static const String fielderPayroll = "Fielder Payroll";
+  static const String fielderHire = "Fielder Hire";
+}
