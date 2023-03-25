@@ -541,11 +541,11 @@ class EnumHelpers {
     }
   }
 
-  static VerificationStatus rightToWorkVerificationStatusFromString(
-      String status) {
+  static VerificationStatus verificationStatusFromString(String status) {
     switch (status) {
       case 'UNDER_REVIEW':
         return VerificationStatus.UnderReview;
+      case 'ACCEPTED':
       case 'VERIFIED':
         return VerificationStatus.Verified;
       case 'REJECTED':
@@ -555,13 +555,12 @@ class EnumHelpers {
     }
   }
 
-  static String rightToWorkVerificationStatusFromEnum(
-      VerificationStatus status) {
+  static String verificationStatusFromEnum(VerificationStatus status) {
     switch (status) {
       case VerificationStatus.UnderReview:
         return 'UNDER_REVIEW';
       case VerificationStatus.Verified:
-        return 'VERIFIED';
+        return 'ACCEPTED';
       case VerificationStatus.Rejected:
         return 'REJECTED';
       default:
@@ -676,6 +675,11 @@ class EnumHelpers {
               .startsWith(WorkerChecksSchema.approvedGapsValue.toUpperCase()) ||
           value.startsWith(WorkerChecksSchema.approvedGapsId)) {
         return CheckTypeFromValue.ApprovedGaps;
+      } else if (value
+              .toUpperCase()
+              .startsWith(WorkerChecksSchema.loggedInValue.toUpperCase()) ||
+          value.startsWith(WorkerChecksSchema.loggedInId)) {
+        return CheckTypeFromValue.LoggedIn;
       } else {
         return null;
       }

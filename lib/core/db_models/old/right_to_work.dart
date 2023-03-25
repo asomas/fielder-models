@@ -3,27 +3,15 @@ import 'package:fielder_models/core/db_models/helpers/helpers.dart';
 import 'package:fielder_models/core/db_models/old/schema/right_to_work_schema.dart';
 
 class RightToWork {
-  //VerificationStatus verificationStatus;
   bool submitted;
-  String shareCode;
   DateTime submittedAt;
 
-  RightToWork(
-      {
-      //this.verificationStatus,
-      this.submitted,
-      this.shareCode,
-      this.submittedAt});
+  RightToWork({this.submitted, this.submittedAt});
 
   factory RightToWork.fromMap(Map map) {
     try {
       return RightToWork(
-          // verificationStatus: map.containsKey(RightToWorkSchema.status)
-          //     ? EnumHelpers.rightToWorkVerificationStatusFromString(
-          //         map[RightToWorkSchema.status])
-          //     : VerificationStatus.None,
           submitted: map[RightToWorkSchema.submitted] ?? false,
-          shareCode: map[RightToWorkSchema.shareCode],
           submittedAt:
               (map[RightToWorkSchema.submittedAt] as Timestamp)?.toDate());
     } catch (e, s) {
@@ -31,18 +19,6 @@ class RightToWork {
       return null;
     }
   }
-
-  // Map<String, dynamic> rightToWorkJson() {
-  //   return {
-  //     RightToWorkSchema.verificationPath:
-  //         EnumHelpers.rightToWorkFlowFromEnums(verificationFlow),
-  //     RightToWorkSchema.status:
-  //         EnumHelpers.rightToWorkVerificationStatusFromEnum(verificationStatus),
-  //     RightToWorkSchema.submitted: submitted,
-  //     RightToWorkSchema.shareCode: shareCode,
-  //     RightToWorkSchema.submittedAt: submittedAt,
-  //   };
-  // }
 }
 
 class RightToWorkDocumentTypeModel {

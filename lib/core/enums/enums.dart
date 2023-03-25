@@ -155,6 +155,7 @@ enum CheckTypeFromValue {
   RightToWork,
   OnBoarding,
   ApprovedGaps,
+  LoggedIn
 }
 
 enum CheckType {

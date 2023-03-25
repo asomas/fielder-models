@@ -34,6 +34,9 @@ class WorkerChecksModel {
   factory WorkerChecksModel.fromMap(String docId, Map map) {
     if (map != null && map.isNotEmpty) {
       try {
+        CheckTypeFromValue _checkTypeFromValue =
+            EnumHelpers.getCheckTypeFromValueFromString(
+                map[WorkerChecksSchema.checkValue]);
         return WorkerChecksModel(
           docId: docId,
           checkRef: map[WorkerChecksSchema.checkRef] != null
@@ -50,13 +53,18 @@ class WorkerChecksModel {
               : null,
           checkValue: map[WorkerChecksSchema.checkValue],
           checkVerificationInfo:
-              map[WorkerChecksSchema.verificationInfo] != null
-                  ? (map[WorkerChecksSchema.verificationInfo] as List)
-                      .map((e) => CheckVerificationInfo.fromMap(e))
-                      .toList()
-                  : [],
-          checkTypeFromValue: EnumHelpers.getCheckTypeFromValueFromString(
-              map[WorkerChecksSchema.checkValue]),
+              _checkTypeFromValue == CheckTypeFromValue.LoggedIn
+                  ? [
+                      CheckVerificationInfo(
+                        verificationStatus: VerificationStatus.Verified,
+                      ),
+                    ]
+                  : map[WorkerChecksSchema.verificationInfo] != null
+                      ? (map[WorkerChecksSchema.verificationInfo] as List)
+                          .map((e) => CheckVerificationInfo.fromMap(e))
+                          .toList()
+                      : [],
+          checkTypeFromValue: _checkTypeFromValue,
           status:
               EnumHelpers.checkStatusFromString(map[WorkerChecksSchema.status]),
           expectedCompletionDate: DateTimeHelper.timeStampFromString(
@@ -78,12 +86,12 @@ class WorkerChecksModel {
 
 class CheckVerificationInfo {
   DateTime dov;
-  bool isValid;
+  VerificationStatus verificationStatus;
   String source;
   DocumentReference documentRef;
 
   CheckVerificationInfo(
-      {this.dov, this.isValid, this.source, this.documentRef});
+      {this.dov, this.verificationStatus, this.source, this.documentRef});
 
   factory CheckVerificationInfo.fromMap(Map map) {
     try {
@@ -94,7 +102,8 @@ class CheckVerificationInfo {
       }
       return CheckVerificationInfo(
         dov: _dov?.toDate(),
-        isValid: map[WorkerChecksSchema.isValid] ?? false,
+        verificationStatus: EnumHelpers.verificationStatusFromString(
+            map[WorkerChecksSchema.status]),
         source: map[WorkerChecksSchema.source],
         documentRef: map[WorkerChecksSchema.documentRef],
       );
