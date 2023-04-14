@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fielder_models/core/db_models/helpers/enum_helpers.dart';
+import 'package:fielder_models/core/db_models/old/schema/company_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/groups_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/organisation_user_schema.dart';
 import 'package:fielder_models/core/db_models/temp/common.dart';
+import 'package:fielder_models/core/enums/company_type.dart';
 import 'package:fielder_models/core/enums/enums.dart';
+
+export 'package:fielder_models/core/enums/company_type.dart';
 
 class OrganisationUserRelation {
   String docId;
@@ -257,6 +261,7 @@ class AddressBasic {
 class Company {
   // Document has fixed ID, main, inside Subcollection called company_info.  So the complete path to this document is
   // organisations/organisation_id/company_info/main
+  CompanyType companyType;
   String companyName; //validate
   Timestamp incorporationDate; // Validate
   String registrationNumber; //min & max length 8
@@ -269,7 +274,8 @@ class Company {
   Timestamp vatRegistrationDate;
 
   Company(
-      {this.companyName,
+      {this.companyType,
+      this.companyName,
       this.incorporationDate,
       this.registrationNumber,
       this.sicCodes,
@@ -283,7 +289,8 @@ class Company {
   factory Company.fromMap(Map map) {
     try {
       return Company(
-        companyName: map['company_name'],
+        companyType: EnumHelpers.companyTypeFromString(map[CompanySchema.organisationType]),
+        companyName: map[CompanySchema.companyName],
         incorporationDate: map['incorporation_date'],
         registrationNumber: map['registration_number'],
         sicCodes: map.containsKey("sic_codes") && map["sic_codes"] != null
