@@ -1075,9 +1075,9 @@ class EnumHelpers {
     }
   }
 
-  static CompanyType companyTypeFromString(String type) {
+  static CompanyType companyTypeFromValue(String type) {
     return CompanyType.values.firstWhere(
-          (element) => element.value == type,
+      (element) => element.value == type,
       orElse: () => null,
     );
   }

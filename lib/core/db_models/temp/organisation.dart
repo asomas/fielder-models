@@ -289,7 +289,8 @@ class Company {
   factory Company.fromMap(Map map) {
     try {
       return Company(
-        companyType: EnumHelpers.companyTypeFromString(map[CompanySchema.organisationType]),
+        companyType: EnumHelpers.companyTypeFromValue(
+            map[CompanySchema.organisationType]),
         companyName: map[CompanySchema.companyName],
         incorporationDate: map['incorporation_date'],
         registrationNumber: map['registration_number'],

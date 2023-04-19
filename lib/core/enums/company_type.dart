@@ -9,5 +9,5 @@ enum CompanyType {
 
 extension CompanyTypeExt on CompanyType {
   String get label => this.name.capitalizeFirstLetter;
-  String get value => this.name;
+  String get value => this.name.toUpperCase();
 }
