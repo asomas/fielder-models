@@ -805,6 +805,17 @@ class EnumHelpers {
     return acceptanceStatus;
   }
 
+  static String getjsonValueFromAcceptanceStatus(AcceptanceStatus status) {
+    if (status == AcceptanceStatus.ACCEPTED) {
+      return 'accepted';
+    } else if (status == AcceptanceStatus.DECLINED) {
+      return 'declined';
+    } else if (status == AcceptanceStatus.PENDING) {
+      return 'pending';
+    }
+    return '';
+  }
+
   static String getStringFromAcceptanceStatus(AcceptanceStatus status) {
     if (status == AcceptanceStatus.ACCEPTED) {
       return 'Accepted';

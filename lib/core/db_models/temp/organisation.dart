@@ -444,14 +444,23 @@ class UserDetail {
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id == null ? null : id,
         "name": name == null ? null : name,
         "email": email == null ? null : email,
         "date_created":
             dateCreated == null ? null : dateCreated.toIso8601String(),
-        "status": status == null ? null : status,
-        "role": role == null ? null : role,
+        "status": status == null
+            ? null
+            : EnumHelpers.getStringFromAcceptanceStatus(status).toLowerCase(),
+        "role": role == null
+            ? null
+            : EnumHelpers.stringFromOrgRole(role).toLowerCase(),
+        "group_role": groupRole == null
+            ? null
+            : EnumHelpers.stringFromGroupRole(groupRole).toLowerCase(),
         "manager": manager == null ? null : manager,
         "group_count": groupCount,
+        "can_change_group_role": canChangeGroupRole,
       };
 
   static Future<UserDetail> getUserDetails(DocumentReference ref,
