@@ -10,6 +10,7 @@ import 'package:fielder_models/core/db_models/old/schema/worker_account_deletion
 import 'package:fielder_models/core/db_models/old/schema/worker_checks_schema.dart';
 import 'package:fielder_models/core/db_models/temp/common.dart';
 import 'package:fielder_models/core/db_models/worker/schema/newsNotificationSchema.dart';
+import 'package:fielder_models/core/enums/company_type.dart';
 import 'package:fielder_models/core/enums/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -1083,5 +1084,12 @@ class EnumHelpers {
       default:
         return "";
     }
+  }
+
+  static CompanyType companyTypeFromValue(String type) {
+    return CompanyType.values.firstWhere(
+      (element) => element.value == type,
+      orElse: () => null,
+    );
   }
 }
