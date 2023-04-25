@@ -42,4 +42,9 @@ class AppColors {
   static const Color ThumbsUpGreen = Color.fromRGBO(0, 221, 154, 1);
   static const Color SunsetAmber = Color.fromRGBO(255, 174, 64, 1);
   static const Color HappyGreen = Color.fromRGBO(0, 221, 154, 1);
+
+  // New Theme guideline
+  static const Color orange = Color(0xFFFFAE40);
+  static const Color red = Color(0xFFFF4040);
+  static const Color iconColor = Color(0xFFA4B6E1);
 }
