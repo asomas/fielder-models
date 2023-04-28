@@ -28,7 +28,6 @@ class SlotModel {
   bool isLastInList;
   bool calculateRecurrence;
   Tuple2<String, DateTime> uniqueSlotId; // shift_pattern_id, shift_date
-  //List<String> resourceIds;
 
   SlotModel({
     this.shiftId,
