@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fielder_models/core/db_models/old/add_job_model.dart';
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/courses_and_level_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
@@ -215,5 +216,22 @@ class JobDataModel {
       }
     }
     return null;
+  }
+
+  factory JobDataModel.fromAddJobModel(AddJobModel addJobModel) {
+    if (addJobModel != null) {
+      return JobDataModel(
+        jobTitle: addJobModel?.title,
+        docID: addJobModel?.docId,
+        jobReferenceId: addJobModel?.jobReferenceId,
+        description: addJobModel?.description,
+        richDescription: addJobModel?.richDescription,
+        checks: addJobModel?.checksArray,
+        courses: addJobModel?.courses,
+        skills: addJobModel?.skillsArray,
+      );
+    } else {
+      return null;
+    }
   }
 }

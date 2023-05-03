@@ -3,6 +3,7 @@ import 'package:fielder_models/core/db_models/helpers/helpers.dart';
 import 'package:fielder_models/core/db_models/old/additional_info_model.dart';
 import 'package:fielder_models/core/db_models/old/checks_model.dart';
 import 'package:fielder_models/core/db_models/old/courses_and_level_model.dart';
+import 'package:fielder_models/core/db_models/old/job_data_model.dart';
 import 'package:fielder_models/core/db_models/old/job_template_model.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_summary_schema.dart';
 import 'package:fielder_models/core/db_models/old/schema/job_template_schema.dart';
@@ -136,6 +137,23 @@ class AddJobModel {
       print("job model catch____${e}____$s");
     }
     return addJobModel;
+  }
+
+  factory AddJobModel.fromJobDataModel(JobDataModel jobDataModel) {
+    if (jobDataModel != null) {
+      return AddJobModel(
+        title: jobDataModel?.jobTitle,
+        docId: jobDataModel?.docID,
+        jobReferenceId: jobDataModel?.jobReferenceId,
+        description: jobDataModel?.description,
+        richDescription: jobDataModel?.richDescription,
+        checks: jobDataModel?.checks,
+        courses: jobDataModel?.courses,
+        skillsArray: jobDataModel?.skills,
+      );
+    } else {
+      return null;
+    }
   }
 
   clear() {
